@@ -1,5 +1,7 @@
 # ct-azure-openai-gpt4-chat
 
+[![Build & Deploy](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml)
+
 ChatGPT-like streaming chat bot powered by Azure OpenAI and GPT-4
 
 NOTE: project and documentation in progress
