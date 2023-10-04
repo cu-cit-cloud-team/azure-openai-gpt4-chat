@@ -33,11 +33,11 @@ Footer.displayName = 'Footer';
 Footer.propTypes = {
   formRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+    PropTypes.shape({ current: PropTypes.instanceOf(PropTypes.Element) }),
   ]),
   textAreaRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+    PropTypes.shape({ current: PropTypes.instanceOf(PropTypes.Element) }),
   ]),
   handleSubmit: PropTypes.func.isRequired,
   input: PropTypes.string.isRequired,
