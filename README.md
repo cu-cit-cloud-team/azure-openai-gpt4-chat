@@ -10,7 +10,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 ### Prerequisites
 
-- Node.js >= 20.x (with npm >= v9.x)
+- Node.js >= 18.x (with npm >= v8.x)
 - Azure Subscription
   - Azure OpenAI access enabled
   - Azure OpenAI Services deployed along with a GPT-4 model
