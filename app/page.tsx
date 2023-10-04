@@ -102,11 +102,9 @@ export default function Chat() {
                     <div className="chat-image avatar">
                       <div className="w-12 p-2 rounded bg-base-300">
                         <img
-                          src={`/${
-                            isUser ? 'icon-user.png' : 'azure-openai.png'
-                          }`}
+                          src={`/${isUser ? 'icon-user.png' : 'icon-bot.png'}`}
                           alt=""
-                          className={`${isUser ? 'invert' : ''}`}
+                          className="invert"
                         />
                       </div>
                     </div>
