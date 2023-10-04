@@ -64,23 +64,13 @@ jobs:
         shell: bash
         run: npm i --location=global npm && npm install
 
-      # - name: 🔏 Create .env file for
-      #   run: |
-      #     touch .env
-      #     echo AZURE_OPENAI_BASE_PATH=${{ secrets.AZURE_OPENAI_BASE_PATH }}} >> .env
-      #     echo AZURE_OPENAI_API_KEY=${{ secrets.AZURE_OPENAI_API_KEY }} >> .env
-      #     echo AZURE_OPENAI_MODEL_DEPLOYMENT=${{ secrets.AZURE_OPENAI_MODEL_DEPLOYMENT }} >> .env
-      #     echo AZURE_OPENAI_API_VERSION=${{ secrets.AZURE_OPENAI_API_VERSION }} >> .env
-
       - name: 🛠️ Build app
         shell: bash
         run: npm run build
 
       - name: 📦 Zip all files for deployment step
         # IMPORTANT: .next is a hidden folder and will NOT be included in the zip unless we specify it
-        # To fix: /home/site/wwwroot/node_modules/.bin/next: 1: ../next/dist/bin/next: not found
-        # run: zip ${{ env.AZURE_WEBAPP_NAME}}.zip ./* .next .env -qr
-        run: zip ${{ env.AZURE_WEBAPP_NAME}}.zip ./* .next qr
+        run: zip ${{ env.AZURE_WEBAPP_NAME}}.zip ./* .next -qr
 
       - name: 🚀 Deploy to Azure App Service
         id: deploy-to-webapp
