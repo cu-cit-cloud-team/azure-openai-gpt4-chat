@@ -10,8 +10,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "start": "next start",
-    "lint": "biome check ./app"
+    "lint": "biome check ./app",
+    "version": "npm run changelog"
   },
   "keywords": [],
   "repository": {
@@ -51,6 +53,9 @@
     "@types/react-dom": "18.2.10",
     "@types/react-syntax-highlighter": "15.5.7",
     "autoprefixer": "10.4.16",
+    "conventional-changelog": "5.1.0",
+    "conventional-changelog-cli": "4.1.0",
+    "conventional-changelog-conventionalcommits": "7.0.2",
     "cssnano": "6.0.1",
     "cz-git": "1.7.1",
     "postcss": "8.4.31",
@@ -74,5 +79,8 @@
     "commitizen": {
       "path": "./node_modules/cz-git"
     }
+  },
+  "release": {
+    "preset": "conventionalcommits"
   }
 }
