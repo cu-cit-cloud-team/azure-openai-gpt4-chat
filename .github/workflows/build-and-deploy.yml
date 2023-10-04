@@ -1,0 +1,58 @@
+name: Deploy to Azure App Service
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - "app/"
+      - "public/"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.json"
+      - "tailwind.config.json"
+      - "postcss.config.json"
+      - "tsconfig.json"
+      - "Dockerfile"
+      - ".github/workflows/**.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "18"
+  AZURE_WEBAPP_NAME: "ct-azure-openai-gpt4-chat"
+  AZURE_WEBAPP_SLOT_NAME: "production"
+  AZURE_WEBAPP_PACKAGE_PATH: "."
+  AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+
+jobs:
+  deploy-nodejs-app-to-azure-app-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 👷 Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: 🏗️ Setup Node.js ${{ env.NODE_VERSION }} environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: ⬆️ Update npm and install dependencies
+        shell: bash
+        run: npm i --location=global npm && npm install
+
+      - name: 🛠️ Build app
+        shell: bash
+        run: npm run build
+
+      - name: 🚀 Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: $${ env.AZURE_WEBAPP_SLOT_NAME }
+          publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
