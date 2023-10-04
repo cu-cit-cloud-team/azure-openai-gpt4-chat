@@ -1,4 +1,4 @@
-name: Deploy to Azure App Service
+name: Build & Deploy
 
 on:
   workflow_dispatch:
