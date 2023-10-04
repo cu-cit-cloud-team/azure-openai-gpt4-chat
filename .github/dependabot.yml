@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "07:00"
+      timezone: "America/New_York"
+    target-branch: "main"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+  - package-ecosystem: "npm"
+    directory: "/"
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "react-scripts"
+      types:
+        patterns:
+          - "@types/*"
+    schedule:
+      interval: "daily"
+      time: "07:00"
+      timezone: "America/New_York"
+    target-branch: "main"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
