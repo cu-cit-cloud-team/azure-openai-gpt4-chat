@@ -4,8 +4,8 @@
   "description": "A Next.js chat app that uses Azure OpenAI GPT-4 to generate responses",
   "private": true,
   "engines": {
-    "node": ">= 20.x",
-    "npm": ">= 9.x"
+    "node": ">= 18.x",
+    "npm": ">= 8.x"
   },
   "scripts": {
     "dev": "next dev",
