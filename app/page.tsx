@@ -15,6 +15,8 @@ import {
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import useLocalStorageState from 'use-local-storage-state';
 
+import pkg from '../package.json';
+
 export default function Chat() {
   const [savedMessages, setSavedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
@@ -73,86 +75,97 @@ export default function Chat() {
   }, [textareaElement]);
 
   return (
-    <div className="flex flex-col w-full h-full max-w-6xl min-h-screen py-6 mx-auto mb-32">
-      {messages.length > 0
-        ? messages.map((m, idx) => {
-            const isUser = m.role === 'user';
-            return (
-              <div
-                key={m.id}
-                ref={idx === messages.length - 1 ? lastMessageRef : null}
-                className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
-              >
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded">
-                    <img
-                      src={`/${isUser ? 'icon-user.png' : 'azure-openai.png'}`}
-                      alt=""
-                      className={`${isUser ? 'invert' : ''}`}
+    <>
+      <div className="flex flex-col items-center justify-center py-6">
+        <h1 className="text-bold text-2xl text-center leading-6">
+          Cloud Team GPT Chat v{pkg.version}
+          <br />
+          <small className="text-sm">Powered by Azure OpenAI GPT-4</small>
+        </h1>
+      </div>
+      <div className="flex flex-col w-full h-full max-w-6xl min-h-screen py-6 mx-auto mb-32">
+        {messages.length > 0
+          ? messages.map((m, idx) => {
+              const isUser = m.role === 'user';
+              return (
+                <div
+                  key={m.id}
+                  ref={idx === messages.length - 1 ? lastMessageRef : null}
+                  className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
+                >
+                  <div className="chat-image avatar">
+                    <div className="w-10 rounded">
+                      <img
+                        src={`/${
+                          isUser ? 'icon-user.png' : 'azure-openai.png'
+                        }`}
+                        alt=""
+                        className={`${isUser ? 'invert' : ''}`}
+                      />
+                    </div>
+                  </div>
+                  <div className="prose chat-bubble">
+                    <Markdown
+                      children={m.content}
+                      components={{
+                        code(props) {
+                          const { children, className, node, ...rest } = props;
+                          const match = /language-(\w+)/.exec(className || '');
+                          return match ? (
+                            <SyntaxHighlighter
+                              {...rest}
+                              children={String(children).replace(/\n$/, '')}
+                              style={nightOwl}
+                              language={match[1]}
+                              PreTag="div"
+                            />
+                          ) : (
+                            <code {...rest} className={className}>
+                              {children}
+                            </code>
+                          );
+                        },
+                      }}
                     />
                   </div>
+                  <div className="chat-footer">
+                    {idx !== messages.length - 1 ? (
+                      <time className="text-xs opacity-50">
+                        {dayjs(m.createdAt).format('h:mm A')}
+                      </time>
+                    ) : null}
+                    {isLoading && !isUser && idx === messages.length - 1 ? (
+                      <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
+                    ) : null}
+                    {idx === messages.length - 1 && !isLoading ? (
+                      <time className="text-xs opacity-50">
+                        {dayjs(m.createdAt).format('h:mm A')}
+                      </time>
+                    ) : null}
+                  </div>
                 </div>
-                <div className="prose chat-bubble">
-                  <Markdown
-                    children={m.content}
-                    components={{
-                      code(props) {
-                        const { children, className, node, ...rest } = props;
-                        const match = /language-(\w+)/.exec(className || '');
-                        return match ? (
-                          <SyntaxHighlighter
-                            {...rest}
-                            children={String(children).replace(/\n$/, '')}
-                            style={nightOwl}
-                            language={match[1]}
-                            PreTag="div"
-                          />
-                        ) : (
-                          <code {...rest} className={className}>
-                            {children}
-                          </code>
-                        );
-                      },
-                    }}
-                  />
-                </div>
-                <div className="chat-footer">
-                  {idx !== messages.length - 1 ? (
-                    <time className="text-xs opacity-50">
-                      {dayjs(m.createdAt).format('h:mm A')}
-                    </time>
-                  ) : null}
-                  {isLoading && !isUser && idx === messages.length - 1 ? (
-                    <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
-                  ) : null}
-                  {idx === messages.length - 1 && !isLoading ? (
-                    <time className="text-xs opacity-50">
-                      {dayjs(m.createdAt).format('h:mm A')}
-                    </time>
-                  ) : null}
-                </div>
-              </div>
-            );
-          })
-        : null}
-      <form ref={formRef} onSubmit={handleSubmit}>
-        <div className="fixed bottom-0 mb-8">
-          <textarea
-            autoFocus={true}
-            ref={textAreaRef}
-            className="fixed w-full max-w-6xl p-2 border border-gray-300 rounded shadow-xl bottom-16"
-            value={input}
-            placeholder="Type a message..."
-            onChange={handleInputChange}
-          />
-          <small className="fixed bottom-8">
-            <kbd className="kbd">⌘</kbd>+<kbd className="kbd">Enter</kbd> to
-            send /<kbd className="kbd">⌘</kbd>+<kbd className="kbd">Esc</kbd> to
-            clear history
-          </small>
-        </div>
-      </form>
-      {textAreaRef?.current?.focus()}
-    </div>
+              );
+            })
+          : null}
+        <form ref={formRef} onSubmit={handleSubmit}>
+          <div className="fixed bottom-0 mb-8">
+            <textarea
+              autoFocus={true}
+              ref={textAreaRef}
+              className="fixed w-full max-w-6xl p-2 border border-gray-300 rounded shadow-xl bottom-16"
+              value={input}
+              placeholder="Type a message..."
+              onChange={handleInputChange}
+            />
+            <small className="fixed bottom-8">
+              <kbd className="kbd">⌘</kbd>+<kbd className="kbd">Enter</kbd> to
+              send /<kbd className="kbd">⌘</kbd>+<kbd className="kbd">Esc</kbd>{' '}
+              to clear history
+            </small>
+          </div>
+        </form>
+        {textAreaRef?.current?.focus()}
+      </div>
+    </>
   );
 }
