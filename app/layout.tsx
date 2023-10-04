@@ -13,6 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="night">
       <body>
+        <link rel="icon" href="/azure-openai.png" />
         <div className="page-wrapper">{children}</div>
       </body>
     </html>

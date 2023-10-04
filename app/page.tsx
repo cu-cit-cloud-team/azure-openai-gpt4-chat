@@ -86,7 +86,7 @@ export default function Chat() {
                 <div className="chat-image avatar">
                   <div className="w-10 rounded">
                     <img
-                      src={`/${isUser ? 'icon-user.png' : 'openai.svg'}`}
+                      src={`/${isUser ? 'icon-user.png' : 'azure-openai.png'}`}
                       alt=""
                       className={`${isUser ? 'invert' : ''}`}
                     />
@@ -117,11 +117,6 @@ export default function Chat() {
                   />
                 </div>
                 <div className="chat-footer">
-                  {idx === messages.length - 1 && !isLoading ? (
-                    <time className="text-xs opacity-50">
-                      {dayjs(m.createdAt).format('h:mm A')}
-                    </time>
-                  ) : null}
                   {idx !== messages.length - 1 ? (
                     <time className="text-xs opacity-50">
                       {dayjs(m.createdAt).format('h:mm A')}
@@ -129,6 +124,11 @@ export default function Chat() {
                   ) : null}
                   {isLoading && !isUser && idx === messages.length - 1 ? (
                     <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
+                  ) : null}
+                  {idx === messages.length - 1 && !isLoading ? (
+                    <time className="text-xs opacity-50">
+                      {dayjs(m.createdAt).format('h:mm A')}
+                    </time>
                   ) : null}
                 </div>
               </div>
