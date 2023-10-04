@@ -1,5 +1,5 @@
 {
-  "name": "ct-gpt-chat-app",
+  "name": "ct-azure-openai-gpt4-chat",
   "version": "1.0.0",
   "description": "A Next.js chat app that uses Azure OpenAI GPT-4 to generate responses",
   "private": true,
@@ -15,13 +15,13 @@
   },
   "keywords": [],
   "repository": {
-    "url": "https://github.com/CU-CommunityApps/ct-gpt-chat-app"
+    "url": "https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat"
   },
   "author": {
     "name": "Michael Sprague",
     "email": "ms388@cornell.edu"
   },
-  "homepage": "https://github.com/CU-CommunityApps/ct-gpt-chat-app",
+  "homepage": "https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.4.2",
