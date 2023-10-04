@@ -33,7 +33,10 @@ env:
   AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
 
 jobs:
-  build:
+  build-and-deploy:
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     runs-on: ubuntu-latest
     steps:
       - name: 👷 Checkout Repo
@@ -61,28 +64,23 @@ jobs:
         shell: bash
         run: npm i --location=global npm && npm install
 
+      # - name: 🔏 Create .env file for
+      #   run: |
+      #     touch .env
+      #     echo AZURE_OPENAI_BASE_PATH=${{ secrets.AZURE_OPENAI_BASE_PATH }}} >> .env
+      #     echo AZURE_OPENAI_API_KEY=${{ secrets.AZURE_OPENAI_API_KEY }} >> .env
+      #     echo AZURE_OPENAI_MODEL_DEPLOYMENT=${{ secrets.AZURE_OPENAI_MODEL_DEPLOYMENT }} >> .env
+      #     echo AZURE_OPENAI_API_VERSION=${{ secrets.AZURE_OPENAI_API_VERSION }} >> .env
+
       - name: 🛠️ Build app
         shell: bash
         run: npm run build
 
-      - name: 📦 Create and upload deployment artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.AZURE_WEBAPP_NAME }}
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-
-  deploy:
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: 📦 Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.AZURE_WEBAPP_NAME }}
+      - name: 📦 Zip all files for deployment step
+        # IMPORTANT: .next is a hidden folder and will NOT be included in the zip unless we specify it
+        # To fix: /home/site/wwwroot/node_modules/.bin/next: 1: ../next/dist/bin/next: not found
+        # run: zip ${{ env.AZURE_WEBAPP_NAME}}.zip ./* .next .env -qr
+        run: zip ${{ env.AZURE_WEBAPP_NAME}}.zip ./* .next qr
 
       - name: 🚀 Deploy to Azure App Service
         id: deploy-to-webapp
@@ -90,4 +88,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_NAME}}.zip
