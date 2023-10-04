@@ -33,7 +33,7 @@ env:
   AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 👷 Checkout Repo
@@ -43,6 +43,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
+          cache: npm
+          cache-dependency-path: "**/package-lock.json"
 
       - name: ⚡  Cache node_modules
         uses: actions/cache@v3
@@ -62,7 +65,27 @@ jobs:
         shell: bash
         run: npm run build
 
+      - name: 📦 Create and upload deployment artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.AZURE_WEBAPP_NAME }}
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+  deploy:
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: 📦 Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.AZURE_WEBAPP_NAME }}
+
       - name: 🚀 Deploy to Azure App Service
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
