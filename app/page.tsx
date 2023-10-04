@@ -55,7 +55,7 @@ export default function Chat() {
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
           setSavedMessages([]);
-          location.reload(true);
+          location.reload();
         }
       }
       if (event.key === 'Enter' && event.metaKey) {

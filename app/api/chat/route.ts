@@ -34,17 +34,25 @@ export async function POST(req: Request) {
 
   let chatMessages = [...messages];
 
-  const hasSystemPrompt = messages.some((message) => message.role === 'system');
+  interface Message {
+    content: string;
+    role: string;
+  }
+
+  const hasSystemPrompt = messages.some(
+    (message: Message) => message.role === 'system'
+  );
   if (!hasSystemPrompt) {
     chatMessages = [systemPrompt, ...messages];
   }
 
-  const chatConfig = {
+  const chatConfig: OpenAI.Chat.ChatCompletionCreateParams = {
     temperature: 1,
     top_p: 1,
     presence_penalty: 0.5,
     frequency_penalty: 0.5,
     max_tokens: 1024,
+    model: 'gpt-4',
     messages: chatMessages,
     stream: true,
   };
