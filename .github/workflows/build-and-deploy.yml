@@ -33,7 +33,7 @@ env:
   AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
 
 jobs:
-  deploy-nodejs-app-to-azure-app-service:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: 👷 Checkout Repo
@@ -44,7 +44,17 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: ⚡  Cache node_modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/node_modules
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
+
       - name: ⬆️ Update npm and install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         shell: bash
         run: npm i --location=global npm && npm install
 
