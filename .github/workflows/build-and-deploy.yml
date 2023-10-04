@@ -25,7 +25,6 @@ concurrency:
 env:
   NODE_VERSION: "18"
   AZURE_WEBAPP_NAME: "ct-azure-openai-gpt4-chat"
-  AZURE_WEBAPP_SLOT_NAME: "production"
   AZURE_WEBAPP_PACKAGE_PATH: "."
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
   AZURE_OPENAI_BASE_PATH: ${{ secrets.AZURE_OPENAI_BASE_PATH }}}
@@ -57,6 +56,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          slot-name: $${ env.AZURE_WEBAPP_SLOT_NAME }
           publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
