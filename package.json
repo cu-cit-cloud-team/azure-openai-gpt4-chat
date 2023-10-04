@@ -1,0 +1,77 @@
+{
+  "name": "ct-gpt-chat-app",
+  "version": "1.0.0",
+  "description": "A Next.js chat app that uses Azure OpenAI GPT-4 to generate responses",
+  "private": true,
+  "engines": {
+    "node": ">= 20.x",
+    "npm": ">= 9.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check ./app"
+  },
+  "keywords": [],
+  "repository": {
+    "url": "https://github.com/CU-CommunityApps/ct-gpt-chat-app"
+  },
+  "author": {
+    "name": "Michael Sprague",
+    "email": "ms388@cornell.edu"
+  },
+  "homepage": "https://github.com/CU-CommunityApps/ct-gpt-chat-app",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "6.4.2",
+    "@fortawesome/free-brands-svg-icons": "6.4.2",
+    "@fortawesome/free-solid-svg-icons": "6.4.2",
+    "@fortawesome/react-fontawesome": "0.2.0",
+    "ai": "2.2.14",
+    "daisyui": "3.8.3",
+    "dayjs": "1.11.10",
+    "nanoid": "5.0.1",
+    "next": "13.5.4",
+    "openai": "4.11.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-markdown": "9.0.0",
+    "react-syntax-highlighter": "15.5.0",
+    "use-local-storage-state": "19.1.0",
+    "uuid": "9.0.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.2.2",
+    "@fullhuman/postcss-purgecss": "5.0.0",
+    "@tailwindcss/forms": "0.5.6",
+    "@tailwindcss/typography": "0.5.10",
+    "@types/node": "20.8.2",
+    "@types/react": "18.2.24",
+    "@types/react-dom": "18.2.8",
+    "autoprefixer": "10.4.16",
+    "cssnano": "6.0.1",
+    "cz-git": "1.7.1",
+    "postcss": "8.4.31",
+    "postcss-cli": "10.1.0",
+    "sass": "1.68.0",
+    "stylelint": "15.10.3",
+    "stylelint-config-standard": "34.0.0",
+    "stylelint-config-standard-scss": "11.0.0",
+    "tailwindcss": "3.3.3",
+    "typescript": "5.2.2"
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-git"
+    }
+  }
+}
