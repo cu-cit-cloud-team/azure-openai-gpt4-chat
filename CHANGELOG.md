@@ -1,3 +1,14 @@
+## 0.3.0 (2023-10-05)
+
+* refactor(ChatBubble): add missing propType and sort propTypes ([ea30cbe](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ea30cbe))
+* refactor(ChatBubble): use lighter-weight syntax highlighter ([26e3c7b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/26e3c7b))
+* refactor(layout): remove favicon ([2c350d1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2c350d1))
+* refactor(page): use ChatBubble component ([9356387](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9356387))
+* chore: remove unused icons ([29ce4b6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/29ce4b6))
+* feat: add ChatBubble component ([a8ffed0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a8ffed0))
+
+
+
 ## 0.2.0 (2023-10-04)
 
 * chore: update bot icon ([bd79bb5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/bd79bb5))
