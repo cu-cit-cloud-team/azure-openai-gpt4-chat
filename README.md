@@ -40,12 +40,12 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [x] Keyboard shortcut (`cmd`+`esc`) when `textarea` has focus
 - [x] Formats code blocks and other markdown inside of chat messages nicely
 - [x] Hosted via Azure App Service
+- [x] Azure App Service App locked down via AD to just our team
 - [x] Built/deployed with GitHub Actions
 
 #### Roadmap
 
 - [ ] Copy individual responses to clipboard
-- [ ] Azure App Service App locked down via AD to just our team
 - [ ] Dockerfile for local development
 - [ ] Export current chat to JSON
 - [ ] Import chat session from JSON
