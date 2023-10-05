@@ -77,16 +77,17 @@ export const ChatBubble = ({
 
 ChatBubble.displayName = 'ChatBubble';
 ChatBubble.propTypes = {
+  index: PropTypes.number,
+  isLoading: PropTypes.bool,
+  isUser: PropTypes.bool,
+  lastMessageRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(PropTypes.Element) }),
+  ]),
   message: PropTypes.shape({
     id: PropTypes.string,
     content: PropTypes.string,
     createdAt: PropTypes.string,
   }),
-  isUser: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  lastMessageRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(PropTypes.Element) }),
-  ]),
   totalMessages: PropTypes.number,
 };
