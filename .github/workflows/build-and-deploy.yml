@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
   push:
-    branches:
-      - main
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
     paths:
       - "app/**.*"
       - "public/**.*"
@@ -15,8 +15,6 @@ on:
       - "tailwind.config.json"
       - "postcss.config.json"
       - "tsconfig.json"
-      - "Dockerfile"
-      - ".github/workflows/**.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
