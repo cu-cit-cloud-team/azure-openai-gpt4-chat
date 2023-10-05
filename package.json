@@ -31,7 +31,7 @@
     "@fortawesome/free-solid-svg-icons": "6.4.2",
     "@fortawesome/react-fontawesome": "0.2.0",
     "ai": "2.2.14",
-    "daisyui": "3.8.3",
+    "daisyui": "3.9.1",
     "dayjs": "1.11.10",
     "nanoid": "5.0.1",
     "next": "13.5.4",
