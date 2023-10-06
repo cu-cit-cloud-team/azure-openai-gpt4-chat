@@ -1,3 +1,16 @@
+## <small>0.3.1 (2023-10-06)</small>
+
+* style(biome): fix linter warnings ([fee64c0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fee64c0))
+* chore(biome): enable correctness rules ([714a4f9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/714a4f9))
+* chore(deps-dev): bump sass from 1.68.0 to 1.69.0 (#3) ([015544c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/015544c)), closes [#3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/3)
+* chore(deps): bump daisyui from 3.8.3 to 3.9.1 (#1) ([62bcf35](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/62bcf35)), closes [#1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/1)
+* chore(deps): bump daisyui from 3.9.1 to 3.9.2 (#2) ([fff9b66](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fff9b66)), closes [#2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/2)
+* docs(README): mark item as completed ([13bf1f8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/13bf1f8))
+* ci(actions): only build and deploy automatically for releases ([7446839](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7446839))
+* refactor(ChatBubble): remove extraneous import ([7f450dc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7f450dc))
+
+
+
 ## 0.3.0 (2023-10-05)
 
 * refactor(ChatBubble): add missing propType and sort propTypes ([ea30cbe](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ea30cbe))
