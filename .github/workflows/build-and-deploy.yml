@@ -45,22 +45,23 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           check-latest: true
-          cache: npm
-          cache-dependency-path: "**/package-lock.json"
 
-      - name: ⚡  Cache node_modules
-        uses: actions/cache@v3
+      - name: ⚡  Cache node_modules and .next folder
         id: cache
+        uses: actions/cache@v3
         with:
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/node_modules
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-      - name: ⬆️ Update npm and install dependencies
+      - name: ⬆️ Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         shell: bash
-        run: npm i --location=global npm && npm install
+        run: npm install
 
       - name: 🛠️ Build app
         shell: bash
