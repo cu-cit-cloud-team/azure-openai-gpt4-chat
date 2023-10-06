@@ -19,6 +19,9 @@
       "style": {
         "useBlockStatements": "error"
       },
+      "correctness": {
+        "all": true
+      },
       "a11y": {
         "noAutofocus": "off"
       }
