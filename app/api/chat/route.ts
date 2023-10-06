@@ -1,5 +1,4 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai';
-// ./app/api/chat/route.ts
 import OpenAI from 'openai';
 
 const {

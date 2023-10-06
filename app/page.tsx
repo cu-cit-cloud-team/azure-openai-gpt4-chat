@@ -1,11 +1,8 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import { nanoid } from 'nanoid';
 import { useEffect, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
-
-import pkg from '../package.json';
 
 import { ChatBubble } from './components/ChatBubble';
 import { Footer } from './components/Footer';
@@ -16,7 +13,7 @@ export default function Chat() {
     defaultValue: [],
   });
 
-  const { messages, input, handleInputChange, handleSubmit, data, isLoading } =
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
       id: 'ms388',
       initialMessages: savedMessages,

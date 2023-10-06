@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-  materialDark,
-  nightOwl,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export const ChatBubble = ({
   message,
@@ -37,6 +34,7 @@ export const ChatBubble = ({
         children={message.content}
         components={{
           code(props) {
+            // biome-ignore lint/correctness/noUnusedVariables: intentionally unused
             const { children, className, node, ...rest } = props;
             const match = /language-(\w+)/.exec(className || '');
             return match ? (
