@@ -1,6 +1,7 @@
 'use client';
 
 import { useChat } from 'ai/react';
+import { nanoid } from 'nanoid';
 import { useEffect, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
@@ -83,6 +84,7 @@ export default function Chat() {
                 const isUser = m.role === 'user';
                 return (
                   <ChatBubble
+                    key={nanoid()}
                     message={m}
                     index={idx}
                     isUser={isUser}
