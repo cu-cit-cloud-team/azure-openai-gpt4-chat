@@ -1,12 +1,14 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+dayjs.extend(isToday);
 export const ChatBubble = ({
   message,
   index,
@@ -57,7 +59,9 @@ export const ChatBubble = ({
     <div className="chat-footer">
       {isUser || index !== totalMessages - 1 ? (
         <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).format('h:mm A')}
+          {dayjs(message.createdAt).isToday()
+            ? dayjs(message.createdAt).format('h:mm A')
+            : dayjs(message.createdAt).format('MMM DD, YYYY h:mm A')}
         </time>
       ) : null}
       {isLoading && !isUser && index === totalMessages - 1 ? (
