@@ -42,11 +42,21 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Hosted via Azure App Service
 - [x] Azure App Service App locked down via AD to just our team
 - [x] Built/deployed with GitHub Actions
+- [x] Show date in chat messages timestamps older than "today"
 
-#### Roadmap
+### Roadmap
 
+#### Planned
+
+- [ ] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
+- [ ] View/edit chat session parameters (e.g. temperature, top p, etc)
 - [ ] Copy individual responses to clipboard
 - [ ] Dockerfile for local development
+- [ ] Help popup with basic info and keyboard shortcuts
+  - [ ] `?` keyboard shortcut to open help popup
+
+#### Potential
+
 - [ ] Export current chat to JSON
 - [ ] Import chat session from JSON
 - [ ] Multiple chat sessions
@@ -55,19 +65,8 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [ ] Delete individual chat sessions
   - [ ] Export individual chat sessions to JSON
   - [ ] Import chat sessions from JSON
-- [ ] Relative time for timestamps in chat messages
-- [ ] Help popup with basic info and keyboard shortcuts
-  - [ ] `?` keyboard shortcut to open help popup
 - [ ] Responsive design
-- [ ] Settings (stateful via local storage)
-  - [ ] Change UI Theme (dark/light)
-  - [ ] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
-  - [ ] Change additional parameters
-    - [ ] temperature
-    - [ ] max tokens
-    - [ ] top p
-    - [ ] frequency penalty
-    - [ ] presence penalty
+- [ ] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
 
 ### Uses
 
