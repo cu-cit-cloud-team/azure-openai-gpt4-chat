@@ -78,7 +78,7 @@ export default function Chat() {
     <>
       <Header clickHandler={clearHistoryHandler} />
       <div className="z-0 overflow-auto">
-        <div className="flex flex-col w-full h-full max-w-6xl min-h-screen py-24 mx-auto mb-24">
+        <div className="flex flex-col w-full h-full max-w-6xl min-h-screen py-28 mx-auto mb-28">
           {messages.length > 0
             ? messages.map((m, idx) => {
                 const isUser = m.role === 'user';
