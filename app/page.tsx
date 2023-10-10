@@ -93,7 +93,7 @@ export default function Chat() {
         systemMessageRef={systemMessageRef}
       />
       <div className="z-0 overflow-auto">
-        <div className="flex flex-col w-full h-full max-w-6xl min-h-screen mx-auto py-28 mb-28">
+        <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-48 mx-auto pb-28 mb-28">
           {messages.length > 0
             ? messages.map((m, idx) => {
                 const isUser = m.role === 'user';
