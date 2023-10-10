@@ -90,7 +90,7 @@ export default function Chat() {
                     isUser={isUser}
                     isLoading={isLoading}
                     lastMessageRef={lastMessageRef}
-                    totalMessages={messages.length}
+                    totalMessages={messages.length - 1}
                   />
                 );
               })

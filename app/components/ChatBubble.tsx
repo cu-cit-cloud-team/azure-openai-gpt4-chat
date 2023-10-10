@@ -9,6 +9,7 @@ import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 dayjs.extend(isToday);
+
 export const ChatBubble = ({
   message,
   index,
@@ -19,7 +20,7 @@ export const ChatBubble = ({
 }) => (
   <div
     key={message.id}
-    ref={index === totalMessages - 1 ? lastMessageRef : null}
+    ref={index === totalMessages ? lastMessageRef : null}
     className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
   >
     <div className="chat-image avatar">
@@ -57,17 +58,17 @@ export const ChatBubble = ({
       />
     </div>
     <div className="chat-footer">
-      {isUser || index !== totalMessages - 1 ? (
+      {isUser || index !== totalMessages ? (
         <time className="text-xs opacity-50">
           {dayjs(message.createdAt).isToday()
             ? dayjs(message.createdAt).format('h:mm A')
             : dayjs(message.createdAt).format('MMM DD, YYYY h:mm A')}
         </time>
       ) : null}
-      {isLoading && !isUser && index === totalMessages - 1 ? (
+      {isLoading && !isUser && index === totalMessages ? (
         <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
       ) : null}
-      {index === totalMessages - 1 && !isLoading ? (
+      {index === totalMessages && !isLoading ? (
         <time className="text-xs opacity-50">
           {dayjs(message.createdAt).format('h:mm A')}
         </time>
