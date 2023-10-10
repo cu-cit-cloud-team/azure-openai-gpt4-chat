@@ -1,3 +1,14 @@
+## <small>0.3.2 (2023-10-10)</small>
+
+* chore(deps-dev): bump sass from 1.69.0 to 1.69.1 (#6) ([d7a5271](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d7a5271)), closes [#6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/6)
+* chore(deps-dev): bump the types group with 3 updates (#4) ([568322e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/568322e)), closes [#4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/4)
+* chore(deps-dev): bump the types group with 3 updates (#5) ([6faa705](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6faa705)), closes [#5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/5)
+* style(react): fix linter warning with proptypes ([2325369](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2325369))
+* refactor: add key to component ([45d5836](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/45d5836))
+* ci(actions): improve caching ([ef05950](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ef05950))
+
+
+
 ## <small>0.3.1 (2023-10-06)</small>
 
 * style(biome): fix linter warnings ([fee64c0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fee64c0))
