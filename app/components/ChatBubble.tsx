@@ -89,7 +89,10 @@ ChatBubble.propTypes = {
   message: PropTypes.shape({
     id: PropTypes.string,
     content: PropTypes.string,
-    createdAt: PropTypes.string,
+    createdAt: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
   }),
   totalMessages: PropTypes.number,
 };

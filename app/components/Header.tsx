@@ -19,24 +19,33 @@ export const Header = ({ clickHandler }) => {
   const [systemMessage, setSystemMessage] = useLocalStorageState(
     'systemMessage',
     {
-      defaultValue: null,
+      defaultValue:
+        'You are a helpful AI assistant. Answer in markdown format.',
     }
   );
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const systemMessageRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (!systemMessage) {
-      console.log('Setting system message');
-      setSystemMessage(
-        'You are a helpful AI assistant. Answer in markdown format.'
-      );
+    if (systemMessageRef.current) {
+      systemMessageRef.current.value = systemMessage;
     }
 
-    if (textareaRef.current) {
-      textareaRef.current.value = systemMessage;
-    }
+    return () => {};
   }, [systemMessage]);
+
+  useEffect(() => {
+    const details = [...document.querySelectorAll('.menu details')];
+    document.addEventListener('click', (event) => {
+      if (!details.some((el) => el.contains(event.target))) {
+        details.forEach((el) => el.removeAttribute('open'));
+      } else {
+        details.forEach((el) =>
+          !el.contains(event.target) ? el.removeAttribute('open') : ''
+        );
+      }
+    });
+  }, [systemMessageRef]);
 
   return (
     <div className="fixed top-0 z-50 navbar bg-base-200">
@@ -60,8 +69,9 @@ export const Header = ({ clickHandler }) => {
                 <li>
                   <textarea
                     className="w-96 h-48 whitespace-pre-line"
-                    ref={textareaRef}
-                    readOnly
+                    ref={systemMessageRef}
+                    onChange={(e) => setSystemMessage(e.target.value)}
+                    value={systemMessage}
                   />
                 </li>
               </ul>
@@ -96,7 +106,7 @@ export const Header = ({ clickHandler }) => {
           <li>
             <button type="button" onClick={clickHandler}>
               <FontAwesomeIcon icon={faEraser} fixedWidth />
-              Clear History
+              Clear Chat History
             </button>
           </li>
         </ul>

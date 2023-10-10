@@ -10,12 +10,21 @@ import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 
 export default function Chat() {
+  const [systemMessage, setSystemMessage] = useLocalStorageState(
+    'systemMessage',
+    {
+      defaultValue:
+        'You are a helpful AI assistant. Answer in markdown format.',
+    }
+  );
+
   const [savedMessages, setSavedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
   });
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
+      api: `/api/chat?systemMessage=${encodeURIComponent(systemMessage)}`,
       id: 'ms388',
       initialMessages: savedMessages,
     });
@@ -76,7 +85,10 @@ export default function Chat() {
 
   return (
     <>
-      <Header clickHandler={clearHistoryHandler} />
+      <Header
+        clickHandler={clearHistoryHandler}
+        systemMessageHandler={setSystemMessage}
+      />
       <div className="z-0 overflow-auto">
         <div className="flex flex-col w-full h-full max-w-6xl min-h-screen py-28 mx-auto mb-28">
           {messages.length > 0
