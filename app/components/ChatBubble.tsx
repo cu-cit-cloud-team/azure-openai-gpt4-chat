@@ -79,7 +79,7 @@ ChatBubble.propTypes = {
   isUser: PropTypes.bool,
   lastMessageRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(PropTypes.Element) }),
+    PropTypes.shape({ current: PropTypes.object }),
   ]),
   message: PropTypes.shape({
     id: PropTypes.string,

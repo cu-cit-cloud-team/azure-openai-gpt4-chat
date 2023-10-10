@@ -32,23 +32,12 @@ export const Footer = ({
 Footer.displayName = 'Footer';
 Footer.propTypes = {
   formRef: PropTypes.oneOfType([
-    PropTypes.shape({
-      current: PropTypes.oneOfType([
-        PropTypes.instanceOf(PropTypes.element),
-        null,
-        PropTypes.instanceOf(PropTypes.object),
-      ]),
-    }),
-    PropTypes.oneOf([null]),
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.object }),
   ]),
   textAreaRef: PropTypes.oneOfType([
-    PropTypes.shape({
-      current: PropTypes.oneOfType([
-        PropTypes.instanceOf(PropTypes.element),
-        null,
-        PropTypes.instanceOf(PropTypes.object),
-      ]),
-    }),
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.object }),
   ]),
   handleSubmit: PropTypes.func.isRequired,
   input: PropTypes.string.isRequired,
