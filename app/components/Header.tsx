@@ -15,7 +15,7 @@ import useLocalStorageState from 'use-local-storage-state';
 
 import pkg from '../../package.json';
 
-export const Header = ({ clickHandler }) => {
+export const Header = ({ clickHandler, systemMessageRef }) => {
   const [systemMessage, setSystemMessage] = useLocalStorageState(
     'systemMessage',
     {
@@ -23,8 +23,6 @@ export const Header = ({ clickHandler }) => {
         'You are a helpful AI assistant. Answer in markdown format.',
     }
   );
-
-  const systemMessageRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (systemMessageRef.current) {
@@ -45,12 +43,12 @@ export const Header = ({ clickHandler }) => {
         );
       }
     });
-  }, [systemMessageRef]);
+  }, []);
 
   return (
     <div className="fixed top-0 z-50 navbar bg-base-200">
       <div className="navbar-start">
-        <a className="text-xl normal-case leading-6" href="/">
+        <a className="text-xl leading-6 normal-case" href="/">
           Cloud Team GPT Chat v{pkg.version}
           <br />
           <small className="text-xs">Powered by Azure OpenAI GPT-4</small>
@@ -68,7 +66,7 @@ export const Header = ({ clickHandler }) => {
               <ul className="w-fit bg-base-300">
                 <li>
                   <textarea
-                    className="w-96 h-48 whitespace-pre-line"
+                    className="h-48 whitespace-pre-line w-96"
                     ref={systemMessageRef}
                     onChange={(e) => setSystemMessage(e.target.value)}
                     value={systemMessage}
