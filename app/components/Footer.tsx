@@ -26,8 +26,15 @@ export const Footer = ({
           placeholder="Type a message..."
           onChange={handleInputChange}
         />
+        <button
+          type="button"
+          className="btn-block btn btn-xs btn-primary lg:hidden mb-2"
+          onClick={handleSubmit}
+        >
+          send message
+        </button>
         <br />
-        <small className="bottom-8">
+        <small className="bottom-8 lg:inline-block hidden">
           <kbd className="kbd">⌘</kbd>+<kbd className="kbd">Enter</kbd> to send
           /<kbd className="kbd">⌘</kbd>+<kbd className="kbd">Esc</kbd> to clear
           history
