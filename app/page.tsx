@@ -23,10 +23,10 @@ export default function Chat() {
       .get('/.auth/me')
       .then((response) => {
         // console.log(response.data);
-        if (response.data?.user_id) {
+        if (response.data[0]?.user_id) {
           setUserMeta({
-            email: response.data?.user_id,
-            name: response.data?.user_claims?.find('name')?.value,
+            email: response.data[0]?.user_id,
+            name: response.data[0]?.user_claims?.find('name')?.value,
           });
         }
       })
@@ -54,7 +54,7 @@ export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
       api: `/api/chat?systemMessage=${encodeURIComponent(systemMessage)}`,
-      id: 'ms388',
+      id: userMeta?.email ? btoa(userMeta?.email) : undefined,
       initialMessages: savedMessages,
     });
 
