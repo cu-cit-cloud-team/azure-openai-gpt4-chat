@@ -45,6 +45,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Show date in chat messages timestamps older than "today"
 - [x] Tries to identify user from login session and personalize chat session
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
+- [x] Toggle between dark/light mode (dark is default)
 
 ### Roadmap
 
