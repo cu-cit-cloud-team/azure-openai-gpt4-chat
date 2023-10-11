@@ -1,3 +1,16 @@
+## 0.5.0 (2023-10-11)
+
+* fix(ChatBubble): check for is today in timestamp display ([94d33a5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/94d33a5))
+* feat(Header): add theme toggle to header menu ([e86e551](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e86e551))
+* feat(ThemeToggle): add component to toggle light/dark themes ([26da84d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/26da84d))
+* feat(ThemeToggle): use toggle/checkbox instead of button ([7c2b401](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7c2b401))
+* docs(README): update features ([10156cf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/10156cf))
+* refactor: add some theme specific styles/fixes ([d2238c6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d2238c6))
+* refactor(ChatBubble): add missing prop type ([f4b30b7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f4b30b7))
+* refactor(ChatBubble): change icon class name ([69bfb7c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/69bfb7c))
+
+
+
 ## <small>0.4.2 (2023-10-11)</small>
 
 * chore(deps-dev): bump sass from 1.69.1 to 1.69.2 (#12) ([26e05ac](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/26e05ac)), closes [#12](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/12)
