@@ -1,3 +1,13 @@
+## <small>0.4.2 (2023-10-11)</small>
+
+* chore(deps-dev): bump sass from 1.69.1 to 1.69.2 (#12) ([26e05ac](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/26e05ac)), closes [#12](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/12)
+* chore(deps-dev): bump the types group with 2 updates (#11) ([7e29e28](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7e29e28)), closes [#11](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/11)
+* chore(deps): bump ai from 2.2.14 to 2.2.15 (#13) ([1d20bd7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1d20bd7)), closes [#13](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/13)
+* docs(README): update features ([e436820](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e436820))
+* refactor: move user info fetcher into method ([1713031](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1713031))
+
+
+
 ## <small>0.4.1 (2023-10-11)</small>
 
 * fix: reference user info in array if available ([38db868](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/38db868))
