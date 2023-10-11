@@ -29,6 +29,8 @@ env:
   AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
   AZURE_OPENAI_MODEL_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_MODEL_DEPLOYMENT }}
   AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
+  MS_TEAMS_WEBHOOK_URL: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
+  APP_DISPLAY_NAME: "Cloud Team GPT4 Chat"
 
 jobs:
   build-and-deploy:
@@ -37,6 +39,15 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     runs-on: ubuntu-latest
     steps:
+      - name: 📤 Notify Teams
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Started
+          color: info
+
       - name: 👷 Checkout Repo
         uses: actions/checkout@v3
 
@@ -78,3 +89,33 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_NAME}}.zip
+
+      - name: ⚠️ Cancelled Notification
+        if: ${{ cancelled() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Cancelled
+          color: warning
+
+      - name: ⛔ Failure Notification
+        if: ${{ failure() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Failed
+          color: failure
+
+      - name: 🎉 Success Notification
+        if: ${{ success() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Successful
+          color: success
