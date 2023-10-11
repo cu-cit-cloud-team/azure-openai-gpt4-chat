@@ -31,6 +31,7 @@
     "@fortawesome/free-solid-svg-icons": "6.4.2",
     "@fortawesome/react-fontawesome": "0.2.0",
     "ai": "2.2.14",
+    "axios": "1.5.1",
     "daisyui": "3.9.2",
     "dayjs": "1.11.10",
     "nanoid": "5.0.1",
@@ -68,11 +69,7 @@
     "typescript": "5.2.2"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
