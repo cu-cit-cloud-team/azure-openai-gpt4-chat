@@ -37,8 +37,14 @@ export default function Chat() {
     }
   }, [messages]);
 
-  const clearHistoryHandler = () => {
-    if (confirm('Are you sure you want to clear the chat history?')) {
+  const clearHistoryHandler = (useConfirm = true) => {
+    if (useConfirm) {
+      confirm('Are you sure you want to clear the chat history?');
+      {
+        setSavedMessages([]);
+        location.reload();
+      }
+    } else {
       setSavedMessages([]);
       location.reload();
     }
@@ -88,9 +94,11 @@ export default function Chat() {
   return (
     <>
       <Header
-        clickHandler={clearHistoryHandler}
-        systemMessageHandler={setSystemMessage}
+        clearHistoryHandler={clearHistoryHandler}
+        systemMessage={systemMessage}
+        setSystemMessage={setSystemMessage}
         systemMessageRef={systemMessageRef}
+        clearMessagesHandler={setSavedMessages}
       />
       <div className="z-0 overflow-auto">
         <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-48 mx-auto pb-28 mb-28">

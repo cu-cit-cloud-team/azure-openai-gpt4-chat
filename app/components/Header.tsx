@@ -1,35 +1,33 @@
 import {
   faCircleUser,
   faEraser,
+  faFloppyDisk,
   faMessage,
+  faRectangleXmark,
   faRobot,
-  faUserAstronaut,
-  faUserNinja,
-  faUserSecret,
-  faUserTie,
+  faRotateLeft,
+  // faUserSecret,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef } from 'react';
-import useLocalStorageState from 'use-local-storage-state';
+import React, { useEffect, useState } from 'react';
 
 import pkg from '../../package.json';
 
-export const Header = ({ clickHandler, systemMessageRef }) => {
-  const [systemMessage, setSystemMessage] = useLocalStorageState(
-    'systemMessage',
-    {
-      defaultValue:
+export const Header = ({
+  clearHistoryHandler,
+  systemMessage,
+  systemMessageRef,
+  setSystemMessage,
         'You are a helpful AI assistant. Answer in markdown format.',
-    }
-  );
+}) => {
+  const [originalSystemMessage, setOriginalSystemMessage] = useState('');
+  const [localSystemMessage, setLocalSystemMessage] = useState('');
 
   useEffect(() => {
-    if (systemMessageRef.current) {
-      systemMessageRef.current.value = systemMessage;
-    }
-
-    return () => {};
+    // console.log(systemMessage);
+    setOriginalSystemMessage(systemMessage);
+    setLocalSystemMessage(systemMessage);
   }, [systemMessage]);
 
   useEffect(() => {
@@ -45,19 +43,52 @@ export const Header = ({ clickHandler, systemMessageRef }) => {
     });
   }, []);
 
+  const cancelClickHandler = () => {
+    setSystemMessage(originalSystemMessage);
+    const systemMessageMenu = document.querySelector(
+      'details.system-message-dropdown'
+    );
+    if (systemMessageMenu) {
+      systemMessageMenu.removeAttribute('open');
+    }
+  };
+
+  const resetClickHandler = () => {
+    if (localSystemMessage !== originalSystemMessage) {
+      if (confirm('Are you sure you want to reset your unsaved changes?')) {
+        setSystemMessage(originalSystemMessage);
+        setLocalSystemMessage(originalSystemMessage);
+      }
+    }
+  };
+
+  const saveClickHandler = () => {
+    if (localSystemMessage !== originalSystemMessage) {
+      if (
+        confirm(
+          'Are you sure you want to change the system message?\n\nNOTE: This will also clear your chat history and reload the app.'
+        )
+      ) {
+        setLocalSystemMessage(localSystemMessage);
+        setSystemMessage(localSystemMessage);
+        clearHistoryHandler(false);
+      }
+    }
+  };
+
   return (
     <div className="fixed top-0 z-50 navbar bg-base-200">
       <div className="navbar-start">
         <a className="text-xl leading-6 normal-case" href="/">
           Cloud Team GPT Chat v{pkg.version}
-          <br />
-          <small className="text-xs">Powered by Azure OpenAI GPT-4</small>
+          {/* <br />
+          <small className="text-xs">Powered by Azure OpenAI GPT-4</small> */}
         </a>
       </div>
       <div className="navbar-center">
         <ul className="menu menu-horizontal">
           <li>
-            <details>
+            <details className="system-message-dropdown">
               <summary>
                 <FontAwesomeIcon icon={faRobot} fixedWidth />
                 <FontAwesomeIcon icon={faMessage} fixedWidth />
@@ -68,9 +99,49 @@ export const Header = ({ clickHandler, systemMessageRef }) => {
                   <textarea
                     className="h-48 whitespace-pre-line w-96"
                     ref={systemMessageRef}
-                    onChange={(e) => setSystemMessage(e.target.value)}
-                    value={systemMessage}
+                    onChange={(e) => setLocalSystemMessage(e.target.value)}
+                    value={localSystemMessage}
                   />
+                  <div className="join">
+                    <button
+                      className="btn join-item btn-info"
+                      type="button"
+                      onClick={cancelClickHandler}
+                    >
+                      <FontAwesomeIcon icon={faRectangleXmark} />
+                      Close
+                    </button>
+                    <button
+                      className={`btn join-item btn-error${
+                        localSystemMessage?.trim() ===
+                        originalSystemMessage?.trim()
+                          ? ' btn-disabled'
+                          : ''
+                      }`}
+                      type="button"
+                      onClick={resetClickHandler}
+                    >
+                      <FontAwesomeIcon icon={faRotateLeft} />
+                      Reset
+                    </button>
+                    <button
+                      className={`btn join-item btn-success${
+                        localSystemMessage?.trim() ===
+                        originalSystemMessage?.trim()
+                          ? ' btn-disabled'
+                          : ''
+                      }`}
+                      type="button"
+                      disabled={
+                        localSystemMessage?.trim() ===
+                        originalSystemMessage?.trim()
+                      }
+                      onClick={saveClickHandler}
+                    >
+                      <FontAwesomeIcon icon={faFloppyDisk} />
+                      Save
+                    </button>
+                  </div>
                 </li>
               </ul>
             </details>
@@ -102,7 +173,7 @@ export const Header = ({ clickHandler, systemMessageRef }) => {
           </details>
         </li> */}
           <li>
-            <button type="button" onClick={clickHandler}>
+            <button type="button" onClick={clearHistoryHandler}>
               <FontAwesomeIcon icon={faEraser} fixedWidth />
               Clear Chat History
             </button>
@@ -125,7 +196,7 @@ export const Header = ({ clickHandler, systemMessageRef }) => {
 
 Header.displayName = 'Header';
 Header.propTypes = {
-  clickHandler: PropTypes.func.isRequired,
+  clearHistoryHandler: PropTypes.func.isRequired,
 };
 
 export default Header;
