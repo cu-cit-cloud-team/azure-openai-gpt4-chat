@@ -79,7 +79,12 @@ export const Header = ({
   return (
     <div className="fixed top-0 z-50 navbar bg-base-200">
       <div className="navbar-start">
-        <a className="text-xl leading-6 normal-case" href="/">
+        <a
+          className="text-xl leading-6 normal-case"
+          href="https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           Cloud Team GPT Chat v{pkg.version}
           {/* <br />
           <small className="text-xs">Powered by Azure OpenAI GPT-4</small> */}
