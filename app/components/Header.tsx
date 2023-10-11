@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import { ThemeToggle } from './ThemeToggle';
+
 import pkg from '../../package.json';
 
 export const Header = ({
@@ -194,6 +196,9 @@ export const Header = ({
               Clear Chat History
             </button>
           </li>
+          <li>
+            <ThemeToggle />
+          </li>
         </ul>
       </div>
       <div className="navbar-end">
@@ -208,7 +213,7 @@ export const Header = ({
           <div
             className={`p-${
               userMeta?.email && userMeta?.name ? '2' : '1'
-            } rounded-full bg-neutral`}
+            } rounded-full bg-neutral text-neutral-content`}
           >
             {userMeta?.email && userMeta?.name ? (
               userMeta?.name?.split(' ')?.map((part) => part[0].toUpperCase())
