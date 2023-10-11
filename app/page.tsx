@@ -12,29 +12,31 @@ import { Header } from './components/Header';
 
 export default function Chat() {
   const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
-    defaultValue: { email: undefined, name: undefined },
+    defaultValue: {},
   });
 
   useEffect(() => {
-    if (userMeta.email) {
+    if (userMeta?.email && userMeta?.name) {
       return;
     }
-    axios
-      .get('/.auth/me')
-      .then((response) => {
-        // console.log(response.data);
-        if (response.data[0]?.user_id) {
+    const getUserMeta = async () => {
+      await axios
+        .get('/.auth/me')
+        .then((response) => {
+          // console.log(response.data);
           setUserMeta({
-            email: response.data[0]?.user_id,
-            name: response.data[0]?.user_claims?.find('name')?.value,
+            email: response.data[0].user_id,
+            name: response.data[0].user_claims.find(
+              (item) => item.typ === 'name'
+            ).val,
           });
-        }
-      })
-      // biome-ignore lint/correctness/noUnusedVariables: used for debugging
-      .catch((error) => {
-        // ignore and move on
-        // console.error(error);
-      });
+        })
+        // biome-ignore lint/correctness/noUnusedVariables: used for debugging
+        .catch((error) => {
+          // console.error(error);
+        });
+    };
+    getUserMeta();
   }, []);
 
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
