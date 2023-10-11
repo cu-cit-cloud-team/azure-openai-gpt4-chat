@@ -43,12 +43,13 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Azure App Service App locked down via AD to just our team
 - [x] Built/deployed with GitHub Actions
 - [x] Show date in chat messages timestamps older than "today"
+- [x] Tries to identify user from login session and personalize chat session
+- [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 
 ### Roadmap
 
 #### Planned
 
-- [ ] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [ ] View/edit chat session parameters (e.g. temperature, top p, etc)
 - [ ] Copy individual responses to clipboard
 - [ ] Dockerfile for local development
