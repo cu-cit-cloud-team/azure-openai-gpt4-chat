@@ -1,3 +1,9 @@
+## <small>0.4.1 (2023-10-11)</small>
+
+* fix: reference user info in array if available ([38db868](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/38db868))
+
+
+
 ## 0.4.0 (2023-10-11)
 
 * refactor: do math before passing total in ([fc87af4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fc87af4))
