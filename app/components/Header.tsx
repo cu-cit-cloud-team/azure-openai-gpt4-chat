@@ -290,8 +290,8 @@ export const Header = ({
         </ul>
       </div>
       <div className="navbar-end">
-        <span className="mr-2 hidden lg:text-sm">
-          {userMeta?.email ? userMeta.email : ''}
+        <span className="mr-2 hidden lg:flex text-sm">
+          {userMeta?.email ? userMeta.email : 'ms388@cornell.edu'}
         </span>
         <label
           className={`avatar${
