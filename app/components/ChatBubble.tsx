@@ -34,7 +34,7 @@ export const ChatBubble = ({
         <img
           src={`/${isUser ? 'icon-user.png' : 'icon-bot.png'}`}
           alt=""
-          className="invert"
+          className="chat-avatar-icon"
         />
       </div>
     </div>
