@@ -5,3 +5,24 @@
 .page-wrapper {
   @apply min-h-screen;
 }
+
+/* light mode specific */
+body[data-theme="light"] {
+  /* code blocks were too dark */
+  code {
+    @apply text-gray-100;
+  }
+}
+
+/* dark mode specific */
+body[data-theme="night"] {
+  /* icon uses white, invert it to black */
+  img.chat-avatar-icon {
+    @apply filter invert;
+  }
+}
+
+/* fix display issue with included code blocks when switching themes */
+.chat-bubble-primary code {
+  color: hsl(var(--pc) / var(--tw-text-opacity));
+}
