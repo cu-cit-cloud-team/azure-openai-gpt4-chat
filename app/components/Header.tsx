@@ -15,10 +15,10 @@ import React, { useEffect, useState } from 'react';
 import pkg from '../../package.json';
 
 export const Header = ({
-  clearHistoryHandler,
   systemMessage,
   systemMessageRef,
   setSystemMessage,
+  setSavedMessages,
   userMeta,
 }) => {
   const [originalSystemMessage, setOriginalSystemMessage] = useState('');
@@ -62,6 +62,17 @@ export const Header = ({
     }
   };
 
+  const clearHistory = () => {
+    setSavedMessages([]);
+    location.reload();
+  };
+
+  const clearHistoryHandler = () => {
+    if (confirm('Are you sure you want to clear the chat history?')) {
+      clearHistory();
+    }
+  };
+
   const saveClickHandler = () => {
     if (localSystemMessage !== originalSystemMessage) {
       if (
@@ -71,7 +82,7 @@ export const Header = ({
       ) {
         setLocalSystemMessage(localSystemMessage);
         setSystemMessage(localSystemMessage);
-        clearHistoryHandler(false);
+        clearHistory();
       }
     }
   };
@@ -213,7 +224,13 @@ export const Header = ({
 
 Header.displayName = 'Header';
 Header.propTypes = {
-  clearHistoryHandler: PropTypes.func.isRequired,
+  systemMessage: PropTypes.string.isRequired,
+  systemMessageRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.object }),
+  ]),
+  setSystemMessage: PropTypes.func.isRequired,
+  userMeta: PropTypes.any,
 };
 
 export default Header;

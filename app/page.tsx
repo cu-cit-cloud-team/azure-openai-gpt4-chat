@@ -64,19 +64,6 @@ export default function Chat() {
     }
   }, [messages]);
 
-  const clearHistoryHandler = (useConfirm = true) => {
-    if (useConfirm) {
-      confirm('Are you sure you want to clear the chat history?');
-      {
-        setSavedMessages([]);
-        location.reload();
-      }
-    } else {
-      setSavedMessages([]);
-      location.reload();
-    }
-  };
-
   const lastMessageRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (lastMessageRef.current) {
@@ -121,7 +108,7 @@ export default function Chat() {
   return (
     <>
       <Header
-        clearHistoryHandler={clearHistoryHandler}
+        setSavedMessages={setSavedMessages}
         systemMessage={systemMessage}
         setSystemMessage={setSystemMessage}
         systemMessageRef={systemMessageRef}
