@@ -2,7 +2,6 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Markdown from 'react-markdown';
@@ -10,7 +9,6 @@ import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 dayjs.extend(isToday);
-dayjs.extend(relativeTime);
 
 export const ChatBubble = ({
   message,
@@ -30,9 +28,6 @@ export const ChatBubble = ({
       <span className="text-xs">
         {isUser ? `${userMeta?.name ?? 'User '}` : 'Azure OpenAI GPT-4 '}
       </span>
-      <time className="text-xs opacity-50">
-        {dayjs(message.createdAt).fromNow()}
-      </time>
     </div>
     <div className="chat-image avatar">
       <div className="w-12 p-2 rounded bg-base-200">
@@ -71,7 +66,9 @@ export const ChatBubble = ({
     <div className="chat-footer">
       {isUser || index !== totalMessages ? (
         <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).format('dddd, MMMM DD, YYYY')}
+          {dayjs(message.createdAt).isToday
+            ? dayjs(message.createdAt).format('hh:mm A')
+            : dayjs(message.createdAt).format('ddd, MMM DD, YYYY [at] hh:mm A')}
         </time>
       ) : null}
       {isLoading && !isUser && index === totalMessages ? (
@@ -79,7 +76,9 @@ export const ChatBubble = ({
       ) : null}
       {index === totalMessages && !isLoading ? (
         <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).format('dddd, MMMM DD, YYYY')}
+          {dayjs(message.createdAt).isToday
+            ? dayjs(message.createdAt).format('hh:mm A')
+            : dayjs(message.createdAt).format('ddd, MMM DD, YYYY [at] hh:mm A')}
         </time>
       ) : null}
     </div>
