@@ -92,8 +92,96 @@ export const Header = ({
   return (
     <div className="fixed top-0 z-50 navbar bg-base-200">
       <div className="navbar-start">
+        <div className="dropdown">
+          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box"
+          >
+            <li>
+              <details className="system-message-dropdown">
+                <summary>
+                  <FontAwesomeIcon icon={faRobot} fixedWidth />
+                  <FontAwesomeIcon icon={faMessage} fixedWidth />
+                  System Message
+                </summary>
+                <ul className="bg-base-300">
+                  <li>
+                    <textarea
+                      className="h-48 whitespace-pre-line w-40 m-2"
+                      ref={systemMessageRef}
+                      onChange={(e) => setLocalSystemMessage(e.target.value)}
+                      value={localSystemMessage}
+                    />
+                    <div className="join">
+                      <button
+                        className="btn btn-sm join-item btn-info"
+                        type="button"
+                        onClick={cancelClickHandler}
+                      >
+                        <FontAwesomeIcon icon={faRectangleXmark} />
+                      </button>
+                      <button
+                        className={`btn btn-sm join-item btn-error${
+                          localSystemMessage?.trim() ===
+                          originalSystemMessage?.trim()
+                            ? ' btn-disabled'
+                            : ''
+                        }`}
+                        type="button"
+                        onClick={resetClickHandler}
+                      >
+                        <FontAwesomeIcon icon={faRotateLeft} />
+                      </button>
+                      <button
+                        className={`btn btn-sm join-item btn-success${
+                          localSystemMessage?.trim() ===
+                          originalSystemMessage?.trim()
+                            ? ' btn-disabled'
+                            : ''
+                        }`}
+                        type="button"
+                        disabled={
+                          localSystemMessage?.trim() ===
+                          originalSystemMessage?.trim()
+                        }
+                        onClick={saveClickHandler}
+                      >
+                        <FontAwesomeIcon icon={faFloppyDisk} />
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <button type="button" onClick={clearHistoryHandler}>
+                <FontAwesomeIcon icon={faEraser} fixedWidth />
+                Clear Chat History
+              </button>
+            </li>
+            <li>
+              <ThemeToggle />
+            </li>
+          </ul>
+        </div>
         <a
-          className="text-xl leading-6 normal-case"
+          className="text-sm lg:text-xl leading-6 normal-case"
           href="https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat"
           target="_blank"
           rel="noreferrer noopener"
@@ -103,7 +191,7 @@ export const Header = ({
           <small className="text-xs">Powered by Azure OpenAI GPT-4</small> */}
         </a>
       </div>
-      <div className="navbar-center">
+      <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal">
           <li>
             <details className="system-message-dropdown">
@@ -202,7 +290,7 @@ export const Header = ({
         </ul>
       </div>
       <div className="navbar-end">
-        <span className="mr-2 text-sm">
+        <span className="mr-2 hidden lg:text-sm">
           {userMeta?.email ? userMeta.email : ''}
         </span>
         <label
