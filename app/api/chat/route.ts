@@ -26,8 +26,16 @@ export async function POST(req: Request) {
   // Extract the `prompt` from the body of the request
   const { messages } = await req.json();
 
+  const urlParams = new URL(req.url).searchParams;
+
+  // console.log(urlParams.get('systemMessage'));
+
+  const systemMessage =
+    urlParams.get('systemMessage') ||
+    'You are a helpful AI assistant. Answer in markdown format.';
+
   const systemPrompt = {
-    content: 'You are a helpful AI assistant. Answer in markdown format.',
+    content: systemMessage,
     role: 'system',
   };
 

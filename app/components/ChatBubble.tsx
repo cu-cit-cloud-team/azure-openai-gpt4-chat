@@ -17,12 +17,18 @@ export const ChatBubble = ({
   isLoading,
   lastMessageRef,
   totalMessages,
+  userMeta,
 }) => (
   <div
     key={message.id}
     ref={index === totalMessages ? lastMessageRef : null}
     className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
   >
+    <div className="chat-header">
+      <span className="text-xs">
+        {isUser ? `${userMeta?.name ?? 'User '}` : 'Azure OpenAI GPT-4 '}
+      </span>
+    </div>
     <div className="chat-image avatar">
       <div className="w-12 p-2 rounded bg-base-200">
         <img
@@ -60,9 +66,9 @@ export const ChatBubble = ({
     <div className="chat-footer">
       {isUser || index !== totalMessages ? (
         <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).isToday()
-            ? dayjs(message.createdAt).format('h:mm A')
-            : dayjs(message.createdAt).format('MMM DD, YYYY h:mm A')}
+          {dayjs(message.createdAt).isToday
+            ? dayjs(message.createdAt).format('hh:mm A')
+            : dayjs(message.createdAt).format('ddd, MMM DD, YYYY [at] hh:mm A')}
         </time>
       ) : null}
       {isLoading && !isUser && index === totalMessages ? (
@@ -70,7 +76,9 @@ export const ChatBubble = ({
       ) : null}
       {index === totalMessages && !isLoading ? (
         <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).format('h:mm A')}
+          {dayjs(message.createdAt).isToday
+            ? dayjs(message.createdAt).format('hh:mm A')
+            : dayjs(message.createdAt).format('ddd, MMM DD, YYYY [at] hh:mm A')}
         </time>
       ) : null}
     </div>
@@ -89,7 +97,10 @@ ChatBubble.propTypes = {
   message: PropTypes.shape({
     id: PropTypes.string,
     content: PropTypes.string,
-    createdAt: PropTypes.string,
+    createdAt: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
   }),
   totalMessages: PropTypes.number,
 };
