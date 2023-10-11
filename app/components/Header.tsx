@@ -19,7 +19,7 @@ export const Header = ({
   systemMessage,
   systemMessageRef,
   setSystemMessage,
-        'You are a helpful AI assistant. Answer in markdown format.',
+  userMeta,
 }) => {
   const [originalSystemMessage, setOriginalSystemMessage] = useState('');
   const [localSystemMessage, setLocalSystemMessage] = useState('');
@@ -181,12 +181,24 @@ export const Header = ({
         </ul>
       </div>
       <div className="navbar-end">
-        {/* <button type="button" className="btn btn-neutral" onClick={clickHandler}>
-        Clear History
-      </button> */}
-        <label className="avatar">
-          <div className="rounded-full">
-            <FontAwesomeIcon size="2x" icon={faCircleUser} />
+        <span className="mr-2 text-sm">
+          {userMeta?.email ? userMeta.email : ''}
+        </span>
+        <label
+          className={`avatar${
+            userMeta?.email && userMeta?.name ? ' placeholder' : ''
+          }`}
+        >
+          <div
+            className={`p-${
+              userMeta?.email && userMeta?.name ? '2' : '1'
+            } rounded-full bg-neutral`}
+          >
+            {userMeta?.email && userMeta?.name ? (
+              userMeta?.name?.split(' ')?.map((part) => part[0].toUpperCase())
+            ) : (
+              <FontAwesomeIcon size="2x" icon={faCircleUser} />
+            )}
           </div>
         </label>
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useChat } from 'ai/react';
+import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { useEffect, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
@@ -10,6 +11,32 @@ import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 
 export default function Chat() {
+  const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
+    defaultValue: { email: undefined, name: undefined },
+  });
+
+  useEffect(() => {
+    if (userMeta.email) {
+      return;
+    }
+    axios
+      .get('/.auth/me')
+      .then((response) => {
+        // console.log(response.data);
+        if (response.data?.user_id) {
+          setUserMeta({
+            email: response.data?.user_id,
+            name: response.data?.user_claims?.find('name')?.value,
+          });
+        }
+      })
+      // biome-ignore lint/correctness/noUnusedVariables: used for debugging
+      .catch((error) => {
+        // ignore and move on
+        // console.error(error);
+      });
+  }, []);
+
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
 
   const [systemMessage, setSystemMessage] = useLocalStorageState(
@@ -99,6 +126,7 @@ export default function Chat() {
         setSystemMessage={setSystemMessage}
         systemMessageRef={systemMessageRef}
         clearMessagesHandler={setSavedMessages}
+        userMeta={userMeta}
       />
       <div className="z-0 overflow-auto">
         <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-48 mx-auto pb-28 mb-28">
@@ -114,6 +142,7 @@ export default function Chat() {
                     isLoading={isLoading}
                     lastMessageRef={lastMessageRef}
                     totalMessages={messages.length - 1}
+                    userMeta={userMeta}
                   />
                 );
               })
