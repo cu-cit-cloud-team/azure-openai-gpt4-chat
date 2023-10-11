@@ -1,3 +1,23 @@
+## 0.4.0 (2023-10-11)
+
+* refactor: do math before passing total in ([fc87af4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fc87af4))
+* refactor(ChatBubble): improve timestamps ([b4ec075](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b4ec075))
+* refactor(Header): link to repo ([02dd595](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/02dd595))
+* refactor(page): add more bottom margin ([0f2a563](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0f2a563))
+* refactor(page): increase top padding ([9ca58aa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9ca58aa))
+* fix: clear chat history confirm ([d8f90a8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d8f90a8))
+* fix: focus collision ([cb75c7e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cb75c7e))
+* feat: get and show user info if available ([62a2c62](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/62a2c62))
+* feat: view and update system message ([d8267c1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d8267c1))
+* feat(ChatBubble): show full date if it's older than today ([bc2d444](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/bc2d444))
+* feat(Header): add WIP on showing current system message ([cf05726](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cf05726))
+* feat(system-message): add more WIP ([a5dcf94](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a5dcf94))
+* chore(deps): add axios@1.5.1 ([c5b252f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c5b252f))
+* docs(README): update features and roadmap ([f85d581](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f85d581))
+* style(react): fix proptypes for refs (for real this time) ([abb8504](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/abb8504))
+
+
+
 ## <small>0.3.2 (2023-10-10)</small>
 
 * chore(deps-dev): bump sass from 1.69.0 to 1.69.1 (#6) ([d7a5271](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d7a5271)), closes [#6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/6)
