@@ -66,7 +66,7 @@ export const ChatBubble = ({
     <div className="chat-footer">
       {isUser || index !== totalMessages ? (
         <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).isToday
+          {dayjs(message.createdAt).isToday()
             ? dayjs(message.createdAt).format('hh:mm A')
             : dayjs(message.createdAt).format('ddd, MMM DD, YYYY [at] hh:mm A')}
         </time>
