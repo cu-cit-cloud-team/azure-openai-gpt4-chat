@@ -103,4 +103,8 @@ ChatBubble.propTypes = {
     ]),
   }),
   totalMessages: PropTypes.number,
+  userMeta: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.instanceOf(undefined),
+  ]),
 };
