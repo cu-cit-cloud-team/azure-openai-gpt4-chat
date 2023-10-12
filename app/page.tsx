@@ -2,13 +2,12 @@
 
 import { useChat } from 'ai/react';
 import axios from 'axios';
-import { nanoid } from 'nanoid';
 import { useEffect, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ChatBubble } from './components/ChatBubble';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
+import { Messages } from './components/Messages';
 
 export default function Chat() {
   const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
@@ -25,10 +24,13 @@ export default function Chat() {
         .then((response) => {
           // console.log(response.data);
           setUserMeta({
-            email: response.data[0].user_id,
+            email: response.data[0].user_claims.find(
+              (item) => item.typ === 'preferred_name'
+            ).val,
             name: response.data[0].user_claims.find(
               (item) => item.typ === 'name'
             ).val,
+            user_id: response.data[0].user_id,
           });
         })
         // biome-ignore lint/correctness/noUnusedVariables: used for debugging
@@ -63,13 +65,6 @@ export default function Chat() {
   useEffect(() => {
     if (messages.length > 0 && messages !== savedMessages) {
       setSavedMessages(messages);
-    }
-  }, [messages]);
-
-  const lastMessageRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
@@ -117,35 +112,15 @@ export default function Chat() {
         clearMessagesHandler={setSavedMessages}
         userMeta={userMeta}
       />
-      <div className="z-0 overflow-auto">
-        <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-48 mx-auto pb-28 mb-28">
-          {messages.length > 0
-            ? messages.map((m, idx) => {
-                const isUser = m.role === 'user';
-                return (
-                  <ChatBubble
-                    key={nanoid()}
-                    message={m}
-                    index={idx}
-                    isUser={isUser}
-                    isLoading={isLoading}
-                    lastMessageRef={lastMessageRef}
-                    totalMessages={messages.length - 1}
-                    userMeta={userMeta}
-                  />
-                );
-              })
-            : null}
-        </div>
-        <Footer
-          formRef={formRef}
-          systemMessageRef={systemMessageRef}
-          textAreaRef={textAreaRef}
-          handleSubmit={handleSubmit}
-          input={input}
-          handleInputChange={handleInputChange}
-        />
-      </div>
+      <Messages isLoading={isLoading} messages={messages} userMeta={userMeta} />
+      <Footer
+        formRef={formRef}
+        systemMessageRef={systemMessageRef}
+        textAreaRef={textAreaRef}
+        handleSubmit={handleSubmit}
+        input={input}
+        handleInputChange={handleInputChange}
+      />
     </>
   );
 }
