@@ -91,4 +91,5 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [GitHub Actions/Workflows](https://docs.github.com/en/actions)
   - Build/publish to Azure App Service
   - Build notifications
+  - Create GH Release
   - Dependency updates
