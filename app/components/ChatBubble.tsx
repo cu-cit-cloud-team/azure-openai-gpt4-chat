@@ -1,4 +1,4 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
@@ -44,11 +44,12 @@ export const ChatBubble = ({
       ) : null}
     </div>
     <div className="chat-image avatar">
-      <div className="w-12 p-2 rounded bg-base-200">
-        <img
-          src={`/${isUser ? 'icon-user.png' : 'icon-bot.png'}`}
-          alt=""
+      <div className="w-12 pt-2 p-1 rounded bg-base-200">
+        <FontAwesomeIcon
           className="chat-avatar-icon"
+          size="2x"
+          icon={isUser ? faUser : faRobot}
+          fixedWidth
         />
       </div>
     </div>
