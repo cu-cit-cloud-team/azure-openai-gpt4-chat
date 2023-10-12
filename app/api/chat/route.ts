@@ -1,6 +1,7 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import OpenAI from 'openai';
 
+// destructure env vars we need
 const {
   AZURE_OPENAI_BASE_PATH,
   AZURE_OPENAI_API_KEY,
@@ -8,11 +9,12 @@ const {
   AZURE_OPENAI_API_VERSION,
 } = process.env;
 
-const apiKey = AZURE_OPENAI_API_KEY;
-if (!apiKey) {
+// make sure env vars are set
+if (!AZURE_OPENAI_API_KEY || !AZURE_OPENAI_BASE_PATH || !AZURE_OPENAI_MODEL_DEPLOYMENT || !AZURE_OPENAI_API_VERSION) {
   throw new Error('AZURE_OPENAI_API_KEY is missing from the environment.');
 }
 
+// instantiate the OpenAI client
 const openai = new OpenAI({
   apiKey: AZURE_OPENAI_API_KEY,
   baseURL: `${AZURE_OPENAI_BASE_PATH}openai/deployments/${AZURE_OPENAI_MODEL_DEPLOYMENT}`,
@@ -20,25 +22,49 @@ const openai = new OpenAI({
   defaultHeaders: { 'api-key': AZURE_OPENAI_API_KEY },
 });
 
+// tell next.js to use the edge runtime
 export const runtime = 'edge';
 
+// set up defaults for chat config
+const defaults = {
+  systemMessage: 'You are a helpful AI assistant. Answer in markdown format.',
+  temperature: 0.5, // 0.0 to 1.0
+  top_p: 1, // 0.0 to 1.0
+  frequency_penalty: 0.5, // -2.0 to 2.0
+  presence_penalty: 0.5, // -2.0 to 2.0
+  max_tokens: 1024, // currently fixed at 1024
+  model: 'gpt-4', // currently only gpt-4
+  user: 'Cloud Team GPT-4 Chat User'
+};
+
+// main route handler
 export async function POST(req: Request) {
-  // Extract the `prompt` from the body of the request
+  // extract chat messages from the body of the request
   const { messages } = await req.json();
 
+  // extract the query params
   const urlParams = new URL(req.url).searchParams;
 
-  // console.log(urlParams.get('systemMessage'));
-
+  // set to defaults if not provided
   const systemMessage =
-    urlParams.get('systemMessage') ||
-    'You are a helpful AI assistant. Answer in markdown format.';
+    urlParams.get('systemMessage') || defaults.systemMessage;
+  const temperature = urlParams.get('temperature') || defaults.temperature;
+  const top_p = urlParams.get('top_p') || defaults.top_p;
+  const frequency_penalty =
+    urlParams.get('frequency_penalty') || defaults.frequency_penalty;
+  const presence_penalty =
+    urlParams.get('presence_penalty') || defaults.presence_penalty;
+  const max_tokens = urlParams.get('max_tokens') || defaults.max_tokens;
+  const model = urlParams.get('model') || defaults.model;
+  const user = urlParams.get('user') || defaults.user;
 
+  // set up system prompt
   const systemPrompt = {
     content: systemMessage,
     role: 'system',
   };
 
+  // put messages into temp variable
   let chatMessages = [...messages];
 
   interface Message {
@@ -46,31 +72,36 @@ export async function POST(req: Request) {
     role: string;
   }
 
+  // helper function to check if system prompt is already in messages
   const hasSystemPrompt = messages.some(
     (message: Message) => message.role === 'system'
   );
+  // add system prompt to messages if not already there
   if (!hasSystemPrompt) {
     chatMessages = [systemPrompt, ...messages];
   }
 
+  // set up chat config
   const chatConfig: OpenAI.Chat.ChatCompletionCreateParams = {
-    temperature: 1,
-    top_p: 1,
-    presence_penalty: 0.5,
-    frequency_penalty: 0.5,
-    max_tokens: 1024,
-    model: 'gpt-4',
+    temperature,
+    top_p,
+    presence_penalty,
+    frequency_penalty,
+    max_tokens,
+    model,
     messages: chatMessages,
     stream: true,
+    user,
   };
 
-  // Ask OpenAI for a streaming chat completion given the prompt
+  // fetch a streaming chat completion using the given system prompt and messages
   const response = await openai.chat.completions.create({
     ...chatConfig,
   });
 
-  // Convert the response into a friendly text-stream
+  // convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
-  // Respond with the stream
+
+  // send the stream back to the client
   return new StreamingTextResponse(stream);
 }
