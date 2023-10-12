@@ -49,11 +49,13 @@ export const Header = ({
 
   const cancelClickHandler = () => {
     setSystemMessage(originalSystemMessage);
-    const systemMessageMenu = document.querySelector(
+    const systemMessageMenu = document.querySelectorAll(
       'details.system-message-dropdown'
     );
-    if (systemMessageMenu) {
-      systemMessageMenu.removeAttribute('open');
+    for (const menu of systemMessageMenu) {
+      if (menu) {
+        menu.removeAttribute('open');
+      }
     }
   };
 
