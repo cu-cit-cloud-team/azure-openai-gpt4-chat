@@ -9,7 +9,7 @@ export const ThemeToggle = () => {
   });
 
   const toggleTheme = () => {
-    setTheme(theme === 'night' ? 'light' : 'night');
+    setTheme(theme === 'night' ? 'autumn' : 'night');
   };
 
   const [checked, setChecked] = useState(theme === 'night');
