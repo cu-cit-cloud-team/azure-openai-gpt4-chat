@@ -58,3 +58,5 @@ Footer.propTypes = {
   input: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
 };
+
+export default Footer;

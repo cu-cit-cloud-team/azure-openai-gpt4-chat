@@ -109,3 +109,5 @@ ChatBubble.propTypes = {
     PropTypes.instanceOf(undefined),
   ]),
 };
+
+export default ChatBubble;
