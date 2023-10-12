@@ -1,3 +1,16 @@
+## <small>0.5.1 (2023-10-12)</small>
+
+* chore(deps-dev): bump sass from 1.69.2 to 1.69.3 (#14) ([03cf9a0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/03cf9a0)), closes [#14](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/14)
+* chore(deps): bump openai from 4.11.1 to 4.12.1 (#15) ([33c98cc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/33c98cc)), closes [#15](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/15)
+* chore(tailwind): add themes to config ([674e468](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/674e468))
+* fix(ChatBubble): check for is today in bot's timestamp display ([94c920b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/94c920b))
+* refactor(Header): improve responsive behavior ([f21dbba](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f21dbba))
+* feat(Footer): add WIP to make responsive ([2c1d6ad](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2c1d6ad))
+* feat(Header): add WIP to make header responsive ([d6f4d1f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d6f4d1f))
+* ci(actions): add build notifications ([4fbe18e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4fbe18e))
+
+
+
 ## 0.5.0 (2023-10-11)
 
 * fix(ChatBubble): check for is today in timestamp display ([94d33a5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/94d33a5))
