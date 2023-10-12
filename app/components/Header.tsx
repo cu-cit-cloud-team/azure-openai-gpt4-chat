@@ -1,11 +1,13 @@
 import {
+  faBars,
   faCircleUser,
   faEraser,
   faFloppyDisk,
-  faMessage,
+  // faMessage,
   faRectangleXmark,
   faRobot,
   faRotateLeft,
+  faSliders,
   // faUserSecret,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -94,30 +96,16 @@ export const Header = ({
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+            <FontAwesomeIcon icon={faBars} />
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box"
+            className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box"
           >
             <li>
               <details className="system-message-dropdown">
                 <summary>
-                  <FontAwesomeIcon icon={faRobot} fixedWidth />
-                  <FontAwesomeIcon icon={faMessage} fixedWidth />
+                  <FontAwesomeIcon icon={faRobot} />
                   System Message
                 </summary>
                 <ul className="bg-base-300">
@@ -171,8 +159,8 @@ export const Header = ({
             </li>
             <li>
               <button type="button" onClick={clearHistoryHandler}>
-                <FontAwesomeIcon icon={faEraser} fixedWidth />
-                Clear Chat History
+                <FontAwesomeIcon icon={faEraser} />
+                Clear Chat
               </button>
             </li>
             <li>
@@ -181,14 +169,12 @@ export const Header = ({
           </ul>
         </div>
         <a
-          className="text-sm lg:text-xl leading-6 normal-case"
+          className="text-sm lg:text-xl leading-4 normal-case"
           href="https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat"
           target="_blank"
           rel="noreferrer noopener"
         >
           Cloud Team GPT Chat v{pkg.version}
-          {/* <br />
-          <small className="text-xs">Powered by Azure OpenAI GPT-4</small> */}
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -196,8 +182,7 @@ export const Header = ({
           <li>
             <details className="system-message-dropdown">
               <summary>
-                <FontAwesomeIcon icon={faRobot} fixedWidth />
-                <FontAwesomeIcon icon={faMessage} fixedWidth />
+                <FontAwesomeIcon icon={faRobot} />
                 System Message
               </summary>
               <ul className="w-fit bg-base-300">
@@ -253,35 +238,23 @@ export const Header = ({
             </details>
           </li>
           {/* <li>
-          <details>
-            <summary>Parameters</summary>
-            <ul className="w-48 bg-base-300">
-              <li>
-                <a>level 2 item 1</a>
-              </li>
-              <li>
-                <a>level 2 item 2</a>
-              </li>
-              <li>
-                <details>
-                  <summary>Parent</summary>
-                  <ul>
-                    <li>
-                      <a>level 3 item 1</a>
-                    </li>
-                    <li>
-                      <a>level 3 item 2</a>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-            </ul>
-          </details>
-        </li> */}
+            <details>
+              <summary>
+                <FontAwesomeIcon icon={faSliders} />
+                Parameters
+              </summary>
+              <ul className="w-48 bg-base-300">
+                <li>temperature</li>
+                <li>top_p</li>
+                <li>frequency_penalty</li>
+                <li>presence_penalty</li>
+              </ul>
+            </details>
+          </li> */}
           <li>
             <button type="button" onClick={clearHistoryHandler}>
-              <FontAwesomeIcon icon={faEraser} fixedWidth />
-              Clear Chat History
+              <FontAwesomeIcon icon={faEraser} />
+              Clear Chat
             </button>
           </li>
           <li>
@@ -291,7 +264,7 @@ export const Header = ({
       </div>
       <div className="navbar-end">
         <span className="mr-2 hidden lg:flex text-sm">
-          {userMeta?.email ? userMeta.email : 'ms388@cornell.edu'}
+          {userMeta?.email ? userMeta.email : ''}
         </span>
         <label
           className={`avatar${
