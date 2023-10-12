@@ -44,7 +44,7 @@ export const Header = ({
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box"
+            className="p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-100 rounded-box"
           >
             <li>
               <details className="system-message-dropdown">
@@ -73,7 +73,7 @@ export const Header = ({
           </ul>
         </div>
         <a
-          className="text-sm lg:text-xl leading-4 normal-case"
+          className="text-sm leading-4 normal-case lg:text-xl"
           href="https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat"
           target="_blank"
           rel="noreferrer noopener"
@@ -81,7 +81,7 @@ export const Header = ({
           Cloud Team GPT Chat v{pkg.version}
         </a>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="hidden navbar-center lg:flex">
         <ul className="menu menu-horizontal">
           <li>
             <details className="system-message-dropdown">
@@ -143,6 +143,7 @@ Header.propTypes = {
     PropTypes.shape({
       email: PropTypes.string,
       name: PropTypes.string,
+      user_id: PropTypes.string,
     }),
     PropTypes.instanceOf(undefined),
   ]),
