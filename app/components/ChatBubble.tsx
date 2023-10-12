@@ -109,7 +109,11 @@ ChatBubble.propTypes = {
   }),
   totalMessages: PropTypes.number,
   userMeta: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.shape({
+      email: PropTypes.string,
+      name: PropTypes.string,
+      user_id: PropTypes.string,
+    }),
     PropTypes.instanceOf(undefined),
   ]),
 };
