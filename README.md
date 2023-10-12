@@ -46,6 +46,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Tries to identify user from login session and personalize chat session
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [x] Toggle between dark/light mode (dark is default)
+- [x] Responsive layout
 
 ### Roadmap
 
@@ -56,6 +57,8 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [ ] Dockerfile for local development
 - [ ] Help popup with basic info and keyboard shortcuts
   - [ ] `?` keyboard shortcut to open help popup
+- [ ] Responsive improvements
+- [ ] Theme changer improvements
 
 #### Potential
 
@@ -67,13 +70,25 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [ ] Delete individual chat sessions
   - [ ] Export individual chat sessions to JSON
   - [ ] Import chat sessions from JSON
-- [ ] Responsive design
 - [ ] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
 
 ### Uses
 
+- [React](https://react.dev/)
+  - JavaScript framework
 - [Next.js](https://nextjs.org/docs)
-- [OpenAI](https://platform.openai.com/docs/api-reference)
+  - React framework
 - [Vercel AI SDK](https://sdk.vercel.ai/docs)
+  - JS Library for AI-powered UIs
+- [Tailwind CSS](https://tailwindcss.com/)
+  - CSS framework
 - [daisyUI](https://daisyui.com/)
-- [Tailwind CSS](https://tailwindcss.com/docs)
+  - Component library for Tailwind CSS
+- [Azure OpenAI Service](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
+  - GPT-4 model deployment and API
+- [Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/)
+  - Application hosting and user authentication
+- [GitHub Actions/Workflows](https://docs.github.com/en/actions)
+  - Build/publish to Azure App Service
+  - Build notifications
+  - Dependency updates
