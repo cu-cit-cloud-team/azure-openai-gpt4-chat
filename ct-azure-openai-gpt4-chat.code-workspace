@@ -27,7 +27,8 @@
       "source.organizeImports.biome": "always",
       "quickfix.biome": "always"
     },
-    "cSpell.enabled": true
+    "cSpell.enabled": true,
+    "cSpell.words": ["Autofocus", "Tabindex", "Xmark"]
   },
   "extensions": {
     "recommendations": [
