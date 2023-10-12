@@ -25,9 +25,23 @@ export const ChatBubble = ({
     className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
   >
     <div className="chat-header">
-      <span className="text-xs">
-        {isUser ? `${userMeta?.name ?? 'User '}` : 'Azure OpenAI GPT-4 '}
-      </span>
+      {isUser || index !== totalMessages ? (
+        <time className="text-xs opacity-50">
+          {dayjs(message.createdAt).isToday()
+            ? dayjs(message.createdAt).format('hh:mm A')
+            : dayjs(message.createdAt).format('ddd MMM DD [at] h:mm A')}
+        </time>
+      ) : null}
+      {isLoading && !isUser && index === totalMessages ? (
+        <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
+      ) : null}
+      {index === totalMessages && !isLoading ? (
+        <time className="text-xs opacity-50">
+          {dayjs(message.createdAt).isToday()
+            ? dayjs(message.createdAt).format('hh:mm A')
+            : dayjs(message.createdAt).format('ddd MMM DD [at] h:mm A')}
+        </time>
+      ) : null}
     </div>
     <div className="chat-image avatar">
       <div className="w-12 p-2 rounded bg-base-200">
@@ -64,23 +78,9 @@ export const ChatBubble = ({
       />
     </div>
     <div className="chat-footer">
-      {isUser || index !== totalMessages ? (
-        <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).isToday()
-            ? dayjs(message.createdAt).format('hh:mm A')
-            : dayjs(message.createdAt).format('ddd, MMM DD, YYYY [at] hh:mm A')}
-        </time>
-      ) : null}
-      {isLoading && !isUser && index === totalMessages ? (
-        <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
-      ) : null}
-      {index === totalMessages && !isLoading ? (
-        <time className="text-xs opacity-50">
-          {dayjs(message.createdAt).isToday()
-            ? dayjs(message.createdAt).format('hh:mm A')
-            : dayjs(message.createdAt).format('ddd, MMM DD, YYYY [at] hh:mm A')}
-        </time>
-      ) : null}
+      <span className="text-xs">
+        {isUser ? `${userMeta?.name ?? 'User '}` : 'Azure OpenAI GPT-4 '}
+      </span>
     </div>
   </div>
 );
