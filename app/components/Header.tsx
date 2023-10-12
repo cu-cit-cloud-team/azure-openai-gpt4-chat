@@ -1,20 +1,12 @@
-import {
-  faBars,
-  faCircleUser,
-  faEraser,
-  faFloppyDisk,
-  // faMessage,
-  faRectangleXmark,
-  faRobot,
-  faRotateLeft,
-  faSliders,
-  // faUserSecret,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
+import { ClearChatButton } from './ClearChatButton';
+import { SystemMessage } from './SystemMessage';
 import { ThemeToggle } from './ThemeToggle';
+import { UserAvatar } from './UserAvatar';
 
 import pkg from '../../package.json';
 
@@ -25,15 +17,6 @@ export const Header = ({
   setSavedMessages,
   userMeta,
 }) => {
-  const [originalSystemMessage, setOriginalSystemMessage] = useState('');
-  const [localSystemMessage, setLocalSystemMessage] = useState('');
-
-  useEffect(() => {
-    // console.log(systemMessage);
-    setOriginalSystemMessage(systemMessage);
-    setLocalSystemMessage(systemMessage);
-  }, [systemMessage]);
-
   useEffect(() => {
     const details = [...document.querySelectorAll('.menu details')];
     document.addEventListener('click', (event) => {
@@ -47,50 +30,9 @@ export const Header = ({
     });
   }, []);
 
-  const cancelClickHandler = () => {
-    setSystemMessage(originalSystemMessage);
-    const systemMessageMenu = document.querySelectorAll(
-      'details.system-message-dropdown'
-    );
-    for (const menu of systemMessageMenu) {
-      if (menu) {
-        menu.removeAttribute('open');
-      }
-    }
-  };
-
-  const resetClickHandler = () => {
-    if (localSystemMessage !== originalSystemMessage) {
-      if (confirm('Are you sure you want to reset your unsaved changes?')) {
-        setSystemMessage(originalSystemMessage);
-        setLocalSystemMessage(originalSystemMessage);
-      }
-    }
-  };
-
   const clearHistory = () => {
     setSavedMessages([]);
     location.reload();
-  };
-
-  const clearHistoryHandler = () => {
-    if (confirm('Are you sure you want to clear the chat history?')) {
-      clearHistory();
-    }
-  };
-
-  const saveClickHandler = () => {
-    if (localSystemMessage !== originalSystemMessage) {
-      if (
-        confirm(
-          'Are you sure you want to change the system message?\n\nNOTE: This will also clear your chat history and reload the app.'
-        )
-      ) {
-        setLocalSystemMessage(localSystemMessage);
-        setSystemMessage(localSystemMessage);
-        clearHistory();
-      }
-    }
   };
 
   return (
@@ -112,58 +54,18 @@ export const Header = ({
                 </summary>
                 <ul className="bg-base-300">
                   <li>
-                    <textarea
-                      className="h-48 whitespace-pre-line w-40 m-2"
-                      ref={systemMessageRef}
-                      onChange={(e) => setLocalSystemMessage(e.target.value)}
-                      value={localSystemMessage}
+                    <SystemMessage
+                      clearHistory={clearHistory}
+                      systemMessage={systemMessage}
+                      systemMessageRef={systemMessageRef}
+                      setSystemMessage={setSystemMessage}
                     />
-                    <div className="join">
-                      <button
-                        className="btn btn-sm join-item btn-info"
-                        type="button"
-                        onClick={cancelClickHandler}
-                      >
-                        <FontAwesomeIcon icon={faRectangleXmark} />
-                      </button>
-                      <button
-                        className={`btn btn-sm join-item btn-error${
-                          localSystemMessage?.trim() ===
-                          originalSystemMessage?.trim()
-                            ? ' btn-disabled'
-                            : ''
-                        }`}
-                        type="button"
-                        onClick={resetClickHandler}
-                      >
-                        <FontAwesomeIcon icon={faRotateLeft} />
-                      </button>
-                      <button
-                        className={`btn btn-sm join-item btn-success${
-                          localSystemMessage?.trim() ===
-                          originalSystemMessage?.trim()
-                            ? ' btn-disabled'
-                            : ''
-                        }`}
-                        type="button"
-                        disabled={
-                          localSystemMessage?.trim() ===
-                          originalSystemMessage?.trim()
-                        }
-                        onClick={saveClickHandler}
-                      >
-                        <FontAwesomeIcon icon={faFloppyDisk} />
-                      </button>
-                    </div>
                   </li>
                 </ul>
               </details>
             </li>
             <li>
-              <button type="button" onClick={clearHistoryHandler}>
-                <FontAwesomeIcon icon={faEraser} />
-                Clear Chat
-              </button>
+              <ClearChatButton clearHistory={clearHistory} />
             </li>
             <li>
               <ThemeToggle />
@@ -189,52 +91,12 @@ export const Header = ({
               </summary>
               <ul className="w-fit bg-base-300">
                 <li>
-                  <textarea
-                    className="h-48 whitespace-pre-line w-96"
-                    ref={systemMessageRef}
-                    onChange={(e) => setLocalSystemMessage(e.target.value)}
-                    value={localSystemMessage}
+                  <SystemMessage
+                    clearHistory={clearHistory}
+                    systemMessage={systemMessage}
+                    systemMessageRef={systemMessageRef}
+                    setSystemMessage={setSystemMessage}
                   />
-                  <div className="join">
-                    <button
-                      className="btn join-item btn-info"
-                      type="button"
-                      onClick={cancelClickHandler}
-                    >
-                      <FontAwesomeIcon icon={faRectangleXmark} />
-                      Close
-                    </button>
-                    <button
-                      className={`btn join-item btn-error${
-                        localSystemMessage?.trim() ===
-                        originalSystemMessage?.trim()
-                          ? ' btn-disabled'
-                          : ''
-                      }`}
-                      type="button"
-                      onClick={resetClickHandler}
-                    >
-                      <FontAwesomeIcon icon={faRotateLeft} />
-                      Reset
-                    </button>
-                    <button
-                      className={`btn join-item btn-success${
-                        localSystemMessage?.trim() ===
-                        originalSystemMessage?.trim()
-                          ? ' btn-disabled'
-                          : ''
-                      }`}
-                      type="button"
-                      disabled={
-                        localSystemMessage?.trim() ===
-                        originalSystemMessage?.trim()
-                      }
-                      onClick={saveClickHandler}
-                    >
-                      <FontAwesomeIcon icon={faFloppyDisk} />
-                      Save
-                    </button>
-                  </div>
                 </li>
               </ul>
             </details>
@@ -254,10 +116,7 @@ export const Header = ({
             </details>
           </li> */}
           <li>
-            <button type="button" onClick={clearHistoryHandler}>
-              <FontAwesomeIcon icon={faEraser} />
-              Clear Chat
-            </button>
+            <ClearChatButton clearHistory={clearHistory} />
           </li>
           <li>
             <ThemeToggle />
@@ -265,26 +124,7 @@ export const Header = ({
         </ul>
       </div>
       <div className="navbar-end">
-        <span className="mr-2 hidden lg:flex text-sm">
-          {userMeta?.email ? userMeta.email : ''}
-        </span>
-        <label
-          className={`avatar${
-            userMeta?.email && userMeta?.name ? ' placeholder' : ''
-          }`}
-        >
-          <div
-            className={`p-${
-              userMeta?.email && userMeta?.name ? '2' : '1'
-            } rounded-full bg-neutral text-neutral-content`}
-          >
-            {userMeta?.email && userMeta?.name ? (
-              userMeta?.name?.split(' ')?.map((part) => part[0].toUpperCase())
-            ) : (
-              <FontAwesomeIcon size="2x" icon={faCircleUser} />
-            )}
-          </div>
-        </label>
+        <UserAvatar userMeta={userMeta} />
       </div>
     </div>
   );
@@ -298,7 +138,14 @@ Header.propTypes = {
     PropTypes.shape({ current: PropTypes.object }),
   ]),
   setSystemMessage: PropTypes.func.isRequired,
-  userMeta: PropTypes.any,
+  setSavedMessages: PropTypes.func.isRequired,
+  userMeta: PropTypes.oneOfType([
+    PropTypes.shape({
+      email: PropTypes.string,
+      name: PropTypes.string,
+    }),
+    PropTypes.instanceOf(undefined),
+  ]),
 };
 
 export default Header;
