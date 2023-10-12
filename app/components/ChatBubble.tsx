@@ -44,7 +44,11 @@ export const ChatBubble = ({
       ) : null}
     </div>
     <div className="chat-image avatar">
-      <div className="w-12 pt-2 p-1 rounded bg-base-200">
+      <div
+        className={`w-12 pt-2 p-1 rounded text-neutral-content ${
+          isUser ? 'bg-primary' : 'bg-neutral'
+        }`}
+      >
         <FontAwesomeIcon
           className="chat-avatar-icon"
           size="2x"
@@ -53,7 +57,7 @@ export const ChatBubble = ({
         />
       </div>
     </div>
-    <div className={`prose chat-bubble ${isUser ? 'chat-bubble-primary' : ''}`}>
+    <div className={`prose chat-bubble${isUser ? ' chat-bubble-primary' : ''}`}>
       <Markdown
         children={message.content}
         components={{
