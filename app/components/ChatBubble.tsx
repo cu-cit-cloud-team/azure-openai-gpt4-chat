@@ -19,13 +19,11 @@ export const ChatBubble = ({
   index,
   isUser,
   isLoading,
-  lastMessageRef,
   totalMessages,
   userMeta,
 }) => (
   <div
     key={message.id}
-    ref={index === totalMessages ? lastMessageRef : null}
     className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
   >
     <div className="chat-header">
@@ -108,10 +106,6 @@ ChatBubble.propTypes = {
   index: PropTypes.number,
   isLoading: PropTypes.bool,
   isUser: PropTypes.bool,
-  lastMessageRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.object }),
-  ]),
   message: PropTypes.shape({
     id: PropTypes.string,
     content: PropTypes.string,
