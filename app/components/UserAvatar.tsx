@@ -1,14 +1,39 @@
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const UserAvatar = ({ userMeta }) => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    if (userMeta?.email) {
+      setEmail(userMeta.email);
+    } else {
+      if (userMeta?.user_id) {
+        setEmail(userMeta.user_id);
+      }
+    }
+
+    if (userMeta?.name) {
+      setName(userMeta.name);
+    }
+  }, [userMeta]);
+
+  const formatName = (name) => {
+    let returnName = name.split(' ')?.map((part) => part[0].toUpperCase());
+    if (returnName.length > 2) {
+      const firstInitial = returnName.split('')[0];
+      const lastInitial = returnName.split('')[returnName.length - 1];
+      returnName = `${firstInitial}${lastInitial}`;
+    }
+    return returnName;
+  };
+
   return (
     <>
-      <span className="mr-2 hidden lg:flex text-sm">
-        {userMeta?.email ? userMeta.email : ''}
-      </span>
+      <span className="mr-2 hidden lg:flex text-sm">{email}</span>
       <label
         className={`avatar${
           userMeta?.email && userMeta?.name ? ' placeholder' : ''
@@ -16,11 +41,11 @@ export const UserAvatar = ({ userMeta }) => {
       >
         <div
           className={`p-${
-            userMeta?.email && userMeta?.name ? '2' : '1'
+            email.length && name.length ? '2' : '1'
           } rounded-full bg-neutral text-neutral-content`}
         >
-          {userMeta?.email && userMeta?.name ? (
-            userMeta?.name?.split(' ')?.map((part) => part[0].toUpperCase())
+          {email.length && name.length ? (
+            formatName(name)
           ) : (
             <FontAwesomeIcon size="2x" icon={faCircleUser} />
           )}
