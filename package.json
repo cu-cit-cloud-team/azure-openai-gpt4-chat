@@ -34,6 +34,7 @@
     "axios": "1.5.1",
     "daisyui": "3.9.2",
     "dayjs": "1.11.10",
+    "marked": "9.1.1",
     "nanoid": "5.0.1",
     "next": "13.5.4",
     "openai": "4.12.1",
@@ -69,11 +70,7 @@
     "typescript": "5.2.2"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
