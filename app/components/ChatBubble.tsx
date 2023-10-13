@@ -8,6 +8,10 @@ import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+import { markdownToText } from '../utils/markdownToText.ts';
+
+import { CopyToClipboard } from './CopyToClipboard.tsx';
+
 dayjs.extend(isToday);
 
 export const ChatBubble = ({
@@ -57,7 +61,11 @@ export const ChatBubble = ({
         />
       </div>
     </div>
-    <div className={`prose chat-bubble${isUser ? ' chat-bubble-primary' : ''}`}>
+    <div
+      className={`prose relative chat-bubble${
+        isUser ? ' chat-bubble-primary' : ' bot'
+      }`}
+    >
       <Markdown
         children={message.content}
         components={{
@@ -81,6 +89,9 @@ export const ChatBubble = ({
           },
         }}
       />
+      {isUser ? null : (
+        <CopyToClipboard textToCopy={markdownToText(message.content)} />
+      )}
     </div>
     <div className="chat-footer">
       <span className="text-xs">
