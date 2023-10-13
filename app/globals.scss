@@ -6,7 +6,7 @@
   @apply min-h-screen;
 }
 
-.chat-bubble.prose.bot p {
+.chat-bubble.prose.bot p:last-of-type {
   @apply inline-block;
   @apply mb-0;
 }
