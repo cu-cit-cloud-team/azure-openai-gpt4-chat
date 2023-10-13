@@ -30,7 +30,7 @@ export const CopyToClipboard = ({ textToCopy }) => {
   };
 
   return (
-    <div className="relative inline ml-2 float-right mr-0">
+    <div className="relative float-right -mr-2">
       <input
         key={inputId}
         className="hidden"
