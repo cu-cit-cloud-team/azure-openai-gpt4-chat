@@ -63,7 +63,7 @@ export const ChatBubble = ({
     >
       {isUser
         ? null
-        : !isLoading && (
+        : (!isLoading || index !== totalMessages) && (
             <CopyToClipboard textToCopy={markdownToText(message.content)} />
           )}
       <Markdown
