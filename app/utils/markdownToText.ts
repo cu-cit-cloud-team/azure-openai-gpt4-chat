@@ -1,7 +1,8 @@
+import { decode, encode } from 'he';
 import { marked } from 'marked';
 
 const block = (text: string) => `${text}\n\n`;
-const escapeBlock = (text: string) => `${encodeURIComponent(text)}\n\n`;
+const escapeBlock = (text: string) => `${encode(text)}\n\n`;
 const line = (text: string) => `${text}\n`;
 const inline = (text: string) => text;
 const newline = () => '\n';
@@ -23,7 +24,9 @@ const TextRenderer: marked.Renderer = {
   tablecell: (text) => `${text} `,
   // inline elements
   strong: inline,
+  bold: inline,
   em: inline,
+  i: inline,
   codespan: inline,
   br: newline,
   del: inline,
@@ -39,7 +42,7 @@ export const markdownToText = (
   options?: marked.MarkedOptions
 ): string => {
   const unmarked = marked(markdown, { ...options, renderer: TextRenderer });
-  const unescaped = decodeURIComponent(unmarked);
+  const unescaped = decode(unmarked);
   const trimmed = unescaped.trim();
   return trimmed;
 };
