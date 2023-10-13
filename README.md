@@ -47,13 +47,13 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [x] Toggle between dark/light mode (dark is default)
 - [x] Responsive layout
+- [x] Copy individual responses to clipboard
 
 ### Roadmap
 
 #### Planned
 
 - [ ] View/edit chat session parameters (e.g. temperature, top p, etc)
-- [ ] Copy individual responses to clipboard
 - [ ] Dockerfile for local development
 - [ ] Help popup with basic info and keyboard shortcuts
   - [ ] `?` keyboard shortcut to open help popup
