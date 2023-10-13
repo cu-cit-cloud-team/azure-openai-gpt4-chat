@@ -66,6 +66,11 @@ export const ChatBubble = ({
         isUser ? ' chat-bubble-primary' : ' bot'
       }`}
     >
+      {isUser
+        ? null
+        : !isLoading && (
+            <CopyToClipboard textToCopy={markdownToText(message.content)} />
+          )}
       <Markdown
         children={message.content}
         components={{
@@ -89,11 +94,6 @@ export const ChatBubble = ({
           },
         }}
       />
-      {isUser
-        ? null
-        : !isLoading && (
-            <CopyToClipboard textToCopy={markdownToText(message.content)} />
-          )}
     </div>
     <div className="chat-footer">
       <span className="text-xs">

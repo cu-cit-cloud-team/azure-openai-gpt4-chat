@@ -30,7 +30,7 @@ export const CopyToClipboard = ({ textToCopy }) => {
   };
 
   return (
-    <div className="ml-2 float-right">
+    <div className="relative inline ml-2 float-right mr-0">
       <input
         key={inputId}
         className="hidden"
@@ -44,7 +44,7 @@ export const CopyToClipboard = ({ textToCopy }) => {
         key={buttonId}
         onClick={copyClickHandler}
         type="button"
-        className="btn btn-sm btn-ghost m-0 p-0"
+        className="btn btn-sm btn-ghost m-0 p-0 w-8 h-8 mr-0"
       >
         <FontAwesomeIcon icon={faCopy} fixedWidth />
         {isCopied ? <span className="text-xs capitalize">Copied!</span> : null}
