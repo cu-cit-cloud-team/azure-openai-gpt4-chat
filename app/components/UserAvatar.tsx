@@ -22,10 +22,15 @@ export const UserAvatar = ({ userMeta }) => {
   }, [userMeta]);
 
   const formatName = (name) => {
-    let returnName = name.split(' ')?.map((part) => part[0].toUpperCase());
+    if (!name) {
+      return;
+    }
+
+    let returnName = '';
+    returnName = name.split(' ')?.map((part) => part[0].toUpperCase());
     if (returnName.length > 2) {
-      const firstInitial = returnName.split('')[0];
-      const lastInitial = returnName.split('')[returnName.length - 1];
+      const firstInitial = returnName[0];
+      const lastInitial = returnName[returnName.length - 1];
       returnName = `${firstInitial}${lastInitial}`;
     }
     return returnName;
