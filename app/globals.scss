@@ -6,6 +6,11 @@
   @apply min-h-screen;
 }
 
+.chat-bubble.prose.bot p {
+  @apply inline-block;
+  @apply mb-0;
+}
+
 /* light mode specific */
 body[data-theme="light"] {
   /* code blocks were too dark */
