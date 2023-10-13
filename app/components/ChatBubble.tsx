@@ -34,9 +34,6 @@ export const ChatBubble = ({
             : dayjs(message.createdAt).format('ddd MMM DD [at] h:mm A')}
         </time>
       ) : null}
-      {isLoading && !isUser && index === totalMessages ? (
-        <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
-      ) : null}
       {index === totalMessages && !isLoading ? (
         <time className="text-xs opacity-50">
           {dayjs(message.createdAt).isToday()
@@ -94,6 +91,9 @@ export const ChatBubble = ({
       />
     </div>
     <div className="chat-footer">
+      {isLoading && !isUser && index === totalMessages ? (
+        <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
+      ) : null}
       <span className="text-xs">
         {isUser ? `${userMeta?.name ?? 'User '}` : 'Azure OpenAI GPT-4 '}
       </span>
