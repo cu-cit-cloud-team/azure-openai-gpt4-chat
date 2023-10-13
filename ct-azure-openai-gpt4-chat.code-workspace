@@ -28,7 +28,15 @@
       "quickfix.biome": "always"
     },
     "cSpell.enabled": true,
-    "cSpell.words": ["Autofocus", "Tabindex", "Xmark"]
+    "cSpell.words": [
+      "Autofocus",
+      "codespan",
+      "listitem",
+      "Tabindex",
+      "tablecell",
+      "tablerow",
+      "Xmark"
+    ]
   },
   "extensions": {
     "recommendations": [
