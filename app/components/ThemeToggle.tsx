@@ -12,7 +12,11 @@ export const ThemeToggle = () => {
     setTheme(theme === 'night' ? 'autumn' : 'night');
   };
 
-  const [checked, setChecked] = useState(theme === 'night');
+  const [checked, setChecked] = useState(true);
+  useEffect(() => {
+    setChecked(theme === 'night');
+  }, [theme]);
+
   const handleClick = () => {
     toggleTheme();
     setChecked(!checked);
