@@ -42,7 +42,9 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Hosted via Azure App Service
 - [x] Azure App Service App locked down via AD to just our team
 - [x] Built/deployed with GitHub Actions
-- [x] Show date in chat messages timestamps older than "today"
+- [x] Uses relative time for chat message timestamps
+  - [x] Relative time has tooltip with full timestamp
+  - [x] Tooltip shows time for same day and full date and time if older than "today"
 - [x] Tries to identify user from login session and personalize chat session
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [x] Toggle between dark/light mode (dark is default)
