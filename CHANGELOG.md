@@ -1,3 +1,12 @@
+## <small>0.6.1 (2023-10-15)</small>
+
+* chore(deps-dev): bump @types/node from 20.8.5 to 20.8.6 ([198bd4c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/198bd4c))
+* chore(deps): bump marked from 9.1.1 to 9.1.2 ([b2cff32](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b2cff32))
+* chore(deps): bump nanoid from 5.0.1 to 5.0.2 ([275a98e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/275a98e))
+* docs(README): update features ([c489073](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c489073))
+
+
+
 ## 0.6.0 (2023-10-13)
 
 * refactor: improve selector ([600c2b8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/600c2b8))
