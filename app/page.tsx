@@ -23,14 +23,21 @@ export default function Chat() {
         .get('/.auth/me')
         .then((response) => {
           // console.log(response.data);
+
+          const email = response.data[0].user_claims.find(
+            (item) => item.typ === 'preferred_username'
+          ).val;
+
+          const name = response.data[0].user_claims.find(
+            (item) => item.typ === 'name'
+          ).val;
+
+          const user_id = response.data[0].user_id;
+
           setUserMeta({
-            email: response.data[0].user_claims.find(
-              (item) => item.typ === 'preferred_name'
-            ).val,
-            name: response.data[0].user_claims.find(
-              (item) => item.typ === 'name'
-            ).val,
-            user_id: response.data[0].user_id,
+            email,
+            name,
+            user_id,
           });
         })
         // biome-ignore lint/correctness/noUnusedVariables: used for debugging
