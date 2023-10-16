@@ -1,3 +1,18 @@
+## 0.7.0 (2023-10-16)
+
+* refactor: light theme improvements ([02e9c0f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/02e9c0f))
+* refactor(ChatBubble): make icon match text color ([7ea26be](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7ea26be))
+* refactor(Header): use client-side import for ThemeToggle ([27fb27e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/27fb27e))
+* refactor(ThemeToggle): initial dark vs light state set to match system ([16d3b71](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/16d3b71))
+* docs(README): update features ([ed85c04](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ed85c04))
+* docs(README): update features and roadmap ([ae81cb7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ae81cb7))
+* style: update comment ([ede1950](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ede1950))
+* fix(page): fix/improve user metadata logic ([cdc1595](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cdc1595))
+* fix(ThemeToggle): fix non-default state on reload/return ([83f5bdb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/83f5bdb))
+* feat(ChatBubble): use relative time for chat timestamps ([4cdba84](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4cdba84))
+
+
+
 ## <small>0.6.1 (2023-10-15)</small>
 
 * chore(deps-dev): bump @types/node from 20.8.5 to 20.8.6 ([198bd4c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/198bd4c))
