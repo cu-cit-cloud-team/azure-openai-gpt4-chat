@@ -47,9 +47,11 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [x] Tooltip shows time for same day and full date and time if older than "today"
 - [x] Tries to identify user from login session and personalize chat session
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
-- [x] Toggle between dark/light mode (dark is default)
+- [x] Toggle between dark/light mode
 - [x] Responsive layout
 - [x] Copy individual responses to clipboard
+- [x] Theme switcher improvements
+  - [x] Defaults to system choice for light or dark
 
 ### Roadmap
 
@@ -60,7 +62,6 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [ ] Help popup with basic info and keyboard shortcuts
   - [ ] `?` keyboard shortcut to open help popup
 - [ ] Responsive improvements
-- [ ] Theme changer improvements
 
 #### Potential
 
@@ -73,6 +74,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [ ] Export individual chat sessions to JSON
   - [ ] Import chat sessions from JSON
 - [ ] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
+- [ ] Add additional themes and theme dropdown chooser
 
 ### Uses
 
