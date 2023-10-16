@@ -31,7 +31,7 @@ body[data-theme="night"] {
   color: hsl(var(--pc) / var(--tw-text-opacity));
 }
 
-/* fix display issue in box chat bubbles when switching themes */
+/* fix some display issue in bot chat bubbles in light mode */
 .chat-bubble.bot {
   code, strong, h1, h2, h3, h4, h5, ul, ol, li, li::marker {
     @apply text-neutral-content;
