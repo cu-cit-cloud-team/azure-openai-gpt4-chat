@@ -49,7 +49,9 @@ export const ChatBubble = ({
       <div className="chat-header">
         {isUser || index !== totalMessages ? (
           <time
-            className="text-xs opacity-50 tooltip"
+            className={`text-xs opacity-60 tooltip ${
+              isUser ? 'tooltip-primary' : ''
+            }`}
             data-tip={
               dayjs(message.createdAt).isToday()
                 ? dayjs(message.createdAt).format('hh:mm a')
@@ -61,7 +63,7 @@ export const ChatBubble = ({
         ) : null}
         {index === totalMessages && !isLoading ? (
           <time
-            className="text-xs opacity-50 tooltip"
+            className="text-xs opacity-60 tooltip"
             data-tip={
               dayjs(message.createdAt).isToday()
                 ? dayjs(message.createdAt).format('hh:mm a')
