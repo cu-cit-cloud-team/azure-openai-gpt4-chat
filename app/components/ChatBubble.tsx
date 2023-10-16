@@ -75,7 +75,7 @@ export const ChatBubble = ({
       <div className="chat-image avatar">
         <div
           className={`w-12 pt-2 p-1 rounded text-neutral-content ${
-            isUser ? 'bg-primary' : 'bg-neutral'
+            isUser ? 'bg-primary text-primary-content' : 'bg-neutral'
           }`}
         >
           <FontAwesomeIcon
