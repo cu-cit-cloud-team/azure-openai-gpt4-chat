@@ -5,7 +5,9 @@ import useLocalStorageState from 'use-local-storage-state';
 
 export const ThemeToggle = () => {
   const [theme, setTheme] = useLocalStorageState('theme', {
-    defaultValue: 'night',
+    defaultValue: window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'night'
+      : 'autumn',
   });
 
   const toggleTheme = () => {
