@@ -23,9 +23,14 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 1. Clone repo `git clone https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat.git`
 1. Enter directory `cd ct-azure-openai-gpt4-chat`
 1. Copy `.env.local.example` to `.env.local` and fill in values
-1. Install dependencies `npm install`
-1. Run project locally `npm run dev`
+1. If using locally installed Node.js:
+    1. Install dependencies `npm install`
+    1. Run project locally `npm run dev`
+1. If using Docker:
+    1. Run `docker-compose up dev`
 1. Visit `http://localhost:3000` in your browser
+1. `ctrl`+`c` to stop
+    1. If using Docker, optionally run `docker-compose down --rmi 'all'` to clean up
 
 ### Features
 
@@ -40,25 +45,24 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [x] Keyboard shortcut (`cmd`+`esc`) when `textarea` has focus
 - [x] Formats code blocks and other markdown inside of chat messages nicely
 - [x] Hosted via Azure App Service
-- [x] Azure App Service App locked down via AD to just our team
-- [x] Built/deployed with GitHub Actions
+  - [x] Built/deployed with GitHub Actions
+  - [x] Azure App Service App locked down via AD to just our team
+  - [x] Tries to identify user from login session and personalize chat session
 - [x] Uses relative time for chat message timestamps
   - [x] Relative time has tooltip with full timestamp
-  - [x] Tooltip shows time for same day and full date and time if older than "today"
-- [x] Tries to identify user from login session and personalize chat session
+  - [x] Tooltip shows time for same day and full date/time if older than "today"
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [x] Toggle between dark/light mode
+  - [x] Defaults to system choice on first visit
 - [x] Responsive layout
 - [x] Copy individual responses to clipboard
-- [x] Theme switcher improvements
-  - [x] Defaults to system choice for light or dark
+- [x] Dockerfile and docker-compose for local development
 
 ### Roadmap
 
 #### Planned
 
 - [ ] View/edit chat session parameters (e.g. temperature, top p, etc)
-- [ ] Dockerfile for local development
 - [ ] Help popup with basic info and keyboard shortcuts
   - [ ] `?` keyboard shortcut to open help popup
 - [ ] Responsive improvements
