@@ -1,11 +1,15 @@
 import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 
 import { ClearChatButton } from './ClearChatButton';
 import { SystemMessage } from './SystemMessage';
-import { ThemeToggle } from './ThemeToggle';
+const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
+  // do not import in server side, window object used in component
+  ssr: false,
+});
 import { UserAvatar } from './UserAvatar';
 
 import pkg from '../../package.json';
