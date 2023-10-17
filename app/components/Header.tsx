@@ -48,11 +48,11 @@ export const Header = ({
           </label>
           <ul
             tabIndex={0}
-            className="p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-100 rounded-box"
+            className="p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-300 rounded-box"
           >
             <li>
               <details className="system-message-dropdown">
-                <summary>
+                <summary className="whitespace-nowrap">
                   <FontAwesomeIcon icon={faRobot} />
                   System Message
                 </summary>
