@@ -1,4 +1,7 @@
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleUser,
+  faRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -38,24 +41,35 @@ export const UserAvatar = ({ userMeta }) => {
 
   return (
     <>
-      <span className="mr-2 hidden lg:flex text-sm">{email}</span>
-      <label
-        className={`avatar${
-          userMeta?.email && userMeta?.name ? ' placeholder' : ''
-        }`}
-      >
-        <div
-          className={`p-${
-            email.length && name.length ? '2' : '1'
-          } rounded-full bg-neutral text-neutral-content`}
-        >
-          {email.length && name.length ? (
-            formatName(name)
-          ) : (
-            <FontAwesomeIcon size="2x" icon={faCircleUser} />
-          )}
-        </div>
-      </label>
+      <span className="hidden mr-2 text-sm lg:flex">{email}</span>
+      <div className="dropdown dropdown-end bg-base-200">
+        <label tabIndex={0} className="avatar placeholder">
+          <div
+            className={`p-${
+              email.length && name.length ? '2' : '1'
+            } rounded-full bg-neutral text-neutral-content`}
+          >
+            {email.length && name.length ? (
+              formatName(name)
+            ) : (
+              <FontAwesomeIcon size="2x" icon={faCircleUser} fixedWidth />
+            )}
+          </div>
+        </label>
+        {email.length && name.length ? (
+          <ul
+            tabIndex={0}
+            className="w-48 p-2 mt-5 shadow menu menu-sm dropdown-content z-1 bg-base-300 rounded-box"
+          >
+            <li>
+              <a href="/.auth/logout">
+                <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
+                Logout
+              </a>
+            </li>
+          </ul>
+        ) : null}
+      </div>
     </>
   );
 };
