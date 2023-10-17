@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 export const ThemeToggle = () => {
+  const isSystemDarkMode = () =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
   const [theme, setTheme] = useLocalStorageState('theme', {
-    defaultValue: window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'night'
-      : 'autumn',
+    defaultValue: isSystemDarkMode() ? 'night' : 'autumn',
   });
 
   const toggleTheme = () => {
@@ -25,8 +26,8 @@ export const ThemeToggle = () => {
   };
 
   useEffect(() => {
-    const body = document.body;
-    body.setAttribute('data-theme', theme);
+    const htmlEl = document.querySelector('html');
+    htmlEl.setAttribute('data-theme', theme);
   }, [theme]);
 
   return (
