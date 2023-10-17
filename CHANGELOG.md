@@ -1,3 +1,15 @@
+## <small>0.7.1 (2023-10-17)</small>
+
+* chore(deps-dev): bump stylelint from 15.10.3 to 15.11.0 (#20) ([8768f2c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8768f2c)), closes [#20](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/20)
+* chore(deps): bump daisyui from 3.9.2 to 3.9.3 (#17) ([4641430](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4641430)), closes [#17](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/17)
+* chore(deps): bump next from 13.5.4 to 13.5.5 (#19) ([0323f3f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0323f3f)), closes [#19](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/19)
+* chore(deps): bump openai from 4.12.1 to 4.12.3 (#18) ([45c57ca](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/45c57ca)), closes [#18](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/18)
+* docs(README): update running locally and features ([e2aca2a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e2aca2a))
+* feat(Docker): add docker-related files for local dev ([6c9b052](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6c9b052))
+* refactor(ChatBubble): make user timestamp tooltip same color as chat bubble ([efea644](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/efea644))
+
+
+
 ## 0.7.0 (2023-10-16)
 
 * refactor: light theme improvements ([02e9c0f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/02e9c0f))
