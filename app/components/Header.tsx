@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import { ClearChatButton } from './ClearChatButton';
 import { SystemMessage } from './SystemMessage';
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
-  // do not import in server side, window object used in component
+  // do not import/render server-side, `window` object is used in component
   ssr: false,
 });
 import { UserAvatar } from './UserAvatar';
@@ -36,7 +36,7 @@ export const Header = ({
 
   const clearHistory = () => {
     setSavedMessages([]);
-    location.reload();
+    window.location.reload();
   };
 
   return (
