@@ -1,3 +1,16 @@
+## <small>0.7.2 (2023-10-18)</small>
+
+* chore(deps-dev): bump sass from 1.69.3 to 1.69.4 (#23) ([a317691](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a317691)), closes [#23](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/23)
+* chore(deps-dev): bump the types group with 1 update (#21) ([3cdbeb2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3cdbeb2)), closes [#21](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/21)
+* chore(deps): bump ai from 2.2.15 to 2.2.16 (#22) ([f366177](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f366177)), closes [#22](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/22)
+* chore(deps): bump openai from 4.12.3 to 4.12.4 (#24) ([b91fa34](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b91fa34)), closes [#24](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/24)
+* style(Header): improve comment ([539a105](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/539a105))
+* refactor(Header): responsive menu improvements ([44ea325](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/44ea325))
+* refactor(ThemeToggle): use html element (vs body) ([3364f3d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3364f3d))
+* feat(UserAvatar): add dropdown menu with logout link ([40a0dce](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/40a0dce))
+
+
+
 ## <small>0.7.1 (2023-10-17)</small>
 
 * chore(deps-dev): bump stylelint from 15.10.3 to 15.11.0 (#20) ([8768f2c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8768f2c)), closes [#20](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/20)
