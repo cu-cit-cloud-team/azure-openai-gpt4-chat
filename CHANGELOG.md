@@ -1,3 +1,11 @@
+## <small>0.7.3 (2023-10-19)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.2.2 to 1.3.0 (#27) ([1e7f4ff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1e7f4ff)), closes [#27](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/27)
+* chore(deps-dev): bump the types group with 3 updates (#25) ([304ce10](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/304ce10)), closes [#25](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/25)
+* chore(deps): bump next from 13.5.5 to 13.5.6 (#26) ([3e560c7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3e560c7)), closes [#26](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/26)
+
+
+
 ## <small>0.7.2 (2023-10-18)</small>
 
 * chore(deps-dev): bump sass from 1.69.3 to 1.69.4 (#23) ([a317691](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a317691)), closes [#23](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/23)
