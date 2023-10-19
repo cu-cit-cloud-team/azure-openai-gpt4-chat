@@ -44,7 +44,7 @@ export const CopyToClipboard = ({ textToCopy }) => {
         key={buttonId}
         onClick={copyClickHandler}
         type="button"
-        className="btn btn-sm btn-ghost m-0 p-0 w-8 h-8 mr-0"
+        className="w-8 h-8 p-0 m-0 mr-0 btn btn-sm btn-ghost"
       >
         <FontAwesomeIcon icon={faCopy} fixedWidth />
         {isCopied ? <span className="text-xs capitalize">Copied!</span> : null}

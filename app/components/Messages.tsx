@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 import { ChatBubble } from './ChatBubble';
 
 export const Messages = ({ isLoading, messages, userMeta }) => {
-  const lastMessageRef = useRef<HTMLDivElement>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
   useEffect(() => {
     window.scrollTo({
       left: 0,
@@ -27,7 +27,6 @@ export const Messages = ({ isLoading, messages, userMeta }) => {
                   index={idx}
                   isUser={isUser}
                   isLoading={isLoading}
-                  lastMessageRef={lastMessageRef}
                   totalMessages={messages.length - 1}
                   userMeta={userMeta}
                 />

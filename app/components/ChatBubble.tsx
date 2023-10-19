@@ -39,7 +39,7 @@ export const ChatBubble = ({
     updateString();
 
     return () => clearInterval(clockInterval);
-  }, []);
+  }, [message]);
 
   return (
     <div

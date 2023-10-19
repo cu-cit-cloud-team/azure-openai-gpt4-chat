@@ -10,7 +10,12 @@ const {
 } = process.env;
 
 // make sure env vars are set
-if (!AZURE_OPENAI_API_KEY || !AZURE_OPENAI_BASE_PATH || !AZURE_OPENAI_MODEL_DEPLOYMENT || !AZURE_OPENAI_API_VERSION) {
+if (
+  !AZURE_OPENAI_API_KEY ||
+  !AZURE_OPENAI_BASE_PATH ||
+  !AZURE_OPENAI_MODEL_DEPLOYMENT ||
+  !AZURE_OPENAI_API_VERSION
+) {
   throw new Error('AZURE_OPENAI_API_KEY is missing from the environment.');
 }
 
@@ -34,7 +39,7 @@ const defaults = {
   presence_penalty: 0.5, // -2.0 to 2.0
   max_tokens: 1024, // currently fixed at 1024
   model: 'gpt-4', // currently only gpt-4
-  user: 'Cloud Team GPT-4 Chat User'
+  user: 'Cloud Team GPT-4 Chat User',
 };
 
 // main route handler

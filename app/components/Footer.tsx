@@ -13,7 +13,7 @@ export const Footer = ({
     if (document?.activeElement !== systemMessageRef?.current) {
       textAreaRef?.current?.focus();
     }
-  });
+  }, [textAreaRef, systemMessageRef]);
 
   return (
     <footer className="fixed bottom-0 z-40 w-full px-4 py-8 text-center bg-base-200">
@@ -28,13 +28,13 @@ export const Footer = ({
         />
         <button
           type="button"
-          className="btn-block btn btn-xs btn-primary lg:hidden mb-2"
+          className="mb-2 btn-block btn btn-xs btn-primary lg:hidden"
           onClick={handleSubmit}
         >
           send message
         </button>
         <br />
-        <small className="bottom-8 lg:inline-block hidden">
+        <small className="hidden bottom-8 lg:inline-block">
           <kbd className="kbd">⌘</kbd>+<kbd className="kbd">Enter</kbd> to send
           /<kbd className="kbd">⌘</kbd>+<kbd className="kbd">Esc</kbd> to clear
           history

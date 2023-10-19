@@ -25,11 +25,13 @@ export const Header = ({
     const details = [...document.querySelectorAll('.menu details')];
     document.addEventListener('click', (event) => {
       if (!details.some((el) => el.contains(event.target))) {
-        details.forEach((el) => el.removeAttribute('open'));
+        for (const el of details) {
+          el.removeAttribute('open');
+        }
       } else {
-        details.forEach((el) =>
-          !el.contains(event.target) ? el.removeAttribute('open') : ''
-        );
+        for (const el of details) {
+          !el.contains(event.target) ? el.removeAttribute('open') : '';
+        }
       }
     });
   }, []);

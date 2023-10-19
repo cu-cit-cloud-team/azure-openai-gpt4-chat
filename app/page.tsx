@@ -46,7 +46,7 @@ export default function Chat() {
         });
     };
     getUserMeta();
-  }, []);
+  }, [userMeta, setUserMeta]);
 
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
 
@@ -73,7 +73,7 @@ export default function Chat() {
     if (messages.length > 0 && messages !== savedMessages) {
       setSavedMessages(messages);
     }
-  }, [messages]);
+  }, [messages, setSavedMessages, savedMessages]);
 
   const formRef = useRef<HTMLFormElement>(null);
   const submitForm = () => {
@@ -107,7 +107,7 @@ export default function Chat() {
         textareaElement.removeEventListener('keydown', listener);
       }
     };
-  }, [textareaElement]);
+  }, [textareaElement, setSavedMessages, submitForm]);
 
   return (
     <>
