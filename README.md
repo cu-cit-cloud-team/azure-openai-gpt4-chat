@@ -63,13 +63,15 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 #### Planned
 
 - [ ] View/edit chat session parameters (e.g. temperature, top p, etc)
+- [ ] Export current chat to JSON
 - [ ] Help popup with basic info and keyboard shortcuts
   - [ ] `?` keyboard shortcut to open help popup
 - [ ] Responsive improvements
+- [ ] Copy code snippets to clipboard
+  - Notes: (if possible) code snippets should have a copy button independent from the whole message copy button
 
 #### Potential
 
-- [ ] Export current chat to JSON
 - [ ] Import chat session from JSON
 - [ ] Multiple chat sessions
   - [ ] Sidebar with scrollable and filterable list of chat sessions
