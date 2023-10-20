@@ -1,3 +1,16 @@
+## <small>0.7.4 (2023-10-20)</small>
+
+* docs(README): update planned ([ff13a48](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ff13a48))
+* docs(README): update planned/potential ([45ab8f4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/45ab8f4))
+* chore(biome): update config ([13ea5d6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/13ea5d6))
+* chore(biome): update schema version ([f4baae4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f4baae4))
+* chore(deps-dev): bump @biomejs/biome from 1.3.0 to 1.3.1 (#29) ([a8b39c0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a8b39c0)), closes [#29](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/29)
+* chore(deps-dev): bump the types group with 1 update (#28) ([973b6aa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/973b6aa)), closes [#28](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/28)
+* refactor(Footer): show correct modifier key for os ([7ff764e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7ff764e))
+* style(biome): linter fixes and formatter changes ([9cbdb94](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9cbdb94))
+
+
+
 ## <small>0.7.3 (2023-10-19)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.2.2 to 1.3.0 (#27) ([1e7f4ff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1e7f4ff)), closes [#27](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/27)
