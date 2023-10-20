@@ -67,11 +67,11 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [ ] Help popup with basic info and keyboard shortcuts
   - [ ] `?` keyboard shortcut to open help popup
 - [ ] Responsive improvements
-- [ ] Copy code snippets to clipboard
-  - Notes: (if possible) code snippets should have a copy button independent from the whole message copy button
 
 #### Potential
 
+- [ ] Copy code snippets to clipboard
+  - Notes: (if possible) code snippets should have a copy button independent from the whole message copy button
 - [ ] Import chat session from JSON
 - [ ] Multiple chat sessions
   - [ ] Sidebar with scrollable and filterable list of chat sessions
