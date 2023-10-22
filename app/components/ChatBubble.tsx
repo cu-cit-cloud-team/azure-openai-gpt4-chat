@@ -46,34 +46,6 @@ export const ChatBubble = ({
       key={message.id}
       className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
     >
-      <div className="chat-header">
-        {isUser || index !== totalMessages ? (
-          <time
-            className={`text-xs opacity-60 tooltip ${
-              isUser ? 'tooltip-primary' : ''
-            }`}
-            data-tip={
-              dayjs(message.createdAt).isToday()
-                ? dayjs(message.createdAt).format('hh:mm a')
-                : dayjs(message.createdAt).format('ddd MMM DD YYYY [at] h:mm a')
-            }
-          >
-            {lastUpdatedString}
-          </time>
-        ) : null}
-        {index === totalMessages && !isLoading ? (
-          <time
-            className="text-xs opacity-60 tooltip"
-            data-tip={
-              dayjs(message.createdAt).isToday()
-                ? dayjs(message.createdAt).format('hh:mm a')
-                : dayjs(message.createdAt).format('ddd MMM DD YYYY [at] h:mm a')
-            }
-          >
-            {lastUpdatedString}
-          </time>
-        ) : null}
-      </div>
       <div className="chat-image avatar">
         <div
           className={`w-12 pt-2 p-1 rounded text-neutral-content ${
@@ -127,7 +99,37 @@ export const ChatBubble = ({
           <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
         ) : null}
         <span className="text-xs">
-          {isUser ? `${userMeta?.name ?? 'User '}` : 'Azure OpenAI GPT-4 '}
+          {isUser ? `${userMeta?.name ?? 'User'}` : 'Azure OpenAI GPT-4'}
+          {isUser || index !== totalMessages ? (
+            <time
+              className={`text-xs tooltip tooltip-left ${
+                isUser ? 'tooltip-primary' : ''
+              }`}
+              data-tip={
+                dayjs(message.createdAt).isToday()
+                  ? dayjs(message.createdAt).format('hh:mm a')
+                  : dayjs(message.createdAt).format(
+                      'ddd MMM DD YYYY [at] h:mm a'
+                    )
+              }
+            >
+              <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
+            </time>
+          ) : null}
+          {index === totalMessages && !isLoading ? (
+            <time
+              className="text-xs tooltip tooltip-left"
+              data-tip={
+                dayjs(message.createdAt).isToday()
+                  ? dayjs(message.createdAt).format('hh:mm a')
+                  : dayjs(message.createdAt).format(
+                      'ddd MMM DD YYYY [at] h:mm a'
+                    )
+              }
+            >
+              <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
+            </time>
+          ) : null}
         </span>
       </div>
     </div>
