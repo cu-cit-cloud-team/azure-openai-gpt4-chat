@@ -1,3 +1,10 @@
+## <small>0.8.1 (2023-10-22)</small>
+
+* refactor(CopyToClipboard): display fixes/imrpovements ([886a024](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/886a024))
+* refactor(UserAvatar): fix border around user icon ([9049148](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9049148))
+
+
+
 ## 0.8.0 (2023-10-22)
 
 * docs(README): update features ([7a08ade](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7a08ade))
