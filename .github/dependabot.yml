@@ -18,10 +18,28 @@ updates:
         patterns:
           - "react"
           - "react-dom"
-          - "react-scripts"
+          - "react-markdown"
+          - "react-syntax-highlighter"
+          - "use-local-storage-state"
       types:
         patterns:
           - "@types/*"
+      fontawesome:
+        patterns:
+          - "@fortawesome/*"
+      tailwindcss:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+      postcss:
+        patterns:
+          - "postcss"
+          - "postcss-*"
+          - "@fullhuman/postcss-purgecss"
+          - "autoprefixer"
+      conventional-changelog:
+        patterns:
+          - "conventional-changelog*"
     schedule:
       interval: "daily"
       time: "07:00"
