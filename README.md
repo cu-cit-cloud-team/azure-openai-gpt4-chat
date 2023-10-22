@@ -55,7 +55,8 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Toggle between dark/light mode
   - [x] Defaults to system choice on first visit
 - [x] Responsive layout
-- [x] Copy individual responses to clipboard
+- [x] Copy full responses to clipboard
+  - [x] Copy individual code snippets (within responses) to clipboard
 - [x] Dockerfile and docker-compose for local development
 
 ### Roadmap
@@ -70,8 +71,6 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 #### Potential
 
-- [ ] Copy code snippets to clipboard
-  - Notes: (if possible) code snippets should have a copy button independent from the whole message copy button
 - [ ] Import chat session from JSON
 - [ ] Multiple chat sessions
   - [ ] Sidebar with scrollable and filterable list of chat sessions
