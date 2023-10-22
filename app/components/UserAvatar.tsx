@@ -52,7 +52,7 @@ export const UserAvatar = ({ userMeta }) => {
             {email.length && name.length ? (
               formatName(name)
             ) : (
-              <FontAwesomeIcon size="2x" icon={faCircleUser} fixedWidth />
+              <FontAwesomeIcon size="2x" icon={faCircleUser} />
             )}
           </div>
         </label>
