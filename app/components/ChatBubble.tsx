@@ -41,10 +41,19 @@ export const ChatBubble = ({
     return () => clearInterval(clockInterval);
   }, [message]);
 
+  const Pre = ({ children }) => {
+    return (
+      <pre className="code-pre">
+        <CopyToClipboard textToCopy={markdownToText(children.props.children)} />
+        {children}
+      </pre>
+    );
+  };
+
   return (
     <div
       key={message.id}
-      className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}
+      className={`chat ${isUser ? 'chat-start' : 'chat-end'} mb-4`}
     >
       <div className="chat-image avatar">
         <div
@@ -73,9 +82,10 @@ export const ChatBubble = ({
         <Markdown
           children={message.content}
           components={{
+            pre: Pre,
             code(props) {
               // biome-ignore lint/correctness/noUnusedVariables: intentionally unused
-              const { children, className, node, ...rest } = props;
+              const { children, className = 'code-pre', node, ...rest } = props;
               const match = /language-(\w+)/.exec(className || '');
               return match ? (
                 <SyntaxHighlighter

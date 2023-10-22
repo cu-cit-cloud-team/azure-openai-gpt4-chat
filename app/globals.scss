@@ -10,6 +10,10 @@
   @apply mt-0;
 }
 
+div.chat-bubble.bot > .clipboard-container:first-child {
+  @apply -mr-14;
+}
+
 /* light mode specific */
 body[data-theme="light"] {
   /* code blocks were too dark */
