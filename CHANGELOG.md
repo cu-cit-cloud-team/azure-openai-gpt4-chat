@@ -1,3 +1,14 @@
+## 0.8.0 (2023-10-22)
+
+* docs(README): update features ([7a08ade](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7a08ade))
+* feat(ChatBubble/CopyToClipboard): individual copy buttons for code blocks ([2c8fc37](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2c8fc37))
+* refactor(ChatBubble): move timestamp next to name ([ffe708d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ffe708d))
+* ci(dependabot): update groups ([68f6223](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/68f6223))
+* chore(deps-dev): bump @types/react from 18.2.30 to 18.2.31 ([6e420c8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6e420c8))
+* chore(deps): bump ai from 2.2.16 to 2.2.17 ([304eb67](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/304eb67))
+
+
+
 ## <small>0.7.4 (2023-10-20)</small>
 
 * docs(README): update planned ([ff13a48](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ff13a48))
