@@ -11,7 +11,9 @@
 }
 
 div.chat-bubble.bot > .clipboard-container:first-child {
-  @apply -mr-14;
+  @apply -mr-20;
+  @apply -mt-11;
+  @apply w-24;
 }
 
 /* light mode specific */

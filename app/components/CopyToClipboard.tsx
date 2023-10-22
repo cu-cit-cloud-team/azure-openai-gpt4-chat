@@ -30,7 +30,7 @@ export const CopyToClipboard = ({ textToCopy }) => {
   };
 
   return (
-    <div className="relative float-right ml-2 -mr-4 clipboard-container">
+    <div className="float-right ml-2 -mr-4 clipboard-container">
       <input
         key={inputId}
         className="hidden"
@@ -44,11 +44,13 @@ export const CopyToClipboard = ({ textToCopy }) => {
         key={buttonId}
         onClick={copyClickHandler}
         type="button"
-        className="w-8 h-8 p-0 m-0 mr-0 btn btn-sm btn-ghost"
+        className="w-8 h-8 p-0 m-0 mr-0 btn btn-sm btn-neutral text-neutral-content"
       >
-        <FontAwesomeIcon icon={faCopy} fixedWidth />
-        {isCopied ? <span className="text-xs capitalize">Copied!</span> : null}
+        <FontAwesomeIcon icon={faCopy} />
       </button>
+      <span className="ml-1 text-xs capitalize text-base-content whitespace-nowrap">
+        {isCopied ? 'Copied!' : ''}
+      </span>
     </div>
   );
 };
