@@ -9,6 +9,6 @@ permissions:
 jobs:
   call-auto-merge-workflow:
     if: ${{ github.actor == 'dependabot[bot]' }}
-    uses: CU-CommunityApps/ct-workflows/.github/workflows/dependabot-auto-merge.yml@main
+    uses: mikesprague/reusable-workflows/.github/workflows/dependabot-auto-merge.yml@main
     secrets:
-      TOKEN: ${{ secrets.GITHUB_TOKEN}}
+      REPO_TOKEN: ${{ secrets.GITHUB_TOKEN}}
