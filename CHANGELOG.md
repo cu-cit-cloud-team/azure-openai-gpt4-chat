@@ -1,3 +1,15 @@
+## <small>0.8.2 (2023-10-25)</small>
+
+* chore(deps-dev): bump tailwindcss from 3.3.3 to 3.3.4 (#34) ([0e6560e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0e6560e)), closes [#34](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/34)
+* chore(deps-dev): bump the types group with 1 update (#30) ([4f6d09f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4f6d09f)), closes [#30](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/30)
+* chore(deps): bump actions/checkout and actions/setup-node from v3 to v4 ([80fad96](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/80fad96))
+* chore(deps): bump ai from 2.2.17 to 2.2.18 (#33) ([8d3552c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8d3552c)), closes [#33](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/33)
+* chore(deps): bump azure/webapps-deploy from 2 to 3 (#32) ([81d5c3a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/81d5c3a)), closes [#32](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/32)
+* chore(deps): bump openai from 4.12.4 to 4.13.0 (#31) ([3406d64](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3406d64)), closes [#31](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/31)
+* ci(actions): use public workflow ([f388abb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f388abb))
+
+
+
 ## <small>0.8.1 (2023-10-22)</small>
 
 * refactor(CopyToClipboard): display fixes/imrpovements ([886a024](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/886a024))
