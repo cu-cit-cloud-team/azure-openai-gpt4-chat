@@ -110,8 +110,8 @@ export const ChatBubble = ({
           {isUser ? `${userMeta?.name ?? 'User'}` : 'Azure OpenAI GPT-4'}
           {isUser || index !== totalMessages ? (
             <time
-              className={`text-xs tooltip tooltip-left ${
-                isUser ? 'tooltip-primary' : ''
+              className={`text-xs tooltip ${
+                isUser ? 'tooltip-primary tooltip-right' : 'tooltip-left'
               }`}
               data-tip={
                 dayjs(message.createdAt).isToday()
