@@ -1,20 +1,15 @@
-import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import dayjs from 'dayjs';
-import isToday from 'dayjs/plugin/isToday';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { markdownToText } from '../utils/markdownToText.ts';
 
+import { ChatMeta } from './ChatMeta.tsx';
 import { CopyToClipboard } from './CopyToClipboard.tsx';
-
-dayjs.extend(isToday);
-dayjs.extend(relativeTime);
 
 export const ChatBubble = ({
   message,
@@ -24,21 +19,6 @@ export const ChatBubble = ({
   totalMessages,
   userMeta,
 }) => {
-  const [lastUpdatedString, setLastUpdatedString] = useState(
-    dayjs(dayjs(message.createdAt)).from()
-  );
-
-  useEffect(() => {
-    const updateString = () => {
-      setLastUpdatedString(dayjs(dayjs(message.createdAt)).from());
-    };
-    const clockInterval = setInterval(updateString, 1000);
-
-    updateString();
-
-    return () => clearInterval(clockInterval);
-  }, [message]);
-
   const Pre = ({ children }) => {
     return (
       <pre className="code-pre">
@@ -103,42 +83,15 @@ export const ChatBubble = ({
         />
       </div>
       <div className="chat-footer">
-        {isLoading && !isUser && index === totalMessages ? (
-          <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
-        ) : null}
-        <span className="text-xs">
-          {isUser ? `${userMeta?.name ?? 'User'}` : 'Azure OpenAI GPT-4'}
-          {isUser || index !== totalMessages ? (
-            <time
-              className={`text-xs tooltip ${
-                isUser ? 'tooltip-primary tooltip-right' : 'tooltip-left'
-              }`}
-              data-tip={
-                dayjs(message.createdAt).isToday()
-                  ? dayjs(message.createdAt).format('hh:mm a')
-                  : dayjs(message.createdAt).format(
-                      'ddd MMM DD YYYY [at] h:mm a'
-                    )
-              }
-            >
-              <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
-            </time>
-          ) : null}
-          {index === totalMessages && !isLoading ? (
-            <time
-              className="text-xs tooltip tooltip-left"
-              data-tip={
-                dayjs(message.createdAt).isToday()
-                  ? dayjs(message.createdAt).format('hh:mm a')
-                  : dayjs(message.createdAt).format(
-                      'ddd MMM DD YYYY [at] h:mm a'
-                    )
-              }
-            >
-              <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
-            </time>
-          ) : null}
-        </span>
+        <ChatMeta
+          index={index}
+          isLoading={isLoading}
+          isUser={isUser}
+          key={message.id}
+          message={message}
+          totalMessages={totalMessages}
+          userMeta={userMeta}
+        />
       </div>
     </div>
   );
