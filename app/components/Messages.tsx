@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 import { ChatBubble } from './ChatBubble';
 
