@@ -24,13 +24,11 @@ export const ChatBubble = ({
   totalMessages,
   userMeta,
 }) => {
-  const [lastUpdatedString, setLastUpdatedString] = useState('');
+  const [lastUpdatedString, setLastUpdatedString] = useState(
+    dayjs(dayjs(message.createdAt)).from()
+  );
 
   useEffect(() => {
-    if (!message) {
-      return;
-    }
-
     const updateString = () => {
       setLastUpdatedString(dayjs(dayjs(message.createdAt)).from());
     };
