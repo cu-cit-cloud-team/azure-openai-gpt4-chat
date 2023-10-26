@@ -1,3 +1,21 @@
+## <small>0.8.3 (2023-10-26)</small>
+
+* chore(deps-dev): bump sass from 1.69.4 to 1.69.5 (#41) ([cf61dd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cf61dd6)), closes [#41](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/41)
+* chore(deps-dev): bump tailwindcss from 3.3.4 to 3.3.5 (#36) ([a77af7b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a77af7b)), closes [#36](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/36)
+* chore(deps-dev): bump the types group with 1 update (#35) ([acce1ff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/acce1ff)), closes [#35](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/35)
+* chore(deps-dev): bump the types group with 1 update (#37) ([9d78532](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9d78532)), closes [#37](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/37)
+* chore(deps-dev): bump the types group with 1 update (#39) ([8a46563](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8a46563)), closes [#39](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/39)
+* chore(deps): bump ai from 2.2.18 to 2.2.19 (#40) ([ba7e538](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ba7e538)), closes [#40](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/40)
+* chore(deps): bump openai from 4.13.0 to 4.14.0 (#38) ([907410e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/907410e)), closes [#38](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/38)
+* refactor(ChatBubble): add default value for parameter ([a4c01c3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a4c01c3))
+* refactor(ChatBubble): improve date/time tooltips ([571d672](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/571d672))
+* refactor(ChatBubble/ChatMeta): refactor some logic into own component ([eac865f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eac865f))
+* refactor(Messages): remove unused import ([fb3a332](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fb3a332))
+* style: remove redundant styles ([4df3d93](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4df3d93))
+* ci(actions): add type to deploy step ([c2a8367](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c2a8367))
+
+
+
 ## <small>0.8.2 (2023-10-25)</small>
 
 * chore(deps-dev): bump tailwindcss from 3.3.3 to 3.3.4 (#34) ([0e6560e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0e6560e)), closes [#34](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/34)
