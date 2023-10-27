@@ -1,3 +1,11 @@
+## <small>0.8.4 (2023-10-27)</small>
+
+* chore(deps): bump ai from 2.2.19 to 2.2.20 (#44) ([257a697](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/257a697)), closes [#44](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/44)
+* chore(deps): bump axios from 1.5.1 to 1.6.0 (#42) ([da3589e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/da3589e)), closes [#42](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/42)
+* chore(deps): bump next from 13.5.6 to 14.0.0 (#43) ([6721ee8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6721ee8)), closes [#43](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/43)
+
+
+
 ## <small>0.8.3 (2023-10-26)</small>
 
 * chore(deps-dev): bump sass from 1.69.4 to 1.69.5 (#41) ([cf61dd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cf61dd6)), closes [#41](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/41)
