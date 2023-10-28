@@ -1,3 +1,11 @@
+## <small>0.8.5 (2023-10-28)</small>
+
+* chore(deps): bump daisyui from 3.9.3 to 3.9.4 (#46) ([01b7660](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/01b7660)), closes [#46](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/46)
+* chore(deps): bump marked from 9.1.2 to 9.1.3 (#45) ([24d0b86](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/24d0b86)), closes [#45](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/45)
+* chore(deps): bump openai from 4.14.0 to 4.14.1 (#47) ([7ef00b4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7ef00b4)), closes [#47](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/47)
+
+
+
 ## <small>0.8.4 (2023-10-27)</small>
 
 * chore(deps): bump ai from 2.2.19 to 2.2.20 (#44) ([257a697](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/257a697)), closes [#44](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/44)
