@@ -87,7 +87,6 @@ export const ChatBubble = ({
           index={index}
           isLoading={isLoading}
           isUser={isUser}
-          key={message.id}
           message={message}
           totalMessages={totalMessages}
           userMeta={userMeta}
