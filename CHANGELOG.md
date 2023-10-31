@@ -1,3 +1,15 @@
+## <small>0.8.6 (2023-10-31)</small>
+
+* chore(biome): bump schema version ([c60bb85](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c60bb85))
+* chore(deps-dev): bump @biomejs/biome from 1.3.1 to 1.3.3 (#49) ([543df6e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/543df6e)), closes [#49](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/49)
+* chore(deps-dev): bump the types group with 1 update (#48) ([e9d6c05](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e9d6c05)), closes [#48](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/48)
+* chore(deps): bump marked from 9.1.3 to 9.1.4 (#52) ([11aea39](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/11aea39)), closes [#52](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/52)
+* chore(deps): bump next from 14.0.0 to 14.0.1 (#50) ([ab4f429](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ab4f429)), closes [#50](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/50)
+* chore(deps): bump openai from 4.14.1 to 4.14.2 (#51) ([47b4e79](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/47b4e79)), closes [#51](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/51)
+* refactor(ChatBubble): remove duplicate key ([864cf0f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/864cf0f))
+
+
+
 ## <small>0.8.5 (2023-10-28)</small>
 
 * chore(deps): bump daisyui from 3.9.3 to 3.9.4 (#46) ([01b7660](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/01b7660)), closes [#46](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/46)
