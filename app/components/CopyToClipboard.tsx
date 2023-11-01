@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
 import { React, useState } from 'react';
 
-export const CopyToClipboard = ({ textToCopy }) => {
+export const CopyToClipboard = ({ isUser, textToCopy }) => {
   const [isCopied, setIsCopied] = useState(false);
   const [inputId] = useState(nanoid());
   const [buttonId] = useState(nanoid());
@@ -30,7 +30,11 @@ export const CopyToClipboard = ({ textToCopy }) => {
   };
 
   return (
-    <div className="float-right ml-2 -mr-4 clipboard-container">
+    <div
+      className={`clipboard-container ${
+        isUser ? 'float-left -ml-4' : 'float-right -mr-4'
+      }`}
+    >
       <input
         key={inputId}
         className="hidden"
@@ -44,10 +48,17 @@ export const CopyToClipboard = ({ textToCopy }) => {
         key={buttonId}
         onClick={copyClickHandler}
         type="button"
-        className="w-8 h-8 p-0 m-0 mr-0 btn btn-sm btn-neutral text-neutral-content"
+        className={`w-8 h-8 p-0 m-0 mr-0 btn btn-sm ${
+          isUser
+            ? 'btn-primary text-primary-content'
+            : 'btn-neutral text-neutral-content'
+        }`}
       >
         <FontAwesomeIcon
           icon={isCopied ? faCheck : faCopy}
+          className={
+            isCopied ? `${isUser ? 'text-green-800' : 'text-green-600'}` : ''
+          }
         />
       </button>
     </div>
