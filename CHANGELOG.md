@@ -1,3 +1,9 @@
+## <small>0.8.7 (2023-11-01)</small>
+
+* fix(markdownToText): properly handle no content ([71c55d1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/71c55d1)), closes [#53](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/53)
+
+
+
 ## <small>0.8.6 (2023-10-31)</small>
 
 * chore(biome): bump schema version ([c60bb85](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c60bb85))
