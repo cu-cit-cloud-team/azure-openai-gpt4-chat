@@ -89,6 +89,7 @@ export default function Chat() {
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
+      event.stopPropagation();
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
           setSavedMessages([]);
@@ -102,6 +103,7 @@ export default function Chat() {
     if (textareaElement) {
       textareaElement.addEventListener('keydown', listener);
     }
+
     return () => {
       if (textareaElement) {
         textareaElement.removeEventListener('keydown', listener);
