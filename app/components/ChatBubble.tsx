@@ -10,6 +10,7 @@ import { markdownToText } from '../utils/markdownToText.ts';
 
 import { ChatMeta } from './ChatMeta.tsx';
 import { CopyToClipboard } from './CopyToClipboard.tsx';
+import { DeleteMessage } from './DeleteMessage.tsx';
 
 export const ChatBubble = ({
   message,
@@ -18,6 +19,8 @@ export const ChatBubble = ({
   isLoading,
   totalMessages,
   userMeta,
+  savedMessages,
+  setSavedMessages,
 }) => {
   const Pre = ({ children }) => {
     return (
@@ -29,7 +32,7 @@ export const ChatBubble = ({
   };
 
   return (
-    <div className={`chat ${isUser ? 'chat-start' : 'chat-end'} mb-4`}>
+    <div className={`chat mb-10 ${isUser ? 'chat-start' : 'chat-end'}`}>
       <div className="chat-image avatar">
         <div
           className={`w-12 pt-2 p-1 rounded text-neutral-content ${
@@ -56,11 +59,20 @@ export const ChatBubble = ({
           isUser ? ' chat-bubble-primary' : ' bot'
         }`}
       >
-        {isUser
-          ? null
-          : (!isLoading || index !== totalMessages) && (
-              <CopyToClipboard textToCopy={markdownToText(message.content)} />
-            )}
+        {(isUser || !isLoading || index !== totalMessages) && (
+          <>
+            <CopyToClipboard
+              isUser={isUser}
+              textToCopy={markdownToText(message.content)}
+            />
+            <DeleteMessage
+              isUser={isUser}
+              message={message}
+              savedMessages={savedMessages}
+              setSavedMessages={setSavedMessages}
+            />
+          </>
+        )}
         <Markdown
           children={message.content}
           components={{

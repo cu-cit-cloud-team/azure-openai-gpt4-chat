@@ -10,7 +10,8 @@
   @apply mt-0;
 }
 
-div.chat-bubble.bot > .clipboard-container:first-child {
+div.chat-bubble > .clipboard-container:first-child,
+div.chat-bubble > .delete-container {
   @apply -mt-11;
 }
 

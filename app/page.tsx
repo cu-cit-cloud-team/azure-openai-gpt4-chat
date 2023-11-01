@@ -120,7 +120,13 @@ export default function Chat() {
         systemMessageRef={systemMessageRef}
         userMeta={userMeta}
       />
-      <Messages isLoading={isLoading} messages={messages} userMeta={userMeta} />
+      <Messages
+        isLoading={isLoading}
+        messages={messages}
+        userMeta={userMeta}
+        savedMessages={savedMessages}
+        setSavedMessages={setSavedMessages}
+      />
       <Footer
         formRef={formRef}
         systemMessageRef={systemMessageRef}
