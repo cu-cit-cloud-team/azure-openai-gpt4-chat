@@ -41,6 +41,10 @@ export const markdownToText = (
   markdown: string,
   options?: marked.MarkedOptions
 ): string => {
+  if (!markdown?.length) {
+    return '';
+  }
+
   const unmarked = marked(markdown, { ...options, renderer: TextRenderer });
   const unescaped = decode(unmarked);
   const trimmed = unescaped.trim();
