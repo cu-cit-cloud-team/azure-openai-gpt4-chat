@@ -22,7 +22,7 @@ export const Messages = ({ isLoading, messages, userMeta }) => {
               const isUser = m.role === 'user';
               return (
                 <ChatBubble
-                  key={nanoid()}
+                  key={m.id || nanoid()}
                   message={m}
                   index={idx}
                   isUser={isUser}
