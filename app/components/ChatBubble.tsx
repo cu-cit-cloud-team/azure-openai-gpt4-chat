@@ -29,10 +29,7 @@ export const ChatBubble = ({
   };
 
   return (
-    <div
-      key={message.id}
-      className={`chat ${isUser ? 'chat-start' : 'chat-end'} mb-4`}
-    >
+    <div className={`chat ${isUser ? 'chat-start' : 'chat-end'} mb-4`}>
       <div className="chat-image avatar">
         <div
           className={`w-12 pt-2 p-1 rounded text-neutral-content ${
