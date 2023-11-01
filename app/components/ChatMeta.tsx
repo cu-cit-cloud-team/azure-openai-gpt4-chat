@@ -1,5 +1,3 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -34,9 +32,6 @@ export const ChatMeta = ({
 
   return (
     <>
-      {isLoading && !isUser && index === totalMessages ? (
-        <FontAwesomeIcon icon={faSpinner} spinPulse fixedWidth />
-      ) : null}
       <span
         className={`cursor-default text-xs tooltip ${
           isUser ? 'tooltip-primary tooltip-right' : 'tooltip-left'
