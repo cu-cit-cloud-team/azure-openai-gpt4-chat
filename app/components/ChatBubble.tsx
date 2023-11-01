@@ -1,4 +1,4 @@
-import { faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -39,7 +39,14 @@ export const ChatBubble = ({
           <FontAwesomeIcon
             className="chat-avatar-icon"
             size="2x"
-            icon={isUser ? faUser : faRobot}
+            icon={
+              isUser
+                ? faUser
+                : isLoading && index === totalMessages
+                ? faSpinner
+                : faRobot
+            }
+            spinPulse={!isUser && isLoading && index === totalMessages}
             fixedWidth
           />
         </div>
