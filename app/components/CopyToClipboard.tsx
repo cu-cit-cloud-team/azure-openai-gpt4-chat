@@ -1,4 +1,4 @@
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
 import { React, useState } from 'react';
@@ -46,11 +46,10 @@ export const CopyToClipboard = ({ textToCopy }) => {
         type="button"
         className="w-8 h-8 p-0 m-0 mr-0 btn btn-sm btn-neutral text-neutral-content"
       >
-        <FontAwesomeIcon icon={faCopy} />
+        <FontAwesomeIcon
+          icon={isCopied ? faCheck : faCopy}
+        />
       </button>
-      <span className="ml-1 text-xs capitalize text-base-content whitespace-nowrap">
-        {isCopied ? 'Copied!' : ''}
-      </span>
     </div>
   );
 };
