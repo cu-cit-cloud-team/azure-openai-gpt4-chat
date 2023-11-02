@@ -12,12 +12,12 @@ export const DeleteMessage = ({ isUser, message }) => {
       messages = JSON.parse(messages);
       const updatedMessages = messages.filter((m) => m.id !== id);
       localStorage.setItem('messages', JSON.stringify(updatedMessages));
+      location.reload();
     }
   }
 
   const deleteClickHandler = () => {
     deleteMessage(message.id);
-    location.reload();
   };
 
   return (
