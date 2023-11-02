@@ -92,7 +92,7 @@ export default function Chat() {
       event.stopPropagation();
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
-          setSavedMessages([]);
+          localStorage.removeItem('messages');
           location.reload();
         }
       }
@@ -109,7 +109,7 @@ export default function Chat() {
         textareaElement.removeEventListener('keydown', listener);
       }
     };
-  }, [textareaElement, setSavedMessages, submitForm]);
+  }, [textareaElement, submitForm]);
 
   return (
     <>
