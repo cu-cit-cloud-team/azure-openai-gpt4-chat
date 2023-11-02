@@ -4,15 +4,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export const ClearChatButton = ({ clearHistory }) => {
-  const clearHistoryHandler = () => {
-    if (confirm('Are you sure you want to clear the chat history?')) {
-      clearHistory();
-    }
-  };
-
   return (
     <>
-      <button type="button" onClick={clearHistoryHandler}>
+      <button type="button" onClick={clearHistory}>
         <FontAwesomeIcon icon={faEraser} />
         Clear Chat
       </button>

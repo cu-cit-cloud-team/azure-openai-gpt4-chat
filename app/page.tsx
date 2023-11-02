@@ -118,7 +118,6 @@ export default function Chat() {
         systemMessage={systemMessage}
         setSystemMessage={setSystemMessage}
         systemMessageRef={systemMessageRef}
-        clearMessagesHandler={setSavedMessages}
         userMeta={userMeta}
       />
       <Messages isLoading={isLoading} messages={messages} userMeta={userMeta} />

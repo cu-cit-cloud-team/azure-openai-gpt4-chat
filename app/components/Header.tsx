@@ -18,7 +18,6 @@ export const Header = ({
   systemMessage,
   systemMessageRef,
   setSystemMessage,
-  setSavedMessages,
   userMeta,
 }) => {
   useEffect(() => {
@@ -37,8 +36,10 @@ export const Header = ({
   }, []);
 
   const clearHistory = () => {
-    setSavedMessages([]);
-    window.location.reload();
+    if (confirm('Are you sure you want to clear the chat history?')) {
+      localStorage.removeItem('messages');
+      location.reload();
+    }
   };
 
   return (
