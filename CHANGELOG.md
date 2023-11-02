@@ -1,3 +1,17 @@
+## 0.9.0 (2023-11-02)
+
+* docs(README): update features ([d05ed8f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d05ed8f))
+* refactor: apply updated clear history logic to shortcut key ([24fb501](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/24fb501))
+* refactor(ChatBubble): change bot icon to spinner while loading ([31f9ccb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/31f9ccb))
+* refactor(ChatMeta): remove loading indicator ([b699d1d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b699d1d))
+* refactor(CopyToClipboard): add support for user chat bubbles ([1a8cf1d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1a8cf1d))
+* refactor(DeleteMessage): don't reload if cancelled ([15cc810](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/15cc810))
+* refactor(Messages): keep fist message stays in view in new chats ([a5b3959](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a5b3959))
+* feat(DeleteMessage): add button to delete individual messages ([6a76cd8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6a76cd8))
+* fix(ClearChatButton): clear correctly on first attempt ([c595137](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c595137))
+
+
+
 ## <small>0.8.8 (2023-11-02)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#56) ([81157ad](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/81157ad)), closes [#56](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/56)
