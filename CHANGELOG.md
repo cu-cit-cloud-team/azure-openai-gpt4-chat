@@ -1,3 +1,14 @@
+## <small>0.8.8 (2023-11-02)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#56) ([81157ad](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/81157ad)), closes [#56](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/56)
+* chore(deps): bump marked from 9.1.4 to 9.1.5 (#57) ([71902ea](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/71902ea)), closes [#57](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/57)
+* refactor(ChatBubble): remove extraneous key ([82f999b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/82f999b))
+* refactor(CopyToClipboard): show checkmark on success vs "copied" string ([4825927](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4825927))
+* refactor(Messages): use message id for key if available ([8680ebc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8680ebc))
+* fix: prevent LastPass browser extension output ([b26aaba](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b26aaba))
+
+
+
 ## <small>0.8.7 (2023-11-01)</small>
 
 * fix(markdownToText): properly handle no content ([71c55d1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/71c55d1)), closes [#53](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/53)
