@@ -1,3 +1,10 @@
+## <small>0.9.1 (2023-11-04)</small>
+
+* chore(deps-dev): bump stylelint-config-standard-scss (#58) ([c9756fa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c9756fa)), closes [#58](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/58)
+* chore(deps): bump openai from 4.14.2 to 4.15.0 (#59) ([d8ea144](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d8ea144)), closes [#59](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/59)
+
+
+
 ## 0.9.0 (2023-11-02)
 
 * docs(README): update features ([d05ed8f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d05ed8f))
