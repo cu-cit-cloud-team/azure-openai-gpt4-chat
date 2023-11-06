@@ -1,3 +1,13 @@
+## <small>0.9.2 (2023-11-06)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#60) ([e9321af](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e9321af)), closes [#60](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/60)
+* chore(deps-dev): bump the types group with 1 update (#62) ([13034f9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/13034f9)), closes [#62](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/62)
+* chore(deps): bump nanoid from 5.0.2 to 5.0.3 (#64) ([98384bd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/98384bd)), closes [#64](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/64)
+* chore(deps): bump openai from 4.15.0 to 4.15.3 (#61) ([5db2304](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5db2304)), closes [#61](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/61)
+* chore(deps): bump openai from 4.15.3 to 4.15.4 (#63) ([479751a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/479751a)), closes [#63](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/63)
+
+
+
 ## <small>0.9.1 (2023-11-04)</small>
 
 * chore(deps-dev): bump stylelint-config-standard-scss (#58) ([c9756fa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c9756fa)), closes [#58](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/58)
