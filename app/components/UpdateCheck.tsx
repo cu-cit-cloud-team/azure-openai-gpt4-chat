@@ -28,7 +28,12 @@ export const UpdateCheck = () => {
         });
       setUpdateAvailable(latest !== `v${pkg.version}`);
     };
+
+    const updateHandle = setInterval(getLatestVersion(), 1000 * 60 * 60 * 4);
+
     getLatestVersion();
+
+    return () => clearInterval(updateHandle);
   }, []);
 
   const clickHandler = () => {
@@ -40,7 +45,7 @@ export const UpdateCheck = () => {
       type="button"
       onClick={clickHandler}
       className="hidden tooltip tooltip-bottom tooltip-accent lg:block"
-      data-tip="Click to reload for latest version"
+      data-tip="Click here or manually reload for latest version"
     >
       <span className="px-2 text-sm indicator-item badge badge-accent">
         <FontAwesomeIcon className="mr-1" icon={faCircleArrowUp} />
