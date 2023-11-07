@@ -6,6 +6,8 @@ import React, { useEffect } from 'react';
 
 import { ClearChatButton } from './ClearChatButton';
 import { SystemMessage } from './SystemMessage';
+import { UpdateCheck } from './UpdateCheck';
+
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
   // do not import/render server-side, `window` object is used in component
   ssr: false,
@@ -87,6 +89,7 @@ export const Header = ({
         >
           Cloud Team GPT Chat v{pkg.version}
         </a>
+        <UpdateCheck appVersion={`v${pkg.version}`} />
       </div>
       <div className="hidden navbar-center lg:flex">
         <ul className="menu menu-horizontal">
