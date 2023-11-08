@@ -1,3 +1,10 @@
+## <small>0.10.1 (2023-11-08)</small>
+
+* chore(deps): roll back ai from 2.2.21 to 2.2.20 ([d3fedf9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d3fedf9))
+* refactor(Header): remove extraneous prop ([3bda520](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3bda520))
+
+
+
 ## 0.10.0 (2023-11-08)
 
 * chore(deps-dev): bump the types group with 1 update (#66) ([7f2749f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7f2749f)), closes [#66](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/66)
