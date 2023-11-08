@@ -1,3 +1,15 @@
+## 0.10.0 (2023-11-08)
+
+* chore(deps-dev): bump the types group with 1 update (#66) ([7f2749f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7f2749f)), closes [#66](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/66)
+* chore(deps-dev): bump the types group with 3 updates (#68) ([4bfb577](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4bfb577)), closes [#68](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/68)
+* chore(deps): bump ai from 2.2.20 to 2.2.21 (#67) ([aa42457](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/aa42457)), closes [#67](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/67)
+* chore(deps): bump openai from 4.15.4 to 4.16.1 (#65) ([6f7e852](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6f7e852)), closes [#65](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/65)
+* feat(Header): add update check and notification ([d304c15](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d304c15)), closes [#55](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/55)
+* feat(UpdateCheck): add new component ([ffdfe3b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ffdfe3b))
+* feat(UpdateCheck): check for updates every 4 hours ([c0280fb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c0280fb))
+
+
+
 ## <small>0.9.2 (2023-11-06)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#60) ([e9321af](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e9321af)), closes [#60](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/60)
