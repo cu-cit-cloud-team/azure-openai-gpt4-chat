@@ -89,7 +89,7 @@ export const Header = ({
         >
           Cloud Team GPT Chat v{pkg.version}
         </a>
-        <UpdateCheck appVersion={`v${pkg.version}`} />
+        <UpdateCheck />
       </div>
       <div className="hidden navbar-center lg:flex">
         <ul className="menu menu-horizontal">
