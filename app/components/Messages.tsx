@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { ChatBubble } from './ChatBubble';
 
@@ -14,28 +14,31 @@ export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
     });
   }, [messages]);
 
-  return (
-    <div className="z-0 overflow-auto">
-      <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-64 mx-auto pb-28 mb-36">
-        {messages.length > 0
-          ? messages.map((m, idx) => {
-              const isUser = m.role === 'user';
-              return (
-                <ChatBubble
-                  key={m.id || nanoid()}
-                  message={m}
-                  index={idx}
-                  isUser={isUser}
-                  isLoading={isLoading}
-                  totalMessages={messages.length - 1}
-                  userMeta={userMeta}
-                  savedMessages={savedMessages}
-                />
-              );
-            })
-          : null}
+  return useMemo(
+    () => (
+      <div className="z-0 overflow-auto">
+        <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-64 mx-auto pb-28 mb-36">
+          {messages.length > 0
+            ? messages.map((m, idx) => {
+                const isUser = m.role === 'user';
+                return (
+                  <ChatBubble
+                    key={m.id || nanoid()}
+                    message={m}
+                    index={idx}
+                    isUser={isUser}
+                    isLoading={isLoading}
+                    totalMessages={messages.length - 1}
+                    userMeta={userMeta}
+                    savedMessages={savedMessages}
+                  />
+                );
+              })
+            : null}
+        </div>
       </div>
-    </div>
+    ),
+    [messages, isLoading, userMeta, savedMessages]
   );
 };
 
