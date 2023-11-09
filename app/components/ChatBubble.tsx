@@ -19,8 +19,6 @@ export const ChatBubble = ({
   isLoading,
   totalMessages,
   userMeta,
-  savedMessages,
-  setSavedMessages,
 }) => {
   const Pre = ({ children }) => {
     return (
@@ -65,12 +63,7 @@ export const ChatBubble = ({
               isUser={isUser}
               textToCopy={markdownToText(message.content)}
             />
-            <DeleteMessage
-              isUser={isUser}
-              message={message}
-              savedMessages={savedMessages}
-              setSavedMessages={setSavedMessages}
-            />
+            <DeleteMessage isUser={isUser} message={message} />
           </>
         )}
         <Markdown
