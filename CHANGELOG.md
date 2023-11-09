@@ -1,3 +1,10 @@
+## <small>0.10.2 (2023-11-09)</small>
+
+* chore(deps): bump axios from 1.6.0 to 1.6.1 (#69) ([b784e82](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b784e82)), closes [#69](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/69)
+* chore(deps): bump openai from 4.16.1 to 4.17.0 (#71) ([b95373f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b95373f)), closes [#71](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/71)
+
+
+
 ## <small>0.10.1 (2023-11-08)</small>
 
 * chore(deps): roll back ai from 2.2.21 to 2.2.20 ([d3fedf9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d3fedf9))
