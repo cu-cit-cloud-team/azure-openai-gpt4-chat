@@ -29,10 +29,13 @@ export const UpdateCheck = () => {
       setUpdateAvailable(latest !== `v${pkg.version}`);
     };
 
-    const updateHandle = setInterval(getLatestVersion(), 1000 * 60 * 60 * 4);
+    // check for updates every hour
+    const updateHandle = setInterval(getLatestVersion(), 1000 * 60 * 60);
 
+    // check for updates on load
     getLatestVersion();
 
+    // clear update check interval on unmount
     return () => clearInterval(updateHandle);
   }, []);
 
