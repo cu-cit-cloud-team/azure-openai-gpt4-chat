@@ -4,13 +4,7 @@ import React, { useEffect } from 'react';
 
 import { ChatBubble } from './ChatBubble';
 
-export const Messages = ({
-  isLoading,
-  messages,
-  userMeta,
-  savedMessages,
-  setSavedMessages,
-}) => {
+export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
   useEffect(() => {
     window.scrollTo({
@@ -36,7 +30,6 @@ export const Messages = ({
                   totalMessages={messages.length - 1}
                   userMeta={userMeta}
                   savedMessages={savedMessages}
-                  setSavedMessages={setSavedMessages}
                 />
               );
             })
@@ -50,6 +43,10 @@ Messages.displayName = 'Messages';
 Messages.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  savedMessages: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object).isRequired,
+    PropTypes.instanceOf(null),
+  ]),
   userMeta: PropTypes.oneOfType([
     PropTypes.shape({
       email: PropTypes.string,
