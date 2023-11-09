@@ -1,3 +1,14 @@
+## <small>0.10.3 (2023-11-09)</small>
+
+* ci(dependabot): ignore `2.2.x` updates to `ai` due to unexpected behavior change in patch release ([4e64f1f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4e64f1f))
+* refactor: disable clear chat button while new messages are loading ([222da3d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/222da3d))
+* refactor: improve localStorage handling/syncing ([8a3f22e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8a3f22e))
+* refactor(ChatBubble): remove unused props ([cc94510](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cc94510))
+* refactor(Messages): remove unused prop and update prop types ([3abb717](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3abb717))
+* refactor(UpdateCheck): change schedule to every hour ([d86482b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d86482b))
+
+
+
 ## <small>0.10.2 (2023-11-09)</small>
 
 * chore(deps): bump axios from 1.6.0 to 1.6.1 (#69) ([b784e82](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b784e82)), closes [#69](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/69)
