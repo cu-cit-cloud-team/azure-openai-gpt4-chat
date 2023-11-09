@@ -72,7 +72,6 @@ export default function Chat() {
   // update localStorage when messages change
   useEffect(() => {
     if (messages.length && messages !== savedMessages) {
-      console.log('updating saved messages');
       window.localStorage.setItem('messages', JSON.stringify(messages));
       window.dispatchEvent(new Event('storage'));
     }
@@ -82,10 +81,8 @@ export default function Chat() {
   useEffect(() => {
     const handleStorageChanges = (e) => {
       const keysToHandle = ['messages', 'theme', 'systemMessage', 'userMeta'];
-      console.log(e);
       const { key } = e;
       if (key && keysToHandle.includes(key)) {
-        console.log(e.oldValue, e.newValue);
         const newValue = JSON.parse(e.newValue);
         window.localStorage.setItem(key, JSON.stringify(newValue));
         window.dispatchEvent(new Event('storage'));
