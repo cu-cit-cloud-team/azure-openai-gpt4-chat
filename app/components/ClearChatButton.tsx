@@ -3,10 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const ClearChatButton = ({ clearHistory }) => {
+export const ClearChatButton = ({ clearHistory, isLoading }) => {
   return (
     <>
-      <button type="button" onClick={clearHistory}>
+      <button
+        type="button"
+        onClick={clearHistory}
+        disabled={isLoading}
+        className={isLoading ? 'btn-disabled' : ''}
+      >
         <FontAwesomeIcon icon={faEraser} />
         Clear Chat
       </button>

@@ -17,6 +17,7 @@ import { UserAvatar } from './UserAvatar';
 import pkg from '../../package.json';
 
 export const Header = ({
+  isLoading,
   systemMessage,
   systemMessageRef,
   setSystemMessage,
@@ -75,7 +76,10 @@ export const Header = ({
               </details>
             </li>
             <li>
-              <ClearChatButton clearHistory={clearHistory} />
+              <ClearChatButton
+                clearHistory={clearHistory}
+                isLoading={isLoading}
+              />
             </li>
             <li>
               <ThemeToggle />
@@ -127,7 +131,10 @@ export const Header = ({
             </details>
           </li> */}
           <li>
-            <ClearChatButton clearHistory={clearHistory} />
+            <ClearChatButton
+              clearHistory={clearHistory}
+              isLoading={isLoading}
+            />
           </li>
           <li>
             <ThemeToggle />
@@ -143,13 +150,13 @@ export const Header = ({
 
 Header.displayName = 'Header';
 Header.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   systemMessage: PropTypes.string.isRequired,
   systemMessageRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.object }),
   ]),
   setSystemMessage: PropTypes.func.isRequired,
-  setSavedMessages: PropTypes.func.isRequired,
   userMeta: PropTypes.oneOfType([
     PropTypes.shape({
       email: PropTypes.string,

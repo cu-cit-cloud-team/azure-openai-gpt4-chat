@@ -139,7 +139,7 @@ export default function Chat() {
   return (
     <>
       <Header
-        setSavedMessages={setSavedMessages}
+        isLoading={isLoading}
         systemMessage={systemMessage}
         setSystemMessage={setSystemMessage}
         systemMessageRef={systemMessageRef}
@@ -150,7 +150,6 @@ export default function Chat() {
         messages={messages}
         userMeta={userMeta}
         savedMessages={savedMessages}
-        setSavedMessages={setSavedMessages}
       />
       <Footer
         formRef={formRef}
