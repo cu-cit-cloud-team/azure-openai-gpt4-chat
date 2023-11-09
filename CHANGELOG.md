@@ -1,3 +1,15 @@
+## <small>0.10.4 (2023-11-09)</small>
+
+* chore(deps): bump ai from 2.2.20 to 2.2.22 (#75) ([983279d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/983279d)), closes [#75](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/75)
+* chore(deps): bump next from 14.0.1 to 14.0.2 (#73) ([4d69203](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4d69203)), closes [#73](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/73)
+* chore(deps): bump openai from 4.17.0 to 4.17.1 (#72) ([94f2df1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/94f2df1)), closes [#72](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/72)
+* chore(deps): bump openai from 4.17.1 to 4.17.2 (#74) ([c9afb64](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c9afb64)), closes [#74](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/74)
+* ci(dependabot): revert ai ignore block (fix issued in latest release) ([7a44fdc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7a44fdc))
+* refactor: remove some debug logging ([bffd83b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/bffd83b))
+* refactor(Messages): memoize return content ([bb2caa2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/bb2caa2))
+
+
+
 ## <small>0.10.3 (2023-11-09)</small>
 
 * ci(dependabot): ignore `2.2.x` updates to `ai` due to unexpected behavior change in patch release ([4e64f1f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4e64f1f))
