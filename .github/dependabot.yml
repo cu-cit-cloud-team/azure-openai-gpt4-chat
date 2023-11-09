@@ -13,9 +13,6 @@ updates:
       include: "scope"
   - package-ecosystem: "npm"
     directory: "/"
-    ignore:
-      - dependency-name: "ai"
-        versions: ["2.2.x"]
     groups:
       react:
         patterns:
