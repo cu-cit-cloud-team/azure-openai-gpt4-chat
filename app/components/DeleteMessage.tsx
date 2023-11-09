@@ -8,11 +8,12 @@ export const DeleteMessage = ({ isUser, message }) => {
 
   async function deleteMessage(id) {
     if (confirm('Are you sure you want to delete this message?')) {
-      let messages = localStorage.getItem('messages');
+      let messages = window.localStorage.getItem('messages');
       messages = JSON.parse(messages);
       const updatedMessages = messages.filter((m) => m.id !== id);
-      localStorage.setItem('messages', JSON.stringify(updatedMessages));
-      location.reload();
+      window.localStorage.setItem('messages', JSON.stringify(updatedMessages));
+      window.dispatchEvent(new Event('storage'));
+      window.location.reload();
     }
   }
 

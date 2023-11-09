@@ -39,8 +39,9 @@ export const Header = ({
 
   const clearHistory = () => {
     if (confirm('Are you sure you want to clear the chat history?')) {
-      localStorage.removeItem('messages');
-      location.reload();
+      window.localStorage.setItem('messages', JSON.stringify([]));
+      window.dispatchEvent(new Event('storage'));
+      window.location.reload();
     }
   };
 

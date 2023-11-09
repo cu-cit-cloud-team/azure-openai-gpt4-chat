@@ -58,7 +58,7 @@ export default function Chat() {
     }
   );
 
-  const [savedMessages, setSavedMessages] = useLocalStorageState('messages', {
+  const [savedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
   });
 
@@ -69,11 +69,35 @@ export default function Chat() {
       initialMessages: savedMessages,
     });
 
+  // update localStorage when messages change
   useEffect(() => {
-    if (messages.length > 0 && messages !== savedMessages) {
-      setSavedMessages(messages);
+    if (messages.length && messages !== savedMessages) {
+      console.log('updating saved messages');
+      window.localStorage.setItem('messages', JSON.stringify(messages));
+      window.dispatchEvent(new Event('storage'));
     }
-  }, [messages, setSavedMessages, savedMessages]);
+  }, [messages, savedMessages]);
+
+  // subscribe to storage change events so multiple tabs stay in sync
+  useEffect(() => {
+    const handleStorageChanges = (e) => {
+      const keysToHandle = ['messages', 'theme', 'systemMessage', 'userMeta'];
+      console.log(e);
+      const { key } = e;
+      if (key && keysToHandle.includes(key)) {
+        console.log(e.oldValue, e.newValue);
+        const newValue = JSON.parse(e.newValue);
+        window.localStorage.setItem(key, JSON.stringify(newValue));
+        window.dispatchEvent(new Event('storage'));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChanges);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChanges);
+    };
+  }, []);
 
   const formRef = useRef<HTMLFormElement>(null);
   const submitForm = () => {
@@ -92,8 +116,9 @@ export default function Chat() {
       event.stopPropagation();
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
-          localStorage.removeItem('messages');
-          location.reload();
+          window.localStorage.removeItem('messages');
+          window.dispatchEvent(new Event('storage'));
+          window.location.reload();
         }
       }
       if (event.key === 'Enter' && event.metaKey) {

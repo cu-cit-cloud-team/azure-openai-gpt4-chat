@@ -7,12 +7,16 @@ export const ThemeToggle = () => {
   const isSystemDarkMode = () =>
     window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  const [theme, setTheme] = useLocalStorageState('theme', {
+  const [theme] = useLocalStorageState('theme', {
     defaultValue: isSystemDarkMode() ? 'night' : 'autumn',
   });
 
   const toggleTheme = () => {
-    setTheme(theme === 'night' ? 'autumn' : 'night');
+    window.localStorage.setItem(
+      'theme',
+      JSON.stringify(theme === 'night' ? 'autumn' : 'night')
+    );
+    window.dispatchEvent(new Event('storage'));
   };
 
   const [checked, setChecked] = useState(true);
