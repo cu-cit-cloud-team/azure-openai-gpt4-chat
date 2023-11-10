@@ -83,8 +83,6 @@ export default function Chat() {
       const keysToHandle = ['messages', 'theme', 'systemMessage', 'userMeta'];
       const { key } = e;
       if (key && keysToHandle.includes(key)) {
-        const newValue = JSON.parse(e.newValue);
-        window.localStorage.setItem(key, JSON.stringify(newValue));
         window.dispatchEvent(new Event('storage'));
       }
     };
