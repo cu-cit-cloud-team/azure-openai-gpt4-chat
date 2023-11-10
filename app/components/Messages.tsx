@@ -47,9 +47,9 @@ Messages.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   savedMessages: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.object).isRequired,
+    PropTypes.arrayOf(PropTypes.object),
     PropTypes.instanceOf(null),
-  ]),
+  ]).isRequired,
   userMeta: PropTypes.oneOfType([
     PropTypes.shape({
       email: PropTypes.string,
@@ -57,6 +57,6 @@ Messages.propTypes = {
       user_id: PropTypes.string,
     }),
     PropTypes.instanceOf(undefined),
-  ]),
+  ]).isRequired,
 };
 export default Messages;
