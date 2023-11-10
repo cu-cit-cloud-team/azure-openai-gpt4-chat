@@ -40,10 +40,14 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [x] Keyboard shortcuts for sending messages (`cmd`+`enter`, `ctrl`+`enter`)
   - [x] Focus `textarea` on page load
 - [x] Loading indicator next to chat response until it's finished
+- [x] Formats code blocks and other markdown inside of chat messages nicely
 - [x] Current chat history is stored in browser's local storage
+- [x] Download/export current chat history as JSON
 - [x] Clear current chat history
   - [x] Keyboard shortcut (`cmd`+`esc`) when `textarea` has focus
-- [x] Formats code blocks and other markdown inside of chat messages nicely
+- [x] Copy full messages and responses to clipboard
+  - [x] Copy individual code snippets (within responses) to clipboard
+- [x] Delete individual messages and responses from chat history
 - [x] Hosted via Azure App Service
   - [x] Built/deployed with GitHub Actions
   - [x] Azure App Service App locked down via AD to just our team
@@ -55,9 +59,6 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Toggle between dark/light mode
   - [x] Defaults to system choice on first visit
 - [x] Responsive layout
-- [x] Copy full messages and responses to clipboard
-  - [x] Copy individual code snippets (within responses) to clipboard
-- [x] Delete individual messages and responses from chat history
 - [x] Dockerfile and docker-compose for local development
 
 ### Roadmap
@@ -65,7 +66,6 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 #### Planned
 
 - [ ] View/edit chat session parameters (e.g. temperature, top p, etc)
-- [ ] Export current chat to JSON
 - [ ] Help popup with basic info and keyboard shortcuts
   - [ ] `?` keyboard shortcut to open help popup
 - [ ] Responsive improvements
