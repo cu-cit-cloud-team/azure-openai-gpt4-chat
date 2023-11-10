@@ -65,7 +65,7 @@ export const Header = ({
               <details className="system-message-dropdown">
                 <summary className="whitespace-nowrap">
                   <FontAwesomeIcon icon={faRobot} />
-                  System Message
+                  System
                 </summary>
                 <ul className="bg-base-300">
                   <li>
@@ -83,6 +83,7 @@ export const Header = ({
               <ClearChatButton
                 clearHistory={clearHistory}
                 isLoading={isLoading}
+                buttonText="Clear"
               />
             </li>
             <li>
@@ -106,7 +107,7 @@ export const Header = ({
             <details className="system-message-dropdown">
               <summary>
                 <FontAwesomeIcon icon={faRobot} />
-                System Message
+                System
               </summary>
               <ul className="w-fit bg-base-300">
                 <li>
@@ -136,6 +137,7 @@ export const Header = ({
           </li> */}
           <li>
             <ClearChatButton
+              buttonText="Clear"
               clearHistory={clearHistory}
               isLoading={isLoading}
             />
