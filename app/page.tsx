@@ -111,7 +111,7 @@ export default function Chat() {
       event.stopPropagation();
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
-          window.localStorage.removeItem('messages');
+          window.localStorage.setItem('messages', JSON.stringify([]));
           window.dispatchEvent(new Event('storage'));
           window.location.reload();
         }

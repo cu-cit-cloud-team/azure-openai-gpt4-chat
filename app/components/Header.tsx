@@ -38,8 +38,12 @@ export const Header = ({
     });
   }, []);
 
-  const clearHistory = () => {
-    if (confirm('Are you sure you want to clear the chat history?')) {
+  const clearHistory = (doConfirm = true) => {
+    if (!doConfirm) {
+      window.localStorage.setItem('messages', JSON.stringify([]));
+      window.dispatchEvent(new Event('storage'));
+      window.location.reload();
+    } else if (confirm('Are you sure you want to clear the chat history?')) {
       window.localStorage.setItem('messages', JSON.stringify([]));
       window.dispatchEvent(new Event('storage'));
       window.location.reload();
