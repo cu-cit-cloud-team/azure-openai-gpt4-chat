@@ -1,3 +1,10 @@
+## <small>0.10.5 (2023-11-10)</small>
+
+* chore(deps): bump marked from 9.1.5 to 9.1.6 (#77) ([35c6fe3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/35c6fe3)), closes [#77](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/77)
+* chore(deps): bump openai from 4.17.2 to 4.17.3 (#76) ([b021e99](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b021e99)), closes [#76](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/76)
+
+
+
 ## <small>0.10.4 (2023-11-09)</small>
 
 * chore(deps): bump ai from 2.2.20 to 2.2.22 (#75) ([983279d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/983279d)), closes [#75](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/75)
