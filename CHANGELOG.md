@@ -1,3 +1,14 @@
+## 0.11.0 (2023-11-10)
+
+* docs(README): update features ([7c269e2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7c269e2))
+* feat(ExportChatButton): add button to export chat history as JSON ([669bda9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/669bda9))
+* refactor: remove extra localstorage write ([0862971](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0862971))
+* refactor(ClearChatButton): add default button text, update prop types ([3104f66](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3104f66))
+* refactor(Header): improve clearHistory ([5f6c064](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5f6c064))
+* refactor(SystemMessage): skip extra confirm on update ([a541912](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a541912))
+
+
+
 ## <small>0.10.5 (2023-11-10)</small>
 
 * chore(deps): bump marked from 9.1.5 to 9.1.6 (#77) ([35c6fe3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/35c6fe3)), closes [#77](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/77)
