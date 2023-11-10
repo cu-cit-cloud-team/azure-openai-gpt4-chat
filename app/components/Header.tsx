@@ -8,12 +8,12 @@ import { ClearChatButton } from './ClearChatButton';
 import { ExportChatButton } from './ExportChatButton';
 import { SystemMessage } from './SystemMessage';
 import { UpdateCheck } from './UpdateCheck';
+import { UserAvatar } from './UserAvatar';
 
 const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
   // do not import/render server-side, `window` object is used in component
   ssr: false,
 });
-import { UserAvatar } from './UserAvatar';
 
 import pkg from '../../package.json';
 
