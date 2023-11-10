@@ -52,7 +52,7 @@ export const SystemMessage = ({
       ) {
         setLocalSystemMessage(localSystemMessage);
         setSystemMessage(localSystemMessage);
-        clearHistory();
+        clearHistory(false);
       }
     }
   };
