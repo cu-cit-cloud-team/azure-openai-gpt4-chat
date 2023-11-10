@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 
 import { ClearChatButton } from './ClearChatButton';
+import { ExportChatButton } from './ExportChatButton';
 import { SystemMessage } from './SystemMessage';
 import { UpdateCheck } from './UpdateCheck';
 
@@ -87,6 +88,9 @@ export const Header = ({
               />
             </li>
             <li>
+              <ExportChatButton buttonText="Export" isLoading={isLoading} />
+            </li>
+            <li>
               <ThemeToggle />
             </li>
           </ul>
@@ -141,6 +145,9 @@ export const Header = ({
               clearHistory={clearHistory}
               isLoading={isLoading}
             />
+          </li>
+          <li>
+            <ExportChatButton buttonText="Export" isLoading={isLoading} />
           </li>
           <li>
             <ThemeToggle />
