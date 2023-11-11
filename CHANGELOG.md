@@ -1,3 +1,13 @@
+## <small>0.11.1 (2023-11-11)</small>
+
+* chore(deps-dev): bump the tailwindcss group with 1 update (#78) ([400fdb8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/400fdb8)), closes [#78](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/78)
+* chore(deps): bump marked from 9.1.6 to 10.0.0 (#80) ([61903fe](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/61903fe)), closes [#80](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/80)
+* chore(deps): bump openai from 4.17.3 to 4.17.4 (#79) ([3b4ce7a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3b4ce7a)), closes [#79](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/79)
+* style(Header): re-order component imports ([a01bf17](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a01bf17))
+* style(Messages): update prop types ([2c475ae](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2c475ae))
+
+
+
 ## 0.11.0 (2023-11-10)
 
 * docs(README): update features ([7c269e2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7c269e2))
