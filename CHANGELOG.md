@@ -1,3 +1,14 @@
+## 0.12.0 (2023-11-13)
+
+* docs(README): update features ([3e61cd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3e61cd6))
+* feat(ThemeChanger): replace ThemeToggle with ThemeChanger ([356d6fa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/356d6fa))
+* feat(utils): add themes export ([7e9aa6d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7e9aa6d))
+* refactor(layout): remove data attribute ([8845995](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8845995))
+* build(daisyui): add all available themes to tailwind config ([e4465ff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e4465ff))
+* chore(deps): bump the react group with 1 update (#83) ([3c53c9d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3c53c9d)), closes [#83](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/83)
+
+
+
 ## <small>0.11.3 (2023-11-13)</small>
 
 * refactor(daisyui): update some colors ([a4c572c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a4c572c))
