@@ -1,3 +1,11 @@
+## <small>0.11.2 (2023-11-13)</small>
+
+* refactor(ThemeToggle): update for daisyui v4 (use theme-controller) ([becddd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/becddd6))
+* build(daisyui): add a couple new themes to config ([558f74c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/558f74c))
+* chore(deps): bump daisyui from 3.9.4 to 4.0.1 (#81) ([720d4e6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/720d4e6)), closes [#81](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/81)
+
+
+
 ## <small>0.11.1 (2023-11-11)</small>
 
 * chore(deps-dev): bump the tailwindcss group with 1 update (#78) ([400fdb8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/400fdb8)), closes [#78](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/78)
