@@ -1,3 +1,10 @@
+## <small>0.11.3 (2023-11-13)</small>
+
+* refactor(daisyui): update some colors ([a4c572c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a4c572c))
+* chore(deps): bump daisyui from 4.0.1 to 4.0.3 (#82) ([83a334a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/83a334a)), closes [#82](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/82)
+
+
+
 ## <small>0.11.2 (2023-11-13)</small>
 
 * refactor(ThemeToggle): update for daisyui v4 (use theme-controller) ([becddd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/becddd6))
