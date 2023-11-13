@@ -36,19 +36,15 @@ export const ThemeToggle = () => {
 
   return (
     <div className="form-control">
-      <label className="py-0 cursor-pointer label">
-        <span className="mr-2 label-text">
-          <FontAwesomeIcon icon={faSun} />
-        </span>
+      <label className="flex gap-2 py-0 cursor-pointer label label-text">
+        <FontAwesomeIcon icon={faSun} />
         <input
+          className="toggle toggle-sm theme-controller"
           type="checkbox"
-          className="toggle toggle-sm"
           checked={checked}
           onChange={handleClick}
         />
-        <span className="ml-2 label-text">
-          <FontAwesomeIcon icon={faMoon} />
-        </span>
+        <FontAwesomeIcon icon={faMoon} />
       </label>
     </div>
   );
