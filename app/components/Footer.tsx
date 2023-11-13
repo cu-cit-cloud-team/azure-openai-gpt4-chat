@@ -26,7 +26,7 @@ export const Footer = ({
   }, [isMac]);
 
   return (
-    <footer className="fixed bottom-0 z-40 w-full px-4 py-8 text-center bg-base-200">
+    <footer className="fixed bottom-0 z-40 w-full px-4 py-8 text-center bg-base-300">
       <form ref={formRef} onSubmit={handleSubmit} className="w-full">
         <textarea
           autoFocus={true}

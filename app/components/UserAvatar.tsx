@@ -42,7 +42,7 @@ export const UserAvatar = ({ userMeta }) => {
   return (
     <>
       <span className="hidden mr-2 text-sm lg:flex">{email}</span>
-      <div className="dropdown dropdown-end bg-base-200">
+      <div className="dropdown dropdown-end bg-base-300">
         <label tabIndex={0} className="avatar placeholder">
           <div
             className={`p-${

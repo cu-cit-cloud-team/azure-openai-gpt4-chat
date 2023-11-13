@@ -52,7 +52,7 @@ export const Header = ({
   };
 
   return (
-    <div className="fixed top-0 z-50 navbar bg-base-200">
+    <div className="fixed top-0 z-50 navbar bg-base-300">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -60,7 +60,7 @@ export const Header = ({
           </label>
           <ul
             tabIndex={0}
-            className="p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-300 rounded-box"
+            className="p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-200 rounded-box"
           >
             <li>
               <details className="system-message-dropdown">
@@ -68,7 +68,7 @@ export const Header = ({
                   <FontAwesomeIcon icon={faRobot} />
                   System
                 </summary>
-                <ul className="bg-base-300">
+                <ul className="bg-base-200">
                   <li>
                     <SystemMessage
                       clearHistory={clearHistory}
@@ -113,7 +113,7 @@ export const Header = ({
                 <FontAwesomeIcon icon={faRobot} />
                 System
               </summary>
-              <ul className="w-fit bg-base-300">
+              <ul className="w-fit bg-base-200">
                 <li>
                   <SystemMessage
                     clearHistory={clearHistory}
@@ -131,7 +131,7 @@ export const Header = ({
                 <FontAwesomeIcon icon={faSliders} />
                 Parameters
               </summary>
-              <ul className="w-48 bg-base-300">
+              <ul className="w-48 bg-base-200">
                 <li>temperature</li>
                 <li>top_p</li>
                 <li>frequency_penalty</li>
