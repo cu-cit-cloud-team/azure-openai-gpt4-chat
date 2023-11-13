@@ -10,7 +10,7 @@ import { SystemMessage } from './SystemMessage';
 import { UpdateCheck } from './UpdateCheck';
 import { UserAvatar } from './UserAvatar';
 
-const ThemeToggle = dynamic(() => import('./ThemeToggle'), {
+const ThemeChanger = dynamic(() => import('./ThemeChanger'), {
   // do not import/render server-side, `window` object is used in component
   ssr: false,
 });
@@ -91,7 +91,7 @@ export const Header = ({
               <ExportChatButton buttonText="Export" isLoading={isLoading} />
             </li>
             <li>
-              <ThemeToggle />
+              <ThemeChanger />
             </li>
           </ul>
         </div>
@@ -150,7 +150,7 @@ export const Header = ({
             <ExportChatButton buttonText="Export" isLoading={isLoading} />
           </li>
           <li>
-            <ThemeToggle />
+            <ThemeChanger />
           </li>
         </ul>
       </div>
