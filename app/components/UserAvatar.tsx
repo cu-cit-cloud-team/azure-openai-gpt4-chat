@@ -47,7 +47,7 @@ export const UserAvatar = ({ userMeta }) => {
           <div
             className={`p-${
               email.length && name.length ? '2' : '1'
-            } rounded-full bg-neutral text-neutral-content`}
+            } rounded-full bg-primary text-primary-content`}
           >
             {email.length && name.length ? (
               formatName(name)
