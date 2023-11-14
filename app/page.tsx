@@ -60,10 +60,10 @@ export default function Chat() {
 
   const [parameters, setParameters] = useLocalStorageState('parameters', {
     defaultValue: {
-      temperature: 0.5,
-      top_p: 1,
-      frequency_penalty: 0.5,
-      presence_penalty: 0.5,
+      temperature: '1',
+      top_p: '1',
+      frequency_penalty: '0',
+      presence_penalty: '0',
     },
   });
 
