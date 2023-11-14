@@ -47,7 +47,7 @@ export const UserAvatar = ({ userMeta }) => {
           <div
             className={`p-${
               email.length && name.length ? '2' : '1'
-            } rounded-full bg-primary text-primary-content`}
+            } rounded-full bg-primary text-primary-content cursor-pointer`}
           >
             {email.length && name.length ? (
               formatName(name)
@@ -59,7 +59,7 @@ export const UserAvatar = ({ userMeta }) => {
         {email.length && name.length ? (
           <ul
             tabIndex={0}
-            className="w-48 p-2 mt-5 shadow menu menu-sm dropdown-content z-1 bg-base-300 rounded-box"
+            className="w-48 p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-200 rounded-box"
           >
             <li>
               <a href="/.auth/logout">
