@@ -58,13 +58,30 @@ export default function Chat() {
     }
   );
 
+  const [parameters, setParameters] = useLocalStorageState('parameters', {
+    defaultValue: {
+      temperature: 0.5,
+      top_p: 1,
+      frequency_penalty: 0.5,
+      presence_penalty: 0.5,
+    },
+  });
+
   const [savedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
   });
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
-      api: `/api/chat?systemMessage=${encodeURIComponent(systemMessage)}`,
+      api: `/api/chat?systemMessage=${encodeURIComponent(
+        systemMessage
+      )}&temperature=${encodeURIComponent(
+        parameters.temperature
+      )}&top_p=${encodeURIComponent(
+        parameters.top_p
+      )}&frequency_penalty=${encodeURIComponent(
+        parameters.frequency_penalty
+      )}&presence_penalty=${encodeURIComponent(parameters.presence_penalty)}`,
       id: userMeta?.email ? btoa(userMeta?.email) : undefined,
       initialMessages: savedMessages,
     });
@@ -83,6 +100,7 @@ export default function Chat() {
       const keysToHandle = [
         'editorTheme',
         'messages',
+        'parameters',
         'systemMessage',
         'theme',
         'userMeta',
