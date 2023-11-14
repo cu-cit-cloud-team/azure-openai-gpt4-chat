@@ -1,3 +1,9 @@
+## <small>0.12.2 (2023-11-14)</small>
+
+* style: fix bottom margin on last p in chat bubble ([6c40f67](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6c40f67))
+
+
+
 ## <small>0.12.1 (2023-11-14)</small>
 
 * style: theming improvements ([e837942](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e837942))
