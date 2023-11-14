@@ -56,6 +56,11 @@ export const ThemeChanger = () => {
       if (button.dataset.theme === theme) {
         const svg = button.querySelector('svg');
         svg.classList.remove('invisible');
+        svg.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        });
       }
     }
   };
@@ -73,6 +78,11 @@ export const ThemeChanger = () => {
     window.dispatchEvent(new Event('storage'));
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: calling only once intentionally
+  useEffect(() => {
+    updateSelected(theme);
+  }, []);
+
   return (
     <details className="dropdown lg:dropdown-end">
       <summary className="btn-sm">
@@ -86,6 +96,7 @@ export const ThemeChanger = () => {
             <button
               className="overflow-hidden text-left rounded-lg outline-base-content button-theme"
               data-theme={theme}
+              data-editor-theme={getEditorTheme(theme)}
               onClick={handleClick}
               type="button"
               key={nanoid()}
