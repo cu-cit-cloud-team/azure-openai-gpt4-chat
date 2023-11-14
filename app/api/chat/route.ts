@@ -33,10 +33,10 @@ export const runtime = 'edge';
 // set up defaults for chat config
 const defaults = {
   systemMessage: 'You are a helpful AI assistant. Answer in markdown format.',
-  temperature: 0.5, // 0.0 to 1.0
+  temperature: 1, // 0.0 to 2.0
   top_p: 1, // 0.0 to 1.0
-  frequency_penalty: 0.5, // -2.0 to 2.0
-  presence_penalty: 0.5, // -2.0 to 2.0
+  frequency_penalty: 0, // -2.0 to 2.0
+  presence_penalty: 0, // -2.0 to 2.0
   max_tokens: 1024, // currently fixed at 1024
   model: 'gpt-4', // currently only gpt-4
   user: 'Cloud Team GPT-4 Chat User',
@@ -53,13 +53,24 @@ export async function POST(req: Request) {
   // set to defaults if not provided
   const systemMessage =
     urlParams.get('systemMessage') || defaults.systemMessage;
-  const temperature = urlParams.get('temperature') || defaults.temperature;
-  const top_p = urlParams.get('top_p') || defaults.top_p;
+  const temperature =
+    Number(urlParams.get('temperature')) === 0
+      ? 0
+      : Number(urlParams.get('temperature')) || defaults.temperature;
+  const top_p =
+    Number(urlParams.get('top_p')) === 0
+      ? 0
+      : Number(urlParams.get('top_p')) || defaults.top_p;
   const frequency_penalty =
-    urlParams.get('frequency_penalty') || defaults.frequency_penalty;
+    Number(urlParams.get('frequency_penalty')) === 0
+      ? 0
+      : Number(urlParams.get('frequency_penalty')) ||
+        defaults.frequency_penalty;
   const presence_penalty =
-    urlParams.get('presence_penalty') || defaults.presence_penalty;
-  const max_tokens = urlParams.get('max_tokens') || defaults.max_tokens;
+    Number(urlParams.get('presence_penalty')) === 0
+      ? 0
+      : Number(urlParams.get('presence_penalty')) || defaults.presence_penalty;
+  const max_tokens = Number(urlParams.get('max_tokens')) || defaults.max_tokens;
   const model = urlParams.get('model') || defaults.model;
   const user = urlParams.get('user') || defaults.user;
 
