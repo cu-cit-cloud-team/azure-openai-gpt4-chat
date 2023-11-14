@@ -1,3 +1,11 @@
+## <small>0.13.1 (2023-11-14)</small>
+
+* chore(deps): bump daisyui from 4.0.6 to 4.0.7 ([a980915](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a980915))
+* fix: parameter defaults ([80c5ccd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/80c5ccd))
+* docs(README): update features and planned ([f677a28](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f677a28))
+
+
+
 ## 0.13.0 (2023-11-14)
 
 * chore(deps): bump ai from 2.2.22 to 2.2.23 (#87) ([2029933](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2029933)), closes [#87](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/87)
