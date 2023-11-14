@@ -51,14 +51,12 @@ export const CopyToClipboard = ({ isUser, textToCopy }) => {
         className={`w-8 h-8 p-0 m-0 mr-0 btn btn-sm ${
           isUser
             ? 'btn-primary text-primary-content'
-            : 'btn-neutral text-neutral-content'
+            : 'btn-secondary text-secondary-content'
         }`}
       >
         <FontAwesomeIcon
           icon={isCopied ? faCheck : faCopy}
-          className={
-            isCopied ? `${isUser ? 'text-green-800' : 'text-green-600'}` : ''
-          }
+          className={isCopied ? 'text-green-600' : ''}
         />
       </button>
     </div>

@@ -34,7 +34,9 @@ export const ChatMeta = ({
     <>
       <span
         className={`cursor-default text-xs tooltip ${
-          isUser ? 'tooltip-primary tooltip-right' : 'tooltip-left'
+          isUser
+            ? 'tooltip-primary tooltip-right'
+            : 'tooltip-secondary tooltip-left'
         }`}
         data-tip={
           dayjs(message.createdAt).isToday()

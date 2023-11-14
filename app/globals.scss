@@ -8,6 +8,7 @@
 
 .chat-bubble.prose > p {
   @apply mt-0;
+  @apply mb-3;
 }
 
 div.chat-bubble > .clipboard-container:first-child,
@@ -15,30 +16,21 @@ div.chat-bubble > .delete-container {
   @apply -mt-11;
 }
 
-/* light mode specific */
-body[data-theme="light"] {
-  /* code blocks were too dark */
-  code {
-    @apply text-gray-100;
-  }
-}
+.code-pre {
+  @apply bg-transparent;
+  @apply mt-0;
+  @apply mb-2;
+  @apply py-0;
 
-/* dark mode specific */
-body[data-theme="night"] {
-  /* icon uses white, invert it to black */
-  img.chat-avatar-icon {
-    @apply filter invert;
+  &>div:last-of-type {
+    @apply rounded-md;
+    @apply p-1;
   }
-}
-
-/* fix display issue with included code blocks when switching themes */
-.chat-bubble-primary code {
-  color: hsl(var(--pc) / var(--tw-text-opacity));
 }
 
 /* fix some display issue in bot chat bubbles in light mode */
 .chat-bubble.bot {
   code, strong, h1, h2, h3, h4, h5, ul, ol, li, li::marker {
-    @apply text-neutral-content;
+    @apply text-secondary-content;
   }
 }

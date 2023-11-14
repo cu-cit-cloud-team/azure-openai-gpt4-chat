@@ -34,7 +34,7 @@ export const DeleteMessage = ({ isUser, message }) => {
         className={`w-8 h-8 p-0 m-0 mr-0 btn btn-sm ${
           isUser
             ? 'btn-primary text-primary-content'
-            : 'btn-neutral text-neutral-content'
+            : 'btn-secondary text-secondary-content'
         }`}
       >
         <FontAwesomeIcon icon={faTrash} />

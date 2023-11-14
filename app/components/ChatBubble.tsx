@@ -33,8 +33,10 @@ export const ChatBubble = ({
     <div className={`chat mb-10 ${isUser ? 'chat-start' : 'chat-end'}`}>
       <div className="chat-image avatar">
         <div
-          className={`w-12 pt-2 p-1 rounded text-neutral-content ${
-            isUser ? 'bg-primary text-primary-content' : 'bg-neutral'
+          className={`w-12 pt-2 p-1 rounded ${
+            isUser
+              ? 'bg-primary text-primary-content'
+              : 'bg-secondary text-secondary-content'
           }`}
         >
           <FontAwesomeIcon
@@ -54,7 +56,7 @@ export const ChatBubble = ({
       </div>
       <div
         className={`prose relative chat-bubble${
-          isUser ? ' chat-bubble-primary' : ' bot'
+          isUser ? ' chat-bubble-primary' : ' chat-bubble-secondary bot'
         }`}
       >
         {(isUser || !isLoading || index !== totalMessages) && (
@@ -81,6 +83,7 @@ export const ChatBubble = ({
                   style={nightOwl}
                   language={match[1]}
                   PreTag="div"
+                  showLineNumbers={true}
                 />
               ) : (
                 <code {...rest} className={className}>
