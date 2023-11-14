@@ -1,3 +1,11 @@
+## <small>0.12.1 (2023-11-14)</small>
+
+* style: theming improvements ([e837942](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e837942))
+* chore(deps): bump daisyui from 4.0.3 to 4.0.4 (#85) ([93bfe92](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/93bfe92)), closes [#85](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/85)
+* chore(deps): bump openai from 4.17.4 to 4.17.5 (#84) ([8f30f80](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8f30f80)), closes [#84](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/84)
+
+
+
 ## 0.12.0 (2023-11-13)
 
 * docs(README): update features ([3e61cd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3e61cd6))
