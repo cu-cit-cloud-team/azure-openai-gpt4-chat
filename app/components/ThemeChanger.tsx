@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import React, { useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { themes } from '../utils/themes.ts';
+import { getEditorTheme, themes } from '../utils/themes.ts';
 
 export const ThemeChanger = () => {
   const isSystemDarkMode = () =>
@@ -17,11 +17,16 @@ export const ThemeChanger = () => {
         : 'light',
   });
 
+  const [editorTheme, setEditorTheme] = useLocalStorageState('editorTheme', {
+    defaultValue: window.localStorage.getItem('editorTheme'),
+  });
+
   useEffect(() => {
     const htmlEl = document.querySelector('html');
     htmlEl.setAttribute('data-theme', theme);
     updateSelected(theme);
-  }, [theme]);
+    setEditorTheme(getEditorTheme(theme));
+  }, [theme, setEditorTheme]);
 
   useEffect(() => {
     const details = [...document.querySelectorAll('details.dropdown')];
@@ -58,7 +63,13 @@ export const ThemeChanger = () => {
   const handleClick = (e) => {
     const button = e.target.closest('button');
     setTheme(button.dataset.theme);
+    setEditorTheme(getEditorTheme(button.dataset.theme));
     window.localStorage.setItem('theme', JSON.stringify(button.dataset.theme));
+    window.dispatchEvent(new Event('storage'));
+    window.localStorage.setItem(
+      'editorTheme',
+      JSON.stringify(getEditorTheme(button.dataset.theme))
+    );
     window.dispatchEvent(new Event('storage'));
   };
 

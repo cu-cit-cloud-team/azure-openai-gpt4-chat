@@ -5,6 +5,7 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import useLocalStorageState from 'use-local-storage-state';
 
 import { markdownToText } from '../utils/markdownToText.ts';
 
@@ -28,6 +29,10 @@ export const ChatBubble = ({
       </pre>
     );
   };
+
+  const [editorTheme] = useLocalStorageState('editorTheme', {
+    defaultValue: window.localStorage.getItem('editorTheme') || nightOwl,
+  });
 
   return (
     <div className={`chat mb-10 ${isUser ? 'chat-start' : 'chat-end'}`}>
@@ -80,7 +85,7 @@ export const ChatBubble = ({
                 <SyntaxHighlighter
                   {...rest}
                   children={String(children).replace(/\n$/, '')}
-                  style={nightOwl}
+                  style={editorTheme}
                   language={match[1]}
                   PreTag="div"
                   showLineNumbers={true}

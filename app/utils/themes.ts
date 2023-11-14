@@ -1,3 +1,25 @@
+import {
+  coldarkCold,
+  coldarkDark,
+  coy,
+  darcula,
+  dracula,
+  duotoneSea,
+  funky,
+  gruvboxDark,
+  materialLight,
+  materialOceanic,
+  nightOwl,
+  nord,
+  okaidia,
+  oneDark,
+  oneLight,
+  prism,
+  solarizedlight,
+  synthwave84,
+  tomorrow,
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 export const themes = [
   'light',
   'dark',
@@ -32,3 +54,42 @@ export const themes = [
   'winter',
   'wireframe',
 ];
+
+export const getEditorTheme = (theme = 'night') => {
+  const themeList = {
+    night: nightOwl,
+    autumn: gruvboxDark,
+    light: oneLight,
+    dark: oneDark,
+    acid: oneLight,
+    aqua: nord,
+    black: oneDark,
+    bumblebee: materialLight,
+    business: nord,
+    cmyk: okaidia,
+    coffee: tomorrow,
+    corporate: coy,
+    cupcake: oneLight,
+    cyberpunk: funky,
+    dim: materialOceanic,
+    dracula: dracula,
+    emerald: oneLight,
+    fantasy: materialLight,
+    forest: duotoneSea,
+    garden: oneLight,
+    halloween: tomorrow,
+    lemonade: prism,
+    lofi: materialLight,
+    luxury: darcula,
+    nord: coldarkCold,
+    pastel: coy,
+    retro: solarizedlight,
+    sunset: coldarkDark,
+    synthwave: synthwave84,
+    valentine: materialLight,
+    winter: oneLight,
+    wireframe: funky,
+  };
+
+  return themeList[theme];
+};

@@ -80,7 +80,13 @@ export default function Chat() {
   // subscribe to storage change events so multiple tabs stay in sync
   useEffect(() => {
     const handleStorageChanges = (e) => {
-      const keysToHandle = ['messages', 'theme', 'systemMessage', 'userMeta'];
+      const keysToHandle = [
+        'editorTheme',
+        'messages',
+        'systemMessage',
+        'theme',
+        'userMeta',
+      ];
       const { key } = e;
       if (key && keysToHandle.includes(key)) {
         window.dispatchEvent(new Event('storage'));
