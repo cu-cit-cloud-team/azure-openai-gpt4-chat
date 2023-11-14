@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 
 import { ClearChatButton } from './ClearChatButton';
 import { ExportChatButton } from './ExportChatButton';
+import { Parameters } from './Parameters';
 import { SystemMessage } from './SystemMessage';
 import { UpdateCheck } from './UpdateCheck';
 import { UserAvatar } from './UserAvatar';
@@ -81,6 +82,9 @@ export const Header = ({
               </details>
             </li>
             <li>
+              <Parameters />
+            </li>
+            <li>
               <ClearChatButton
                 clearHistory={clearHistory}
                 isLoading={isLoading}
@@ -125,20 +129,9 @@ export const Header = ({
               </ul>
             </details>
           </li>
-          {/* <li>
-            <details>
-              <summary>
-                <FontAwesomeIcon icon={faSliders} />
-                Parameters
-              </summary>
-              <ul className="w-48 bg-base-200">
-                <li>temperature</li>
-                <li>top_p</li>
-                <li>frequency_penalty</li>
-                <li>presence_penalty</li>
-              </ul>
-            </details>
-          </li> */}
+          <li>
+            <Parameters />
+          </li>
           <li>
             <ClearChatButton
               buttonText="Clear"
