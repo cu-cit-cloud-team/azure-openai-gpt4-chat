@@ -1,3 +1,20 @@
+## 0.13.0 (2023-11-14)
+
+* chore(deps): bump ai from 2.2.22 to 2.2.23 (#87) ([2029933](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2029933)), closes [#87](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/87)
+* chore(deps): bump axios from 1.6.1 to 1.6.2 (#88) ([72e961b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/72e961b)), closes [#88](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/88)
+* chore(deps): bump daisyui from 4.0.5 to 4.0.6 ([57c8366](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/57c8366))
+* chore(deps): bump openai from 4.17.5 to 4.18.0 (#89) ([2d5bf06](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2d5bf06)), closes [#89](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/89)
+* refactor: initialize and use paramters ([a4575d9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a4575d9))
+* refactor(api): improve parameter handling ([e5559df](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e5559df))
+* refactor(Header): add parameters to header ([be93639](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/be93639))
+* refactor(ThemeChanger): scroll selected into view on change; ensure selected on load ([1ffaa47](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1ffaa47))
+* feat(Parameters): add component ([dcad1db](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dcad1db))
+* feat(ParamterSlider): add component ([4ab6164](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4ab6164))
+* style(UserAvatar): themeing improvements ([6268c32](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6268c32))
+* style(UserAvatar): update class to improve theming ([7787926](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7787926))
+
+
+
 ## <small>0.12.3 (2023-11-14)</small>
 
 * chore(deps): bump daisyui from 4.0.4 to 4.0.5 (#86) ([c545fe5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c545fe5)), closes [#86](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/86)
