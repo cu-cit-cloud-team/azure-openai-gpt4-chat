@@ -1,3 +1,10 @@
+## <small>0.12.3 (2023-11-14)</small>
+
+* chore(deps): bump daisyui from 4.0.4 to 4.0.5 (#86) ([c545fe5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c545fe5)), closes [#86](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/86)
+* feat: change code block theme when app theme changes ([9bbc269](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9bbc269))
+
+
+
 ## <small>0.12.2 (2023-11-14)</small>
 
 * style: fix bottom margin on last p in chat bubble ([6c40f67](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6c40f67))
