@@ -42,7 +42,9 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Loading indicator next to chat response until it's finished
 - [x] Formats code blocks and other markdown inside of chat messages nicely
 - [x] Current chat history is stored in browser's local storage
-- [x] Download/export current chat history as JSON
+- [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
+- [x] View/edit chat session parameters (e.g. temperature, top p, etc)
+- [x] Download current chat history as JSON
 - [x] Clear current chat history
   - [x] Keyboard shortcut (`cmd`+`esc`) when `textarea` has focus
 - [x] Copy full messages and responses to clipboard
@@ -55,7 +57,6 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Uses relative time for chat message timestamps
   - [x] Relative time has tooltip with full timestamp
   - [x] Tooltip shows time for same day and full date/time if older than "today"
-- [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [x] Theme changer with several light and dark themes
   - [x] Defaults to `light` or `dark` based on system preference
 - [x] Responsive layout
@@ -65,10 +66,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 #### Planned
 
-- [ ] View/edit chat session parameters (e.g. temperature, top p, etc)
-- [ ] Help popup with basic info and keyboard shortcuts
-  - [ ] `?` keyboard shortcut to open help popup
-- [ ] Responsive improvements
+- [ ] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
 
 #### Potential
 
@@ -79,7 +77,6 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - [ ] Delete individual chat sessions
   - [ ] Export individual chat sessions to JSON
   - [ ] Import chat sessions from JSON
-- [ ] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
 
 ### Uses
 
