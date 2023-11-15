@@ -1,3 +1,11 @@
+## <small>0.14.2 (2023-11-15)</small>
+
+* chore(deps): bump openai from 4.18.0 to 4.19.0 ([f947a22](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f947a22))
+* chore(deps): update lockfile with correct registry for fontawesome ([4f5878f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4f5878f))
+* build(npm): force fontawesome to use npm registry ([ea8d4b5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ea8d4b5))
+
+
+
 ## <small>0.14.1 (2023-11-15)</small>
 
 * docs(README): update prereqs, features, and planned ([366952a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/366952a))
