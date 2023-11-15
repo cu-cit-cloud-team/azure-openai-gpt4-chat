@@ -1,3 +1,17 @@
+## 0.14.0 (2023-11-15)
+
+* feat(api): add support for switching models ([8493a16](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8493a16))
+* feat(ParameterModelSelect): add component ([101e6f1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/101e6f1))
+* feat(UserMeta): show current model in bot meta ([342f9ad](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/342f9ad))
+* refactor: add model to parameters ([64f7a26](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/64f7a26))
+* refactor: update editor themes ([7a6055e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7a6055e))
+* refactor(Header): pass clearHistory to Parameters ([a399b68](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a399b68))
+* refactor(Parameters): pass clearHistory to ParameterModelSelect; add prop types ([35ce247](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/35ce247))
+* refactor(ParameterSlider): add model to defaults ([cf140b9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cf140b9))
+* ci(actions): add secret ([83ae438](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/83ae438))
+
+
+
 ## <small>0.13.1 (2023-11-14)</small>
 
 * chore(deps): bump daisyui from 4.0.6 to 4.0.7 ([a980915](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a980915))
