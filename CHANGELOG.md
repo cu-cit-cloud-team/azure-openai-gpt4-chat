@@ -1,3 +1,12 @@
+## <small>0.14.1 (2023-11-15)</small>
+
+* docs(README): update prereqs, features, and planned ([366952a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/366952a))
+* build(npm): bump node and npm version in engines ([faaf433](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/faaf433))
+* chore(docker): bump base image node version ([9550e71](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9550e71))
+* ci(actions): update node version in build and deploy workflow ([60cd1a5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/60cd1a5))
+
+
+
 ## 0.14.0 (2023-11-15)
 
 * feat(api): add support for switching models ([8493a16](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8493a16))
