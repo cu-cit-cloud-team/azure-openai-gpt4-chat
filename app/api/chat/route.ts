@@ -6,6 +6,7 @@ const {
   AZURE_OPENAI_BASE_PATH,
   AZURE_OPENAI_API_KEY,
   AZURE_OPENAI_MODEL_DEPLOYMENT,
+  AZURE_OPENAI_GPT35_DEPLOYMENT,
   AZURE_OPENAI_API_VERSION,
 } = process.env;
 
@@ -18,14 +19,6 @@ if (
 ) {
   throw new Error('AZURE_OPENAI_API_KEY is missing from the environment.');
 }
-
-// instantiate the OpenAI client
-const openai = new OpenAI({
-  apiKey: AZURE_OPENAI_API_KEY,
-  baseURL: `${AZURE_OPENAI_BASE_PATH}openai/deployments/${AZURE_OPENAI_MODEL_DEPLOYMENT}`,
-  defaultQuery: { 'api-version': AZURE_OPENAI_API_VERSION },
-  defaultHeaders: { 'api-key': AZURE_OPENAI_API_KEY },
-});
 
 // tell next.js to use the edge runtime
 export const runtime = 'edge';
@@ -109,6 +102,19 @@ export async function POST(req: Request) {
     stream: true,
     user,
   };
+
+  const chatModelDeployment =
+    model === 'gpt-35-turbo' && AZURE_OPENAI_GPT35_DEPLOYMENT
+      ? AZURE_OPENAI_GPT35_DEPLOYMENT
+      : AZURE_OPENAI_MODEL_DEPLOYMENT;
+
+  // instantiate the OpenAI client
+  const openai = new OpenAI({
+    apiKey: AZURE_OPENAI_API_KEY,
+    baseURL: `${AZURE_OPENAI_BASE_PATH}openai/deployments/${chatModelDeployment}`,
+    defaultQuery: { 'api-version': AZURE_OPENAI_API_VERSION },
+    defaultHeaders: { 'api-key': AZURE_OPENAI_API_KEY },
+  });
 
   // fetch a streaming chat completion using the given system prompt and messages
   const response = await openai.chat.completions.create({
