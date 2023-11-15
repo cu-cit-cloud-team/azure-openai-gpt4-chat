@@ -58,8 +58,9 @@ export default function Chat() {
     }
   );
 
-  const [parameters, setParameters] = useLocalStorageState('parameters', {
+  const [parameters] = useLocalStorageState('parameters', {
     defaultValue: {
+      model: 'gpt-4',
       temperature: '1',
       top_p: '1',
       frequency_penalty: '0',
@@ -81,7 +82,8 @@ export default function Chat() {
         parameters.top_p
       )}&frequency_penalty=${encodeURIComponent(
         parameters.frequency_penalty
-      )}&presence_penalty=${encodeURIComponent(parameters.presence_penalty)}`,
+      )}&presence_penalty=${encodeURIComponent(parameters.presence_penalty)}
+      &model=${encodeURIComponent(parameters.model)}`,
       id: userMeta?.email ? btoa(userMeta?.email) : undefined,
       initialMessages: savedMessages,
     });
