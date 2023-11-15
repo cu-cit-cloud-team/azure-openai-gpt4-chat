@@ -12,7 +12,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 ### Prerequisites
 
-- Node.js >= 18.x (with npm >= v8.x)
+- Node.js >= 20.x (with npm >= v10.x)
 - Azure Subscription
   - Azure OpenAI access enabled
   - Azure OpenAI Services deployed along with a GPT-4 model
@@ -44,6 +44,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Current chat history is stored in browser's local storage
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [x] View/edit chat session parameters (e.g. temperature, top p, etc)
+- [x] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
 - [x] Download current chat history as JSON
 - [x] Clear current chat history
   - [x] Keyboard shortcut (`cmd`+`esc`) when `textarea` has focus
@@ -66,7 +67,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 #### Planned
 
-- [ ] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
+- no new features currently under development
 
 #### Potential
 
