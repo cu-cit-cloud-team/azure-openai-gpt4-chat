@@ -1,9 +1,11 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 
+import { ParameterModelSelect } from './ParameterModelSelect';
 import { ParameterSlider } from './ParameterSlider';
 
-export const Parameters = () => {
+export const Parameters = ({ clearHistory }) => {
   return (
     <details>
       <summary>
@@ -11,6 +13,9 @@ export const Parameters = () => {
         Parameters
       </summary>
       <ul className="bg-base-200">
+        <li className="text-xs">
+          <ParameterModelSelect clearHistory={clearHistory} />
+        </li>
         <li className="text-xs">
           <ParameterSlider
             paramName={'temperature'}
@@ -44,5 +49,9 @@ export const Parameters = () => {
 };
 
 Parameters.displayName = 'Parameters';
+
+Parameters.propTypes = {
+  clearHistory: PropTypes.func.isRequired,
+};
 
 export default Parameters;
