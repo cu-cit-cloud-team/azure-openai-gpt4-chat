@@ -82,7 +82,7 @@ export const Header = ({
               </details>
             </li>
             <li>
-              <Parameters />
+              <Parameters clearHistory={clearHistory} />
             </li>
             <li>
               <ClearChatButton
@@ -130,7 +130,7 @@ export const Header = ({
             </details>
           </li>
           <li>
-            <Parameters />
+            <Parameters clearHistory={clearHistory} />
           </li>
           <li>
             <ClearChatButton
