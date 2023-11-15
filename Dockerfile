@@ -1,4 +1,4 @@
-FROM node:18-buster-slim as base
+FROM node:20-buster-slim as base
 WORKDIR /usr/src/app
 COPY package*.json .
 RUN npm install --location=global npm
