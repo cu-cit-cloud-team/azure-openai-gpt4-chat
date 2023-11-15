@@ -19,6 +19,13 @@ export const ChatMeta = ({
     dayjs(dayjs(message.createdAt)).from()
   );
 
+  const [model, setModel] = useState('gpt-4');
+
+  useEffect(() => {
+    const params = JSON.parse(window.localStorage.getItem('parameters'));
+    setModel(params.model);
+  }, []);
+
   useEffect(() => {
     const updateString = () => {
       setLastUpdatedString(dayjs(dayjs(message.createdAt)).from());
@@ -44,7 +51,9 @@ export const ChatMeta = ({
             : dayjs(message.createdAt).format('ddd MMM DD YYYY [at] h:mm a')
         }
       >
-        {isUser ? `${userMeta?.name ?? 'User'}` : 'Azure OpenAI GPT-4'}
+        {isUser
+          ? `${userMeta?.name ?? 'User'}`
+          : `Azure OpenAI ${model === 'gpt-35-turbo' ? 'GPT-3.5' : 'GPT-4'}`}
         {isUser || index !== totalMessages ? (
           <time>
             <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
