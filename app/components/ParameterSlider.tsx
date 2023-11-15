@@ -12,6 +12,7 @@ export const ParameterSlider = ({
 }) => {
   const [parameters, setParameters] = useLocalStorageState('parameters', {
     defaultValue: {
+      model: 'gpt-4',
       temperature: '1',
       top_p: '1',
       frequency_penalty: '0',
