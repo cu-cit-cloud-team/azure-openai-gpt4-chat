@@ -32,7 +32,7 @@
     "@fortawesome/react-fontawesome": "0.2.0",
     "ai": "2.2.23",
     "axios": "1.6.2",
-    "daisyui": "4.0.9",
+    "daisyui": "4.1.0",
     "dayjs": "1.11.10",
     "he": "1.2.0",
     "marked": "10.0.0",
