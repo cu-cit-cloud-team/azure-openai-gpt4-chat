@@ -1,3 +1,11 @@
+## <small>0.14.5 (2023-11-21)</small>
+
+* chore(deps-dev): bump typescript from 5.2.2 to 5.3.2 (#99) ([b9744f7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b9744f7)), closes [#99](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/99)
+* chore(deps): bump ai from 2.2.24 to 2.2.25 (#101) ([f5de54c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f5de54c)), closes [#101](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/101)
+* chore(deps): bump openai from 4.19.0 to 4.19.1 (#100) ([efabfdc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/efabfdc)), closes [#100](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/100)
+
+
+
 ## <small>0.14.4 (2023-11-18)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#98) ([58e9609](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/58e9609)), closes [#98](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/98)
