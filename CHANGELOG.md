@@ -1,3 +1,10 @@
+## <small>0.14.7 (2023-11-24)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#106) ([334049b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/334049b)), closes [#106](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/106)
+* chore(deps): bump daisyui from 4.4.4 to 4.4.6 (#107) ([de56dab](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/de56dab)), closes [#107](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/107)
+
+
+
 ## <small>0.14.6 (2023-11-23)</small>
 
 * chore(deps-dev): bump the types group with 2 updates (#103) ([2162c33](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2162c33)), closes [#103](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/103)
