@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.3.3/schema.json",
+  "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "ignore": [
       "**/.git/*",
@@ -39,6 +39,10 @@
   "javascript": {
     "formatter": {
       "quoteProperties": "preserve",
+      "bracketSpacing": true,
+      "indentWidth": 2,
+      "indentStyle": "space",
+      "lineWidth": 80,
       "arrowParentheses": "always",
       "jsxQuoteStyle": "double",
       "quoteStyle": "single",
