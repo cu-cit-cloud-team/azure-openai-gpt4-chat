@@ -1,3 +1,14 @@
+## <small>0.14.9 (2023-11-28)</small>
+
+* chore(biome): update config ([d3a6170](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d3a6170))
+* chore(deps-dev): bump @biomejs/biome from 1.3.3 to 1.4.0 (#111) ([520ec43](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/520ec43)), closes [#111](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/111)
+* chore(deps-dev): bump the types group with 1 update (#112) ([7181f20](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7181f20)), closes [#112](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/112)
+* chore(deps): bump ai from 2.2.25 to 2.2.26 (#113) ([73eff62](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/73eff62)), closes [#113](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/113)
+* chore(deps): bump daisyui from 4.4.10 to 4.4.12 (#115) ([43680de](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/43680de)), closes [#115](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/115)
+* chore(deps): bump openai from 4.20.0 to 4.20.1 (#114) ([34958ec](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/34958ec)), closes [#114](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/114)
+
+
+
 ## <small>0.14.8 (2023-11-27)</small>
 
 * chore(deps): bump daisyui from 4.4.6 to 4.4.7 (#108) ([aa643c3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/aa643c3)), closes [#108](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/108)
