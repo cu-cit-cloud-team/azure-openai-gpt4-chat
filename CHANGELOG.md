@@ -1,3 +1,11 @@
+## <small>0.14.10 (2023-11-29)</small>
+
+* chore(deps): bump daisyui from 4.4.12 to 4.4.14 (#117) ([d84ccb8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d84ccb8)), closes [#117](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/117)
+* chore(deps): bump marked from 10.0.0 to 11.0.0 (#118) ([6b3d441](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6b3d441)), closes [#118](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/118)
+* chore(deps): bump the fontawesome group with 3 updates (#116) ([f742d20](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f742d20)), closes [#116](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/116)
+
+
+
 ## <small>0.14.9 (2023-11-28)</small>
 
 * chore(biome): update config ([d3a6170](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d3a6170))
