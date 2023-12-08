@@ -1,3 +1,17 @@
+## <small>0.14.13 (2023-12-08)</small>
+
+* chore(deps-dev): bump cz-git from 1.7.1 to 1.8.0 (#134) ([b7224cc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b7224cc)), closes [#134](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/134)
+* chore(deps-dev): bump the postcss group with 1 update (#133) ([193cae1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/193cae1)), closes [#133](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/133)
+* chore(deps-dev): bump the tailwindcss group with 1 update (#132) ([545cf69](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/545cf69)), closes [#132](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/132)
+* chore(deps-dev): bump the types group with 1 update (#136) ([dcb7b20](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dcb7b20)), closes [#136](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/136)
+* chore(deps-dev): bump the types group with 2 updates (#131) ([5af0956](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5af0956)), closes [#131](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/131)
+* chore(deps-dev): bump typescript from 5.3.2 to 5.3.3 (#135) ([7c0d54e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7c0d54e)), closes [#135](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/135)
+* chore(deps): bump ai from 2.2.27 to 2.2.28 (#137) ([94f611c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/94f611c)), closes [#137](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/137)
+* chore(deps): bump next from 14.0.3 to 14.0.4 (#138) ([9fafa18](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9fafa18)), closes [#138](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/138)
+* refactor(ParameterModelSelect): update display names ([a0d08fe](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a0d08fe))
+
+
+
 ## <small>0.14.12 (2023-12-04)</small>
 
 * chore(deps-dev): bump the postcss group with 1 update (#125) ([aa933fd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/aa933fd)), closes [#125](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/125)
