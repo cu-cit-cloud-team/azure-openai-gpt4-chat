@@ -1,3 +1,16 @@
+## 0.15.0 (2023-12-11)
+
+* docs(README): update features and planned ([67b427b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/67b427b))
+* docs(README): update planned ([8a444af](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8a444af))
+* refactor(api): standardize max_tokens ([ff60869](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ff60869))
+* refactor(api): update max_tokens logic ([dec4667](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dec4667))
+* refactor(localStorage): add/use new localStorage helper ([5063807](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5063807))
+* refactor(TokenCount): update maxToken counts ([4b9165e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4b9165e))
+* feat(TokenCount): add/implement new component to count tokens ([3618700](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3618700))
+* chore(deps): add js-tiktoken@1.0.8 ([f210e03](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f210e03))
+
+
+
 ## <small>0.14.14 (2023-12-11)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#140) ([3da1258](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3da1258)), closes [#140](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/140)
