@@ -5,9 +5,11 @@ import axios from 'axios';
 import { useEffect, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
-import { Messages } from './components/Messages';
+import { Footer } from './components/Footer.tsx';
+import { Header } from './components/Header.tsx';
+import { Messages } from './components/Messages.tsx';
+
+import { setItem } from './utils/localStorage.ts';
 
 export default function Chat() {
   const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
@@ -91,8 +93,7 @@ export default function Chat() {
   // update localStorage when messages change
   useEffect(() => {
     if (messages.length && messages !== savedMessages) {
-      window.localStorage.setItem('messages', JSON.stringify(messages));
-      window.dispatchEvent(new Event('storage'));
+      setItem('messages', messages);
     }
   }, [messages, savedMessages]);
 
@@ -137,8 +138,7 @@ export default function Chat() {
       event.stopPropagation();
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
-          window.localStorage.setItem('messages', JSON.stringify([]));
-          window.dispatchEvent(new Event('storage'));
+          setItem('messages', []);
           window.location.reload();
         }
       }

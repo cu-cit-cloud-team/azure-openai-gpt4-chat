@@ -4,17 +4,19 @@ import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 
-import { ClearChatButton } from './ClearChatButton';
-import { ExportChatButton } from './ExportChatButton';
-import { Parameters } from './Parameters';
-import { SystemMessage } from './SystemMessage';
-import { UpdateCheck } from './UpdateCheck';
-import { UserAvatar } from './UserAvatar';
+import { ClearChatButton } from './ClearChatButton.tsx';
+import { ExportChatButton } from './ExportChatButton.tsx';
+import { Parameters } from './Parameters.tsx';
+import { SystemMessage } from './SystemMessage.tsx';
+import { UpdateCheck } from './UpdateCheck.tsx';
+import { UserAvatar } from './UserAvatar.tsx';
 
-const ThemeChanger = dynamic(() => import('./ThemeChanger'), {
+const ThemeChanger = dynamic(() => import('./ThemeChanger.tsx'), {
   // do not import/render server-side, `window` object is used in component
   ssr: false,
 });
+
+import { setItem } from '../utils/localStorage.ts';
 
 import pkg from '../../package.json';
 
@@ -42,12 +44,10 @@ export const Header = ({
 
   const clearHistory = (doConfirm = true) => {
     if (!doConfirm) {
-      window.localStorage.setItem('messages', JSON.stringify([]));
-      window.dispatchEvent(new Event('storage'));
+      setItem('messages', []);
       window.location.reload();
     } else if (confirm('Are you sure you want to clear the chat history?')) {
-      window.localStorage.setItem('messages', JSON.stringify([]));
-      window.dispatchEvent(new Event('storage'));
+      setItem('messages', []);
       window.location.reload();
     }
   };

@@ -3,16 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
 import { React, useState } from 'react';
 
+import { getItem, setItem } from '../utils/localStorage.ts';
+
 export const DeleteMessage = ({ isUser, message }) => {
   const [buttonId] = useState(nanoid());
 
   async function deleteMessage(id) {
     if (confirm('Are you sure you want to delete this message?')) {
-      let messages = window.localStorage.getItem('messages');
-      messages = JSON.parse(messages);
+      const messages = getItem('messages');
       const updatedMessages = messages.filter((m) => m.id !== id);
-      window.localStorage.setItem('messages', JSON.stringify(updatedMessages));
-      window.dispatchEvent(new Event('storage'));
+      setItem('messages', updatedMessages);
       window.location.reload();
     }
   }

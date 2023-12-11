@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import React, { useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
+import { getItem, setItem } from '../utils/localStorage.ts';
 import { getEditorTheme, themes } from '../utils/themes.ts';
 
 export const ThemeChanger = () => {
@@ -11,14 +12,11 @@ export const ThemeChanger = () => {
     window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   const [theme, setTheme] = useLocalStorageState('theme', {
-    defaultValue:
-      window.localStorage.getItem('theme') || isSystemDarkMode()
-        ? 'dark'
-        : 'light',
+    defaultValue: getItem('theme') || isSystemDarkMode() ? 'dark' : 'light',
   });
 
   const [editorTheme, setEditorTheme] = useLocalStorageState('editorTheme', {
-    defaultValue: window.localStorage.getItem('editorTheme'),
+    defaultValue: getItem('editorTheme'),
   });
 
   useEffect(() => {
@@ -69,13 +67,8 @@ export const ThemeChanger = () => {
     const button = e.target.closest('button');
     setTheme(button.dataset.theme);
     setEditorTheme(getEditorTheme(button.dataset.theme));
-    window.localStorage.setItem('theme', JSON.stringify(button.dataset.theme));
-    window.dispatchEvent(new Event('storage'));
-    window.localStorage.setItem(
-      'editorTheme',
-      JSON.stringify(getEditorTheme(button.dataset.theme))
-    );
-    window.dispatchEvent(new Event('storage'));
+    setItem('theme', button.dataset.theme);
+    setItem('editorTheme', getEditorTheme(button.dataset.theme));
   };
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: calling only once intentionally

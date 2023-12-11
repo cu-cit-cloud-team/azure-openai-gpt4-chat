@@ -3,6 +3,8 @@ import propTypes from 'prop-types';
 import { React } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
+import { getItem, setItem } from '../utils/localStorage.ts';
+
 export const ParameterSlider = ({
   paramName,
   displayName = null,
@@ -53,14 +55,10 @@ export const ParameterSlider = ({
         step={step}
         name={paramName}
         onChange={(e) => {
-          window.localStorage.setItem(
-            'parameters',
-            JSON.stringify({
-              ...JSON.parse(window.localStorage.getItem('parameters')),
-              [paramName]: e.target.value,
-            })
-          );
-          window.dispatchEvent(new Event('storage'));
+          setItem('parameters', {
+            ...getItem('parameters'),
+            [paramName]: e.target.value,
+          });
           setParameters({
             ...parameters,
             [paramName]: e.target.value,

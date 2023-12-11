@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
-import { React, useEffect, useState } from 'react';
+import { React, useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
+
+import { getItem, setItem } from '../utils/localStorage.ts';
 
 export const ParameterModelSelect = ({ clearHistory }) => {
   const [parameters, setParameters] = useLocalStorageState('parameters', {
@@ -19,14 +21,10 @@ export const ParameterModelSelect = ({ clearHistory }) => {
         'Changing the model will reset the chat history. Are you sure you want to continue?'
       )
     ) {
-      window.localStorage.setItem(
-        'parameters',
-        JSON.stringify({
-          ...JSON.parse(window.localStorage.getItem('parameters')),
-          model: event.target.value,
-        })
-      );
-      window.dispatchEvent(new Event('storage'));
+      setItem('parameters', {
+        ...getItem('parameters'),
+        model: event.target.value,
+      });
       setParameters({ ...parameters, model: event.target.value });
       clearHistory(false);
     } else {
@@ -36,14 +34,10 @@ export const ParameterModelSelect = ({ clearHistory }) => {
 
   useEffect(() => {
     if (parameters.model !== 'gpt-4' && parameters.model !== 'gpt-35-turbo') {
-      window.localStorage.setItem(
-        'parameters',
-        JSON.stringify({
-          ...JSON.parse(window.localStorage.getItem('parameters')),
-          model: 'gpt-4',
-        })
-      );
-      window.dispatchEvent(new Event('storage'));
+      setItem('parameters', {
+        ...getItem('parameters'),
+        model: 'gpt-4',
+      });
       setParameters({ ...parameters, model: 'gpt-4' });
     }
   }, [parameters, setParameters]);

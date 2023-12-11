@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { getItem } from '../utils/localStorage.ts';
+
 export const ExportChatButton = ({ isLoading, buttonText = 'Export Chat' }) => {
   const downloadFile = ({
     data,
@@ -25,7 +27,7 @@ export const ExportChatButton = ({ isLoading, buttonText = 'Export Chat' }) => {
   const exportHandler = (event) => {
     event.preventDefault();
     if (confirm('Are you sure you want to download the chat history?')) {
-      const data = window.localStorage.getItem('messages');
+      const data = getItem('messages');
       downloadFile({ data });
     }
   };

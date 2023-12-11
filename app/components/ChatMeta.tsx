@@ -4,6 +4,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import { getItem } from '../utils/localStorage.ts';
+
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
@@ -22,7 +24,7 @@ export const ChatMeta = ({
   const [model, setModel] = useState('gpt-4');
 
   useEffect(() => {
-    const params = JSON.parse(window.localStorage.getItem('parameters'));
+    const params = getItem('parameters');
     setModel(params.model);
   }, []);
 

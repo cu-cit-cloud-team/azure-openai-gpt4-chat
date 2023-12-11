@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo } from 'react';
 
-import { ChatBubble } from './ChatBubble';
+import { ChatBubble } from './ChatBubble.tsx';
 
 export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix

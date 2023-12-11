@@ -1,8 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-
 import { faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 import pkg from '../../package.json';
 

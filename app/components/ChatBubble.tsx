@@ -7,11 +7,12 @@ import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { markdownToText } from '../utils/markdownToText.ts';
-
 import { ChatMeta } from './ChatMeta.tsx';
 import { CopyToClipboard } from './CopyToClipboard.tsx';
 import { DeleteMessage } from './DeleteMessage.tsx';
+
+import { getItem } from '../utils/localStorage.ts';
+import { markdownToText } from '../utils/markdownToText.ts';
 
 export const ChatBubble = ({
   message,
@@ -31,7 +32,7 @@ export const ChatBubble = ({
   };
 
   const [editorTheme] = useLocalStorageState('editorTheme', {
-    defaultValue: window.localStorage.getItem('editorTheme') || nightOwl,
+    defaultValue: getItem('editorTheme') || nightOwl,
   });
 
   return (
@@ -51,8 +52,8 @@ export const ChatBubble = ({
               isUser
                 ? faUser
                 : isLoading && index === totalMessages
-                ? faSpinner
-                : faRobot
+                  ? faSpinner
+                  : faRobot
             }
             spinPulse={!isUser && isLoading && index === totalMessages}
             fixedWidth
