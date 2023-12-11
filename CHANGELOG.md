@@ -1,3 +1,11 @@
+## <small>0.14.14 (2023-12-11)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#140) ([3da1258](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3da1258)), closes [#140](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/140)
+* chore(deps): bump ai from 2.2.28 to 2.2.29 (#141) ([b709e97](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b709e97)), closes [#141](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/141)
+* chore(deps): bump marked from 11.0.0 to 11.0.1 (#139) ([1719bcf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1719bcf)), closes [#139](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/139)
+
+
+
 ## <small>0.14.13 (2023-12-08)</small>
 
 * chore(deps-dev): bump cz-git from 1.7.1 to 1.8.0 (#134) ([b7224cc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b7224cc)), closes [#134](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/134)
