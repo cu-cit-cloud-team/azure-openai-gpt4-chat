@@ -67,7 +67,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 #### Planned
 
-- no new features currently under development
+- [ ] Live token count displayed for message and system message (and overall total)
 
 #### Potential
 
