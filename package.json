@@ -35,6 +35,7 @@
     "daisyui": "4.4.19",
     "dayjs": "1.11.10",
     "he": "1.2.0",
+    "js-tiktoken": "1.0.8",
     "marked": "11.0.1",
     "nanoid": "5.0.4",
     "next": "14.0.4",
@@ -71,11 +72,7 @@
     "typescript": "5.3.3"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
