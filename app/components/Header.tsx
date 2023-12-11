@@ -21,6 +21,7 @@ import { setItem } from '../utils/localStorage.ts';
 import pkg from '../../package.json';
 
 export const Header = ({
+  input,
   isLoading,
   systemMessage,
   systemMessageRef,
@@ -73,6 +74,7 @@ export const Header = ({
                   <li>
                     <SystemMessage
                       clearHistory={clearHistory}
+                      input={input}
                       systemMessage={systemMessage}
                       systemMessageRef={systemMessageRef}
                       setSystemMessage={setSystemMessage}
@@ -121,6 +123,7 @@ export const Header = ({
                 <li>
                   <SystemMessage
                     clearHistory={clearHistory}
+                    input={input}
                     systemMessage={systemMessage}
                     systemMessageRef={systemMessageRef}
                     setSystemMessage={setSystemMessage}
@@ -156,6 +159,7 @@ export const Header = ({
 
 Header.displayName = 'Header';
 Header.propTypes = {
+  input: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   systemMessage: PropTypes.string.isRequired,
   systemMessageRef: PropTypes.oneOfType([

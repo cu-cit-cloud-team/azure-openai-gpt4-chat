@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import { TokenCount } from './TokenCount.tsx';
+
 export const Footer = ({
   formRef,
   textAreaRef,
@@ -28,6 +30,11 @@ export const Footer = ({
   return (
     <footer className="fixed bottom-0 z-40 w-full px-4 py-8 text-center bg-base-300">
       <form ref={formRef} onSubmit={handleSubmit} className="w-full">
+        <TokenCount
+          input={input}
+          systemMessage={systemMessageRef?.current?.value || ''}
+          display={'input'}
+        />
         <textarea
           autoFocus={true}
           ref={textAreaRef}

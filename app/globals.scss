@@ -32,6 +32,12 @@ div.chat-bubble > .delete-container {
   }
 }
 
+.system-message-dropdown ul > li div:hover {
+  @apply bg-transparent;
+
+
+}
+
 /* fix some display issue in bot chat bubbles in light mode */
 .chat-bubble.bot {
   code, strong, h1, h2, h3, h4, h5, ul, ol, li, li::marker {

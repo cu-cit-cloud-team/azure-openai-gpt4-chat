@@ -104,8 +104,10 @@ export default function Chat() {
         'editorTheme',
         'messages',
         'parameters',
+        'remainingTokens',
         'systemMessage',
         'theme',
+        'tokens',
         'userMeta',
       ];
       const { key } = e;
@@ -164,6 +166,7 @@ export default function Chat() {
         systemMessage={systemMessage}
         setSystemMessage={setSystemMessage}
         systemMessageRef={systemMessageRef}
+        input={input}
         userMeta={userMeta}
       />
       <Messages

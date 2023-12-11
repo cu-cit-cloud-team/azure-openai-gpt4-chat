@@ -63,9 +63,10 @@ export async function POST(req: Request) {
     Number(urlParams.get('presence_penalty')) === 0
       ? 0
       : Number(urlParams.get('presence_penalty')) || defaults.presence_penalty;
-  const max_tokens = Number(urlParams.get('max_tokens')) || defaults.max_tokens;
   const model = urlParams.get('model') || defaults.model;
   const user = urlParams.get('user') || defaults.user;
+  // const max_tokens = Number(urlParams.get('max_tokens')) || defaults.max_tokens;
+  const max_tokens = model === 'gpt-35-turbo' ? 2048 : 4096;
 
   // set up system prompt
   const systemPrompt = {
