@@ -30,9 +30,9 @@ const defaults = {
   top_p: 1, // 0.0 to 1.0
   frequency_penalty: 0, // -2.0 to 2.0
   presence_penalty: 0, // -2.0 to 2.0
-  max_tokens: 1024, // currently fixed at 1024
-  model: 'gpt-4', // currently only gpt-4
-  user: 'Cloud Team GPT-4 Chat User',
+  max_tokens: 4096, // currently fixed at 4096 (max return for each supported model)
+  model: 'gpt-4', // currently gpt-4 or gpt-35-turbo
+  user: 'Cloud Team GPT Chat User',
 };
 
 // main route handler
@@ -65,8 +65,7 @@ export async function POST(req: Request) {
       : Number(urlParams.get('presence_penalty')) || defaults.presence_penalty;
   const model = urlParams.get('model') || defaults.model;
   const user = urlParams.get('user') || defaults.user;
-  // const max_tokens = Number(urlParams.get('max_tokens')) || defaults.max_tokens;
-  const max_tokens = model === 'gpt-35-turbo' ? 2048 : 4096;
+  const max_tokens = Number(urlParams.get('max_tokens')) || defaults.max_tokens;
 
   // set up system prompt
   const systemPrompt = {
