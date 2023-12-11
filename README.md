@@ -44,6 +44,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Current chat history is stored in browser's local storage
 - [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
 - [x] View/edit chat session parameters (e.g. temperature, top p, etc)
+- [x] Live token count (use/remaining) displayed for message and system message
 - [x] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
 - [x] Download current chat history as JSON
 - [x] Clear current chat history
@@ -67,7 +68,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 #### Planned
 
-- [ ] Live token count displayed for message and system message (and overall total)
+- no new features currently under development
 
 #### Potential
 
