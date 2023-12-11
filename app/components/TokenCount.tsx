@@ -15,11 +15,11 @@ export const TokenCount = ({
   const [inputTokens, setInputTokens] = useState(0);
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
   const [model, setModel] = useState('');
-  const [maxTokens, setMaxTokens] = useState(0);
+  const [maxTokens, setMaxTokens] = useState(2048);
   const [remainingTokens, setRemainingTokens] = useLocalStorageState(
     'remainingTokens',
     {
-      defaultValue: 0,
+      defaultValue: 2048,
     }
   );
   const [tokens, setTokens] = useLocalStorageState('tokens', {
@@ -40,13 +40,11 @@ export const TokenCount = ({
   // update max tokens
   useEffect(() => {
     if (model === 'gpt-4') {
-      setMaxTokens(4096);
-    } else {
-      setMaxTokens(2048);
+      setMaxTokens(16384);
     }
 
     return () => {
-      setMaxTokens(0);
+      setMaxTokens(2048);
     };
   }, [model]);
 
