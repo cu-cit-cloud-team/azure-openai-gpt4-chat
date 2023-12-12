@@ -28,7 +28,7 @@ export const Footer = ({
   }, [isMac]);
 
   return (
-    <footer className="fixed bottom-0 z-40 w-full px-4 py-8 text-center bg-base-300">
+    <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
       <form ref={formRef} onSubmit={handleSubmit} className="w-full">
         <TokenCount
           input={input}
@@ -38,7 +38,7 @@ export const Footer = ({
         <textarea
           autoFocus={true}
           ref={textAreaRef}
-          className="w-full max-w-6xl p-2 border border-gray-300 rounded shadow-xl"
+          className="w-full h-12 max-w-6xl p-2 border border-gray-300 rounded shadow-xl lg:h-24"
           value={input}
           placeholder="Type a message..."
           onChange={handleInputChange}
