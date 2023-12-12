@@ -93,7 +93,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [daisyUI](https://daisyui.com/)
   - Component library for Tailwind CSS
 - [Azure OpenAI Service](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
-  - GPT-4 model deployment and API
+  - API and model deployments (GPT-4 and GPT-3.5)
 - [Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/)
   - Application hosting and user authentication
 - [GitHub Actions/Workflows](https://docs.github.com/en/actions)
