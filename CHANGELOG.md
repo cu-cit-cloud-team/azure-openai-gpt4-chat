@@ -1,3 +1,13 @@
+## <small>0.15.1 (2023-12-12)</small>
+
+* refactor(utils/localStorage): add missing export ([ff5ec2d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ff5ec2d))
+* style(Footer/SystemMessage): responsive tweaks ([ae6c76b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ae6c76b))
+* style(stylelint): remove deprecated rule from config ([31e35e6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/31e35e6))
+* chore(deps-dev): bump stylelint group with 3 updates ([93de3c4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/93de3c4))
+* chore(deps): bump marked from 11.0.1 to 11.1.0 (#142) ([fd93152](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fd93152)), closes [#142](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/142)
+
+
+
 ## 0.15.0 (2023-12-11)
 
 * docs(README): update features and planned ([67b427b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/67b427b))
