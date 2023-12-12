@@ -17,7 +17,7 @@ export const clear = () => {
   window.dispatchEvent(new Event('storage'));
 };
 
-const localStorage = {
+export const localStorage = {
   setItem,
   getItem,
   removeItem,
