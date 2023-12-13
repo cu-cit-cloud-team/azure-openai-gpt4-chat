@@ -74,21 +74,29 @@ export default function Chat() {
     defaultValue: [],
   });
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({
-      api: `/api/chat?systemMessage=${encodeURIComponent(
-        systemMessage
-      )}&temperature=${encodeURIComponent(
-        parameters.temperature
-      )}&top_p=${encodeURIComponent(
-        parameters.top_p
-      )}&frequency_penalty=${encodeURIComponent(
-        parameters.frequency_penalty
-      )}&presence_penalty=${encodeURIComponent(parameters.presence_penalty)}
+  const {
+    error,
+    handleInputChange,
+    handleSubmit,
+    input,
+    isLoading,
+    messages,
+    reload,
+    stop,
+  } = useChat({
+    api: `/api/chat?systemMessage=${encodeURIComponent(
+      systemMessage
+    )}&temperature=${encodeURIComponent(
+      parameters.temperature
+    )}&top_p=${encodeURIComponent(
+      parameters.top_p
+    )}&frequency_penalty=${encodeURIComponent(
+      parameters.frequency_penalty
+    )}&presence_penalty=${encodeURIComponent(parameters.presence_penalty)}
       &model=${encodeURIComponent(parameters.model)}`,
-      id: userMeta?.email ? btoa(userMeta?.email) : undefined,
-      initialMessages: savedMessages,
-    });
+    id: userMeta?.email ? btoa(userMeta?.email) : undefined,
+    initialMessages: savedMessages,
+  });
 
   // update localStorage when messages change
   useEffect(() => {
@@ -174,6 +182,9 @@ export default function Chat() {
         messages={messages}
         userMeta={userMeta}
         savedMessages={savedMessages}
+        error={error}
+        reload={reload}
+        stop={stop}
       />
       <Footer
         formRef={formRef}
