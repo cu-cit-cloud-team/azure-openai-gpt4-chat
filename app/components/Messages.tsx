@@ -4,8 +4,15 @@ import React, { useEffect, useMemo } from 'react';
 
 import { ChatBubble } from './ChatBubble.tsx';
 
-export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
+export const Messages = ({
+  isLoading,
+  messages,
+  userMeta,
+  savedMessages,
+  error,
+  reload,
   stop,
+}) => {
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
   useEffect(() => {
     window.scrollTo({
@@ -33,6 +40,8 @@ export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
                     userMeta={userMeta}
                     savedMessages={savedMessages}
                     stop={stop}
+                    reload={reload}
+                    error={error}
                   />
                 );
               })
@@ -40,7 +49,7 @@ export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
         </div>
       </div>
     ),
-    [messages, isLoading, userMeta, savedMessages]
+    [messages, isLoading, userMeta, savedMessages, error, reload, stop]
   );
 };
 

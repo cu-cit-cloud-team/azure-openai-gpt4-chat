@@ -16,8 +16,8 @@
 }
 
 div.chat-bubble > .clipboard-container:first-child,
-div.chat-bubble > .delete-container {
-  @apply -mt-11;
+div.chat-bubble > .delete-container,
+div.chat-bubble > .reload-container {
   @apply -mt-10;
 }
 

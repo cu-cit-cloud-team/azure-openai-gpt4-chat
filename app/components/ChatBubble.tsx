@@ -10,6 +10,7 @@ import useLocalStorageState from 'use-local-storage-state';
 import { ChatMeta } from './ChatMeta.tsx';
 import { CopyToClipboard } from './CopyToClipboard.tsx';
 import { DeleteMessage } from './DeleteMessage.tsx';
+import { ReloadMessage } from './ReloadMessage.tsx';
 
 import { getItem } from '../utils/localStorage.ts';
 import { markdownToText } from '../utils/markdownToText.ts';
@@ -21,6 +22,7 @@ export const ChatBubble = ({
   isLoading,
   totalMessages,
   userMeta,
+  reload,
   stop,
 }) => {
   const Pre = ({ children }) => {
@@ -73,6 +75,9 @@ export const ChatBubble = ({
               textToCopy={markdownToText(message.content)}
             />
             <DeleteMessage isUser={isUser} message={message} />
+            {index === totalMessages ? (
+              <ReloadMessage isUser={isUser} reload={reload} />
+            ) : null}
           </>
         )}
         <Markdown
