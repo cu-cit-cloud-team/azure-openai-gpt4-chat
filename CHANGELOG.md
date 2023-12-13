@@ -1,3 +1,12 @@
+## <small>0.15.2 (2023-12-13)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#143) ([13ec6f9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/13ec6f9)), closes [#143](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/143)
+* chore(deps-dev): bump the types group with 1 update (#145) ([86110db](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/86110db)), closes [#145](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/145)
+* chore(deps): bump openai from 4.20.1 to 4.21.0 (#144) ([31c5244](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/31c5244)), closes [#144](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/144)
+* docs(README): update uses ([c8736a1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c8736a1))
+
+
+
 ## <small>0.15.1 (2023-12-12)</small>
 
 * refactor(utils/localStorage): add missing export ([ff5ec2d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ff5ec2d))
