@@ -43,3 +43,7 @@ div.chat-bubble > .delete-container {
     @apply text-secondary-content;
   }
 }
+
+.chat-footer.bot {
+  @apply mt-1;
+}

@@ -100,7 +100,7 @@ export const ChatBubble = ({
           }}
         />
       </div>
-      <div className="chat-footer">
+      <div className={`chat-footer${isUser ? '' : ' bot'}`}>
         <ChatMeta
           index={index}
           isLoading={isLoading}
