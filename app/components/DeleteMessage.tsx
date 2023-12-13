@@ -8,14 +8,14 @@ import { getItem, setItem } from '../utils/localStorage.ts';
 export const DeleteMessage = ({ isUser, message }) => {
   const [buttonId] = useState(nanoid());
 
-  async function deleteMessage(id) {
+  const deleteMessage = (id) => {
     if (confirm('Are you sure you want to delete this message?')) {
       const messages = getItem('messages');
       const updatedMessages = messages.filter((m) => m.id !== id);
       setItem('messages', updatedMessages);
       window.location.reload();
     }
-  }
+  };
 
   const deleteClickHandler = () => {
     deleteMessage(message.id);

@@ -8,16 +8,16 @@ export const CopyToClipboard = ({ isUser, textToCopy }) => {
   const [inputId] = useState(nanoid());
   const [buttonId] = useState(nanoid());
 
-  async function copyTextToClipboard(text) {
+  const copyTextToClipboard = async (text) => {
     if ('clipboard' in navigator) {
       return await navigator.clipboard.writeText(text);
-    } else {
-      return document.execCommand('copy', true, text);
     }
-  }
 
-  const copyClickHandler = () => {
-    copyTextToClipboard(textToCopy)
+    return document.execCommand('copy', true, text);
+  };
+
+  const copyClickHandler = async () => {
+    await copyTextToClipboard(textToCopy)
       .then(() => {
         setIsCopied(true);
         setTimeout(() => {
