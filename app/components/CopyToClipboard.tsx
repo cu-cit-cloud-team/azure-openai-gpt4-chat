@@ -31,9 +31,12 @@ export const CopyToClipboard = ({ isUser, textToCopy }) => {
 
   return (
     <div
-      className={`clipboard-container ${
-        isUser ? 'float-left -ml-4' : 'float-right -mr-4'
+      className={`clipboard-container tooltip ${
+        isUser
+          ? 'float-left -ml-4 tooltip-right tooltip-primary'
+          : 'float-right -mr-4 tooltip-left tooltip-secondary'
       }`}
+      data-tip={'Copy to clipboard'}
     >
       <input
         key={inputId}

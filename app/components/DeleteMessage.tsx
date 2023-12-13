@@ -23,9 +23,12 @@ export const DeleteMessage = ({ isUser, message }) => {
 
   return (
     <div
-      className={`delete-container ${
-        isUser ? 'float-left ml-3' : 'float-right mr-3'
+      className={`delete-container tooltip ${
+        isUser
+          ? 'float-left ml-3 tooltip-right tooltip-primary'
+          : 'float-right mr-3 tooltip-left tooltip-secondary'
       }`}
+      data-tip={`Delete ${isUser ? 'message' : 'response'}`}
     >
       <button
         key={buttonId}

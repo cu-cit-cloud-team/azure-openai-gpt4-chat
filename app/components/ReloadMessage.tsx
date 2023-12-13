@@ -15,7 +15,14 @@ export const ReloadMessage = ({ isUser, reload }) => {
   };
 
   return !isUser ? (
-    <div className={'reload-container float-right mr-10'}>
+    <div
+      className={`reload-container float-right mr-10 tooltip ${
+        isUser
+          ? 'tooltip-right tooltip-primary'
+          : 'tooltip-left tooltip-secondary'
+      }`}
+      data-tip={'Regenerate response'}
+    >
       <button
         key={nanoid()}
         onClick={reloadClickHandler}
