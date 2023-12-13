@@ -9,15 +9,16 @@
 .chat-bubble.prose > p {
   @apply mt-0;
   @apply mb-3;
-}
 
-.chat-bubble.prose > p:last-of-type {
-  @apply mb-0;
+  &:last-of-type {
+    @apply mb-0;
+  }
 }
 
 div.chat-bubble > .clipboard-container:first-child,
 div.chat-bubble > .delete-container {
   @apply -mt-11;
+  @apply -mt-10;
 }
 
 .code-pre {
@@ -34,8 +35,6 @@ div.chat-bubble > .delete-container {
 
 .system-message-dropdown ul > li div:hover {
   @apply bg-transparent;
-
-
 }
 
 /* fix some display issue in bot chat bubbles in light mode */

@@ -24,14 +24,14 @@ export const DeleteMessage = ({ isUser, message }) => {
   return (
     <div
       className={`delete-container ${
-        isUser ? 'float-left ml-5' : 'float-right mr-5'
+        isUser ? 'float-left ml-3' : 'float-right mr-3'
       }`}
     >
       <button
         key={buttonId}
         onClick={deleteClickHandler}
         type="button"
-        className={`w-8 h-8 p-0 m-0 mr-0 btn btn-sm ${
+        className={`w-6 h-6 p-0 m-0 mr-0 btn btn-xs ${
           isUser
             ? 'btn-primary text-primary-content'
             : 'btn-secondary text-secondary-content'

@@ -48,7 +48,7 @@ export const CopyToClipboard = ({ isUser, textToCopy }) => {
         key={buttonId}
         onClick={copyClickHandler}
         type="button"
-        className={`w-8 h-8 p-0 m-0 mr-0 btn btn-sm ${
+        className={`w-6 h-6 p-0 m-0 mr-0 btn btn-xs ${
           isUser
             ? 'btn-primary text-primary-content'
             : 'btn-secondary text-secondary-content'
