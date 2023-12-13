@@ -59,7 +59,7 @@ export const ChatMeta = ({
         {!isUser && index === totalMessages && isLoading ? (
           <>
             <div
-              className="tooltip tooltip-secondary tooltip-left"
+              className="cursor-pointer tooltip tooltip-secondary tooltip-left"
               data-tip={'Stop loading response'}
               onClick={() => stop()}
               onKeyDown={() => stop()}
