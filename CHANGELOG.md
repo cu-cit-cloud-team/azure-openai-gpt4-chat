@@ -1,3 +1,18 @@
+## 0.16.0 (2023-12-13)
+
+* style(ChatBubble): fix spacing for consistency ([54baa5d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/54baa5d))
+* style(ChatMeta): update cursor for stop button ([3675740](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3675740))
+* style(CopyToClipboard/DeleteMessage): reduce size of buttons ([81ce989](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/81ce989))
+* style(Footer): increas height slightly on smaller screens ([02befc7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/02befc7))
+* style(SystemMessage): reduce width on small screens ([dd8b8cc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dd8b8cc))
+* docs(README): update features ([77edce7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/77edce7))
+* feat(ChatBubble/ChatMeta/Messages): add stop response button ([a6fe8b8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a6fe8b8))
+* feat(ReloadMessage): add reload button to last response ([91144d9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/91144d9))
+* refactor: return error/reload/stop from useChat and pass to Messages ([6b5f6c4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6b5f6c4))
+* refactor(TokenCount): update verbiage to be more clear ([79fb66d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/79fb66d))
+
+
+
 ## <small>0.15.2 (2023-12-13)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#143) ([13ec6f9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/13ec6f9)), closes [#143](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/143)
