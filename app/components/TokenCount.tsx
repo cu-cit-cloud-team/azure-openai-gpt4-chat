@@ -75,9 +75,10 @@ export const TokenCount = ({
           display === 'systemMessage' ? '-mb-3' : 'mb-1'
         } text-xs text-gray-500 uppercase`}
       >
-        Token{tokens === 1 ? '' : 's'}:{' '}
+        {/* Token{tokens === 1 ? '' : 's'}:{' '} */}
         <strong>
-          {tokens[display]} / {remainingTokens}
+          {tokens[display]} <span className="font-normal">Tokens</span> /{' '}
+          {remainingTokens} <span className="font-normal">Remaining</span>
         </strong>
       </div>
     </>
