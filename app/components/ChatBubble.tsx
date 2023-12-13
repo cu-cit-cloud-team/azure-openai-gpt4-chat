@@ -21,6 +21,7 @@ export const ChatBubble = ({
   isLoading,
   totalMessages,
   userMeta,
+  stop,
 }) => {
   const Pre = ({ children }) => {
     return (
@@ -108,6 +109,7 @@ export const ChatBubble = ({
           message={message}
           totalMessages={totalMessages}
           userMeta={userMeta}
+          stop={stop}
         />
       </div>
     </div>

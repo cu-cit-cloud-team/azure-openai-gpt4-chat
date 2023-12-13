@@ -5,6 +5,7 @@ import React, { useEffect, useMemo } from 'react';
 import { ChatBubble } from './ChatBubble.tsx';
 
 export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
+  stop,
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
   useEffect(() => {
     window.scrollTo({
@@ -31,6 +32,7 @@ export const Messages = ({ isLoading, messages, userMeta, savedMessages }) => {
                     totalMessages={messages.length - 1}
                     userMeta={userMeta}
                     savedMessages={savedMessages}
+                    stop={stop}
                   />
                 );
               })

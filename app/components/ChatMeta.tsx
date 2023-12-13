@@ -1,3 +1,5 @@
+import { faSpinner, faStop } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -16,6 +18,7 @@ export const ChatMeta = ({
   isUser,
   message,
   userMeta,
+  stop,
 }) => {
   const [lastUpdatedString, setLastUpdatedString] = useState(
     dayjs(dayjs(message.createdAt)).from()
@@ -42,17 +45,30 @@ export const ChatMeta = ({
   return (
     <>
       <span
-        className={`cursor-default text-xs tooltip ${
+        className={`cursor-default text-xs ${
           isUser
             ? 'tooltip-primary tooltip-right'
             : 'tooltip-secondary tooltip-left'
-        }`}
+        } ${!isLoading || index !== totalMessages ? 'tooltip' : ''}`}
         data-tip={
           dayjs(message.createdAt).isToday()
             ? dayjs(message.createdAt).format('hh:mm a')
             : dayjs(message.createdAt).format('ddd MMM DD YYYY [at] h:mm a')
         }
       >
+        {!isUser && index === totalMessages && isLoading ? (
+          <>
+            <div
+              className="tooltip tooltip-secondary tooltip-left"
+              data-tip={'Stop loading response'}
+              onClick={() => stop()}
+              onKeyDown={() => stop()}
+            >
+              <FontAwesomeIcon icon={faStop} className="mr-2" />
+            </div>
+            <FontAwesomeIcon icon={faSpinner} spinPulse className="mr-2" />
+          </>
+        ) : null}
         {isUser
           ? `${userMeta?.name ?? 'User'}`
           : `Azure OpenAI ${model === 'gpt-35-turbo' ? 'GPT-3.5' : 'GPT-4'}`}
