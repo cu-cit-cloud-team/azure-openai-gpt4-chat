@@ -68,7 +68,7 @@ export const SystemMessage = ({
         display={'systemMessage'}
       />
       <textarea
-        className="w-64 h-48 m-2 whitespace-pre-line lg:w-96"
+        className="h-48 m-2 whitespace-pre-line w-52 lg:w-96"
         ref={systemMessageRef}
         onChange={(e) => setLocalSystemMessage(e.target.value)}
         value={localSystemMessage}
