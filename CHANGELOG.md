@@ -1,3 +1,10 @@
+## <small>0.16.1 (2023-12-14)</small>
+
+* refactor(CopyToClipboard/DeleteMessage/ReloadMessage): add tooltips ([d38cdf4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d38cdf4))
+* style(CopyToClipboard/DeleteMessage): update function signatures for consistency ([5090134](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5090134))
+
+
+
 ## 0.16.0 (2023-12-13)
 
 * style(ChatBubble): fix spacing for consistency ([54baa5d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/54baa5d))
