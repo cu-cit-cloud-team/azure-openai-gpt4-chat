@@ -33,7 +33,7 @@ div.chat-bubble > .reload-container {
   }
 }
 
-.system-message-dropdown ul > li div:hover {
+.menu ul > li div:hover, .menu ul > li span:hover {
   @apply bg-transparent;
 }
 
