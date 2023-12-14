@@ -46,7 +46,7 @@ export const ParameterModelSelect = ({ clearHistory }) => {
     <>
       <span className="px-0 text-sm font-normal text-left">model:</span>
       <select
-        className="w-full max-w-xs select select-bordered"
+        className="w-full max-w-xs text-xs select select-sm select-bordered"
         value={parameters.model}
         onChange={(e) => modelChangeHandler(e)}
       >

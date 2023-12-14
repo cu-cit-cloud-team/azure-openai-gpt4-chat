@@ -40,7 +40,7 @@ export const ParameterSlider = ({
   return (
     <>
       <span
-        className="px-0 text-sm font-normal text-left tooltip tooltip-bottom"
+        className="px-0 text-xs font-normal text-left tooltip tooltip-bottom"
         data-tip={paramDetails(paramName)}
       >
         {displayName || paramName}:{' '}
