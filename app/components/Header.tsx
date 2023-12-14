@@ -107,7 +107,7 @@ export const Header = ({
           target="_blank"
           rel="noreferrer noopener"
         >
-          Cloud Team GPT Chat v{pkg.version}
+          GPT Chat Demo v{pkg.version}
         </a>
         <UpdateCheck />
       </div>
