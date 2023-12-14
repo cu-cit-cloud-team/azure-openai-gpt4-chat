@@ -73,7 +73,7 @@ export const TokenCount = ({
       <div
         className={`${
           display === 'systemMessage' ? '-mb-3' : 'mb-1'
-        } text-xs text-gray-500 uppercase`}
+        } text-xs text-gray-500 uppercase cursor-default`}
       >
         {/* Token{tokens === 1 ? '' : 's'}:{' '} */}
         <strong>
