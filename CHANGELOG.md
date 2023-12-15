@@ -1,3 +1,16 @@
+## <small>0.16.2 (2023-12-15)</small>
+
+* chore: add additional env var ([446558e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/446558e))
+* chore(deps-dev): bump cssnano from 6.0.1 to 6.0.2 (#146) ([c9a11b6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c9a11b6)), closes [#146](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/146)
+* chore(deps): bump daisyui from 4.4.19 to 4.4.20 (#147) ([b34b5be](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b34b5be)), closes [#147](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/147)
+* chore(deps): bump openai from 4.21.0 to 4.22.0 (#148) ([2952d3d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2952d3d)), closes [#148](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/148)
+* style: attempt to disable hover on certain menu content ([dba962a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dba962a))
+* style: fix blockquote color ([aef7373](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/aef7373))
+* style(ParameterModelSelect/ParameterSlider): reduce text size ([3dc5205](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3dc5205))
+* style(TokenCount): use default cursor ([0358a07](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0358a07))
+
+
+
 ## <small>0.16.1 (2023-12-14)</small>
 
 * refactor(CopyToClipboard/DeleteMessage/ReloadMessage): add tooltips ([d38cdf4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d38cdf4))
