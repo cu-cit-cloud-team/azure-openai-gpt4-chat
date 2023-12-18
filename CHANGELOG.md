@@ -1,3 +1,12 @@
+## <small>0.16.3 (2023-12-18)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#149) ([f57bbbd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f57bbbd)), closes [#149](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/149)
+* chore(deps-dev): bump the types group with 1 update (#152) ([f1ef710](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f1ef710)), closes [#152](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/152)
+* chore(deps): bump openai from 4.22.0 to 4.22.1 (#150) ([3f9c6d9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3f9c6d9)), closes [#150](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/150)
+* chore(deps): bump openai from 4.22.1 to 4.23.0 (#151) ([23203d7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/23203d7)), closes [#151](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/151)
+
+
+
 ## <small>0.16.2 (2023-12-15)</small>
 
 * chore: add additional env var ([446558e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/446558e))
