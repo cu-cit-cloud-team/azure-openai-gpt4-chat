@@ -1,3 +1,11 @@
+## <small>0.16.5 (2023-12-22)</small>
+
+* chore(deps): bump ai from 2.2.29 to 2.2.30 (#159) ([0de320e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0de320e)), closes [#159](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/159)
+* chore(deps): bump daisyui from 4.4.22 to 4.4.23 (#157) ([f09d56e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f09d56e)), closes [#157](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/157)
+* chore(deps): bump openai from 4.24.0 to 4.24.1 (#158) ([29f89b4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/29f89b4)), closes [#158](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/158)
+
+
+
 ## <small>0.16.4 (2023-12-20)</small>
 
 * chore(deps-dev): bump the tailwindcss group with 1 update (#153) ([a06be70](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a06be70)), closes [#153](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/153)
