@@ -30,7 +30,7 @@
     "@fortawesome/free-brands-svg-icons": "6.5.1",
     "@fortawesome/free-solid-svg-icons": "6.5.1",
     "@fortawesome/react-fontawesome": "0.2.0",
-    "ai": "2.2.29",
+    "ai": "2.2.30",
     "axios": "1.6.2",
     "daisyui": "4.4.23",
     "dayjs": "1.11.10",
