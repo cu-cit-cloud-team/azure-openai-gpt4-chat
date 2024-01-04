@@ -1,3 +1,14 @@
+## <small>0.16.8 (2024-1-4)</small>
+
+* chore(deps-dev): bump cssnano from 6.0.2 to 6.0.3 (#173) ([37b63a9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/37b63a9)), closes [#173](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/173)
+* chore(deps-dev): bump sass from 1.69.6 to 1.69.7 (#170) ([32a7ffd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/32a7ffd)), closes [#170](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/170)
+* chore(deps-dev): bump stylelint-config-standard-scss (#172) ([5a4c228](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5a4c228)), closes [#172](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/172)
+* chore(deps): bump ai from 2.2.30 to 2.2.31 (#168) ([333090f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/333090f)), closes [#168](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/168)
+* chore(deps): bump axios from 1.6.3 to 1.6.4 (#171) ([b539a1c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b539a1c)), closes [#171](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/171)
+* chore(deps): bump daisyui from 4.4.24 to 4.5.0 (#169) ([89f63f0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/89f63f0)), closes [#169](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/169)
+
+
+
 ## <small>0.16.7 (2024-1-2)</small>
 
 * chore(deps-dev): bump sass from 1.69.5 to 1.69.6 (#165) ([efee1a3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/efee1a3)), closes [#165](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/165)
