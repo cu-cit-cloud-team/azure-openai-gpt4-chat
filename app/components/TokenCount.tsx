@@ -12,6 +12,7 @@ export const TokenCount = ({
   systemMessage,
   display = 'input',
 }) => {
+  const systemMessageMaxTokens = 400;
   const [inputTokens, setInputTokens] = useState(0);
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
   const [model, setModel] = useState('');
@@ -22,6 +23,11 @@ export const TokenCount = ({
       defaultValue: 2048,
     }
   );
+  const [remainingSystemTokens, setRemainingSystemTokens] =
+    useLocalStorageState('remainingSystemTokens', {
+      defaultValue: systemMessageMaxTokens,
+    });
+
   const [tokens, setTokens] = useLocalStorageState('tokens', {
     defaultValue: {
       input: inputTokens,
@@ -58,8 +64,15 @@ export const TokenCount = ({
 
   // update remaining tokens
   useEffect(() => {
+    setRemainingSystemTokens(systemMessageMaxTokens - systemMessageTokens);
     setRemainingTokens(maxTokens - (inputTokens + systemMessageTokens));
-  }, [inputTokens, systemMessageTokens, maxTokens, setRemainingTokens]);
+  }, [
+    inputTokens,
+    maxTokens,
+    setRemainingTokens,
+    setRemainingSystemTokens,
+    systemMessageTokens,
+  ]);
 
   useEffect(() => {
     setTokens({
@@ -74,11 +87,15 @@ export const TokenCount = ({
         className={`${
           display === 'systemMessage' ? '-mb-3' : 'mb-1'
         } text-xs text-gray-500 uppercase cursor-default`}
+        key={`${display}-token-count`}
       >
         {/* Token{tokens === 1 ? '' : 's'}:{' '} */}
         <strong>
           {tokens[display]} <span className="font-normal">Tokens</span> /{' '}
-          {remainingTokens} <span className="font-normal">Remaining</span>
+          {display === 'systemMessage'
+            ? remainingSystemTokens
+            : remainingTokens}{' '}
+          <span className="font-normal">Remaining</span>
         </strong>
       </div>
     </>
