@@ -1,3 +1,13 @@
+## <small>0.16.9 (2024-1-8)</small>
+
+* chore(deps-dev): bump the postcss group with 1 update (#176) ([dd7f948](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dd7f948)), closes [#176](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/176)
+* chore(deps-dev): bump the tailwindcss group with 1 update (#178) ([0a6ec3d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0a6ec3d)), closes [#178](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/178)
+* chore(deps-dev): bump the types group with 1 update (#177) ([0f3bafb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0f3bafb)), closes [#177](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/177)
+* chore(deps-dev): bump the types group with 1 update (#180) ([f9cc334](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f9cc334)), closes [#180](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/180)
+* chore(deps): bump axios from 1.6.4 to 1.6.5 (#179) ([7d85dcf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7d85dcf)), closes [#179](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/179)
+
+
+
 ## <small>0.16.8 (2024-1-4)</small>
 
 * chore(deps-dev): bump cssnano from 6.0.2 to 6.0.3 (#173) ([37b63a9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/37b63a9)), closes [#173](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/173)
