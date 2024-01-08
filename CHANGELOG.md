@@ -1,3 +1,12 @@
+## 0.17.0 (2024-01-08)
+
+* chore(deps-dev): bump @biomejs/biome from 1.4.1 to 1.5.0 ([98d0eff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/98d0eff))
+* refactor(SystemMessage): add maxLength ([86278b5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/86278b5))
+* refactor(TokenCount): support fixed maximum for system message ([5dbde01](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5dbde01)), closes [#175](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/175)
+* fix(ChatBubble): don't transform text from code blocks before copying ([9f936ef](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9f936ef)), closes [#174](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/174)
+
+
+
 ## <small>0.16.9 (2024-1-8)</small>
 
 * chore(deps-dev): bump the postcss group with 1 update (#176) ([dd7f948](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dd7f948)), closes [#176](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/176)
