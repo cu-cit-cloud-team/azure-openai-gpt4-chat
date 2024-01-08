@@ -28,7 +28,7 @@ export const ChatBubble = ({
   const Pre = ({ children }) => {
     return (
       <pre className="code-pre">
-        <CopyToClipboard textToCopy={markdownToText(children.props.children)} />
+        <CopyToClipboard textToCopy={children.props.children} />
         {children}
       </pre>
     );
