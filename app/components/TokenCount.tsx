@@ -17,21 +17,18 @@ export const TokenCount = ({
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
   const [model, setModel] = useState('');
   const [maxTokens, setMaxTokens] = useState(2048);
-  const [remainingTokens, setRemainingTokens] = useLocalStorageState(
-    'remainingTokens',
-    {
-      defaultValue: 2048,
-    }
+  const [remainingTokens, setRemainingTokens] = useState(2048);
+  const [remainingSystemTokens, setRemainingSystemTokens] = useState(
+    systemMessageMaxTokens
   );
-  const [remainingSystemTokens, setRemainingSystemTokens] =
-    useLocalStorageState('remainingSystemTokens', {
-      defaultValue: systemMessageMaxTokens,
-    });
 
   const [tokens, setTokens] = useLocalStorageState('tokens', {
     defaultValue: {
       input: inputTokens,
+      maximum: maxTokens,
+      remaining: remainingTokens,
       systemMessage: systemMessageTokens,
+      systemMessageRemaining: remainingSystemTokens,
     },
   });
 
@@ -60,26 +57,27 @@ export const TokenCount = ({
     setSystemMessageTokens(systemMessageCount);
     const inputCount = tokenizer.encode(input).length;
     setInputTokens(inputCount);
-  }, [input, systemMessage]);
+    setRemainingTokens(maxTokens - (systemMessageCount + inputCount));
+    setRemainingSystemTokens(systemMessageMaxTokens - systemMessageCount);
+  }, [input, systemMessage, systemMessageMaxTokens, maxTokens]);
 
-  // update remaining tokens
-  useEffect(() => {
-    setRemainingSystemTokens(systemMessageMaxTokens - systemMessageTokens);
-    setRemainingTokens(maxTokens - (inputTokens + systemMessageTokens));
-  }, [
-    inputTokens,
-    maxTokens,
-    setRemainingTokens,
-    setRemainingSystemTokens,
-    systemMessageTokens,
-  ]);
-
+  // update token counts
   useEffect(() => {
     setTokens({
       input: inputTokens,
+      maximum: maxTokens,
+      remaining: remainingTokens,
       systemMessage: systemMessageTokens,
+      systemMessageRemaining: remainingSystemTokens,
     });
-  }, [inputTokens, systemMessageTokens, setTokens]);
+  }, [
+    inputTokens,
+    maxTokens,
+    remainingSystemTokens,
+    remainingTokens,
+    setTokens,
+    systemMessageTokens,
+  ]);
 
   return (
     <>
@@ -93,8 +91,8 @@ export const TokenCount = ({
         <strong>
           {tokens[display]} <span className="font-normal">Tokens</span> /{' '}
           {display === 'systemMessage'
-            ? remainingSystemTokens
-            : remainingTokens}{' '}
+            ? tokens.systemMessageRemaining
+            : tokens.remaining}{' '}
           <span className="font-normal">Remaining</span>
         </strong>
       </div>
