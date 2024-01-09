@@ -61,7 +61,7 @@ export const TokenCount = ({
     setRemainingSystemTokens(systemMessageMaxTokens - systemMessageCount);
   }, [input, systemMessage, systemMessageMaxTokens, maxTokens]);
 
-  // update token counts
+  // set token counts
   useEffect(() => {
     setTokens({
       input: inputTokens,
