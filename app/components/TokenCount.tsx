@@ -86,7 +86,7 @@ export const TokenCount = ({
       <div
         className={`${
           display === 'systemMessage' ? '-mb-3' : 'mb-1'
-        } text-xs text-gray-500 uppercase cursor-default`}
+        } text-xs text-base-content opacity-50 uppercase cursor-default`}
         key={`${display}-token-count`}
       >
         {/* Token{tokens === 1 ? '' : 's'}:{' '} */}
