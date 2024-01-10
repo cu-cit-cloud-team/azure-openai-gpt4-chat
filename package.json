@@ -30,12 +30,16 @@
     "@fortawesome/free-brands-svg-icons": "6.5.1",
     "@fortawesome/free-solid-svg-icons": "6.5.1",
     "@fortawesome/react-fontawesome": "0.2.0",
+    "@langchain/community": "0.0.16",
+    "@langchain/core": "0.1.12",
+    "@langchain/openai": "0.0.10",
     "ai": "2.2.31",
     "axios": "1.6.5",
     "daisyui": "4.5.0",
     "dayjs": "1.11.10",
     "he": "1.2.0",
     "js-tiktoken": "1.0.8",
+    "langchain": "0.1.2",
     "marked": "11.1.1",
     "nanoid": "5.0.4",
     "next": "14.0.4",
@@ -72,11 +76,7 @@
     "typescript": "5.3.3"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
