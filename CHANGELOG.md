@@ -1,3 +1,22 @@
+## <small>0.17.1 (2024-1-12)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.5.0 to 1.5.1 (#183) ([eac8145](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eac8145)), closes [#183](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/183)
+* chore(deps-dev): bump the types group with 1 update (#182) ([39852ef](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/39852ef)), closes [#182](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/182)
+* chore(deps-dev): bump the types group with 1 update (#184) ([9ed7afa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9ed7afa)), closes [#184](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/184)
+* chore(deps): add langchain ([1a6cf2b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1a6cf2b))
+* chore(deps): bump @langchain/community from 0.0.16 to 0.0.17 (#188) ([f4cd4c9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f4cd4c9)), closes [#188](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/188)
+* chore(deps): bump @langchain/openai from 0.0.10 to 0.0.11 (#186) ([e3ba075](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e3ba075)), closes [#186](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/186)
+* chore(deps): bump daisyui from 4.5.0 to 4.6.0 (#187) ([e9e2e2a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e9e2e2a)), closes [#187](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/187)
+* chore(deps): bump openai from 4.24.1 to 4.24.2 (#181) ([a312326](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a312326)), closes [#181](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/181)
+* chore(deps): bump openai from 4.24.2 to 4.24.3 (#185) ([3e3d0c4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3e3d0c4)), closes [#185](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/185)
+* chore(deps): bump openai from 4.24.3 to 4.24.4 (#189) ([9468ce5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9468ce5)), closes [#189](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/189)
+* feat(api): add /langchain route ([768229d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/768229d))
+* style(TokenCount): fix comment ([be5f357](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/be5f357))
+* style(TokenCount): use theme class for text to ensure readability ([c383dd2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c383dd2))
+* refactor(TokenCount): improve state logic ([f216517](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f216517))
+
+
+
 ## 0.17.0 (2024-01-08)
 
 * chore(deps-dev): bump @biomejs/biome from 1.4.1 to 1.5.0 ([98d0eff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/98d0eff))
