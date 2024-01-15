@@ -1,9 +1,18 @@
 import { faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import { useEffect, useState } from 'react';
 
 import pkg from '../../package.json';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('America/New_York');
+
+const DEPLOY_INTERVAL = 15; // minutes
 
 export const UpdateCheck = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -16,16 +25,25 @@ export const UpdateCheck = () => {
       const latest = await axios
         .get(`https://api.github.com/repos/${org}/${repo}/releases/latest`)
         .then((response) => {
-          const latest = response.data.tag_name;
+          const version = response.data.tag_name;
+          const published = response.data.published_at;
 
-          return latest;
+          return {
+            version,
+            published,
+          };
         })
         // biome-ignore lint/correctness/noUnusedVariables: used for debugging
         .catch((error) => {
           setUpdateAvailable(false);
           // console.error(error);
         });
-      setUpdateAvailable(latest !== `v${pkg.version}`);
+
+      setUpdateAvailable(
+        latest.version !== `v${pkg.version}` &&
+          dayjs().tz() >
+            dayjs().utc(latest.published).tz().add(DEPLOY_INTERVAL, 'm')
+      );
     };
 
     // check for updates every hour
