@@ -1,3 +1,12 @@
+## <small>0.17.2 (2024-1-15)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.5.1 to 1.5.2 (#193) ([972c71b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/972c71b)), closes [#193](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/193)
+* chore(deps-dev): bump the types group with 2 updates (#192) ([2213075](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2213075)), closes [#192](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/192)
+* chore(deps): bump openai from 4.24.4 to 4.24.6 (#190) ([5eb6ca1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5eb6ca1)), closes [#190](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/190)
+* chore(deps): bump openai from 4.24.6 to 4.24.7 (#191) ([31e5c71](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/31e5c71)), closes [#191](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/191)
+
+
+
 ## <small>0.17.1 (2024-1-12)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.5.0 to 1.5.1 (#183) ([eac8145](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eac8145)), closes [#183](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/183)
