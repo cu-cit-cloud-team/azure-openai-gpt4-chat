@@ -55,8 +55,7 @@ export default function Chat() {
   const [systemMessage, setSystemMessage] = useLocalStorageState(
     'systemMessage',
     {
-      defaultValue:
-        'You are a helpful AI assistant. Answer in markdown format.',
+      defaultValue: 'You are a helpful AI assistant.',
     }
   );
 

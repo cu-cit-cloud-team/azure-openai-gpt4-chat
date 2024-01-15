@@ -27,7 +27,7 @@ export const runtime = 'edge';
 
 // set up defaults for chat config
 const defaults = {
-  systemMessage: 'You are a helpful AI assistant. Answer in markdown format.',
+  systemMessage: 'You are a helpful AI assistant.',
   temperature: 1, // 0.0 to 2.0
   top_p: 1, // 0.0 to 1.0
   frequency_penalty: 0, // -2.0 to 2.0
