@@ -1,3 +1,11 @@
+## 0.18.0 (2024-1-15)
+
+* refactor: update default system message ([47358a1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/47358a1))
+* refactor: use langchain route for chat ([e224bb8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e224bb8))
+* refactor(UpdateCheck): improve logic (add wait period if recent deploy) ([d7ad4bc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d7ad4bc))
+
+
+
 ## <small>0.17.2 (2024-1-15)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.5.1 to 1.5.2 (#193) ([972c71b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/972c71b)), closes [#193](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/193)
