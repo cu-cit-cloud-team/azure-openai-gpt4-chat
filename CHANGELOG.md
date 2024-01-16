@@ -1,3 +1,12 @@
+## <small>0.18.1 (2024-1-16)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#194) ([0c72a89](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0c72a89)), closes [#194](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/194)
+* chore(deps): bump @langchain/core from 0.1.12 to 0.1.13 (#195) ([ed291eb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ed291eb)), closes [#195](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/195)
+* chore(deps): bump @langchain/openai from 0.0.11 to 0.0.12 (#196) ([a3ee826](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a3ee826)), closes [#196](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/196)
+* chore(deps): bump langchain from 0.1.2 to 0.1.3 (#197) ([5483f55](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5483f55)), closes [#197](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/197)
+
+
+
 ## 0.18.0 (2024-1-15)
 
 * refactor: update default system message ([47358a1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/47358a1))
