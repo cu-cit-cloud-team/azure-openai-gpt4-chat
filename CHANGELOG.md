@@ -1,3 +1,10 @@
+## <small>0.18.3 (2024-01-19)</small>
+
+* chore(deps-dev): bump stylelint from 16.1.0 to 16.2.0 (#207) ([50dc479](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/50dc479)), closes [#207](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/207)
+* chore(deps): bump next from 14.0.4 to 14.1.0 (#206) ([a634467](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a634467)), closes [#206](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/206)
+
+
+
 ## <small>0.18.2 (2024-01-18)</small>
 
 * chore(deps-dev): bump sass from 1.69.7 to 1.70.0 (#205) ([9c73b37](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9c73b37)), closes [#205](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/205)
