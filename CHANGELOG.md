@@ -1,3 +1,14 @@
+## <small>0.18.4 (2024-1-22)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.5.2 to 1.5.3 (#211) ([654ebb2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/654ebb2)), closes [#211](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/211)
+* chore(deps): bump @langchain/community from 0.0.18 to 0.0.19 (#208) ([0761870](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0761870)), closes [#208](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/208)
+* chore(deps): bump @langchain/core from 0.1.16 to 0.1.17 (#209) ([e49052a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e49052a)), closes [#209](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/209)
+* chore(deps): bump langchain from 0.1.4 to 0.1.5 (#212) ([1ba8340](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1ba8340)), closes [#212](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/212)
+* chore(deps): bump openai from 4.24.7 to 4.25.0 (#210) ([6ffc940](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6ffc940)), closes [#210](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/210)
+* build(npm): add `--turbo` flag to dev ([7f33561](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7f33561))
+
+
+
 ## <small>0.18.3 (2024-01-19)</small>
 
 * chore(deps-dev): bump stylelint from 16.1.0 to 16.2.0 (#207) ([50dc479](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/50dc479)), closes [#207](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/207)
