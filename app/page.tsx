@@ -73,6 +73,10 @@ export default function Chat() {
     defaultValue: [],
   });
 
+  const handleChatError = (error) => {
+    console.error(error);
+  };
+
   const {
     error,
     handleInputChange,
@@ -95,6 +99,7 @@ export default function Chat() {
       &model=${encodeURIComponent(parameters.model)}`,
     id: userMeta?.email ? btoa(userMeta?.email) : undefined,
     initialMessages: savedMessages,
+    onError: handleChatError,
   });
 
   // update localStorage when messages change
