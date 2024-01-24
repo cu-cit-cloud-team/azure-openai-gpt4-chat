@@ -44,7 +44,7 @@ export const ChatMeta = ({
 
   return (
     <>
-      <span
+      <div
         className={`cursor-default text-xs ${
           isUser
             ? 'tooltip-primary tooltip-right'
@@ -82,7 +82,7 @@ export const ChatMeta = ({
             <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
           </time>
         ) : null}
-      </span>
+      </div>
     </>
   );
 };
@@ -101,6 +101,7 @@ ChatMeta.propTypes = {
       PropTypes.instanceOf(Date),
     ]),
   }),
+  stop: PropTypes.func,
   userMeta: PropTypes.oneOfType([
     PropTypes.shape({
       email: PropTypes.string,
