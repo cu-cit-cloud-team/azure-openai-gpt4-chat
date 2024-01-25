@@ -1,3 +1,14 @@
+## <small>0.18.6 (2024-1-25)</small>
+
+* chore(deps): bump axios from 1.6.5 to 1.6.6 (#217) ([fb737aa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fb737aa)), closes [#217](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/217)
+* chore(deps): bump langchain from 0.1.6 to 0.1.7 (#216) ([40ea104](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/40ea104)), closes [#216](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/216)
+* refactor(ChatMeta): add missing prop type ([4d919b0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4d919b0))
+* refactor(Messages): remove useMemo, add missing prop types ([6779547](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6779547))
+* refactor(TokenCount): remove unused dependency from useEffect array ([35e9ba3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/35e9ba3))
+* refactor(WIP): prepare for error handling work ([acedd04](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/acedd04))
+
+
+
 ## <small>0.18.5 (2024-1-24)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#213) ([2f3fc52](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2f3fc52)), closes [#213](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/213)
