@@ -41,8 +41,8 @@ export const UpdateCheck = () => {
 
       setUpdateAvailable(
         latest.version !== `v${pkg.version}` &&
-          dayjs().tz() >
-            dayjs().utc(latest.published).tz().add(DEPLOY_INTERVAL, 'm')
+          dayjs().utc() >
+            dayjs().utc(latest.published).add(DEPLOY_INTERVAL, 'm')
       );
     };
 
