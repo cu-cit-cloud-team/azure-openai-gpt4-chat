@@ -21,6 +21,7 @@ export const Footer = ({
   useEffect(() => {
     if (textAreaRef?.current) {
       textAreaRef.current.style.height = '';
+      textAreaRef.current.style.overflow = 'scroll';
       textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
     }
   }, [input, textAreaRef]);
@@ -36,7 +37,7 @@ export const Footer = ({
   }, [isMac]);
 
   return (
-    <footer className="fixed bottom-0 z-40 w-full px-4 py-2 overflow-hidden text-center resize-none lg:p-4 bg-base-300">
+    <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
       <form ref={formRef} onSubmit={handleSubmit} className="w-full">
         <TokenCount
           input={input}
@@ -46,7 +47,7 @@ export const Footer = ({
         <textarea
           autoFocus={true}
           ref={textAreaRef}
-          className="w-full h-10 max-w-6xl p-2 text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80"
+          className="w-full h-10 max-w-6xl p-2 overflow-hidden text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80"
           value={input}
           placeholder="Type a message..."
           onChange={handleInputChange}
