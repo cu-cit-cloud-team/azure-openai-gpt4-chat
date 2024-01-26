@@ -156,8 +156,17 @@ export default function Chat() {
           window.location.reload();
         }
       }
-      if (event.key === 'Enter' && event.metaKey) {
-        submitForm();
+      // if (event.key === 'Enter' && event.shiftKey) {
+      //   console.log('new line');
+      // }
+      if (event.key === 'Enter' && !event.shiftKey) {
+        if (event.target.value.trim().length) {
+          event.preventDefault();
+          submitForm();
+        } else {
+          event.preventDefault();
+          return false;
+        }
       }
     };
     if (textareaElement) {
