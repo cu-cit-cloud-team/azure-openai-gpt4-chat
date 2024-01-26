@@ -24,7 +24,7 @@ export const Messages = ({
 
   return (
     <div className="z-0 overflow-auto bg-base-100">
-      <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-64 mx-auto pb-28 mb-36">
+      <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-64 mx-auto mb-12 pb-28">
         {messages.length > 0
           ? messages.map((m, idx) => {
               return (
