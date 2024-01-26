@@ -1,3 +1,13 @@
+## <small>0.18.7 (2024-1-26)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#218) ([c6b1349](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c6b1349)), closes [#218](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/218)
+* chore(deps): bump @langchain/core from 0.1.17 to 0.1.18 (#220) ([1de1b5d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1de1b5d)), closes [#220](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/220)
+* chore(deps): bump axios from 1.6.6 to 1.6.7 (#219) ([c8a15e2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c8a15e2)), closes [#219](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/219)
+* chore(deps): bump openai from 4.25.0 to 4.26.0 (#221) ([8a3e168](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8a3e168)), closes [#221](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/221)
+* refactor(UpdateCheck): improve logic ([366191f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/366191f))
+
+
+
 ## <small>0.18.6 (2024-1-25)</small>
 
 * chore(deps): bump axios from 1.6.5 to 1.6.6 (#217) ([fb737aa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fb737aa)), closes [#217](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/217)
