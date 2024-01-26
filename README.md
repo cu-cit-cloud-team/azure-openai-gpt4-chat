@@ -37,8 +37,10 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Chat with an Azure OpenAI GPT-4 model
 - [x] Chat responses stream in real-time for a ChatGPT-like experience
 - [x] Uses `textarea` for input for multi-line support
-  - [x] Keyboard shortcuts for sending messages (`cmd`+`enter`, `ctrl`+`enter`)
   - [x] Focus `textarea` on page load
+  - [x] `textarea` auto-resizes as you type
+  - [x] `enter` key to submit message
+  - [x] `shift`+`enter` for new line
 - [x] Loading indicator next to chat response until it's finished
 - [x] Formats code blocks and other markdown inside of chat messages nicely
 - [x] Current chat history is stored in browser's local storage
