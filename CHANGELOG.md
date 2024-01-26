@@ -1,3 +1,12 @@
+## 0.19.0 (2024-01-26)
+
+* docs(README): update features ([805ac49](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/805ac49))
+* docs(README): update uses ([d432241](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d432241))
+* feat: enter to send, shift+enter for new line ([add32e0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/add32e0))
+* feat(Footer): dynamically resize textarea ([400fea1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/400fea1))
+
+
+
 ## <small>0.18.7 (2024-1-26)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#218) ([c6b1349](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c6b1349)), closes [#218](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/218)
