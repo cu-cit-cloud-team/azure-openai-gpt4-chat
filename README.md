@@ -92,6 +92,8 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
   - React framework
 - [Vercel AI SDK](https://sdk.vercel.ai/docs)
   - JS Library for AI-powered UIs
+- [LangChain.js](https://github.com/langchain-ai/langchainjs)
+  - JS Library for interacting with LLMs (e.g. GPT-4)
 - [Tailwind CSS](https://tailwindcss.com/)
   - CSS framework
 - [daisyUI](https://daisyui.com/)
