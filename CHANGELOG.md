@@ -1,3 +1,18 @@
+## <small>0.19.1 (2024-1-29)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#226) ([19b1669](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/19b1669)), closes [#226](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/226)
+* chore(deps-dev): bump the types group with 1 update (#228) ([fff008e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fff008e)), closes [#228](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/228)
+* chore(deps): bump @langchain/community from 0.0.20 to 0.0.21 (#224) ([48f9c99](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/48f9c99)), closes [#224](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/224)
+* chore(deps): bump @langchain/openai from 0.0.12 to 0.0.13 (#223) ([52887a2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/52887a2)), closes [#223](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/223)
+* chore(deps): bump daisyui from 4.6.0 to 4.6.1 (#229) ([3400f86](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3400f86)), closes [#229](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/229)
+* chore(deps): bump js-tiktoken from 1.0.8 to 1.0.10 (#227) ([863dd63](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/863dd63)), closes [#227](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/227)
+* chore(deps): bump langchain from 0.1.7 to 0.1.9 (#225) ([c5a4240](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c5a4240)), closes [#225](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/225)
+* chore(deps): bump marked from 11.1.1 to 11.2.0 (#222) ([404ebb8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/404ebb8)), closes [#222](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/222)
+* style(Messages): reduce bottom padding ([7fc2d59](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7fc2d59))
+* refactor(Footer): minor improvements ([d85202b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d85202b))
+
+
+
 ## 0.19.0 (2024-01-26)
 
 * docs(README): update features ([805ac49](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/805ac49))
