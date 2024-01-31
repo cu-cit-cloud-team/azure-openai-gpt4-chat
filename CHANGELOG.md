@@ -1,3 +1,16 @@
+## <small>0.19.2 (2024-1-31)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#233) ([5cc0390](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5cc0390)), closes [#233](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/233)
+* chore(deps): bump @langchain/community from 0.0.21 to 0.0.22 (#231) ([c4163b7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c4163b7)), closes [#231](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/231)
+* chore(deps): bump @langchain/community from 0.0.22 to 0.0.23 (#236) ([0c6e360](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0c6e360)), closes [#236](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/236)
+* chore(deps): bump @langchain/core from 0.1.18 to 0.1.19 (#232) ([2f487c3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2f487c3)), closes [#232](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/232)
+* chore(deps): bump @langchain/core from 0.1.19 to 0.1.20 (#237) ([c14e794](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c14e794)), closes [#237](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/237)
+* chore(deps): bump ai from 2.2.31 to 2.2.32 (#234) ([cb38067](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cb38067)), closes [#234](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/234)
+* chore(deps): bump langchain from 0.1.10 to 0.1.11 (#235) ([9d7efc3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9d7efc3)), closes [#235](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/235)
+* chore(deps): bump langchain from 0.1.9 to 0.1.10 (#230) ([43c8112](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/43c8112)), closes [#230](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/230)
+
+
+
 ## <small>0.19.1 (2024-1-29)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#226) ([19b1669](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/19b1669)), closes [#226](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/226)
