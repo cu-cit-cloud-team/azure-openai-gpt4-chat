@@ -25,22 +25,23 @@ export default function Chat() {
       await axios
         .get('/.auth/me')
         .then((response) => {
-          // console.log(response.data);
-
-          const email = response.data[0].user_claims.find(
+          const email = response?.data[0]?.user_claims.find(
             (item) => item.typ === 'preferred_username'
           ).val;
 
-          const name = response.data[0].user_claims.find(
+          const name = response?.data[0]?.user_claims.find(
             (item) => item.typ === 'name'
           ).val;
 
-          const user_id = response.data[0].user_id;
+          const user_id = response?.data[0]?.user_id;
+
+          const expires_on = response?.data[0]?.expires_on;
 
           setUserMeta({
             email,
             name,
             user_id,
+            expires_on,
           });
         })
         // biome-ignore lint/correctness/noUnusedVariables: used for debugging
