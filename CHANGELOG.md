@@ -1,3 +1,19 @@
+## <small>0.19.4 (2024-2-5)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#250) ([5fd6d76](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5fd6d76)), closes [#250](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/250)
+* chore(deps-dev): bump the types group with 1 update (#253) ([021c4fd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/021c4fd)), closes [#253](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/253)
+* chore(deps): add react-error-boundary@4.0.12 ([927c19f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/927c19f))
+* chore(deps): add react-mentions@4.4.10 ([edb5339](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/edb5339))
+* chore(deps): bump @langchain/core from 0.1.21 to 0.1.22 (#251) ([8fcd369](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8fcd369)), closes [#251](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/251)
+* chore(deps): bump @langchain/core from 0.1.22 to 0.1.23 (#255) ([500b1e3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/500b1e3)), closes [#255](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/255)
+* chore(deps): bump langchain from 0.1.12 to 0.1.13 (#256) ([acedae6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/acedae6)), closes [#256](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/256)
+* chore(deps): bump marked from 11.2.0 to 12.0.0 (#252) ([8a76525](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8a76525)), closes [#252](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/252)
+* chore(deps): bump openai from 4.26.0 to 4.26.1 (#254) ([41c9863](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/41c9863)), closes [#254](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/254)
+* refactor: add bare bones error modal ([0783488](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0783488))
+* refactor: add expires_on to userMeta ([55d0e12](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/55d0e12))
+
+
+
 ## <small>0.19.3 (2024-2-2)</small>
 
 * chore(deps-dev): bump stylelint from 16.2.0 to 16.2.1 (#244) ([ba4ace0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ba4ace0)), closes [#244](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/244)
