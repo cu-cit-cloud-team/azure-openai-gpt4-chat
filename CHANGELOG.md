@@ -1,3 +1,9 @@
+## <small>0.19.5 (2024-2-5)</small>
+
+* revert(deps): rollback @langchain/core to 0.1.22 ([c7921fc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c7921fc))
+
+
+
 ## <small>0.19.4 (2024-2-5)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#250) ([5fd6d76](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5fd6d76)), closes [#250](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/250)
