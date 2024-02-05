@@ -2,6 +2,7 @@
 
 import { useChat } from 'ai/react';
 import axios from 'axios';
+import dayjs from 'dayjs';
 import { useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import useLocalStorageState from 'use-local-storage-state';
@@ -9,6 +10,7 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Footer } from './components/Footer.tsx';
 import { Header } from './components/Header.tsx';
 import { Messages } from './components/Messages.tsx';
+import { SessionModal } from './components/SessionModal.tsx';
 
 import { setItem } from './utils/localStorage.ts';
 
@@ -70,6 +72,29 @@ export default function Chat() {
       presence_penalty: '0',
     },
   });
+
+  useEffect(() => {
+    const isSessionStale = () => {
+      if (userMeta?.expires_on) {
+        const expiresOn = dayjs(userMeta.expires_on);
+        const now = dayjs();
+        if (now.isAfter(expiresOn)) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    const sessionTimer = setTimeout(() => {
+      if (isSessionStale()) {
+        clearTimeout(sessionTimer);
+        const sessionModal = document.querySelector('.sessionModal');
+        sessionModal.showModal();
+      }
+    }, 1000);
+
+    return () => clearTimeout(sessionTimer);
+  }, [userMeta]);
 
   const [savedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
@@ -209,6 +234,7 @@ export default function Chat() {
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <SessionModal />
         <Header
           isLoading={isLoading}
           systemMessage={systemMessage}
