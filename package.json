@@ -31,7 +31,7 @@
     "@fortawesome/free-solid-svg-icons": "6.5.1",
     "@fortawesome/react-fontawesome": "0.2.0",
     "@langchain/community": "0.0.26",
-    "@langchain/core": "0.1.23",
+    "@langchain/core": "0.1.22",
     "@langchain/openai": "0.0.14",
     "ai": "2.2.33",
     "axios": "1.6.7",
@@ -78,11 +78,7 @@
     "typescript": "5.3.3"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
