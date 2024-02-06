@@ -1,3 +1,11 @@
+## 0.20.0 (2024-02-06)
+
+* chore(deps-dev): bump the postcss group with 1 update (#258) ([90d5fed](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/90d5fed)), closes [#258](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/258)
+* chore(deps-dev): bump the types group with 1 update (#257) ([9e67f6c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9e67f6c)), closes [#257](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/257)
+* feat(SessionModal): add session expiration check and notification ([3dabcfe](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3dabcfe))
+
+
+
 ## <small>0.19.5 (2024-2-5)</small>
 
 * revert(deps): rollback @langchain/core to 0.1.22 ([c7921fc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c7921fc))
