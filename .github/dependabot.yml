@@ -13,9 +13,6 @@ updates:
       include: "scope"
   - package-ecosystem: "npm"
     directory: "/"
-    ignore:
-      - dependency-name: "@langchain/core"
-        update-types: ["version-update:semver-patch"]
     groups:
       react:
         patterns:
