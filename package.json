@@ -31,7 +31,7 @@
     "@fortawesome/free-solid-svg-icons": "6.5.1",
     "@fortawesome/react-fontawesome": "0.2.0",
     "@langchain/community": "0.0.26",
-    "@langchain/core": "0.1.22",
+    "@langchain/core": "0.1.25",
     "@langchain/openai": "0.0.14",
     "ai": "2.2.33",
     "axios": "1.6.7",
@@ -39,7 +39,7 @@
     "dayjs": "1.11.10",
     "he": "1.2.0",
     "js-tiktoken": "1.0.10",
-    "langchain": "0.1.14",
+    "langchain": "0.1.15",
     "marked": "12.0.0",
     "nanoid": "5.0.5",
     "next": "14.1.0",
@@ -78,11 +78,7 @@
     "typescript": "5.3.3"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
