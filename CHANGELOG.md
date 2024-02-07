@@ -1,3 +1,11 @@
+## <small>0.20.1 (2024-2-7)</small>
+
+* chore(deps): bump daisyui from 4.6.1 to 4.6.2 (#260) ([d46f3cc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d46f3cc)), closes [#260](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/260)
+* chore(deps): bump langchain from 0.1.13 to 0.1.14 (#263) ([1dbd322](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1dbd322)), closes [#263](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/263)
+* ci(dependabot): ignore @langchain/core until bug fixed ([f4ab446](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f4ab446))
+
+
+
 ## 0.20.0 (2024-02-06)
 
 * chore(deps-dev): bump the postcss group with 1 update (#258) ([90d5fed](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/90d5fed)), closes [#258](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/258)
