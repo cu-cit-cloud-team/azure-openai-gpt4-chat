@@ -17,6 +17,15 @@ export const Footer = ({
     }
   }, [textAreaRef, systemMessageRef]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: this is intentional to force resize on input change
+  useEffect(() => {
+    if (textAreaRef?.current) {
+      textAreaRef.current.style.height = '';
+      textAreaRef.current.style.overflow = 'scroll';
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }
+  }, [input, textAreaRef]);
+
   const [isMac, setIsMac] = useState(false);
   useEffect(() => {
     setIsMac(navigator?.userAgent?.toLowerCase().includes('mac'));
@@ -38,7 +47,7 @@ export const Footer = ({
         <textarea
           autoFocus={true}
           ref={textAreaRef}
-          className="w-full max-w-6xl p-2 border border-gray-300 rounded shadow-xl h-14 lg:h-24"
+          className="w-full h-10 max-w-6xl p-2 overflow-hidden text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80"
           value={input}
           placeholder="Type a message..."
           onChange={handleInputChange}
@@ -51,10 +60,10 @@ export const Footer = ({
           send message
         </button>
         <br />
-        <small className="hidden bottom-8 lg:inline-block">
-          <kbd className="kbd">{modifierKey}</kbd>+
+        <small className="hidden text-xs bottom-8 lg:inline-block">
           <kbd className="kbd">Enter</kbd> to send /
-          <kbd className="kbd">{modifierKey}</kbd>+
+          <kbd className="kbd">Shift</kbd>+<kbd className="kbd">Enter</kbd> for
+          new line /<kbd className="kbd">{modifierKey}</kbd>+
           <kbd className="kbd">Esc</kbd> to clear history
         </small>
       </form>

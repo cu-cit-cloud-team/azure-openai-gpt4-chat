@@ -16,19 +16,20 @@ import { getItem } from '../utils/localStorage.ts';
 import { markdownToText } from '../utils/markdownToText.ts';
 
 export const ChatBubble = ({
-  message,
+  error,
   index,
-  isUser,
   isLoading,
-  totalMessages,
-  userMeta,
+  isUser,
+  message,
   reload,
   stop,
+  totalMessages,
+  userMeta,
 }) => {
   const Pre = ({ children }) => {
     return (
       <pre className="code-pre">
-        <CopyToClipboard textToCopy={markdownToText(children.props.children)} />
+        <CopyToClipboard textToCopy={children.props.children} />
         {children}
       </pre>
     );
@@ -123,6 +124,10 @@ export const ChatBubble = ({
 
 ChatBubble.displayName = 'ChatBubble';
 ChatBubble.propTypes = {
+  error: PropTypes.oneOfType([
+    PropTypes.instanceOf(Error),
+    PropTypes.instanceOf(undefined),
+  ]),
   index: PropTypes.number,
   isLoading: PropTypes.bool,
   isUser: PropTypes.bool,

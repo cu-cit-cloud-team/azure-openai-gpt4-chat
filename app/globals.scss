@@ -39,7 +39,7 @@ div.chat-bubble > .reload-container {
 
 /* fix some display issue in bot chat bubbles in light mode */
 .chat-bubble.bot {
-  code, strong, h1, h2, h3, h4, h5, ul, ol, li, li::marker {
+  code, strong, blockquote, h1, h2, h3, h4, h5, ul, ol, li, li::marker {
     @apply text-secondary-content;
   }
 }

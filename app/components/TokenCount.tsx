@@ -12,20 +12,23 @@ export const TokenCount = ({
   systemMessage,
   display = 'input',
 }) => {
+  const systemMessageMaxTokens = 400;
   const [inputTokens, setInputTokens] = useState(0);
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
   const [model, setModel] = useState('');
   const [maxTokens, setMaxTokens] = useState(2048);
-  const [remainingTokens, setRemainingTokens] = useLocalStorageState(
-    'remainingTokens',
-    {
-      defaultValue: 2048,
-    }
+  const [remainingTokens, setRemainingTokens] = useState(2048);
+  const [remainingSystemTokens, setRemainingSystemTokens] = useState(
+    systemMessageMaxTokens
   );
+
   const [tokens, setTokens] = useLocalStorageState('tokens', {
     defaultValue: {
       input: inputTokens,
+      maximum: maxTokens,
+      remaining: remainingTokens,
       systemMessage: systemMessageTokens,
+      systemMessageRemaining: remainingSystemTokens,
     },
   });
 
@@ -54,31 +57,43 @@ export const TokenCount = ({
     setSystemMessageTokens(systemMessageCount);
     const inputCount = tokenizer.encode(input).length;
     setInputTokens(inputCount);
-  }, [input, systemMessage]);
+    setRemainingTokens(maxTokens - (systemMessageCount + inputCount));
+    setRemainingSystemTokens(systemMessageMaxTokens - systemMessageCount);
+  }, [input, systemMessage, maxTokens]);
 
-  // update remaining tokens
-  useEffect(() => {
-    setRemainingTokens(maxTokens - (inputTokens + systemMessageTokens));
-  }, [inputTokens, systemMessageTokens, maxTokens, setRemainingTokens]);
-
+  // set token counts
   useEffect(() => {
     setTokens({
       input: inputTokens,
+      maximum: maxTokens,
+      remaining: remainingTokens,
       systemMessage: systemMessageTokens,
+      systemMessageRemaining: remainingSystemTokens,
     });
-  }, [inputTokens, systemMessageTokens, setTokens]);
+  }, [
+    inputTokens,
+    maxTokens,
+    remainingSystemTokens,
+    remainingTokens,
+    setTokens,
+    systemMessageTokens,
+  ]);
 
   return (
     <>
       <div
         className={`${
           display === 'systemMessage' ? '-mb-3' : 'mb-1'
-        } text-xs text-gray-500 uppercase cursor-default`}
+        } text-xs text-base-content opacity-50 uppercase cursor-default`}
+        key={`${display}-token-count`}
       >
         {/* Token{tokens === 1 ? '' : 's'}:{' '} */}
         <strong>
           {tokens[display]} <span className="font-normal">Tokens</span> /{' '}
-          {remainingTokens} <span className="font-normal">Remaining</span>
+          {display === 'systemMessage'
+            ? tokens.systemMessageRemaining
+            : tokens.remaining}{' '}
+          <span className="font-normal">Remaining</span>
         </strong>
       </div>
     </>
