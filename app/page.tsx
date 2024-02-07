@@ -3,6 +3,7 @@
 import { useChat } from 'ai/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
 import { useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import useLocalStorageState from 'use-local-storage-state';
@@ -13,6 +14,8 @@ import { Messages } from './components/Messages.tsx';
 import { SessionModal } from './components/SessionModal.tsx';
 
 import { setItem } from './utils/localStorage.ts';
+
+dayjs.extend(timezone);
 
 export default function Chat() {
   const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
@@ -73,28 +76,32 @@ export default function Chat() {
     },
   });
 
-  // useEffect(() => {
-  //   const isSessionStale = () => {
-  //     if (userMeta?.expires_on) {
-  //       const expiresOn = dayjs(userMeta.expires_on);
-  //       const now = dayjs();
-  //       if (now.isAfter(expiresOn)) {
-  //         return true;
-  //       }
-  //     }
-  //     return false;
-  //   };
+  useEffect(() => {
+    const isSessionStale = () => {
+      if (userMeta?.expires_on) {
+        const userTimezone =
+          Intl.DateTimeFormat().resolvedOptions().timeZone ||
+          'America/New_York';
+        const expiresOn = dayjs(userMeta.expires_on).tz(userTimezone);
+        const now = dayjs().tz(userTimezone);
 
-  //   const sessionTimer = setTimeout(() => {
-  //     if (isSessionStale()) {
-  //       clearTimeout(sessionTimer);
-  //       const sessionModal = document.querySelector('.sessionModal');
-  //       sessionModal.showModal();
-  //     }
-  //   }, 1000);
+        if (now.isAfter(expiresOn)) {
+          return true;
+        }
+      }
+      return false;
+    };
 
-  //   return () => clearTimeout(sessionTimer);
-  // }, [userMeta]);
+    const sessionTimer = setTimeout(() => {
+      if (isSessionStale()) {
+        clearTimeout(sessionTimer);
+        const sessionModal = document.querySelector('.sessionModal');
+        sessionModal.showModal();
+      }
+    }, 1000);
+
+    return () => clearTimeout(sessionTimer);
+  }, [userMeta]);
 
   const [savedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
