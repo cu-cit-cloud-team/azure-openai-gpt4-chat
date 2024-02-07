@@ -13,9 +13,6 @@ updates:
       include: "scope"
   - package-ecosystem: "npm"
     directory: "/"
-    ignore:
-      - dependency-name: "@langchain/core"
-        update-types: ["version-update:semver-patch"]
     groups:
       react:
         patterns:
@@ -24,6 +21,10 @@ updates:
           - "react-markdown"
           - "react-syntax-highlighter"
           - "use-local-storage-state"
+      langchain:
+        patterns:
+          - "langchain"
+          - "@langchain/*"
       types:
         patterns:
           - "@types/*"
