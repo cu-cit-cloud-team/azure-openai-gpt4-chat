@@ -73,28 +73,28 @@ export default function Chat() {
     },
   });
 
-  useEffect(() => {
-    const isSessionStale = () => {
-      if (userMeta?.expires_on) {
-        const expiresOn = dayjs(userMeta.expires_on);
-        const now = dayjs();
-        if (now.isAfter(expiresOn)) {
-          return true;
-        }
-      }
-      return false;
-    };
+  // useEffect(() => {
+  //   const isSessionStale = () => {
+  //     if (userMeta?.expires_on) {
+  //       const expiresOn = dayjs(userMeta.expires_on);
+  //       const now = dayjs();
+  //       if (now.isAfter(expiresOn)) {
+  //         return true;
+  //       }
+  //     }
+  //     return false;
+  //   };
 
-    const sessionTimer = setTimeout(() => {
-      if (isSessionStale()) {
-        clearTimeout(sessionTimer);
-        const sessionModal = document.querySelector('.sessionModal');
-        sessionModal.showModal();
-      }
-    }, 1000);
+  //   const sessionTimer = setTimeout(() => {
+  //     if (isSessionStale()) {
+  //       clearTimeout(sessionTimer);
+  //       const sessionModal = document.querySelector('.sessionModal');
+  //       sessionModal.showModal();
+  //     }
+  //   }, 1000);
 
-    return () => clearTimeout(sessionTimer);
-  }, [userMeta]);
+  //   return () => clearTimeout(sessionTimer);
+  // }, [userMeta]);
 
   const [savedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
