@@ -28,7 +28,13 @@ export default function Chat() {
     }
     const getUserMeta = async () => {
       await axios
-        .get('/.auth/me')
+        .get('/.auth/me', {
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+            Expires: '0',
+          },
+        })
         .then((response) => {
           const email = response?.data[0]?.user_claims.find(
             (item) => item.typ === 'preferred_username'
