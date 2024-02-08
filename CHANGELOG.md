@@ -1,3 +1,18 @@
+## <small>0.20.2 (2024-02-08)</small>
+
+* refactor: disable session timer/popup ([f090fb8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f090fb8))
+* refactor: localize and re-enable session timer ([88f8bb1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/88f8bb1))
+* refactor: temporarilly disable session timer ([0e99146](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0e99146))
+* refactor(getUserMeta): add explicit no-cache headers ([0bbdea4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0bbdea4))
+* chore(deps-dev): bump the postcss group with 1 update (#265) ([b1541c1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b1541c1)), closes [#265](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/265)
+* chore(deps-dev): bump the types group with 1 update (#264) ([e2569f0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e2569f0)), closes [#264](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/264)
+* chore(deps): bump the langchain group with 1 update (#267) ([4e7ef7f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4e7ef7f)), closes [#267](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/267)
+* chore(deps): bump the langchain group with 2 updates (#266) ([0c19b82](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0c19b82)), closes [#266](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/266)
+* ci(dependabot): add group for langchain dependencies ([d74ab25](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d74ab25))
+* ci(dependabot): remove ignore list (revert f4ab446) ([1c122b6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1c122b6))
+
+
+
 ## <small>0.20.1 (2024-2-7)</small>
 
 * chore(deps): bump daisyui from 4.6.1 to 4.6.2 (#260) ([d46f3cc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d46f3cc)), closes [#260](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/260)
