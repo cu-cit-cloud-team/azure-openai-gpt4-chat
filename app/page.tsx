@@ -82,32 +82,32 @@ export default function Chat() {
     },
   });
 
-  useEffect(() => {
-    const isSessionStale = () => {
-      if (userMeta?.expires_on) {
-        const userTimezone =
-          Intl.DateTimeFormat().resolvedOptions().timeZone ||
-          'America/New_York';
-        const expiresOn = dayjs(userMeta.expires_on).tz(userTimezone);
-        const now = dayjs().tz(userTimezone);
+  // useEffect(() => {
+  //   const isSessionStale = () => {
+  //     if (userMeta?.expires_on) {
+  //       const userTimezone =
+  //         Intl.DateTimeFormat().resolvedOptions().timeZone ||
+  //         'America/New_York';
+  //       const expiresOn = dayjs(userMeta.expires_on).tz(userTimezone);
+  //       const now = dayjs().tz(userTimezone);
 
-        if (now.isAfter(expiresOn)) {
-          return true;
-        }
-      }
-      return false;
-    };
+  //       if (now.isAfter(expiresOn)) {
+  //         return true;
+  //       }
+  //     }
+  //     return false;
+  //   };
 
-    const sessionTimer = setTimeout(() => {
-      if (isSessionStale()) {
-        clearTimeout(sessionTimer);
-        const sessionModal = document.querySelector('.sessionModal');
-        sessionModal.showModal();
-      }
-    }, 1000);
+  //   const sessionTimer = setTimeout(() => {
+  //     if (isSessionStale()) {
+  //       clearTimeout(sessionTimer);
+  //       const sessionModal = document.querySelector('.sessionModal');
+  //       sessionModal.showModal();
+  //     }
+  //   }, 1000);
 
-    return () => clearTimeout(sessionTimer);
-  }, [userMeta]);
+  //   return () => clearTimeout(sessionTimer);
+  // }, [userMeta]);
 
   const [savedMessages] = useLocalStorageState('messages', {
     defaultValue: [],
