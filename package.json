@@ -35,7 +35,7 @@
     "@langchain/openai": "0.0.14",
     "ai": "2.2.34",
     "axios": "1.6.7",
-    "daisyui": "4.6.2",
+    "daisyui": "4.6.3",
     "dayjs": "1.11.10",
     "he": "1.2.0",
     "js-tiktoken": "1.0.10",
