@@ -1,3 +1,18 @@
+## <small>0.20.3 (2024-02-14)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#268) ([511a558](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/511a558)), closes [#268](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/268)
+* chore(deps): bump ai from 2.2.33 to 2.2.34 (#272) ([339a9bc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/339a9bc)), closes [#272](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/272)
+* chore(deps): bump ai from 2.2.34 to 2.2.35 (#275) ([fcd897f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fcd897f)), closes [#275](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/275)
+* chore(deps): bump daisyui from 4.6.2 to 4.6.3 (#273) ([15e6c2b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/15e6c2b)), closes [#273](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/273)
+* chore(deps): bump daisyui from 4.6.3 to 4.7.2 (#278) ([274b74a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/274b74a)), closes [#278](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/278)
+* chore(deps): bump openai from 4.26.1 to 4.27.0 (#270) ([088bc6c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/088bc6c)), closes [#270](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/270)
+* chore(deps): bump openai from 4.27.0 to 4.28.0 (#274) ([28c0dba](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/28c0dba)), closes [#274](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/274)
+* chore(deps): bump the langchain group with 1 update (#269) ([7fc3ac4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7fc3ac4)), closes [#269](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/269)
+* chore(deps): bump the langchain group with 1 update (#271) ([14686c4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/14686c4)), closes [#271](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/271)
+* chore(deps): bump the langchain group with 2 updates (#277) ([227f92c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/227f92c)), closes [#277](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/277)
+
+
+
 ## <small>0.20.2 (2024-02-08)</small>
 
 * refactor: disable session timer/popup ([f090fb8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f090fb8))
