@@ -1,3 +1,13 @@
+## <small>0.20.5 (2024-2-22)</small>
+
+* chore(deps-dev): bump sass from 1.71.0 to 1.71.1 (#289) ([b15ba50](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b15ba50)), closes [#289](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/289)
+* chore(deps): bump ai from 2.2.35 to 2.2.36 (#292) ([f102cf1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f102cf1)), closes [#292](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/292)
+* chore(deps): bump nanoid from 5.0.5 to 5.0.6 (#290) ([4c09661](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4c09661)), closes [#290](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/290)
+* chore(deps): bump the langchain group with 2 updates (#288) ([3011c76](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3011c76)), closes [#288](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/288)
+* chore(deps): bump the langchain group with 3 updates (#291) ([8ee204a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8ee204a)), closes [#291](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/291)
+
+
+
 ## <small>0.20.4 (2024-2-20)</small>
 
 * chore(deps-dev): bump sass from 1.70.0 to 1.71.0 (#283) ([6664e04](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6664e04)), closes [#283](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/283)
