@@ -1,3 +1,14 @@
+## 0.21.0 (2024-02-23)
+
+* refactor(SystemMessage): improve system message token count handling ([313eabd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/313eabd)), closes [#295](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/295)
+* refactor(SystemMessage): increase `maxLength` ([ca1d356](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ca1d356))
+* refactor(SystemMessage): move chage handler into own method ([9ec9d13](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9ec9d13))
+* refactor(SystemMessage): remove maxLength (will enforce manually) ([04ba325](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/04ba325))
+* chore(deps-dev): bump cssnano from 6.0.3 to 6.0.4 (#294) ([b96e96e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b96e96e)), closes [#294](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/294)
+* chore(deps-dev): bump the types group with 2 updates (#293) ([d90623f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d90623f)), closes [#293](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/293)
+
+
+
 ## <small>0.20.5 (2024-2-22)</small>
 
 * chore(deps-dev): bump sass from 1.71.0 to 1.71.1 (#289) ([b15ba50](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b15ba50)), closes [#289](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/289)
