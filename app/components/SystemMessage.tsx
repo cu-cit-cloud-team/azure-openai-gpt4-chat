@@ -76,7 +76,6 @@ export const SystemMessage = ({
         ref={systemMessageRef}
         onChange={handleSystemMessageChange}
         value={localSystemMessage}
-        maxLength={1886}
       />
       <div className="join">
         <button
