@@ -4,6 +4,7 @@ import {
   faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { encodingForModel } from 'js-tiktoken';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
@@ -60,8 +61,18 @@ export const SystemMessage = ({
     }
   };
 
+  const tokenizer = encodingForModel('gpt-4-1106-preview');
   const handleSystemMessageChange = (e) => {
-    setLocalSystemMessage(e.target.value);
+    let systemMessage = e.target.value;
+    let systemMessageCount = tokenizer.encode(systemMessage).length;
+    if (systemMessageCount > 400) {
+      do {
+        systemMessage = systemMessage.slice(0, systemMessage.length - 1);
+        console.log(systemMessage.length);
+        systemMessageCount = tokenizer.encode(systemMessage).length;
+      } while (systemMessageCount > 400);
+    }
+    setLocalSystemMessage(systemMessage);
   };
 
   return (
