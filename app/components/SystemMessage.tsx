@@ -60,6 +60,10 @@ export const SystemMessage = ({
     }
   };
 
+  const handleSystemMessageChange = (e) => {
+    setLocalSystemMessage(e.target.value);
+  };
+
   return (
     <>
       <TokenCount
@@ -70,7 +74,7 @@ export const SystemMessage = ({
       <textarea
         className="h-48 m-2 whitespace-pre-line w-52 lg:w-96"
         ref={systemMessageRef}
-        onChange={(e) => setLocalSystemMessage(e.target.value)}
+        onChange={handleSystemMessageChange}
         value={localSystemMessage}
         maxLength={1886}
       />
