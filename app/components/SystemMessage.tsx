@@ -4,11 +4,12 @@ import {
   faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { encodingForModel } from 'js-tiktoken';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import { TokenCount } from './TokenCount.tsx';
+
+import { getTokenCount } from '../utils/tokens.ts';
 
 export const SystemMessage = ({
   clearHistory,
@@ -61,10 +62,9 @@ export const SystemMessage = ({
     }
   };
 
-  const tokenizer = encodingForModel('gpt-4-1106-preview');
   const handleSystemMessageChange = (e) => {
     let systemMessage = e.target.value;
-    let systemMessageCount = tokenizer.encode(systemMessage).length;
+    const systemMessageCount = getTokenCount(systemMessage);
     if (systemMessageCount > 400) {
       do {
         systemMessage = systemMessage.slice(0, systemMessage.length - 1);
