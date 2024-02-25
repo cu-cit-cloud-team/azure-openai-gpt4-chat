@@ -66,11 +66,7 @@ export const SystemMessage = ({
     let systemMessage = e.target.value;
     const systemMessageCount = getTokenCount(systemMessage);
     if (systemMessageCount > 400) {
-      do {
-        systemMessage = systemMessage.slice(0, systemMessage.length - 1);
-        console.log(systemMessage.length);
-        systemMessageCount = tokenizer.encode(systemMessage).length;
-      } while (systemMessageCount > 400);
+      systemMessage = systemMessage.slice(0, systemMessage.length - 1);
     }
     setLocalSystemMessage(systemMessage);
   };
