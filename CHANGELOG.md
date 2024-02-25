@@ -1,3 +1,12 @@
+## <small>0.21.1 (2024-02-25)</small>
+
+* chore(deps-dev): bump cssnano from 6.0.4 to 6.0.5 (#297) ([1171709](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1171709)), closes [#297](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/297)
+* chore(deps): bump the langchain group with 1 update (#296) ([ab64bb7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ab64bb7)), closes [#296](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/296)
+* refactor(SystemMessage): move logic into `getTokenCount` util method ([9efe7cc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9efe7cc))
+* refactor(SystemMessage): remove expensive loop ([6bb8a6a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6bb8a6a)), closes [#295](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/295)
+
+
+
 ## 0.21.0 (2024-02-23)
 
 * refactor(SystemMessage): improve system message token count handling ([313eabd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/313eabd)), closes [#295](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/295)

@@ -1,11 +1,12 @@
-import { encodingForModel } from 'js-tiktoken';
+// import { encodingForModel } from 'js-tiktoken';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem } from '../utils/localStorage';
+import { getItem } from '../utils/localStorage.ts';
+import { getTokenCount } from '../utils/tokens.ts';
 
-const tokenizer = encodingForModel('gpt-4-1106-preview');
+// const tokenizer = encodingForModel('gpt-4-1106-preview');
 
 export const TokenCount = ({
   input = '',
@@ -53,9 +54,9 @@ export const TokenCount = ({
 
   // update token counts
   useEffect(() => {
-    const systemMessageCount = tokenizer.encode(systemMessage).length;
+    const systemMessageCount = getTokenCount(systemMessage);
     setSystemMessageTokens(systemMessageCount);
-    const inputCount = tokenizer.encode(input).length;
+    const inputCount = getTokenCount(input);
     setInputTokens(inputCount);
     setRemainingTokens(maxTokens - (systemMessageCount + inputCount));
     setRemainingSystemTokens(systemMessageMaxTokens - systemMessageCount);
