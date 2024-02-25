@@ -6,8 +6,6 @@ import useLocalStorageState from 'use-local-storage-state';
 import { getItem } from '../utils/localStorage.ts';
 import { getTokenCount } from '../utils/tokens.ts';
 
-// const tokenizer = encodingForModel('gpt-4-1106-preview');
-
 export const TokenCount = ({
   input = '',
   systemMessage,
@@ -88,9 +86,12 @@ export const TokenCount = ({
         } text-xs text-base-content opacity-50 uppercase cursor-default`}
         key={`${display}-token-count`}
       >
-        {/* Token{tokens === 1 ? '' : 's'}:{' '} */}
         <strong>
-          {tokens[display]} <span className="font-normal">Tokens</span> /{' '}
+          {tokens[display]}{' '}
+          <span className="font-normal">
+            Token{tokens.input === 1 ? '' : 's '}
+          </span>{' '}
+          /{' '}
           {display === 'systemMessage'
             ? tokens.systemMessageRemaining
             : tokens.remaining}{' '}
