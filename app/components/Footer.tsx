@@ -21,7 +21,8 @@ export const Footer = ({
   useEffect(() => {
     if (textAreaRef?.current) {
       textAreaRef.current.style.height = '';
-      textAreaRef.current.style.overflow = 'scroll';
+      textAreaRef.current.style.overflowX = 'auto';
+      textAreaRef.current.style.overflowY = 'hidden';
       textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
     }
   }, [input, textAreaRef]);
@@ -47,7 +48,7 @@ export const Footer = ({
         <textarea
           autoFocus={true}
           ref={textAreaRef}
-          className="w-full h-10 max-w-6xl p-2 overflow-hidden text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80"
+          className="w-full h-10 max-w-6xl p-2 text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80"
           value={input}
           placeholder="Type a message..."
           onChange={handleInputChange}
