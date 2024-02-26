@@ -1,3 +1,13 @@
+## <small>0.21.2 (2024-02-26)</small>
+
+* chore(deps): bump the langchain group with 1 update (#298) ([5ca9915](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5ca9915)), closes [#298](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/298)
+* refactor(Footer): improve dynamic sizing (#280) ([6c7f427](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6c7f427)), closes [#280](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/280)
+* refactor(TokenCount): pluralize 'Token' properly in token count ([df36a0d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/df36a0d))
+* refactor(TokenCount): use helper ([e984e87](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e984e87))
+* refactor(utils/tokens): move tokenizer into global scope (init once) ([efacad2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/efacad2))
+
+
+
 ## <small>0.21.1 (2024-02-25)</small>
 
 * chore(deps-dev): bump cssnano from 6.0.4 to 6.0.5 (#297) ([1171709](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1171709)), closes [#297](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/297)
