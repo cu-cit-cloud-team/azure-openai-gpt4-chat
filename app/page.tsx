@@ -128,7 +128,7 @@ export default function Chat() {
     reload,
     stop,
   } = useChat({
-    api: `/api/langchain?systemMessage=${encodeURIComponent(
+    api: `/api/chat?systemMessage=${encodeURIComponent(
       systemMessage
     )}&temperature=${encodeURIComponent(
       parameters.temperature
