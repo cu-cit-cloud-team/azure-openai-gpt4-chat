@@ -136,8 +136,9 @@ export default function Chat() {
       parameters.top_p
     )}&frequency_penalty=${encodeURIComponent(
       parameters.frequency_penalty
-    )}&presence_penalty=${encodeURIComponent(parameters.presence_penalty)}
-      &model=${encodeURIComponent(parameters.model)}`,
+    )}&presence_penalty=${encodeURIComponent(
+      parameters.presence_penalty
+    )}&model=${encodeURIComponent(parameters.model)}`,
     id: userMeta?.email ? btoa(userMeta?.email) : undefined,
     initialMessages: savedMessages,
     onError: handleChatError,

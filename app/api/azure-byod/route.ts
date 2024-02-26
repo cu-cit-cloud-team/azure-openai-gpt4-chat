@@ -89,8 +89,8 @@ export async function POST(req: Request) {
   const hasSystemPrompt = messages.some(
     (message: Message) => message.role === 'system'
   );
-  // add system prompt to messages if not already there
   if (!hasSystemPrompt) {
+    // add system prompt to messages if not already there
     chatMessages = [systemPrompt, ...messages];
   }
 
@@ -142,10 +142,10 @@ export async function POST(req: Request) {
             key: AZURE_AI_SEARCH_KEY,
             indexName: AZURE_AI_SEARCH_INDEX,
             parameters: {
-              endpoint: "'$search_endpoint'",
-              indexName: "'$search_index'",
+              endpoint: '$endpoint',
+              indexName: '$indexName',
               semanticConfiguration: 'default',
-              queryType: 'simple',
+              queryType: 'vectorSemanticHybrid',
               fieldsMapping: {
                 contentFieldsSeparator: '\n',
                 contentFields: ['content'],
@@ -155,12 +155,11 @@ export async function POST(req: Request) {
                 vectorFields: ['contentVector'],
               },
               inScope: true,
-              roleInformation:
-                'You are an AI assistant that helps people find information.',
+              roleInformation: systemMessage,
               filter: null,
               strictness: 3,
-              topNDocuments: 5,
-              key: "'$search_key'",
+              topNDocuments: 8,
+              key: '$key',
             },
           },
         ],
@@ -170,6 +169,19 @@ export async function POST(req: Request) {
 
   // convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
+
+  // proof of concept to grab citations
+  // NOTE: takes over response, can't be used as is and return the stream
+  // const clonedResponse = structuredClone(response);
+  // for await (const event of clonedResponse) {
+  //   for (const choice of event.choices) {
+  //     if (choice?.delta?.context?.messages[0]?.content) {
+  //       console.log(
+  //         JSON.parse(choice.delta.context.messages[0].content).citations
+  //       );
+  //     }
+  //   }
+  // }
 
   // send the stream back to the client
   return new StreamingTextResponse(stream);
