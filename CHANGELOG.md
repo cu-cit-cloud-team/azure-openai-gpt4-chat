@@ -1,3 +1,16 @@
+## <small>0.21.3 (2024-02-27)</small>
+
+* chore(deps-dev): bump the types group with 1 update (#299) ([41431ae](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/41431ae)), closes [#299](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/299)
+* chore(deps): add @azure/openai@1.0.0-beta.11 ([91f3e3f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/91f3e3f))
+* chore(deps): bump the langchain group with 3 updates (#300) ([481f246](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/481f246)), closes [#300](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/300)
+* chore(deps): bump the langchain group with 3 updates (#301) ([c79fd8a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c79fd8a)), closes [#301](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/301)
+* refactor(api/azure-byod): update parameters ([9b55509](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9b55509))
+* refactor(Chat): use default route ([9608e47](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9608e47))
+* fix(Chat): remove extraneous spaces ([2d72686](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2d72686))
+* feat(api): add `azure-byod` example route ([8ceaaff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8ceaaff))
+
+
+
 ## <small>0.21.2 (2024-02-26)</small>
 
 * chore(deps): bump the langchain group with 1 update (#298) ([5ca9915](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5ca9915)), closes [#298](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/298)
