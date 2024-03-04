@@ -1,3 +1,15 @@
+## <small>0.21.5 (2024-3-2)</small>
+
+* chore(deps-dev): bump the postcss group with 1 update (#312) ([897b0c8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/897b0c8)), closes [#312](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/312)
+* chore(deps-dev): bump the types group with 1 update (#308) ([97e051e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/97e051e)), closes [#308](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/308)
+* chore(deps): bump ai from 2.2.37 to 3.0.0 (#309) ([993afff](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/993afff)), closes [#309](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/309)
+* chore(deps): bump ai from 3.0.0 to 3.0.1 (#314) ([afa34a6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/afa34a6)), closes [#314](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/314)
+* chore(deps): bump next from 14.1.0 to 14.1.1 (#310) ([84f9923](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/84f9923)), closes [#310](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/310)
+* chore(deps): bump react-error-boundary from 4.0.12 to 4.0.13 (#311) ([2763948](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2763948)), closes [#311](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/311)
+* chore(deps): bump the langchain group with 1 update (#313) ([fe3670f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fe3670f)), closes [#313](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/313)
+
+
+
 ## <small>0.21.4 (2024-2-29)</small>
 
 * chore(deps-dev): bump the types group with 1 update (#302) ([a2e2916](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a2e2916)), closes [#302](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/302)
