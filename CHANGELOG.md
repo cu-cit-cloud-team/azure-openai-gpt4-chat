@@ -1,3 +1,19 @@
+## <small>0.21.6 (2024-03-05)</small>
+
+* chore(deps-dev): bump cz-git from 1.8.0 to 1.9.0 (#316) ([4866eb5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4866eb5)), closes [#316](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/316)
+* chore(deps-dev): bump the types group with 1 update (#319) ([97c523d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/97c523d)), closes [#319](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/319)
+* chore(deps-dev): bump the types group with 1 update (#323) ([23ed6b7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/23ed6b7)), closes [#323](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/323)
+* chore(deps): bump ai from 3.0.1 to 3.0.2 (#315) ([dd93457](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dd93457)), closes [#315](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/315)
+* chore(deps): bump ai from 3.0.2 to 3.0.3 (#317) ([2e18038](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2e18038)), closes [#317](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/317)
+* chore(deps): bump ai from 3.0.3 to 3.0.4 (#318) ([908f417](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/908f417)), closes [#318](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/318)
+* chore(deps): bump ai from 3.0.4 to 3.0.5 (#322) ([608dc62](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/608dc62)), closes [#322](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/322)
+* chore(deps): bump next from 14.1.1 to 14.1.2 (#321) ([47b756c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/47b756c)), closes [#321](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/321)
+* chore(deps): bump the langchain group with 1 update (#320) ([bf49e64](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/bf49e64)), closes [#320](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/320)
+* chore(deps): bump the langchain group with 1 update (#324) ([1686a97](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1686a97)), closes [#324](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/324)
+* build(npm): add volta config to package.json ([bf6c080](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/bf6c080))
+
+
+
 ## <small>0.21.5 (2024-3-2)</small>
 
 * chore(deps-dev): bump the postcss group with 1 update (#312) ([897b0c8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/897b0c8)), closes [#312](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/312)
