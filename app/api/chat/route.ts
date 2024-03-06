@@ -76,15 +76,11 @@ export async function POST(req: Request) {
   // put messages into temp variable
   let chatMessages = [...messages];
 
-  interface Message {
-    content: string;
-    role: string;
-  }
-
   // helper function to check if system prompt is already in messages
   const hasSystemPrompt = messages.some(
-    (message: Message) => message.role === 'system'
+    (message: OpenAI.Chat.ChatCompletionMessage) => message.role === 'system'
   );
+
   // add system prompt to messages if not already there
   if (!hasSystemPrompt) {
     chatMessages = [systemPrompt, ...messages];
