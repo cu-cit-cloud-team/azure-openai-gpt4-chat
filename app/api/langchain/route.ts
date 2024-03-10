@@ -1,7 +1,7 @@
-import { BytesOutputParser } from '@langchain/core/output_parsers';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
 import { Message as ChatMessage, StreamingTextResponse } from 'ai';
+import { HttpResponseOutputParser } from 'langchain/output_parsers';
 
 // destructure env vars we need
 const {
@@ -112,7 +112,7 @@ export async function POST(req: Request) {
     ...chatConfig,
   });
 
-  const outputParser = new BytesOutputParser();
+  const outputParser = new HttpResponseOutputParser();
 
   const chain = prompt.pipe(chatModel).pipe(outputParser);
 

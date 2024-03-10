@@ -1,3 +1,14 @@
+## <small>0.21.8 (2024-03-10)</small>
+
+* chore: update `AZURE_OPENAI_API_VERSION` in examples ([cc44860](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cc44860))
+* chore(deps-dev): bump @biomejs/biome from 1.5.3 to 1.6.0 (#336) ([70b767b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/70b767b)), closes [#336](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/336)
+* chore(deps): bump ai from 3.0.7 to 3.0.8 (#337) ([2116fb5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2116fb5)), closes [#337](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/337)
+* chore(deps): bump daisyui from 4.7.2 to 4.7.3 (#335) ([c7feaba](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c7feaba)), closes [#335](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/335)
+* chore(deps): bump the langchain group with 4 updates (#334) ([b19b21b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b19b21b)), closes [#334](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/334)
+* refactor(api/langchain): use `HttpResponseOutputParser` ([6225c55](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6225c55))
+
+
+
 ## <small>0.21.7 (2024-03-07)</small>
 
 * chore(deps-dev): bump cssnano from 6.0.5 to 6.1.0 (#333) ([50a9a5c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/50a9a5c)), closes [#333](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/333)
