@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react';
 
 import { TokenCount } from './TokenCount.tsx';
 
-// import { useDebounce } from '../hooks/useDebounce.tsx';
-// import { getTokenCount } from '../utils/tokens.ts';
+import { useDebounce } from '../hooks/useDebounce.tsx';
 
 export const SystemMessage = ({
   clearHistory,
@@ -22,11 +21,12 @@ export const SystemMessage = ({
   const [localSystemMessage, setLocalSystemMessage] = useState('');
   const [originalSystemMessage, setOriginalSystemMessage] = useState('');
 
+  const debouncedSystemMessage = useDebounce(systemMessage, 300);
+
   useEffect(() => {
-    // console.log(systemMessage);
-    setOriginalSystemMessage(systemMessage);
-    setLocalSystemMessage(systemMessage);
-  }, [systemMessage]);
+    setOriginalSystemMessage(debouncedSystemMessage);
+    setLocalSystemMessage(debouncedSystemMessage);
+  }, [debouncedSystemMessage]);
 
   const cancelClickHandler = () => {
     setSystemMessage(originalSystemMessage);
@@ -67,22 +67,13 @@ export const SystemMessage = ({
     setLocalSystemMessage(e.target.value);
   };
 
-  // const debouncedSystemMessage = useDebounce(localSystemMessage, 300);
-
-  // useEffect(() => {
-  //   const systemMessageCount = getTokenCount(debouncedSystemMessage);
-  //   if (systemMessageCount > 400) {
-  //     setLocalSystemMessage(
-  //       debouncedSystemMessage.slice(0, debouncedSystemMessage.length - 1)
-  //     );
-  //   }
-  // }, [debouncedSystemMessage]);
+  const debouncedLocalSystemMessage = useDebounce(localSystemMessage, 300);
 
   return (
     <>
       <TokenCount
         input={input}
-        systemMessage={localSystemMessage}
+        systemMessage={debouncedLocalSystemMessage}
         display={'systemMessage'}
       />
       <textarea
