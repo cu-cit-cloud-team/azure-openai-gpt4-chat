@@ -14,9 +14,11 @@ export const TokenCount = ({
   const systemMessageMaxTokens = 400;
   const [inputTokens, setInputTokens] = useState(0);
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
-  const [model, setModel] = useState('');
+
   const [maxTokens, setMaxTokens] = useState(2048);
-  const [remainingTokens, setRemainingTokens] = useState(2048);
+
+  const [maxTokens, setMaxTokens] = useState(16384);
+  const [remainingTokens, setRemainingTokens] = useState(16384);
   const [remainingSystemTokens, setRemainingSystemTokens] = useState(
     systemMessageMaxTokens
   );
@@ -31,24 +33,14 @@ export const TokenCount = ({
     },
   });
 
-  // get current model from local storage
-  useEffect(() => {
-    const savedModel = getItem('parameters').model;
-    if (savedModel) {
-      setModel(savedModel);
-    }
-  }, []);
-
   // update max tokens
   useEffect(() => {
-    if (model === 'gpt-4') {
-      setMaxTokens(16384);
-    }
+    setMaxTokens(16384);
 
     return () => {
-      setMaxTokens(2048);
+      setMaxTokens(16384);
     };
-  }, [model]);
+  }, []);
 
   // update token counts
   useEffect(() => {
