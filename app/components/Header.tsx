@@ -2,7 +2,7 @@ import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { ClearChatButton } from './ClearChatButton.tsx';
 import { ExportChatButton } from './ExportChatButton.tsx';
