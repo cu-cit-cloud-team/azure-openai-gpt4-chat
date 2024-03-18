@@ -1,9 +1,10 @@
 // import { encodingForModel } from 'js-tiktoken';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem } from '../utils/localStorage.ts';
+import { useDebounce } from '../hooks/useDebounce.tsx';
+
 import { getTokenCount } from '../utils/tokens.ts';
 
 export const TokenCount = ({
@@ -14,9 +15,11 @@ export const TokenCount = ({
   const systemMessageMaxTokens = 400;
   const [inputTokens, setInputTokens] = useState(0);
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
-  const [model, setModel] = useState('');
-  const [maxTokens, setMaxTokens] = useState(2048);
-  const [remainingTokens, setRemainingTokens] = useState(2048);
+
+  const tokenInput = useDebounce(input, 300);
+
+  const [maxTokens, setMaxTokens] = useState(16384);
+  const [remainingTokens, setRemainingTokens] = useState(16384);
   const [remainingSystemTokens, setRemainingSystemTokens] = useState(
     systemMessageMaxTokens
   );
@@ -31,34 +34,24 @@ export const TokenCount = ({
     },
   });
 
-  // get current model from local storage
-  useEffect(() => {
-    const savedModel = getItem('parameters').model;
-    if (savedModel) {
-      setModel(savedModel);
-    }
-  }, []);
-
   // update max tokens
   useEffect(() => {
-    if (model === 'gpt-4') {
-      setMaxTokens(16384);
-    }
+    setMaxTokens(16384);
 
     return () => {
-      setMaxTokens(2048);
+      setMaxTokens(16384);
     };
-  }, [model]);
+  }, []);
 
   // update token counts
   useEffect(() => {
     const systemMessageCount = getTokenCount(systemMessage);
     setSystemMessageTokens(systemMessageCount);
-    const inputCount = getTokenCount(input);
+    const inputCount = getTokenCount(tokenInput);
     setInputTokens(inputCount);
     setRemainingTokens(maxTokens - (systemMessageCount + inputCount));
     setRemainingSystemTokens(systemMessageMaxTokens - systemMessageCount);
-  }, [input, systemMessage, maxTokens]);
+  }, [tokenInput, systemMessage, maxTokens]);
 
   // set token counts
   useEffect(() => {
