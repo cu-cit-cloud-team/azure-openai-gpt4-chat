@@ -21,7 +21,7 @@ export const SystemMessage = ({
   const [localSystemMessage, setLocalSystemMessage] = useState('');
   const [originalSystemMessage, setOriginalSystemMessage] = useState('');
 
-  const debouncedSystemMessage = useDebounce(systemMessage, 300);
+  const debouncedSystemMessage = useDebounce(systemMessage, 250);
 
   useEffect(() => {
     setOriginalSystemMessage(debouncedSystemMessage);
@@ -67,7 +67,7 @@ export const SystemMessage = ({
     setLocalSystemMessage(e.target.value);
   };
 
-  const debouncedLocalSystemMessage = useDebounce(localSystemMessage, 300);
+  const debouncedLocalSystemMessage = useDebounce(localSystemMessage, 250);
 
   return (
     <>

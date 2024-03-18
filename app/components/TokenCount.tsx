@@ -16,7 +16,7 @@ export const TokenCount = ({
   const [inputTokens, setInputTokens] = useState(0);
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
 
-  const tokenInput = useDebounce(input, 300);
+  const tokenInput = useDebounce(input, 250);
 
   const maxTokens = 16384;
   const [remainingTokens, setRemainingTokens] = useState(16384);
