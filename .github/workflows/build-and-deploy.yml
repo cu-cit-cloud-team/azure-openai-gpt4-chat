@@ -22,7 +22,7 @@ concurrency:
 
 env:
   NODE_VERSION: "20"
-  AZURE_WEBAPP_NAME: "ct-azure-openai-gpt4-chat"
+  AZURE_WEBAPP_NAME: "ct-aoai-gpt-chat-demo"
   AZURE_WEBAPP_PACKAGE_PATH: "."
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
   AZURE_OPENAI_BASE_PATH: ${{ secrets.AZURE_OPENAI_BASE_PATH }}}
@@ -31,7 +31,7 @@ env:
   AZURE_OPENAI_GPT35_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT35_DEPLOYMENT }}
   AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
   MS_TEAMS_WEBHOOK_URL: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
-  APP_DISPLAY_NAME: "Cloud Team GPT4 Chat"
+  APP_DISPLAY_NAME: "AOAI GPT Chat Demo"
 
 jobs:
   build-and-deploy:

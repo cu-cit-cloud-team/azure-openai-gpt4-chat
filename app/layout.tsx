@@ -2,7 +2,7 @@ import React from 'react';
 import './globals.scss';
 
 export const metadata = {
-  title: 'Cloud Team GPT Chat',
+  title: 'GPT Chat Demo',
   description: 'Powered by Azure OpenAI GPT-4',
 };
 
