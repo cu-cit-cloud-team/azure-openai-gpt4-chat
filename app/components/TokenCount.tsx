@@ -1,6 +1,6 @@
 // import { encodingForModel } from 'js-tiktoken';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import { useDebounce } from '../hooks/useDebounce.tsx';
@@ -18,7 +18,7 @@ export const TokenCount = ({
 
   const tokenInput = useDebounce(input, 300);
 
-  const [maxTokens, setMaxTokens] = useState(16384);
+  const maxTokens = 16384;
   const [remainingTokens, setRemainingTokens] = useState(16384);
   const [remainingSystemTokens, setRemainingSystemTokens] = useState(
     systemMessageMaxTokens
@@ -34,24 +34,23 @@ export const TokenCount = ({
     },
   });
 
-  // update max tokens
-  useEffect(() => {
-    setMaxTokens(16384);
+  const updateSystemMessageCount = useMemo(() => {
+    return getTokenCount(systemMessage);
+  }, [systemMessage]);
 
-    return () => {
-      setMaxTokens(16384);
-    };
-  }, []);
+  const updateInputCount = useMemo(() => {
+    return getTokenCount(tokenInput);
+  }, [tokenInput]);
 
   // update token counts
   useEffect(() => {
-    const systemMessageCount = getTokenCount(systemMessage);
+    const systemMessageCount = updateSystemMessageCount;
     setSystemMessageTokens(systemMessageCount);
-    const inputCount = getTokenCount(tokenInput);
+    const inputCount = updateInputCount;
     setInputTokens(inputCount);
     setRemainingTokens(maxTokens - (systemMessageCount + inputCount));
     setRemainingSystemTokens(systemMessageMaxTokens - systemMessageCount);
-  }, [tokenInput, systemMessage, maxTokens]);
+  }, [updateInputCount, updateSystemMessageCount]);
 
   // set token counts
   useEffect(() => {
@@ -64,7 +63,6 @@ export const TokenCount = ({
     });
   }, [
     inputTokens,
-    maxTokens,
     remainingSystemTokens,
     remainingTokens,
     setTokens,
