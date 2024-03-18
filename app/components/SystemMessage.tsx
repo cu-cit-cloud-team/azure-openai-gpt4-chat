@@ -5,11 +5,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { TokenCount } from './TokenCount.tsx';
 
-import { getTokenCount } from '../utils/tokens.ts';
+// import { useDebounce } from '../hooks/useDebounce.tsx';
+// import { getTokenCount } from '../utils/tokens.ts';
 
 export const SystemMessage = ({
   clearHistory,
@@ -63,13 +64,19 @@ export const SystemMessage = ({
   };
 
   const handleSystemMessageChange = (e) => {
-    let systemMessage = e.target.value;
-    const systemMessageCount = getTokenCount(systemMessage);
-    if (systemMessageCount > 400) {
-      systemMessage = systemMessage.slice(0, systemMessage.length - 1);
-    }
-    setLocalSystemMessage(systemMessage);
+    setLocalSystemMessage(e.target.value);
   };
+
+  // const debouncedSystemMessage = useDebounce(localSystemMessage, 300);
+
+  // useEffect(() => {
+  //   const systemMessageCount = getTokenCount(debouncedSystemMessage);
+  //   if (systemMessageCount > 400) {
+  //     setLocalSystemMessage(
+  //       debouncedSystemMessage.slice(0, debouncedSystemMessage.length - 1)
+  //     );
+  //   }
+  // }, [debouncedSystemMessage]);
 
   return (
     <>
