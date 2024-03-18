@@ -1,3 +1,15 @@
+## 0.22.0 (2024-03-18)
+
+* feat(hooks/useDebounce): add hook for debouncing values ([2a9d04a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2a9d04a))
+* feat(TokenCount): debounce value before calculating tokens ([f9825ca](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f9825ca))
+* refactor(TokenCount): update max token count logic ([0ed8878](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0ed8878))
+* chore(deps-dev): bump the postcss group with 1 update (#354) ([a5a2b2d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a5a2b2d)), closes [#354](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/354)
+* chore(deps): bump axios from 1.6.7 to 1.6.8 (#352) ([3d714f5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3d714f5)), closes [#352](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/352)
+* chore(deps): bump openai from 4.29.0 to 4.29.1 (#353) ([ccc0d6c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ccc0d6c)), closes [#353](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/353)
+* chore(deps): bump the langchain group with 3 updates (#351) ([e2690af](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e2690af)), closes [#351](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/351)
+
+
+
 ## <small>0.21.9 (2024-03-16)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.6.0 to 1.6.1 (#341) ([c9959af](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c9959af)), closes [#341](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/341)
