@@ -16,7 +16,7 @@ import { setItem } from './utils/localStorage.ts';
 
 dayjs.extend(timezone);
 
-export default function Chat() {
+export const App = () => {
   const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
     defaultValue: {},
   });
@@ -275,4 +275,6 @@ export default function Chat() {
       </ErrorBoundary>
     </>
   );
-}
+};
+
+export default App;
