@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 
 // destructure env vars we need
 const {
+  OPENAI_API_KEY,
   AZURE_OPENAI_BASE_PATH,
   AZURE_OPENAI_API_KEY,
   AZURE_OPENAI_MODEL_DEPLOYMENT,
@@ -12,12 +13,15 @@ const {
 
 // make sure env vars are set
 if (
-  !AZURE_OPENAI_API_KEY ||
-  !AZURE_OPENAI_BASE_PATH ||
-  !AZURE_OPENAI_MODEL_DEPLOYMENT ||
-  !AZURE_OPENAI_API_VERSION
+  !OPENAI_API_KEY &&
+  (!AZURE_OPENAI_API_KEY ||
+    !AZURE_OPENAI_BASE_PATH ||
+    !AZURE_OPENAI_MODEL_DEPLOYMENT ||
+    !AZURE_OPENAI_API_VERSION)
 ) {
-  throw new Error('AZURE_OPENAI_API_KEY is missing from the environment.');
+  throw new Error(
+    'No AZURE_OPENAI_API_KEY or OPENAI_API_KEY defined in the environment.'
+  );
 }
 
 // tell next.js to use the edge runtime
@@ -31,7 +35,7 @@ const defaults = {
   frequency_penalty: 0, // -2.0 to 2.0
   presence_penalty: 0, // -2.0 to 2.0
   max_tokens: 1024,
-  model: 'gpt-4', // currently gpt-4 or gpt-35-turbo
+  model: OPENAI_API_KEY ? 'gpt-4-1106-preview' : 'gpt-4', // currently gpt-4 or gpt-35-turbo for aoai
   user: 'Cloud Team GPT Chat User',
 };
 
@@ -105,12 +109,16 @@ export async function POST(req: Request) {
       : AZURE_OPENAI_MODEL_DEPLOYMENT;
 
   // instantiate the OpenAI client
-  const openai = new OpenAI({
-    apiKey: AZURE_OPENAI_API_KEY,
-    baseURL: `${AZURE_OPENAI_BASE_PATH}openai/deployments/${chatModelDeployment}`,
-    defaultQuery: { 'api-version': AZURE_OPENAI_API_VERSION },
-    defaultHeaders: { 'api-key': AZURE_OPENAI_API_KEY },
-  });
+  const openai = OPENAI_API_KEY
+    ? new OpenAI({
+        apiKey: OPENAI_API_KEY,
+      })
+    : new OpenAI({
+        apiKey: AZURE_OPENAI_API_KEY,
+        baseURL: `${AZURE_OPENAI_BASE_PATH}openai/deployments/${chatModelDeployment}`,
+        defaultQuery: { 'api-version': AZURE_OPENAI_API_VERSION },
+        defaultHeaders: { 'api-key': AZURE_OPENAI_API_KEY },
+      });
 
   // fetch a streaming chat completion using the given system prompt and messages
   const response = await openai.chat.completions.create({
