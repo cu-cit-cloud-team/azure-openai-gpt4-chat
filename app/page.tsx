@@ -11,7 +11,6 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Footer } from './components/Footer.tsx';
 import { Header } from './components/Header.tsx';
 import { Messages } from './components/Messages.tsx';
-import { SessionModal } from './components/SessionModal.tsx';
 
 import { setItem } from './utils/localStorage.ts';
 
@@ -248,7 +247,6 @@ export default function Chat() {
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <SessionModal />
         <Header
           isLoading={isLoading}
           systemMessage={systemMessage}
