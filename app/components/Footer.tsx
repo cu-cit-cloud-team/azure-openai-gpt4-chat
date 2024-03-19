@@ -38,7 +38,7 @@ export const Footer = ({
         <textarea
           autoFocus={true}
           ref={textAreaRef}
-          className="w-full max-w-6xl p-2 overflow-x-auto overflow-y-hidden text-sm border border-gray-300 rounded shadow-xl h-14 lg:text-base lg:h-20"
+          className="w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl h-14 lg:text-base lg:h-20"
           value={input}
           placeholder="Type a message..."
           onChange={handleInputChange}
