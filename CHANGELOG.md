@@ -1,3 +1,17 @@
+## <small>0.22.1 (2024-03-19)</small>
+
+* chore(deps-dev): bump the types group with 2 updates (#358) ([d91978c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d91978c)), closes [#358](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/358)
+* chore(deps): bump ai from 3.0.12 to 3.0.13 (#360) ([7fdc4a4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7fdc4a4)), closes [#360](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/360)
+* chore(deps): bump the langchain group with 2 updates (#359) ([d473032](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d473032)), closes [#359](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/359)
+* perf(SystemMessage): use debounced values ([c006b6b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c006b6b))
+* perf(SystemMessage/TokenCount): reduce debounce time ([12c139b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/12c139b))
+* perf(TokenCount): memoize calls to getTokenCount ([ae5d430](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ae5d430))
+* style(Footer): remove unused import ([9e236d8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9e236d8))
+* style(Header): remove unused import ([4436dde](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4436dde))
+* refactor(SystemMessage): remove extraneous logic to improve performance ([1c7eb60](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1c7eb60))
+
+
+
 ## 0.22.0 (2024-03-18)
 
 * feat(hooks/useDebounce): add hook for debouncing values ([2a9d04a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2a9d04a))
