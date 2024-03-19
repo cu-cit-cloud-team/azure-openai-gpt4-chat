@@ -1,3 +1,13 @@
+## 0.23.0 (2024-03-19)
+
+* chore(deps-dev): bump the types group with 1 update (#361) ([1e6b871](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1e6b871)), closes [#361](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/361)
+* style(App): update function def and export ([38ccd39](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/38ccd39))
+* perf(Footer): remove dynamic textarea resizing ([612877a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/612877a))
+* refactor(api/chat): support openai or azure openai ([eed4df3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eed4df3))
+* refactor(App): remove unused component ([b4c575d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b4c575d))
+
+
+
 ## <small>0.22.1 (2024-03-19)</small>
 
 * chore(deps-dev): bump the types group with 2 updates (#358) ([d91978c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d91978c)), closes [#358](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/358)
