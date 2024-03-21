@@ -1,9 +1,9 @@
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useCallback } from 'react';
 
-import { getItem } from '../utils/localStorage.ts';
+import { messagesTable } from '../database/database.config';
 
 export const ExportChatButton = ({ isLoading, buttonText = 'Export Chat' }) => {
   const downloadFile = ({
@@ -24,13 +24,20 @@ export const ExportChatButton = ({ isLoading, buttonText = 'Export Chat' }) => {
     link.remove();
   };
 
-  const exportHandler = (event) => {
-    event.preventDefault();
-    if (confirm('Are you sure you want to download the chat history?')) {
-      const data = getItem('messages');
-      downloadFile({ data });
-    }
-  };
+  const exportHandler = useCallback(
+    async (event) => {
+      event.preventDefault();
+      const getMessages = async () => {
+        const messages = await messagesTable.toArray();
+        return JSON.stringify(messages, null, 2);
+      };
+      if (confirm('Are you sure you want to download the chat history?')) {
+        const data = await getMessages();
+        downloadFile({ data });
+      }
+    },
+    [downloadFile]
+  );
 
   return (
     <>

@@ -1,25 +1,22 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import { React, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { getItem, setItem } from '../utils/localStorage.ts';
+import { messagesTable } from '../database/database.config';
 
 export const DeleteMessage = ({ isUser, message }) => {
   const [buttonId] = useState(nanoid());
 
-  const deleteMessage = (id) => {
+  const deleteMessage = useCallback(() => {
+    const deleteFromDb = async () => {
+      await messagesTable.where('id').equals(message.id).delete();
+    };
     if (confirm('Are you sure you want to delete this message?')) {
-      const messages = getItem('messages');
-      const updatedMessages = messages.filter((m) => m.id !== id);
-      setItem('messages', updatedMessages);
-      window.location.reload();
+      deleteFromDb();
+      console.log('delete message', message);
     }
-  };
-
-  const deleteClickHandler = () => {
-    deleteMessage(message.id);
-  };
+  }, [message]);
 
   return (
     <div
@@ -32,7 +29,7 @@ export const DeleteMessage = ({ isUser, message }) => {
     >
       <button
         key={buttonId}
-        onClick={deleteClickHandler}
+        onClick={deleteMessage}
         type="button"
         className={`w-6 h-6 p-0 m-0 mr-0 btn btn-xs ${
           isUser

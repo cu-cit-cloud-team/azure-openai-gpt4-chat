@@ -1,18 +1,25 @@
 import { faArrowRotateForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import { React } from 'react';
+import { useCallback } from 'react';
 
-export const ReloadMessage = ({ isUser, reload }) => {
-  const reloadClickHandler = () => {
+import { messagesTable } from '../database/database.config';
+
+export const ReloadMessage = ({ isUser, message, reload }) => {
+  const reloadMessage = useCallback(async () => {
+    const deleteFromDb = async () => {
+      await messagesTable.where('id').equals(message.id).delete();
+    };
     if (
       confirm(
         'Are you sure you want to regenerate this response? Doing so will remove the current response from the chat history.'
       )
     ) {
+      await deleteFromDb();
+      console.log('delete message', message);
       reload();
     }
-  };
+  }, [message, reload]);
 
   return !isUser ? (
     <div
@@ -25,7 +32,7 @@ export const ReloadMessage = ({ isUser, reload }) => {
     >
       <button
         key={nanoid()}
-        onClick={reloadClickHandler}
+        onClick={reloadMessage}
         type="button"
         className={`w-6 h-6 p-0 m-0 mr-0 btn btn-xs ${
           isUser
