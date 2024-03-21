@@ -76,7 +76,11 @@ export const ChatBubble = ({
             />
             <DeleteMessage isUser={isUser} message={message} />
             {index === totalMessages ? (
-              <ReloadMessage isUser={isUser} reload={reload} />
+              <ReloadMessage
+                isUser={isUser}
+                reload={reload}
+                message={message}
+              />
             ) : null}
           </>
         )}
