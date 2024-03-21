@@ -1,7 +1,6 @@
 import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -86,7 +85,6 @@ export const ChatBubble = ({
           components={{
             pre: Pre,
             code(props) {
-              // biome-ignore lint/correctness/noUnusedVariables: intentionally unused
               const { children, className = 'code-pre', node, ...rest } = props;
               const match = /language-(\w+)/.exec(className || '');
               return match ? (
