@@ -77,7 +77,7 @@ export const ChatMeta = ({
             <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
           </time>
         ) : null}
-        {index === totalMessages && !isLoading ? (
+        {index === totalMessages && !isLoading && !isUser ? (
           <time>
             <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
           </time>
