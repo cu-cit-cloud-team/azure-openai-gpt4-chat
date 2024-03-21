@@ -4,7 +4,8 @@ import { useChat } from 'ai/react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
-import { useEffect, useRef } from 'react';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import useLocalStorageState from 'use-local-storage-state';
 
@@ -12,11 +13,31 @@ import { Footer } from './components/Footer.tsx';
 import { Header } from './components/Header.tsx';
 import { Messages } from './components/Messages.tsx';
 
-import { setItem } from './utils/localStorage.ts';
+import { getItem, removeItem, setItem } from './utils/localStorage.ts';
+
+import { messagesTable } from './database/database.config';
 
 dayjs.extend(timezone);
 
 export const App = () => {
+  // migrate localStorage to indexedDB
+  useEffect(() => {
+    const migrateLocalStorage = async () => {
+      try {
+        const messages = getItem('messages');
+        if (messages) {
+          for await (const message of messages) {
+            messagesTable.put(message);
+          }
+          removeItem('messages');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    migrateLocalStorage();
+  }, []);
+
   const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
     defaultValue: {},
   });
@@ -81,36 +102,20 @@ export const App = () => {
     },
   });
 
-  // useEffect(() => {
-  //   const isSessionStale = () => {
-  //     if (userMeta?.expires_on) {
-  //       const userTimezone =
-  //         Intl.DateTimeFormat().resolvedOptions().timeZone ||
-  //         'America/New_York';
-  //       const expiresOn = dayjs(userMeta.expires_on).tz(userTimezone);
-  //       const now = dayjs().tz(userTimezone);
+  const [savedMessages, setSavedMessages] = useState([]);
 
-  //       if (now.isAfter(expiresOn)) {
-  //         return true;
-  //       }
-  //     }
-  //     return false;
-  //   };
+  const dbMessages = useLiveQuery(
+    () => messagesTable.toArray(),
+    [messagesTable]
+  );
 
-  //   const sessionTimer = setTimeout(() => {
-  //     if (isSessionStale()) {
-  //       clearTimeout(sessionTimer);
-  //       const sessionModal = document.querySelector('.sessionModal');
-  //       sessionModal.showModal();
-  //     }
-  //   }, 1000);
-
-  //   return () => clearTimeout(sessionTimer);
-  // }, [userMeta]);
-
-  const [savedMessages] = useLocalStorageState('messages', {
-    defaultValue: [],
-  });
+  useEffect(() => {
+    if (dbMessages) {
+      setSavedMessages(
+        dbMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      );
+    }
+  }, [dbMessages]);
 
   const handleChatError = (error) => {
     console.error(error);
@@ -143,19 +148,20 @@ export const App = () => {
     onError: handleChatError,
   });
 
-  // update localStorage when messages change
+  // update indexedDB when messages changes
   useEffect(() => {
-    if (messages.length && messages !== savedMessages) {
-      setItem('messages', messages);
+    if (messages?.length !== savedMessages?.length) {
+      if (messages[messages.length - 1].role === 'user' || !isLoading) {
+        messagesTable.put(messages[messages.length - 1]);
+      }
     }
-  }, [messages, savedMessages]);
+  }, [messages, savedMessages, isLoading]);
 
   // subscribe to storage change events so multiple tabs stay in sync
   useEffect(() => {
     const handleStorageChanges = (e) => {
       const keysToHandle = [
         'editorTheme',
-        'messages',
         'parameters',
         'remainingTokens',
         'systemMessage',
@@ -188,13 +194,34 @@ export const App = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const textareaElement = textAreaRef.current;
 
+  const clearHistory = useCallback((doConfirm = true) => {
+    const clearMessages = async () => {
+      try {
+        const messages = await messagesTable.toArray();
+        for await (const message of messages) {
+          messagesTable.delete(message.id);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (!doConfirm) {
+      clearMessages();
+      // window.location.reload();
+    } else if (confirm('Are you sure you want to clear the chat history?')) {
+      clearMessages();
+      // window.location.reload();
+    }
+  }, []);
+
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
       event.stopPropagation();
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
-          setItem('messages', []);
-          window.location.reload();
+          clearHistory(false);
+          // window.location.reload();
         }
       }
       // if (event.key === 'Enter' && event.shiftKey) {
@@ -219,7 +246,7 @@ export const App = () => {
         textareaElement.removeEventListener('keydown', listener);
       }
     };
-  }, [textareaElement, submitForm]);
+  }, [textareaElement, submitForm, clearHistory]);
 
   const ErrorFallback = ({ error, resetErrorBoundary }) => {
     return (
@@ -254,6 +281,7 @@ export const App = () => {
           systemMessageRef={systemMessageRef}
           input={input}
           userMeta={userMeta}
+          clearHistory={clearHistory}
         />
         <Messages
           isLoading={isLoading}
