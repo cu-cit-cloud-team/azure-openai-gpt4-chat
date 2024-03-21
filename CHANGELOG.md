@@ -1,3 +1,29 @@
+## 0.24.0 (2024-03-21)
+
+* style(ChatBubble/Messages): remove unused import ([6ed2646](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6ed2646))
+* style(Footer): add comments with dynamic resize code ([b07d938](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b07d938))
+* style(Footer): fix horizontal/vertical scrolling ([07a7f03](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/07a7f03))
+* style(Footer): remove comment ([c73b3f3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c73b3f3))
+* feat(Footer): re-enable dynamic sizing on textarea ([4fdf424](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4fdf424))
+* feat(indexedDB): add db config ([cf9bec7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cf9bec7))
+* perf(App): move messages from localStorage to IndexedDB ([eaf2fc7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eaf2fc7))
+* perf(DeleteMessage/ExportChatButton/ReloadMesage): update to use IndexedDB ([5708b4c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5708b4c))
+* refactor(ChatBubble): pass message to ReloadMessage ([d76dddb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d76dddb))
+* refactor(Header): take clearHistory as a prop ([58808a7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/58808a7))
+* refactor(SystemMessage/TokenCount): lower debounce time ([761c435](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/761c435))
+* chore(deps-dev): bump cssnano from 6.1.0 to 6.1.1 (#367) ([88b94a6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/88b94a6)), closes [#367](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/367)
+* chore(deps-dev): bump the postcss group with 1 update (#362) ([4e52ed2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4e52ed2)), closes [#362](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/362)
+* chore(deps-dev): bump the postcss group with 2 updates (#365) ([1f83668](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1f83668)), closes [#365](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/365)
+* chore(deps-dev): bump typescript from 5.4.2 to 5.4.3 (#368) ([fb5b075](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fb5b075)), closes [#368](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/368)
+* chore(deps): add dexie@3.2.7 and dexie-react-hooks@1.1.7 ([1708ce2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1708ce2))
+* chore(deps): bump next from 14.1.3 to 14.1.4 (#364) ([c371581](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c371581)), closes [#364](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/364)
+* chore(deps): bump openai from 4.29.1 to 4.29.2 (#363) ([30ef0e8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/30ef0e8)), closes [#363](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/363)
+* chore(deps): bump the langchain group with 1 update (#366) ([3649077](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3649077)), closes [#366](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/366)
+* chore(vscode): update workspace settings ([790abe1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/790abe1))
+* fix(ChatMeta): timestamp display logic ([fc72c57](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fc72c57))
+
+
+
 ## 0.23.0 (2024-03-19)
 
 * chore(deps-dev): bump the types group with 1 update (#361) ([1e6b871](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1e6b871)), closes [#361](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/361)
