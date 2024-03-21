@@ -16,11 +16,10 @@ const ThemeChanger = dynamic(() => import('./ThemeChanger.tsx'), {
   ssr: false,
 });
 
-import { setItem } from '../utils/localStorage.ts';
-
 import pkg from '../../package.json';
 
 export const Header = ({
+  clearHistory,
   input,
   isLoading,
   systemMessage,
@@ -42,16 +41,6 @@ export const Header = ({
       }
     });
   }, []);
-
-  const clearHistory = (doConfirm = true) => {
-    if (!doConfirm) {
-      setItem('messages', []);
-      window.location.reload();
-    } else if (confirm('Are you sure you want to clear the chat history?')) {
-      setItem('messages', []);
-      window.location.reload();
-    }
-  };
 
   return (
     <div className="fixed top-0 z-50 navbar bg-base-300">
@@ -159,6 +148,7 @@ export const Header = ({
 
 Header.displayName = 'Header';
 Header.propTypes = {
+  clearHistory: PropTypes.func.isRequired,
   input: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   systemMessage: PropTypes.string.isRequired,
