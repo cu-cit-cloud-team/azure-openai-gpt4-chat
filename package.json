@@ -38,6 +38,8 @@
     "axios": "1.6.8",
     "daisyui": "4.7.3",
     "dayjs": "1.11.10",
+    "dexie": "3.2.7",
+    "dexie-react-hooks": "1.1.7",
     "he": "1.2.0",
     "js-tiktoken": "1.0.10",
     "langchain": "0.1.28",
@@ -79,11 +81,7 @@
     "typescript": "5.4.3"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
