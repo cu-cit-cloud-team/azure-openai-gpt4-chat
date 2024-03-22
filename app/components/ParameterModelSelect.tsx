@@ -50,7 +50,7 @@ export const ParameterModelSelect = ({ clearHistory }) => {
         value={parameters.model}
         onChange={(e) => modelChangeHandler(e)}
       >
-        <option value="gpt-35-turbo">gpt-35-turbo (0613)</option>
+        <option value="gpt-35-turbo">gpt-35-turbo (1106)</option>
         <option value="gpt-4">gpt-4-turbo (1106)</option>
       </select>
     </>
