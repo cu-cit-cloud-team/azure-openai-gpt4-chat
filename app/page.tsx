@@ -298,6 +298,7 @@ export const App = () => {
           textAreaRef={textAreaRef}
           handleSubmit={handleSubmit}
           input={input}
+          isLoading={isLoading}
           handleInputChange={handleInputChange}
         />
       </ErrorBoundary>

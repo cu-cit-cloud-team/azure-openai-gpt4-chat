@@ -10,6 +10,7 @@ export const Footer = ({
   textAreaRef,
   handleSubmit,
   input,
+  isLoading,
   handleInputChange,
   systemMessageRef,
 }) => {
@@ -51,10 +52,13 @@ export const Footer = ({
         <textarea
           autoFocus={true}
           ref={textAreaRef}
-          className="w-full h-10 max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80"
+          className={`${
+            isLoading ? 'skeleton' : ''
+          } w-full h-10 max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80`}
           value={input}
           placeholder="Type a message..."
           onChange={handleInputChange}
+          // disabled={isLoading}
         />
         <button
           type="button"
