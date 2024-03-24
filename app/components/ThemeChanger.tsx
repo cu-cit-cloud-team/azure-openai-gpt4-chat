@@ -71,10 +71,12 @@ export const ThemeChanger = () => {
     setItem('editorTheme', getEditorTheme(button.dataset.theme));
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   // biome-ignore lint/correctness/useExhaustiveDependencies: calling only once intentionally
   useEffect(() => {
     updateSelected(theme);
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <details className="dropdown lg:dropdown-end">

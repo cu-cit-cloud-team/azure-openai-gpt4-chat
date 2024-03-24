@@ -85,6 +85,7 @@ export const ChatBubble = ({
           </>
         )}
         <Markdown
+          // eslint-disable-next-line react/no-children-prop
           children={message.content}
           components={{
             pre: Pre,
@@ -94,6 +95,7 @@ export const ChatBubble = ({
               return match ? (
                 <SyntaxHighlighter
                   {...rest}
+                  // eslint-disable-next-line react/no-children-prop
                   children={String(children).replace(/\n$/, '')}
                   style={editorTheme}
                   language={match[1]}
