@@ -6,38 +6,35 @@ import { useCallback } from 'react';
 import { messagesTable } from '../database/database.config';
 
 export const ExportChatButton = ({ isLoading, buttonText = 'Export Chat' }) => {
-  const downloadFile = ({
-    data,
-    fileName = 'chat-history.json',
-    fileType = 'text/json',
-  }) => {
-    const blob = new Blob([data], { type: fileType });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = fileName;
-    const clickEvent = new MouseEvent('click', {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-    });
-    link.dispatchEvent(clickEvent);
-    link.remove();
-  };
+  const exportHandler = useCallback(async (event) => {
+    const downloadFile = ({
+      data,
+      fileName = 'chat-history.json',
+      fileType = 'text/json',
+    }) => {
+      const blob = new Blob([data], { type: fileType });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      const clickEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+      });
+      link.dispatchEvent(clickEvent);
+      link.remove();
+    };
 
-  const exportHandler = useCallback(
-    async (event) => {
-      event.preventDefault();
-      const getMessages = async () => {
-        const messages = await messagesTable.toArray();
-        return JSON.stringify(messages, null, 2);
-      };
-      if (confirm('Are you sure you want to download the chat history?')) {
-        const data = await getMessages();
-        downloadFile({ data });
-      }
-    },
-    [downloadFile]
-  );
+    event.preventDefault();
+    const getMessages = async () => {
+      const messages = await messagesTable.toArray();
+      return JSON.stringify(messages, null, 2);
+    };
+    if (confirm('Are you sure you want to download the chat history?')) {
+      const data = await getMessages();
+      downloadFile({ data });
+    }
+  }, []);
 
   return (
     <>
