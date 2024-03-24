@@ -183,13 +183,13 @@ export const App = () => {
   }, []);
 
   const formRef = useRef<HTMLFormElement>(null);
-  const submitForm = () => {
+  const submitForm = useCallback(() => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
         new Event('submit', { cancelable: true, bubbles: true })
       );
     }
-  };
+  }, []);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const textareaElement = textAreaRef.current;
