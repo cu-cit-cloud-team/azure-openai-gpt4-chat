@@ -8,11 +8,12 @@
     "npm": ">= 10.x"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "biome": "biome check ./app",
     "build": "next build",
     "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "dev": "next dev --turbo",
+    "lint": "next lint",
     "start": "next start",
-    "lint": "biome check ./app",
     "version": "npm run changelog"
   },
   "keywords": [],
@@ -71,6 +72,8 @@
     "conventional-changelog-conventionalcommits": "7.0.2",
     "cssnano": "6.1.1",
     "cz-git": "1.9.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.1.4",
     "postcss": "8.4.38",
     "postcss-cli": "11.0.0",
     "sass": "1.72.0",
@@ -81,11 +84,7 @@
     "typescript": "5.4.3"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
