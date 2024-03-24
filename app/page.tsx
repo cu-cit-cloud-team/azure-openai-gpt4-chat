@@ -208,10 +208,10 @@ export const App = () => {
 
     if (!doConfirm) {
       clearMessages();
-      // window.location.reload();
+      window.location.reload();
     } else if (confirm('Are you sure you want to clear the chat history?')) {
       clearMessages();
-      // window.location.reload();
+      window.location.reload();
     }
   }, []);
 
@@ -221,7 +221,7 @@ export const App = () => {
       if (event.key === 'Escape' && event.metaKey) {
         if (confirm('Are you sure you want to clear the chat history?')) {
           clearHistory(false);
-          // window.location.reload();
+          window.location.reload();
         }
       }
       // if (event.key === 'Enter' && event.shiftKey) {

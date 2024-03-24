@@ -16,7 +16,6 @@ export const ReloadMessage = ({ isUser, message, reload }) => {
       )
     ) {
       await deleteFromDb();
-      console.log('delete message', message);
       reload();
     }
   }, [message, reload]);

@@ -14,7 +14,7 @@ export const DeleteMessage = ({ isUser, message }) => {
     };
     if (confirm('Are you sure you want to delete this message?')) {
       deleteFromDb();
-      console.log('delete message', message);
+      window.location.reload();
     }
   }, [message]);
 
