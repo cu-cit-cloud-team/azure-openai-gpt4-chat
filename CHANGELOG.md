@@ -1,3 +1,23 @@
+## 0.25.0 (2024-03-25)
+
+* chore(deps-dev): add eslint-config-next and eslint ([b5e9959](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b5e9959))
+* chore(deps-dev): bump @biomejs/biome from 1.6.1 to 1.6.2 (#370) ([b0a36f8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b0a36f8)), closes [#370](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/370)
+* chore(deps-dev): bump stylelint from 16.2.1 to 16.3.0 (#373) ([cf37dd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cf37dd6)), closes [#373](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/373)
+* chore(deps-dev): bump the types group with 1 update (#371) ([9a314a1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9a314a1)), closes [#371](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/371)
+* chore(deps-dev): bump the types group with 1 update (#374) ([98eb2bf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/98eb2bf)), closes [#374](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/374)
+* chore(deps): bump daisyui from 4.7.3 to 4.8.0 (#372) ([1a77507](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1a77507)), closes [#372](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/372)
+* chore(deps): bump the langchain group with 1 update (#369) ([b0ffe86](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b0ffe86)), closes [#369](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/369)
+* chore(deps): bump the langchain group with 3 updates (#375) ([0ab0cd7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0ab0cd7)), closes [#375](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/375)
+* chore(eslint): add config ([f84479e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f84479e))
+* refactor: add reloads back to refresh state ([0ecb889](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0ecb889))
+* refactor(App): fix linter error (move submitForm into useCallback) ([7b7f582](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7b7f582))
+* refactor(App/Footer): change textbox appearance while loading ([d389c01](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d389c01))
+* refactor(ExportChatButton): fix linter warning - move downloadFile into useCallback ([3b71fd6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3b71fd6))
+* refactor(ParameterModelSelect): update gpt-3.5-turbo version ([73f1e8e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/73f1e8e))
+* style(ChatBubble/ThemeChanger): disable a couple rules ([2aa1b3f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2aa1b3f))
+
+
+
 ## 0.24.0 (2024-03-21)
 
 * style(ChatBubble/Messages): remove unused import ([6ed2646](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6ed2646))
