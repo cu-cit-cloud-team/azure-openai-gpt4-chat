@@ -27,7 +27,9 @@ export const ExportChatButton = ({ isLoading, buttonText = 'Export Chat' }) => {
 
     event.preventDefault();
     const getMessages = async () => {
-      const messages = await messagesTable.toArray();
+      const messages = await messagesTable
+        .toArray()
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
       return JSON.stringify(messages, null, 2);
     };
     if (confirm('Are you sure you want to download the chat history?')) {
