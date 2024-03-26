@@ -1,3 +1,16 @@
+## <small>0.25.1 (2024-03-26)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.6.2 to 1.6.3 (#376) ([db32a01](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/db32a01)), closes [#376](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/376)
+* chore(deps-dev): bump cssnano from 6.1.1 to 6.1.2 (#377) ([22ae3cf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/22ae3cf)), closes [#377](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/377)
+* chore(deps-dev): bump stylelint from 16.3.0 to 16.3.1 (#382) ([1784f9b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1784f9b)), closes [#382](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/382)
+* chore(deps-dev): bump the types group with 1 update (#378) ([08321ef](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/08321ef)), closes [#378](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/378)
+* chore(deps): bump daisyui from 4.8.0 to 4.9.0 (#380) ([1883d47](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1883d47)), closes [#380](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/380)
+* chore(deps): bump dexie from 3.2.7 to 4.0.1 (#383) ([32a8bc7](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/32a8bc7)), closes [#383](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/383)
+* chore(deps): bump the langchain group with 3 updates (#379) ([2a92713](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2a92713)), closes [#379](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/379)
+* chore(deps): bump the react group with 1 update (#381) ([69f3591](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/69f3591)), closes [#381](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/381)
+
+
+
 ## 0.25.0 (2024-03-25)
 
 * chore(deps-dev): add eslint-config-next and eslint ([b5e9959](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b5e9959))
