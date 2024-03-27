@@ -3,17 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
 import { useCallback, useState } from 'react';
 
-import { messagesTable } from '../database/database.config';
+import { database } from '../database/database.config';
 
 export const DeleteMessage = ({ isUser, message }) => {
   const [buttonId] = useState(nanoid());
 
-  const deleteMessage = useCallback(() => {
+  const deleteMessage = useCallback(async () => {
     const deleteFromDb = async () => {
-      await messagesTable.where('id').equals(message.id).delete();
+      await database.messages.where('id').equals(message.id).delete();
     };
     if (confirm('Are you sure you want to delete this message?')) {
-      deleteFromDb();
+      await deleteFromDb();
       window.location.reload();
     }
   }, [message]);
