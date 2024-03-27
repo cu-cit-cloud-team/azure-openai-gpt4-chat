@@ -40,7 +40,8 @@ export const ExportChatButton = ({
           return (
             Object.keys(message)
               .sort()
-              // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+              /* biome-ignore lint/suspicious/noAssignInExpressions: <explanation> */
+              // biome-ignore lint/style/noCommaOperator: <explanation>
               .reduce((res, key) => ((res[key] = message[key]), res), {})
           );
         });
