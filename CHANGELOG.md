@@ -1,3 +1,21 @@
+## 0.26.0 (2024-03-27)
+
+* chore(deps-dev): bump the tailwindcss group with 1 update (#385) ([4ad48f2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4ad48f2)), closes [#385](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/385)
+* chore(deps-dev): bump the types group with 1 update (#384) ([99e1d8f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/99e1d8f)), closes [#384](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/384)
+* chore(deps): bump ai from 3.0.13 to 3.0.14 (#386) ([3116b58](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3116b58)), closes [#386](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/386)
+* chore(deps): bump ai from 3.0.14 to 3.0.15 ([0ab9453](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0ab9453))
+* style(ClearChatButton): remove unused import ([b9e1cab](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b9e1cab))
+* style(ExportChatButton): ignore a couple biome rules ([a5bea0e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a5bea0e))
+* refactor(App): improve clearHistory ([e214102](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e214102))
+* refactor(DeleteMessage): improve deleteMessage callback ([6d7abd3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6d7abd3))
+* refactor(ExportChatButton): add systemMessage to export, sort message objects by key for consistency ([b33d702](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b33d702))
+* refactor(ExportChatButton): sort after getting ([c34f968](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c34f968))
+* refactor(ExportChatButton): sort messages by date before export ([a41b59d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a41b59d))
+* refactor(Header): pass systemMessage to ExportChatButton ([72e0042](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/72e0042))
+* refactor(ReloadMessage): improve reloadMessage callback ([a70efae](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a70efae))
+
+
+
 ## <small>0.25.1 (2024-03-26)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.6.2 to 1.6.3 (#376) ([db32a01](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/db32a01)), closes [#376](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/376)
