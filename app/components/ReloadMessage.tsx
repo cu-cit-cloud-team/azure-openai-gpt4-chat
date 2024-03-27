@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
 import { useCallback } from 'react';
 
-import { messagesTable } from '../database/database.config';
+import { database } from '../database/database.config';
 
 export const ReloadMessage = ({ isUser, message, reload }) => {
   const reloadMessage = useCallback(async () => {
     const deleteFromDb = async () => {
-      await messagesTable.where('id').equals(message.id).delete();
+      await database.messages.where('id').equals(message.id).delete();
     };
     if (
       confirm(
