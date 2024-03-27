@@ -83,7 +83,11 @@ export const Header = ({
               />
             </li>
             <li>
-              <ExportChatButton buttonText="Export" isLoading={isLoading} />
+              <ExportChatButton
+                buttonText="Export"
+                isLoading={isLoading}
+                systemMessage={systemMessage}
+              />
             </li>
             <li>
               <ThemeChanger />
@@ -132,7 +136,11 @@ export const Header = ({
             />
           </li>
           <li>
-            <ExportChatButton buttonText="Export" isLoading={isLoading} />
+            <ExportChatButton
+              buttonText="Export"
+              isLoading={isLoading}
+              systemMessage={systemMessage}
+            />
           </li>
           <li>
             <ThemeChanger />
