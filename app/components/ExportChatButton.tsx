@@ -3,41 +3,61 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 
-import { messagesTable } from '../database/database.config';
+import { database } from '../database/database.config';
 
-export const ExportChatButton = ({ isLoading, buttonText = 'Export Chat' }) => {
-  const exportHandler = useCallback(async (event) => {
-    const downloadFile = ({
-      data,
-      fileName = 'chat-history.json',
-      fileType = 'text/json',
-    }) => {
-      const blob = new Blob([data], { type: fileType });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = fileName;
-      const clickEvent = new MouseEvent('click', {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-      });
-      link.dispatchEvent(clickEvent);
-      link.remove();
-    };
+export const ExportChatButton = ({
+  buttonText = 'Export Chat',
+  isLoading,
+  systemMessage,
+}) => {
+  const exportHandler = useCallback(
+    async (event) => {
+      const downloadFile = ({
+        data,
+        fileName = 'chat-history.json',
+        fileType = 'text/json',
+      }) => {
+        const blob = new Blob([data], { type: fileType });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = fileName;
+        const clickEvent = new MouseEvent('click', {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+        });
+        link.dispatchEvent(clickEvent);
+        link.remove();
+      };
 
-    event.preventDefault();
-    const getMessages = async () => {
-      const messages = await messagesTable.toArray();
-      const sortedMessages = messages.sort(
-        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-      );
-      return JSON.stringify(sortedMessages, null, 2);
-    };
-    if (confirm('Are you sure you want to download the chat history?')) {
-      const data = await getMessages();
-      downloadFile({ data });
-    }
-  }, []);
+      event.preventDefault();
+      const getMessages = async () => {
+        const messages = await database.messages.toArray();
+        let sortedMessages = messages.sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+        sortedMessages = sortedMessages.map((message) => {
+          return (
+            Object.keys(message)
+              .sort()
+              // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+              .reduce((res, key) => ((res[key] = message[key]), res), {})
+          );
+        });
+        console.log(systemMessage);
+        sortedMessages.unshift({
+          role: 'system',
+          content: systemMessage,
+        });
+        return JSON.stringify(sortedMessages, null, 2);
+      };
+      if (confirm('Are you sure you want to download the chat history?')) {
+        const data = await getMessages();
+        downloadFile({ data });
+      }
+    },
+    [systemMessage]
+  );
 
   return (
     <>
