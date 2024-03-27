@@ -13,9 +13,9 @@ import { Footer } from './components/Footer.tsx';
 import { Header } from './components/Header.tsx';
 import { Messages } from './components/Messages.tsx';
 
-import { getItem, removeItem, setItem } from './utils/localStorage.ts';
+import { getItem, removeItem } from './utils/localStorage.ts';
 
-import { messagesTable } from './database/database.config';
+import { database } from './database/database.config';
 
 dayjs.extend(timezone);
 
@@ -27,7 +27,8 @@ export const App = () => {
         const messages = getItem('messages');
         if (messages) {
           for await (const message of messages) {
-            messagesTable.put(message);
+            // messagesTable.put(message);
+            await database.messages.add(message);
           }
           removeItem('messages');
         }
@@ -105,8 +106,8 @@ export const App = () => {
   const [savedMessages, setSavedMessages] = useState([]);
 
   const dbMessages = useLiveQuery(
-    () => messagesTable.toArray(),
-    [messagesTable]
+    () => database.messages.toArray(),
+    [database.messages]
   );
 
   useEffect(() => {
@@ -152,7 +153,8 @@ export const App = () => {
   useEffect(() => {
     if (messages?.length !== savedMessages?.length) {
       if (messages[messages.length - 1].role === 'user' || !isLoading) {
-        messagesTable.put(messages[messages.length - 1]);
+        // messagesTable.put(messages[messages.length - 1]);
+        database.messages.add(messages[messages.length - 1]);
       }
     }
   }, [messages, savedMessages, isLoading]);
@@ -194,23 +196,24 @@ export const App = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const textareaElement = textAreaRef.current;
 
-  const clearHistory = useCallback((doConfirm = true) => {
+  const clearHistory = useCallback(async (doConfirm = true) => {
     const clearMessages = async () => {
       try {
-        const messages = await messagesTable.toArray();
-        for await (const message of messages) {
-          messagesTable.delete(message.id);
-        }
+        // const messages = await database.messages.toArray();
+        // for await (const message of messages) {
+        //   database.messages.delete(message.id);
+        // }
+        await database.messages.clear();
       } catch (error) {
         console.error(error);
       }
     };
 
     if (!doConfirm) {
-      clearMessages();
+      await clearMessages();
       window.location.reload();
     } else if (confirm('Are you sure you want to clear the chat history?')) {
-      clearMessages();
+      await clearMessages();
       window.location.reload();
     }
   }, []);
