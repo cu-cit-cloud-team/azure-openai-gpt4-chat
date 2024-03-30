@@ -71,7 +71,7 @@
     "conventional-changelog-cli": "4.1.0",
     "conventional-changelog-conventionalcommits": "7.0.2",
     "cssnano": "6.1.2",
-    "cz-git": "1.9.0",
+    "cz-git": "1.9.1",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",
     "postcss": "8.4.38",
