@@ -1,3 +1,19 @@
+## <small>0.26.1 (2024-03-30)</small>
+
+* chore(deps-dev): bump cz-git from 1.9.0 to 1.9.1 (#397) ([d292d1f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d292d1f)), closes [#397](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/397)
+* chore(deps-dev): bump the postcss group with 1 update (#396) ([432077b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/432077b)), closes [#396](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/396)
+* chore(deps-dev): bump the tailwindcss group with 2 updates (#390) ([c3d200e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c3d200e)), closes [#390](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/390)
+* chore(deps-dev): bump the types group with 1 update (#389) ([15c9216](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/15c9216)), closes [#389](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/389)
+* chore(deps-dev): bump the types group with 1 update (#392) ([4c4b0fb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4c4b0fb)), closes [#392](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/392)
+* chore(deps-dev): bump the types group with 1 update (#395) ([05eb5d1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/05eb5d1)), closes [#395](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/395)
+* chore(deps): bump ai from 3.0.15 to 3.0.16 (#394) ([b74bb25](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b74bb25)), closes [#394](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/394)
+* chore(deps): bump openai from 4.29.2 to 4.30.0 (#393) ([da2086a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/da2086a)), closes [#393](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/393)
+* chore(deps): bump openai from 4.30.0 to 4.31.0 (#398) ([6a8fe19](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6a8fe19)), closes [#398](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/398)
+* chore(deps): bump the langchain group with 1 update (#391) ([5af5aec](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5af5aec)), closes [#391](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/391)
+* chore(deps): bump the langchain group with 2 updates (#388) ([5e68a78](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5e68a78)), closes [#388](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/388)
+
+
+
 ## 0.26.0 (2024-03-27)
 
 * chore(deps-dev): bump the tailwindcss group with 1 update (#385) ([4ad48f2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4ad48f2)), closes [#385](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/385)
