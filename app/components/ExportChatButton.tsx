@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 
-import { database } from '../database/database.config';
+import { database } from '@/app/database/database.config';
 
 export const ExportChatButton = ({
   buttonText = 'Export Chat',

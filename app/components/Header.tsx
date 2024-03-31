@@ -4,17 +4,20 @@ import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
-import { ClearChatButton } from './ClearChatButton.tsx';
-import { ExportChatButton } from './ExportChatButton.tsx';
-import { Parameters } from './Parameters.tsx';
-import { SystemMessage } from './SystemMessage.tsx';
-import { UpdateCheck } from './UpdateCheck.tsx';
-import { UserAvatar } from './UserAvatar.tsx';
+import { ClearChatButton } from '@/app/components/ClearChatButton.tsx';
+import { ExportChatButton } from '@/app/components/ExportChatButton.tsx';
+import { Parameters } from '@/app/components/Parameters.tsx';
+import { SystemMessage } from '@/app/components/SystemMessage.tsx';
+import { UpdateCheck } from '@/app/components/UpdateCheck.tsx';
+import { UserAvatar } from '@/app/components/UserAvatar.tsx';
 
-const ThemeChanger = dynamic(() => import('./ThemeChanger.tsx'), {
-  // do not import/render server-side, `window` object is used in component
-  ssr: false,
-});
+const ThemeChanger = dynamic(
+  () => import('@/app/components/ThemeChanger.tsx'),
+  {
+    // do not import/render server-side, `window` object is used in component
+    ssr: false,
+  }
+);
 
 import pkg from '../../package.json';
 

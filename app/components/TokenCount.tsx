@@ -1,11 +1,10 @@
-// import { encodingForModel } from 'js-tiktoken';
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { useDebounce } from '../hooks/useDebounce.tsx';
+import { useDebounce } from '@/app/hooks/useDebounce.tsx';
 
-import { getTokenCount } from '../utils/tokens.ts';
+import { getTokenCount } from '@/app/utils/tokens.ts';
 
 export const TokenCount = ({
   input = '',

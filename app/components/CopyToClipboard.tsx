@@ -1,7 +1,7 @@
 import { faCheck, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import { React, useState } from 'react';
+import { useState } from 'react';
 
 export const CopyToClipboard = ({ isUser, textToCopy }) => {
   const [isCopied, setIsCopied] = useState(false);

@@ -2,8 +2,8 @@ import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-import { ParameterModelSelect } from './ParameterModelSelect.tsx';
-import { ParameterSlider } from './ParameterSlider.tsx';
+import { ParameterModelSelect } from '@/app/components/ParameterModelSelect.tsx';
+import { ParameterSlider } from '@/app/components/ParameterSlider.tsx';
 
 export const Parameters = ({ clearHistory }) => {
   return (

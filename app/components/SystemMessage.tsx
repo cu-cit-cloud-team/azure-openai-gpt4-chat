@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
-import { TokenCount } from './TokenCount.tsx';
+import { TokenCount } from '@/app/components/TokenCount.tsx';
 
-import { useDebounce } from '../hooks/useDebounce.tsx';
+import { useDebounce } from '@/app/hooks/useDebounce.tsx';
 
 export const SystemMessage = ({
   clearHistory,

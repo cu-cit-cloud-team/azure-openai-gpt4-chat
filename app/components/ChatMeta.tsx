@@ -4,9 +4,9 @@ import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { getItem } from '../utils/localStorage.ts';
+import { getItem } from '@/app/utils/localStorage.ts';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);

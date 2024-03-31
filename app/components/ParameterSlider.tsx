@@ -1,9 +1,8 @@
 import { nanoid } from 'nanoid';
 import propTypes from 'prop-types';
-import { React } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem, setItem } from '../utils/localStorage.ts';
+import { getItem, setItem } from '@/app/utils/localStorage.ts';
 
 export const ParameterSlider = ({
   paramName,

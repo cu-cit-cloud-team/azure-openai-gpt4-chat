@@ -1,11 +1,11 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem, setItem } from '../utils/localStorage.ts';
-import { getEditorTheme, themes } from '../utils/themes.ts';
+import { getItem, setItem } from '@/app/utils/localStorage.ts';
+import { getEditorTheme, themes } from '@/app/utils/themes.ts';
 
 export const ThemeChanger = () => {
   const isSystemDarkMode = () =>

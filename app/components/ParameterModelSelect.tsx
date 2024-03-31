@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { React, useEffect } from 'react';
+import { useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem, setItem } from '../utils/localStorage.ts';
+import { getItem, setItem } from '@/app/utils/localStorage.ts';
 
 export const ParameterModelSelect = ({ clearHistory }) => {
   const [parameters, setParameters] = useLocalStorageState('parameters', {

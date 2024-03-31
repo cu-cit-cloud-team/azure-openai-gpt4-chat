@@ -1,9 +1,9 @@
-import React from 'react';
+import type React from 'react';
 import './globals.scss';
 
 export const metadata = {
   title: 'Cloud Team GPT Chat',
-  description: 'Powered by Azure OpenAI GPT-4',
+  description: 'Powered by Azure OpenAI GPT-3.5 and GPT-4 models',
 };
 
 export default function RootLayout({

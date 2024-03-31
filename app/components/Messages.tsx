@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
-import { ChatBubble } from './ChatBubble.tsx';
+import { ChatBubble } from '@/app/components/ChatBubble.tsx';
 
 export const Messages = ({
   isLoading,

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const SessionModal = () => {
   return (
     <dialog className="modal modal-bottom sm:modal-middle sessionModal">
