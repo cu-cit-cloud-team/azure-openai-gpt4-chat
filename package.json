@@ -11,7 +11,7 @@
     "biome": "biome check ./app",
     "build": "next build",
     "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo -p 3001",
     "lint": "next lint",
     "start": "next start",
     "version": "npm run changelog"
@@ -104,7 +104,7 @@
     "preset": "conventionalcommits"
   },
   "volta": {
-    "node": "20.11.1",
+    "node": "20.12.0",
     "npm": "10.5.0"
   }
 }
