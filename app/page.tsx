@@ -26,11 +26,12 @@ export const App = () => {
       try {
         const messages = getItem('messages');
         if (messages) {
-          for await (const message of messages) {
-            // messagesTable.put(message);
-            await database.messages.add(message);
-          }
-          removeItem('messages');
+          await database.transaction('rw', database.messages, async () => {
+            for await (const message of messages) {
+              await database.messages.add(message);
+            }
+            removeItem('messages');
+          });
         }
       } catch (error) {
         console.error(error);
