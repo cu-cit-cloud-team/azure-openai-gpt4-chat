@@ -153,10 +153,13 @@ export const App = () => {
 
   // update indexedDB when messages changes
   useEffect(() => {
+    const addMessage = async (message) => {
+      await database.messages.add(message);
+    };
+
     if (messages?.length !== savedMessages?.length) {
       if (messages[messages.length - 1].role === 'user' || !isLoading) {
-        // messagesTable.put(messages[messages.length - 1]);
-        database.messages.add(messages[messages.length - 1]);
+        addMessage(messages[messages.length - 1]);
       }
     }
   }, [messages, savedMessages, isLoading]);
@@ -201,10 +204,6 @@ export const App = () => {
   const clearHistory = useCallback(async (doConfirm = true) => {
     const clearMessages = async () => {
       try {
-        // const messages = await database.messages.toArray();
-        // for await (const message of messages) {
-        //   database.messages.delete(message.id);
-        // }
         await database.messages.clear();
       } catch (error) {
         console.error(error);
