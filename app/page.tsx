@@ -106,16 +106,17 @@ export const App = () => {
 
   const [savedMessages, setSavedMessages] = useState([]);
 
-  const dbMessages = useLiveQuery(
-    () => database.messages.toArray(),
-    [database.messages]
-  );
+  const dbMessages = useLiveQuery(async () => {
+    let messages = await database.messages.toArray();
+    messages = messages.sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+    return messages;
+  }, [database.messages]);
 
   useEffect(() => {
-    if (dbMessages) {
-      setSavedMessages(
-        dbMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-      );
+    if (dbMessages?.length) {
+      setSavedMessages(dbMessages);
     }
   }, [dbMessages]);
 
