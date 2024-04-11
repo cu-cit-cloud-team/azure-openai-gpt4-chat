@@ -73,7 +73,7 @@
     "cssnano": "6.1.2",
     "cz-git": "1.9.1",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.1.4",
+    "eslint-config-next": "14.2.0",
     "postcss": "8.4.38",
     "postcss-cli": "11.0.0",
     "sass": "1.74.1",
