@@ -35,7 +35,7 @@
     "@langchain/community": "0.0.47",
     "@langchain/core": "0.1.57",
     "@langchain/openai": "0.0.28",
-    "ai": "3.0.20",
+    "ai": "3.0.21",
     "axios": "1.6.8",
     "daisyui": "4.10.1",
     "dayjs": "1.11.10",
