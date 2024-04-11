@@ -1,3 +1,16 @@
+## <small>0.27.2 (2024-04-11)</small>
+
+* chore(deps-dev): bump eslint-config-next from 14.1.4 to 14.2.0 (#433) ([e574b51](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e574b51)), closes [#433](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/433)
+* chore(deps-dev): bump the types group with 2 updates (#432) ([8db51c2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8db51c2)), closes [#432](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/432)
+* chore(deps-dev): bump typescript from 5.4.4 to 5.4.5 (#429) ([5f421a4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5f421a4)), closes [#429](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/429)
+* chore(deps): bump ai from 3.0.20 to 3.0.21 (#430) ([c535de4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c535de4)), closes [#430](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/430)
+* chore(deps): bump dexie from 4.0.1 to 4.0.2 (#427) ([e3f7052](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e3f7052)), closes [#427](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/427)
+* chore(deps): bump dexie from 4.0.2 to 4.0.4 (#431) ([f6a313f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f6a313f)), closes [#431](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/431)
+* chore(deps): bump next from 14.1.4 to 14.2.0 (#434) ([69b0ee1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/69b0ee1)), closes [#434](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/434)
+* chore(deps): bump the langchain group with 4 updates (#428) ([c6c3940](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c6c3940)), closes [#428](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/428)
+
+
+
 ## <small>0.27.1 (2024-04-09)</small>
 
 * chore(deps-dev): bump @types/node in the types group (#418) ([259ecf5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/259ecf5)), closes [#418](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/418)
