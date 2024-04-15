@@ -1,3 +1,18 @@
+## <small>0.27.3 (2024-04-15)</small>
+
+* chore(deps-dev): bump @types/react in the types group (#435) ([a641486](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a641486)), closes [#435](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/435)
+* chore(deps-dev): bump @types/react in the types group (#438) ([d8b0e95](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d8b0e95)), closes [#438](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/438)
+* chore(deps-dev): bump eslint-config-next from 14.2.0 to 14.2.1 (#440) ([3e3efac](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3e3efac)), closes [#440](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/440)
+* chore(deps-dev): bump sass from 1.74.1 to 1.75.0 (#436) ([d8a6d3b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d8a6d3b)), closes [#436](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/436)
+* chore(deps): bump @langchain/community in the langchain group (#437) ([1cc6589](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1cc6589)), closes [#437](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/437)
+* chore(deps): bump ai from 3.0.21 to 3.0.22 (#439) ([596f89b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/596f89b)), closes [#439](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/439)
+* chore(deps): bump js-tiktoken from 1.0.10 to 1.0.11 (#443) ([0a2f277](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0a2f277)), closes [#443](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/443)
+* chore(deps): bump next from 14.2.0 to 14.2.1 (#441) ([725630d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/725630d)), closes [#441](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/441)
+* chore(deps): bump openai from 4.33.0 to 4.33.1 (#442) ([5b7f1fb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5b7f1fb)), closes [#442](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/442)
+* chore(volta): bump node/npm versions ([244c4c3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/244c4c3))
+
+
+
 ## <small>0.27.2 (2024-04-11)</small>
 
 * chore(deps-dev): bump eslint-config-next from 14.1.4 to 14.2.0 (#433) ([e574b51](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e574b51)), closes [#433](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/433)
