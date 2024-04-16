@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import { getItem, setItem } from '@/app/utils/localStorage.ts';
 
-export const ParameterModelSelect = ({ clearHistory }) => {
+export const ParameterModelSelect = memo(({ clearHistory }) => {
   const [parameters, setParameters] = useLocalStorageState('parameters', {
     defaultValue: {
       model: 'gpt-4',
@@ -55,7 +55,7 @@ export const ParameterModelSelect = ({ clearHistory }) => {
       </select>
     </>
   );
-};
+});
 
 ParameterModelSelect.displayName = 'ModelSelect';
 ParameterModelSelect.propTypes = {

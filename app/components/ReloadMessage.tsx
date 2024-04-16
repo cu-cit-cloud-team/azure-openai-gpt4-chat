@@ -1,11 +1,11 @@
 import { faArrowRotateForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-export const ReloadMessage = ({ isUser, message, reload }) => {
+export const ReloadMessage = memo(({ isUser, message, reload }) => {
   const reloadMessage = useCallback(async () => {
     const deleteFromDb = async () => {
       await database.messages.where('id').equals(message.id).delete();
@@ -43,6 +43,8 @@ export const ReloadMessage = ({ isUser, message, reload }) => {
       </button>
     </div>
   ) : null;
-};
+});
+
+ReloadMessage.displayName = 'ReloadMessage';
 
 export default ReloadMessage;

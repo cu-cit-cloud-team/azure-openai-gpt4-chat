@@ -28,7 +28,7 @@ export const App = () => {
         if (messages) {
           await database.transaction('rw', database.messages, async () => {
             for await (const message of messages) {
-              await database.messages.add(message);
+              await database.messages.put(message);
             }
             removeItem('messages');
           });
@@ -120,10 +120,14 @@ export const App = () => {
     }
   }, [dbMessages]);
 
-  const handleChatError = (error) => {
+  const handleChatError = useCallback((error) => {
     console.error(error);
     throw error;
-  };
+  }, []);
+
+  const addMessage = useCallback(async (message) => {
+    await database.messages.put(message);
+  }, []);
 
   const {
     error,
@@ -149,20 +153,17 @@ export const App = () => {
     id: userMeta?.email ? btoa(userMeta?.email) : undefined,
     initialMessages: savedMessages,
     onError: handleChatError,
+    onFinish: (message) => addMessage(message),
   });
 
   // update indexedDB when messages changes
   useEffect(() => {
-    const addMessage = async (message) => {
-      await database.messages.add(message);
-    };
-
     if (messages?.length !== savedMessages?.length) {
       if (messages[messages.length - 1].role === 'user' || !isLoading) {
         addMessage(messages[messages.length - 1]);
       }
     }
-  }, [messages, savedMessages, isLoading]);
+  }, [addMessage, messages, savedMessages, isLoading]);
 
   // subscribe to storage change events so multiple tabs stay in sync
   useEffect(() => {

@@ -4,9 +4,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
-export const UserAvatar = ({ userMeta }) => {
+export const UserAvatar = memo(({ userMeta }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
 
@@ -72,7 +72,7 @@ export const UserAvatar = ({ userMeta }) => {
       </div>
     </>
   );
-};
+});
 
 UserAvatar.displayName = 'UserAvatar';
 UserAvatar.propTypes = {

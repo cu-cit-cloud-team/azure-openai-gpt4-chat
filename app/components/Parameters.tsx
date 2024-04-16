@@ -1,11 +1,12 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 
 import { ParameterModelSelect } from '@/app/components/ParameterModelSelect.tsx';
 import { ParameterSlider } from '@/app/components/ParameterSlider.tsx';
 
-export const Parameters = ({ clearHistory }) => {
+export const Parameters = memo(({ clearHistory }) => {
   return (
     <details>
       <summary>
@@ -46,7 +47,7 @@ export const Parameters = ({ clearHistory }) => {
       </ul>
     </details>
   );
-};
+});
 
 Parameters.displayName = 'Parameters';
 

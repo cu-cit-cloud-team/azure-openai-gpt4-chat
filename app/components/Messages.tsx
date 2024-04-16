@@ -1,53 +1,47 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import { ChatBubble } from '@/app/components/ChatBubble.tsx';
 
-export const Messages = ({
-  isLoading,
-  messages,
-  userMeta,
-  savedMessages,
-  error,
-  reload,
-  stop,
-}) => {
-  // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
-  useEffect(() => {
-    window.scrollTo({
-      left: 0,
-      top: document.body.scrollHeight,
-      behavior: 'smooth',
-    });
-  }, [messages]);
+export const Messages = memo(
+  ({ isLoading, messages, userMeta, savedMessages, error, reload, stop }) => {
+    // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
+    useEffect(() => {
+      window.scrollTo({
+        left: 0,
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, [messages]);
 
-  return (
-    <div className="z-0 overflow-auto bg-base-100">
-      <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-64 mx-auto mb-12 pb-28">
-        {messages.length > 0
-          ? messages.map((m, idx) => {
-              return (
-                <ChatBubble
-                  key={m.id || nanoid()}
-                  message={m}
-                  index={idx}
-                  isUser={m.role === 'user'}
-                  isLoading={isLoading}
-                  totalMessages={messages.length - 1}
-                  userMeta={userMeta}
-                  savedMessages={savedMessages}
-                  stop={stop}
-                  reload={reload}
-                  error={error}
-                />
-              );
-            })
-          : null}
+    return (
+      <div className="z-0 overflow-auto bg-base-100">
+        <div className="flex flex-col w-full h-full max-w-6xl min-h-screen pt-64 mx-auto mb-12 pb-28">
+          {messages.length > 0
+            ? messages.map((m, idx) => {
+                return (
+                  <ChatBubble
+                    key={nanoid()}
+                    message={m}
+                    index={idx}
+                    isUser={m.role === 'user'}
+                    isLoading={isLoading}
+                    totalMessages={messages.length - 1}
+                    userMeta={userMeta}
+                    savedMessages={savedMessages}
+                    stop={stop}
+                    reload={reload}
+                    error={error}
+                  />
+                );
+              })
+            : null}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 Messages.displayName = 'Messages';
 Messages.propTypes = {

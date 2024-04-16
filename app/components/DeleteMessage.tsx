@@ -1,11 +1,11 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-export const DeleteMessage = ({ isUser, message }) => {
+export const DeleteMessage = memo(({ isUser, message }) => {
   const [buttonId] = useState(nanoid());
 
   const deleteMessage = useCallback(async () => {
@@ -41,6 +41,8 @@ export const DeleteMessage = ({ isUser, message }) => {
       </button>
     </div>
   );
-};
+});
+
+DeleteMessage.displayName = 'DeleteMessage';
 
 export default DeleteMessage;

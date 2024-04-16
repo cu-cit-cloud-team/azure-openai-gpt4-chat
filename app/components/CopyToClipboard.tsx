@@ -1,9 +1,9 @@
 import { faCheck, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
-export const CopyToClipboard = ({ isUser, textToCopy }) => {
+export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
   const [isCopied, setIsCopied] = useState(false);
   const [inputId] = useState(nanoid());
   const [buttonId] = useState(nanoid());
@@ -64,6 +64,8 @@ export const CopyToClipboard = ({ isUser, textToCopy }) => {
       </button>
     </div>
   );
-};
+});
+
+CopyToClipboard.displayName = 'CopyToClipboard';
 
 export default CopyToClipboard;
