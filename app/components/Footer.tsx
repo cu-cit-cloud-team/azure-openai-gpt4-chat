@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
 
-import { TokenCount } from '@/app/components/TokenCount.tsx';
+import { TokenCount } from '@/app/components/TokenCount';
 
-import { useDebounce } from '@/app/hooks/useDebounce.tsx';
+import { useDebounce } from '@/app/hooks/useDebounce';
 
 export const Footer = memo(
   ({

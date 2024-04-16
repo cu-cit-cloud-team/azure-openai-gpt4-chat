@@ -6,13 +6,13 @@ import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { ChatMeta } from '@/app/components/ChatMeta.tsx';
-import { CopyToClipboard } from '@/app/components/CopyToClipboard.tsx';
-import { DeleteMessage } from '@/app/components/DeleteMessage.tsx';
-import { ReloadMessage } from '@/app/components/ReloadMessage.tsx';
+import { ChatMeta } from '@/app/components/ChatMeta';
+import { CopyToClipboard } from '@/app/components/CopyToClipboard';
+import { DeleteMessage } from '@/app/components/DeleteMessage';
+import { ReloadMessage } from '@/app/components/ReloadMessage';
 
-import { getItem } from '@/app/utils/localStorage.ts';
-import { markdownToText } from '@/app/utils/markdownToText.ts';
+import { getItem } from '@/app/utils/localStorage';
+import { markdownToText } from '@/app/utils/markdownToText';
 import { memo } from 'react';
 
 export const ChatBubble = memo(

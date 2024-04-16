@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { memo, useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem, setItem } from '@/app/utils/localStorage.ts';
+import { getItem, setItem } from '@/app/utils/localStorage';
 
 export const ParameterModelSelect = memo(({ clearHistory }) => {
   const [parameters, setParameters] = useLocalStorageState('parameters', {

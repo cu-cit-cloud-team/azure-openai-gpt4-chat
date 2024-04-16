@@ -6,8 +6,8 @@ import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem, setItem } from '@/app/utils/localStorage.ts';
-import { getEditorTheme, themes } from '@/app/utils/themes.ts';
+import { getItem, setItem } from '@/app/utils/localStorage';
+import { getEditorTheme, themes } from '@/app/utils/themes';
 
 export const ThemeChanger = () => {
   const isSystemDarkMode = () =>

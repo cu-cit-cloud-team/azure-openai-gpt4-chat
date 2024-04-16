@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 
-import { ParameterModelSelect } from '@/app/components/ParameterModelSelect.tsx';
-import { ParameterSlider } from '@/app/components/ParameterSlider.tsx';
+import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
+import { ParameterSlider } from '@/app/components/ParameterSlider';
 
 export const Parameters = memo(({ clearHistory }) => {
   return (

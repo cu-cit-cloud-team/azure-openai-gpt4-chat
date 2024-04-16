@@ -4,12 +4,12 @@ import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import { memo, useEffect } from 'react';
 
-import { ClearChatButton } from '@/app/components/ClearChatButton.tsx';
-import { ExportChatButton } from '@/app/components/ExportChatButton.tsx';
-import { Parameters } from '@/app/components/Parameters.tsx';
-import { SystemMessage } from '@/app/components/SystemMessage.tsx';
-import { UpdateCheck } from '@/app/components/UpdateCheck.tsx';
-import { UserAvatar } from '@/app/components/UserAvatar.tsx';
+import { ClearChatButton } from '@/app/components/ClearChatButton';
+import { ExportChatButton } from '@/app/components/ExportChatButton';
+import { Parameters } from '@/app/components/Parameters';
+import { SystemMessage } from '@/app/components/SystemMessage';
+import { UpdateCheck } from '@/app/components/UpdateCheck';
+import { UserAvatar } from '@/app/components/UserAvatar';
 
 const ThemeChanger = dynamic(
   () => import('@/app/components/ThemeChanger.tsx'),

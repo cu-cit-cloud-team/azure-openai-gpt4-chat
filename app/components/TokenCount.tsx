@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { memo, useEffect, useMemo, useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { useDebounce } from '@/app/hooks/useDebounce.tsx';
+import { useDebounce } from '@/app/hooks/useDebounce';
 
-import { getTokenCount } from '@/app/utils/tokens.ts';
+import { getTokenCount } from '@/app/utils/tokens';
 
 export const TokenCount = memo(
   ({ input = '', systemMessage, display = 'input' }) => {

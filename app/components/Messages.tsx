@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { memo, useEffect } from 'react';
 
-import { ChatBubble } from '@/app/components/ChatBubble.tsx';
+import { ChatBubble } from '@/app/components/ChatBubble';
 
 export const Messages = memo(
   ({ isLoading, messages, userMeta, savedMessages, error, reload, stop }) => {

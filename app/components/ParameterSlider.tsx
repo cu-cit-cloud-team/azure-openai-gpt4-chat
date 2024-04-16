@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { memo } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { getItem, setItem } from '@/app/utils/localStorage.ts';
+import { getItem, setItem } from '@/app/utils/localStorage';
 
 export const ParameterSlider = memo(
   ({ paramName, displayName = null, min = 0, max = 1, step = 0.1 }) => {

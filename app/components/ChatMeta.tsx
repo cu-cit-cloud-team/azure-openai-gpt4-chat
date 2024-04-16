@@ -6,7 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
 
-import { getItem } from '@/app/utils/localStorage.ts';
+import { getItem } from '@/app/utils/localStorage';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);

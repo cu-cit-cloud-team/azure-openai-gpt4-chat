@@ -9,11 +9,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import useLocalStorageState from 'use-local-storage-state';
 
-import { Footer } from '@/app/components/Footer.tsx';
-import { Header } from '@/app/components/Header.tsx';
-import { Messages } from '@/app/components/Messages.tsx';
+import { Footer } from '@/app/components/Footer';
+import { Header } from '@/app/components/Header';
+import { Messages } from '@/app/components/Messages';
 
-import { getItem, removeItem } from '@/app/utils/localStorage.ts';
+import { getItem, removeItem } from '@/app/utils/localStorage';
 
 import { database } from '@/app/database/database.config';
 
