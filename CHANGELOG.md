@@ -1,3 +1,21 @@
+## <small>0.27.4 (2024-04-17)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.6.4 to 1.7.0 (#444) ([2c37077](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2c37077)), closes [#444](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/444)
+* chore(deps-dev): bump @types/react in the types group (#447) ([cfbe5b0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cfbe5b0)), closes [#447](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/447)
+* chore(deps): bump @langchain/community in the langchain group (#446) ([0d700e9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0d700e9)), closes [#446](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/446)
+* chore(deps): bump @langchain/core in the langchain group (#449) ([7fa994e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7fa994e)), closes [#449](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/449)
+* chore(deps): bump ai from 3.0.22 to 3.0.23 (#451) ([7376fe9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7376fe9)), closes [#451](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/451)
+* chore(deps): bump daisyui from 4.10.1 to 4.10.2 ([6c010ec](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6c010ec))
+* chore(deps): bump openai from 4.33.1 to 4.34.0 (#445) ([656e335](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/656e335)), closes [#445](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/445)
+* chore(deps): bump openai from 4.34.0 to 4.35.0 (#448) ([7d5cf40](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7d5cf40)), closes [#448](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/448)
+* chore(deps): bump openai from 4.35.0 to 4.36.0 (#450) ([d4bd62a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d4bd62a)), closes [#450](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/450)
+* chore(deps): bump openai from 4.36.0 to 4.37.0 ([982ac0e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/982ac0e))
+* refactor(Footer): use input value ([b74054d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b74054d))
+* style: update imports (remove extension) ([880e8cb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/880e8cb))
+* perf: memoize several components and fix a couple linter warnings ([d9b140a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d9b140a))
+
+
+
 ## <small>0.27.3 (2024-04-15)</small>
 
 * chore(deps-dev): bump @types/react in the types group (#435) ([a641486](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a641486)), closes [#435](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/435)
