@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 
-// import { useDebounce } from '@/app/hooks/useDebounce';
+import { useDebounce } from '@/app/hooks/useDebounce';
 
 export const Footer = memo(
   ({
@@ -21,7 +21,8 @@ export const Footer = memo(
       }
     }, [textAreaRef, systemMessageRef]);
 
-    // const debouncedInput = useDebounce(input, 200);
+    const debouncedInput = useDebounce(input, 200);
+
     // biome-ignore lint/correctness/useExhaustiveDependencies: this is intentional to force resize on input change
     useEffect(() => {
       if (textAreaRef?.current) {
@@ -30,7 +31,7 @@ export const Footer = memo(
         textAreaRef.current.style.overflowY = 'hidden';
         textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
       }
-    }, [input, textAreaRef]);
+    }, [debouncedInput, textAreaRef]);
 
     const [isMac, setIsMac] = useState(false);
     useEffect(() => {
