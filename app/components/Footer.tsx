@@ -3,8 +3,6 @@ import { memo, useEffect, useState } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 
-import { useDebounce } from '@/app/hooks/useDebounce';
-
 export const Footer = memo(
   ({
     formRef,
@@ -20,18 +18,6 @@ export const Footer = memo(
         textAreaRef?.current?.focus();
       }
     }, [textAreaRef, systemMessageRef]);
-
-    const debouncedInput = useDebounce(input, 200);
-
-    // biome-ignore lint/correctness/useExhaustiveDependencies: this is intentional to force resize on input change
-    useEffect(() => {
-      if (textAreaRef?.current) {
-        textAreaRef.current.style.height = '';
-        textAreaRef.current.style.overflowX = 'auto';
-        textAreaRef.current.style.overflowY = 'hidden';
-        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-      }
-    }, [debouncedInput, textAreaRef]);
 
     const [isMac, setIsMac] = useState(false);
     useEffect(() => {
@@ -56,7 +42,7 @@ export const Footer = memo(
             ref={textAreaRef}
             className={`${
               isLoading ? 'skeleton' : ''
-            } w-full h-10 max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl lg:text-base max-h-24 lg:h-11 lg:max-h-80`}
+            } w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl h-14 lg:text-base lg:h-20`}
             value={input}
             placeholder="Type a message..."
             onChange={handleInputChange}
