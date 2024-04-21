@@ -14,10 +14,10 @@ export const Footer = memo(
     systemMessageRef,
   }) => {
     useEffect(() => {
-      if (document?.activeElement !== systemMessageRef?.current) {
+      if (document?.activeElement !== systemMessageRef?.current && !isLoading) {
         textAreaRef?.current?.focus();
       }
-    }, [textAreaRef, systemMessageRef]);
+    }, [isLoading, textAreaRef, systemMessageRef]);
 
     const [isMac, setIsMac] = useState(false);
     useEffect(() => {
@@ -46,7 +46,7 @@ export const Footer = memo(
             value={input}
             placeholder="Type a message..."
             onChange={handleInputChange}
-            // disabled={isLoading}
+            disabled={isLoading}
           />
           <button
             type="button"
