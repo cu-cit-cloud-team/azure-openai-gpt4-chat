@@ -5,6 +5,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type React from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
+import { getItem } from '@/app/utils/localStorage';
+
 export const TokenStateContext = createContext(null);
 export const TokenUpdaterContext = createContext(null);
 
@@ -37,7 +39,15 @@ export const TokenStateProvider = ({
   const [inputTokens, setInputTokens] = useState(0);
   const [systemMessageTokens, setSystemMessageTokens] = useState(0);
 
-  const maxTokens = 16384;
+  const [model, setModel] = useState('gpt-4');
+  useEffect(() => {
+    const currentModel = getItem('parameters')?.model;
+    if (currentModel) {
+      setModel(currentModel);
+    }
+  }, []);
+
+  const maxTokens = model === 'gpt-4' ? 128000 : 16384;
   const [remainingTokens, setRemainingTokens] = useState(16384);
   const [remainingSystemTokens, setRemainingSystemTokens] = useState(
     systemMessageMaxTokens
@@ -64,6 +74,7 @@ export const TokenStateProvider = ({
     });
   }, [
     inputTokens,
+    maxTokens,
     remainingSystemTokens,
     remainingTokens,
     setTokens,
