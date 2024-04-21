@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
 
+import { TokenStateProvider } from '@/app/contexts/TokenContext';
+
 import { TokenCount } from '@/app/components/TokenCount';
 
 import { useDebounce } from '@/app/hooks/useDebounce';
@@ -72,11 +74,13 @@ export const SystemMessage = memo(
 
     return (
       <>
-        <TokenCount
-          input={input}
-          systemMessage={debouncedLocalSystemMessage}
-          display={'systemMessage'}
-        />
+        <TokenStateProvider>
+          <TokenCount
+            input={input}
+            systemMessage={debouncedLocalSystemMessage}
+            display={'systemMessage'}
+          />
+        </TokenStateProvider>
         <textarea
           className="h-48 m-2 whitespace-pre-line w-52 lg:w-96"
           ref={systemMessageRef}

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
 
+import { TokenStateProvider } from '@/app/contexts/TokenContext';
+
 import { TokenCount } from '@/app/components/TokenCount';
 
 export const Footer = memo(
@@ -32,11 +34,13 @@ export const Footer = memo(
     return (
       <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
         <form ref={formRef} onSubmit={handleSubmit} className="w-full">
-          <TokenCount
-            input={input}
-            systemMessage={systemMessageRef?.current?.value || ''}
-            display={'input'}
-          />
+          <TokenStateProvider>
+            <TokenCount
+              input={input}
+              systemMessage={systemMessageRef?.current?.value || ''}
+              display={'input'}
+            />
+          </TokenStateProvider>
           <textarea
             autoFocus={true}
             ref={textAreaRef}
