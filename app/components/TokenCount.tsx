@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { memo, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { useDebounce } from '@/app/hooks/useDebounce';
 
