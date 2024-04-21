@@ -1,3 +1,25 @@
+## <small>0.27.5 (2024-04-21)</small>
+
+* refactor(Footer): disable textarea while loading (and return focus when not) ([ca5d26d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ca5d26d))
+* refactor(layout): add Providers ([01bb794](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/01bb794))
+* refactor(TokenContext): update maxTokens logic ([0ab3a19](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0ab3a19))
+* refactor(TokenCount): use new context/provider ([e6a220b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e6a220b))
+* style(TokenCount): remove unused import ([b1de586](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b1de586))
+* feat(Providers): add component that will have any/all providers ([58cb5a5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/58cb5a5))
+* feat(TokenContext): add context and move token count logic into it ([c156338](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c156338))
+* chore(deps-dev): bump eslint-config-next from 14.2.1 to 14.2.2 (#455) ([a73ae2c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a73ae2c)), closes [#455](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/455)
+* chore(deps): bump ai from 3.0.23 to 3.0.24 (#457) ([5a18ae9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5a18ae9)), closes [#457](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/457)
+* chore(deps): bump marked from 12.0.1 to 12.0.2 (#458) ([994c2a3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/994c2a3)), closes [#458](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/458)
+* chore(deps): bump next from 14.2.1 to 14.2.2 (#454) ([c49bd3e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c49bd3e)), closes [#454](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/454)
+* chore(deps): bump openai from 4.37.0 to 4.37.1 (#452) ([17a0524](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/17a0524)), closes [#452](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/452)
+* chore(deps): bump openai from 4.37.1 to 4.38.1 (#456) ([e5e615a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e5e615a)), closes [#456](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/456)
+* chore(deps): bump openai from 4.38.1 to 4.38.2 (#460) ([38ccc49](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/38ccc49)), closes [#460](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/460)
+* chore(deps): bump the langchain group with 2 updates (#453) ([f19b8ad](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f19b8ad)), closes [#453](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/453)
+* perf(Footer): remove dynamic textarea resizing (again) ([c8f8d40](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c8f8d40))
+* revert(Footer): back to debounced input ([b6cb91c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b6cb91c))
+
+
+
 ## <small>0.27.4 (2024-04-17)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.6.4 to 1.7.0 (#444) ([2c37077](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2c37077)), closes [#444](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/444)
