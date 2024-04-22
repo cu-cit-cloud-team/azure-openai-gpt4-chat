@@ -6,7 +6,11 @@ import { memo } from 'react';
 import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
 import { ParameterSlider } from '@/app/components/ParameterSlider';
 
-export const Parameters = memo(({ clearHistory }) => {
+import { useDefaultsUpdaterContext } from '@/app/contexts/DefaultsContext';
+
+export const Parameters = memo(() => {
+  const { clearHistory } = useDefaultsUpdaterContext();
+
   return (
     <details>
       <summary>
