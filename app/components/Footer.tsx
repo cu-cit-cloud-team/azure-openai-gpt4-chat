@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 
 import { TokenStateProvider } from '@/app/contexts/TokenContext';
 
 import { TokenCount } from '@/app/components/TokenCount';
+
+import { useDebounce } from '@/app/hooks/useDebounce';
 
 export const Footer = memo(
   ({
@@ -23,20 +25,27 @@ export const Footer = memo(
 
     const [isMac, setIsMac] = useState(false);
     useEffect(() => {
-      setIsMac(navigator?.userAgent?.toLowerCase().includes('mac'));
+      setIsMac(window?.navigator?.userAgent?.toLowerCase().includes('mac'));
     }, []);
 
-    const [modifierKey, setModifierKey] = useState('⌘');
-    useEffect(() => {
-      setModifierKey(isMac ? '⌘' : 'Ctrl');
-    }, [isMac]);
+    const modifierKey = useMemo(() => (isMac ? '⌘' : 'Ctrl'), [isMac]);
+
+    const textAreaClasses = useMemo(() => {
+      const defaultClasses =
+        'w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl h-14 lg:text-base lg:h-20';
+      const loadingClass = isLoading ? 'skeleton ' : '';
+
+      return `${loadingClass}${defaultClasses}`;
+    }, [isLoading]);
+
+    const debouncedInput = useDebounce(input, 200);
 
     return (
       <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
         <form ref={formRef} onSubmit={handleSubmit} className="w-full">
           <TokenStateProvider>
             <TokenCount
-              input={input}
+              input={debouncedInput}
               systemMessage={systemMessageRef?.current?.value || ''}
               display={'input'}
             />
@@ -44,9 +53,7 @@ export const Footer = memo(
           <textarea
             autoFocus={true}
             ref={textAreaRef}
-            className={`${
-              isLoading ? 'skeleton' : ''
-            } w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl h-14 lg:text-base lg:h-20`}
+            className={textAreaClasses}
             value={input}
             placeholder="Type a message..."
             onChange={handleInputChange}
