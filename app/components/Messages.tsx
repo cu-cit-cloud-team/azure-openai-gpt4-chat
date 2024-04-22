@@ -5,7 +5,7 @@ import { memo, useEffect } from 'react';
 import { ChatBubble } from '@/app/components/ChatBubble';
 
 export const Messages = memo(
-  ({ isLoading, messages, userMeta, savedMessages, error, reload, stop }) => {
+  ({ isLoading, messages, savedMessages, error, reload, stop }) => {
     // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
     useEffect(() => {
       window.scrollTo({
@@ -28,7 +28,6 @@ export const Messages = memo(
                     isUser={m.role === 'user'}
                     isLoading={isLoading}
                     totalMessages={messages.length - 1}
-                    userMeta={userMeta}
                     savedMessages={savedMessages}
                     stop={stop}
                     reload={reload}
@@ -57,13 +56,5 @@ Messages.propTypes = {
     PropTypes.instanceOf(null),
   ]).isRequired,
   stop: PropTypes.func.isRequired,
-  userMeta: PropTypes.oneOfType([
-    PropTypes.shape({
-      email: PropTypes.string,
-      name: PropTypes.string,
-      user_id: PropTypes.string,
-    }),
-    PropTypes.instanceOf(undefined),
-  ]).isRequired,
 };
 export default Messages;
