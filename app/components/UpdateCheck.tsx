@@ -12,7 +12,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault('America/New_York');
 
-const DEPLOY_INTERVAL = 15; // minutes
+const DEPLOY_INTERVAL = 10; // minutes
 
 export const UpdateCheck = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -42,7 +42,7 @@ export const UpdateCheck = () => {
       setUpdateAvailable(
         latest.version !== `v${pkg.version}` &&
           dayjs().utc() >
-            dayjs().utc(latest.published).add(DEPLOY_INTERVAL, 'm')
+            dayjs(latest.published).utc().add(DEPLOY_INTERVAL, 'm')
       );
     };
 
