@@ -3,8 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 
+import { useDefaultsUpdaterContext } from '@/app/contexts/DefaultsContext';
+
 export const ClearChatButton = memo(
-  ({ clearHistory, isLoading, buttonText = 'Clear Chat' }) => {
+  ({ buttonText = 'Clear Chat', isLoading }) => {
+    const { clearHistory } = useDefaultsUpdaterContext();
+
     return (
       <>
         <button
@@ -23,9 +27,8 @@ export const ClearChatButton = memo(
 
 ClearChatButton.displayName = 'ClearChatButton';
 ClearChatButton.propTypes = {
-  clearHistory: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   buttonText: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default ClearChatButton;

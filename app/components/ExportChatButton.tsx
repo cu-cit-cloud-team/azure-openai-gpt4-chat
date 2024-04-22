@@ -3,10 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
+import { useDefaultsContext } from '@/app/contexts/DefaultsContext';
+
 import { database } from '@/app/database/database.config';
 
 export const ExportChatButton = memo(
-  ({ buttonText = 'Export Chat', isLoading, systemMessage }) => {
+  ({ buttonText = 'Export Chat', isLoading }) => {
+    const { systemMessage } = useDefaultsContext();
     const exportHandler = useCallback(
       async (event) => {
         const downloadFile = ({
@@ -74,8 +77,8 @@ export const ExportChatButton = memo(
 
 ExportChatButton.displayName = 'ExportChatButton';
 ExportChatButton.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   buttonText: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default ExportChatButton;
