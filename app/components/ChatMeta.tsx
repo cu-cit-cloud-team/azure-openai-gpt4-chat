@@ -8,11 +8,15 @@ import { memo, useEffect, useState } from 'react';
 
 import { getItem } from '@/app/utils/localStorage';
 
+import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
+
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
 export const ChatMeta = memo(
-  ({ isLoading, index, totalMessages, isUser, message, userMeta, stop }) => {
+  ({ index, isLoading, isUser, message, stop, totalMessages }) => {
+    const { userMeta } = useUserMetaContext();
+
     const [lastUpdatedString, setLastUpdatedString] = useState(
       dayjs(dayjs(message.createdAt)).from()
     );
@@ -96,13 +100,6 @@ ChatMeta.propTypes = {
     ]),
   }),
   stop: PropTypes.func,
-  userMeta: PropTypes.oneOfType([
-    PropTypes.shape({
-      email: PropTypes.string,
-      name: PropTypes.string,
-    }),
-    PropTypes.instanceOf(undefined),
-  ]),
 };
 
 export default ChatMeta;
