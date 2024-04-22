@@ -25,7 +25,6 @@ export const ChatBubble = memo(
     reload,
     stop,
     totalMessages,
-    userMeta,
   }) => {
     const Pre = ({ children }) => {
       return (
@@ -124,9 +123,8 @@ export const ChatBubble = memo(
             isLoading={isLoading}
             isUser={isUser}
             message={message}
-            totalMessages={totalMessages}
-            userMeta={userMeta}
             stop={stop}
+            totalMessages={totalMessages}
           />
         </div>
       </div>
@@ -152,14 +150,6 @@ ChatBubble.propTypes = {
     ]),
   }),
   totalMessages: PropTypes.number,
-  userMeta: PropTypes.oneOfType([
-    PropTypes.shape({
-      email: PropTypes.string,
-      name: PropTypes.string,
-      user_id: PropTypes.string,
-    }),
-    PropTypes.instanceOf(undefined),
-  ]),
 };
 
 export default ChatBubble;
