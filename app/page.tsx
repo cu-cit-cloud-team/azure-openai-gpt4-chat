@@ -111,7 +111,7 @@ export const App = () => {
     id: userMeta?.email ? btoa(userMeta?.email) : undefined,
     initialMessages: savedMessages,
     onError: handleChatError,
-    onFinish: (message) => addMessage(message),
+    onFinish: addMessage,
   });
 
   // update indexedDB when messages changes
