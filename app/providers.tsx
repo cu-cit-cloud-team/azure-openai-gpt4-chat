@@ -1,13 +1,15 @@
 import type React from 'react';
 
-import { TokenStateProvider } from '@/app/contexts/TokenContext';
+import { UserMetaProvider } from '@/app/contexts/UserMetaContext';
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <TokenStateProvider>{children}</TokenStateProvider>
+      <UserMetaProvider>{children}</UserMetaProvider>
     </>
   );
 };
+
+Providers.displayName = 'Providers';
 
 export default Providers;
