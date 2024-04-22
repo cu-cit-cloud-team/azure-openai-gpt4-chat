@@ -22,14 +22,7 @@ const ThemeChanger = dynamic(
 import pkg from '@/package.json';
 
 export const Header = memo(
-  ({
-    clearHistory,
-    input,
-    isLoading,
-    systemMessage,
-    systemMessageRef,
-    setSystemMessage,
-  }) => {
+  ({ clearHistory, input, isLoading, systemMessage, setSystemMessage }) => {
     useEffect(() => {
       const details = [...document.querySelectorAll('.menu details')];
       document.addEventListener('click', (event) => {
@@ -68,7 +61,6 @@ export const Header = memo(
                         clearHistory={clearHistory}
                         input={input}
                         systemMessage={systemMessage}
-                        systemMessageRef={systemMessageRef}
                         setSystemMessage={setSystemMessage}
                       />
                     </li>
@@ -121,7 +113,6 @@ export const Header = memo(
                       clearHistory={clearHistory}
                       input={input}
                       systemMessage={systemMessage}
-                      systemMessageRef={systemMessageRef}
                       setSystemMessage={setSystemMessage}
                     />
                   </li>
@@ -164,10 +155,6 @@ Header.propTypes = {
   input: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   systemMessage: PropTypes.string.isRequired,
-  systemMessageRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.object }),
-  ]),
   setSystemMessage: PropTypes.func.isRequired,
 };
 

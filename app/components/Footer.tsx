@@ -5,18 +5,14 @@ import { TokenStateProvider } from '@/app/contexts/TokenContext';
 
 import { TokenCount } from '@/app/components/TokenCount';
 
+import { useRefsContext } from '@/app/contexts/RefsContext';
+
 import { useDebounce } from '@/app/hooks/useDebounce';
 
 export const Footer = memo(
-  ({
-    formRef,
-    textAreaRef,
-    handleSubmit,
-    input,
-    isLoading,
-    handleInputChange,
-    systemMessageRef,
-  }) => {
+  ({ handleInputChange, handleSubmit, input, isLoading }) => {
+    const { textAreaRef, systemMessageRef, formRef } = useRefsContext();
+
     useEffect(() => {
       if (document?.activeElement !== systemMessageRef?.current && !isLoading) {
         textAreaRef?.current?.focus();

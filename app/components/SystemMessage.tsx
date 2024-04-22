@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
 
+import { useRefsContext } from '@/app/contexts/RefsContext';
 import { TokenStateProvider } from '@/app/contexts/TokenContext';
 
 import { TokenCount } from '@/app/components/TokenCount';
@@ -14,13 +15,8 @@ import { TokenCount } from '@/app/components/TokenCount';
 import { useDebounce } from '@/app/hooks/useDebounce';
 
 export const SystemMessage = memo(
-  ({
-    clearHistory,
-    input,
-    setSystemMessage,
-    systemMessage,
-    systemMessageRef,
-  }) => {
+  ({ clearHistory, input, setSystemMessage, systemMessage }) => {
+    const { systemMessageRef } = useRefsContext();
     const [localSystemMessage, setLocalSystemMessage] = useState('');
     const [originalSystemMessage, setOriginalSystemMessage] = useState('');
 
@@ -135,10 +131,6 @@ SystemMessage.propTypes = {
   input: PropTypes.string,
   setSystemMessage: PropTypes.func.isRequired,
   systemMessage: PropTypes.string.isRequired,
-  systemMessageRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.object }),
-  ]),
 };
 
 export default SystemMessage;
