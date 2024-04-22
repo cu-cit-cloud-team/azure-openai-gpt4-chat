@@ -29,7 +29,6 @@ export const Header = memo(
     systemMessage,
     systemMessageRef,
     setSystemMessage,
-    userMeta,
   }) => {
     useEffect(() => {
       const details = [...document.querySelectorAll('.menu details')];
@@ -152,7 +151,7 @@ export const Header = memo(
           </ul>
         </div>
         <div className="navbar-end">
-          <UserAvatar userMeta={userMeta} />
+          <UserAvatar />
         </div>
       </div>
     );
@@ -170,14 +169,6 @@ Header.propTypes = {
     PropTypes.shape({ current: PropTypes.object }),
   ]),
   setSystemMessage: PropTypes.func.isRequired,
-  userMeta: PropTypes.oneOfType([
-    PropTypes.shape({
-      email: PropTypes.string,
-      name: PropTypes.string,
-      user_id: PropTypes.string,
-    }),
-    PropTypes.instanceOf(undefined),
-  ]),
 };
 
 export default Header;
