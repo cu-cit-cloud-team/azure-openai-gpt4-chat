@@ -1,7 +1,6 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import axios from 'axios';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -13,6 +12,8 @@ import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
 
+import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
+
 import { getItem, removeItem } from '@/app/utils/localStorage';
 
 import { database } from '@/app/database/database.config';
@@ -20,6 +21,8 @@ import { database } from '@/app/database/database.config';
 dayjs.extend(timezone);
 
 export const App = () => {
+  const { userMeta } = useUserMetaContext();
+
   // migrate localStorage to indexedDB
   useEffect(() => {
     const migrateLocalStorage = async () => {
@@ -39,51 +42,6 @@ export const App = () => {
     };
     migrateLocalStorage();
   }, []);
-
-  const [userMeta, setUserMeta] = useLocalStorageState('userMeta', {
-    defaultValue: {},
-  });
-
-  useEffect(() => {
-    if (userMeta?.email && userMeta?.name) {
-      return;
-    }
-    const getUserMeta = async () => {
-      await axios
-        .get('/.auth/me', {
-          headers: {
-            'Cache-Control': 'no-cache',
-            Pragma: 'no-cache',
-            Expires: '0',
-          },
-        })
-        .then((response) => {
-          const email = response?.data[0]?.user_claims.find(
-            (item) => item.typ === 'preferred_username'
-          ).val;
-
-          const name = response?.data[0]?.user_claims.find(
-            (item) => item.typ === 'name'
-          ).val;
-
-          const user_id = response?.data[0]?.user_id;
-
-          const expires_on = response?.data[0]?.expires_on;
-
-          setUserMeta({
-            email,
-            name,
-            user_id,
-            expires_on,
-          });
-        })
-        // biome-ignore lint/correctness/noUnusedVariables: used for debugging
-        .catch((error) => {
-          // console.error(error);
-        });
-    };
-    getUserMeta();
-  }, [userMeta, setUserMeta]);
 
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
 
@@ -285,13 +243,11 @@ export const App = () => {
           setSystemMessage={setSystemMessage}
           systemMessageRef={systemMessageRef}
           input={input}
-          userMeta={userMeta}
           clearHistory={clearHistory}
         />
         <Messages
           isLoading={isLoading}
           messages={messages}
-          userMeta={userMeta}
           savedMessages={savedMessages}
           error={error}
           reload={reload}
