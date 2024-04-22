@@ -159,6 +159,8 @@ export const App = () => {
     );
   });
 
+  ErrorFallback.displayName = 'ErrorFallback';
+
   return (
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -184,5 +186,7 @@ export const App = () => {
     </>
   );
 };
+
+App.displayName = 'App';
 
 export default App;
