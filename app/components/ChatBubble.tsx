@@ -16,16 +16,7 @@ import { markdownToText } from '@/app/utils/markdownToText';
 import { memo } from 'react';
 
 export const ChatBubble = memo(
-  ({
-    error,
-    index,
-    isLoading,
-    isUser,
-    message,
-    reload,
-    stop,
-    totalMessages,
-  }) => {
+  ({ index, isLoading, isUser, message, reload, stop, totalMessages }) => {
     const Pre = ({ children }) => {
       return (
         <pre className="code-pre">
@@ -134,21 +125,12 @@ export const ChatBubble = memo(
 
 ChatBubble.displayName = 'ChatBubble';
 ChatBubble.propTypes = {
-  error: PropTypes.oneOfType([
-    PropTypes.instanceOf(Error),
-    PropTypes.instanceOf(undefined),
-  ]),
   index: PropTypes.number,
   isLoading: PropTypes.bool,
   isUser: PropTypes.bool,
-  message: PropTypes.shape({
-    id: PropTypes.string,
-    content: PropTypes.string,
-    createdAt: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date),
-    ]),
-  }),
+  message: PropTypes.object,
+  reload: PropTypes.func,
+  stop: PropTypes.func,
   totalMessages: PropTypes.number,
 };
 
