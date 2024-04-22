@@ -148,16 +148,6 @@ export const App = () => {
     };
   }, []);
 
-  const submitForm = useCallback(() => {
-    if (formRef.current) {
-      formRef.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true })
-      );
-    }
-  }, [formRef]);
-
-  const textareaElement = textAreaRef.current;
-
   const clearHistory = useCallback(async (doConfirm = true) => {
     const clearMessages = async () => {
       try {
@@ -176,6 +166,8 @@ export const App = () => {
     }
   }, []);
 
+  const textareaElement = textAreaRef.current;
+
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
       event.stopPropagation();
@@ -191,7 +183,11 @@ export const App = () => {
       if (event.key === 'Enter' && !event.shiftKey) {
         if (event.target.value.trim().length) {
           event.preventDefault();
-          submitForm();
+          if (formRef.current) {
+            formRef.current.dispatchEvent(
+              new Event('submit', { cancelable: true, bubbles: true })
+            );
+          }
         } else {
           event.preventDefault();
           return false;
@@ -207,7 +203,7 @@ export const App = () => {
         textareaElement.removeEventListener('keydown', listener);
       }
     };
-  }, [textareaElement, submitForm, clearHistory]);
+  }, [formRef, textareaElement, clearHistory]);
 
   const ErrorFallback = ({ error, resetErrorBoundary }) => {
     return (
