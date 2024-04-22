@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import { memo, useEffect, useMemo, useState } from 'react';
 
-import { TokenStateProvider } from '@/app/contexts/TokenContext';
-
 import { TokenCount } from '@/app/components/TokenCount';
 
 import { useRefsContext } from '@/app/contexts/RefsContext';
+import { TokenStateProvider } from '@/app/contexts/TokenContext';
 
 import { useDebounce } from '@/app/hooks/useDebounce';
 
