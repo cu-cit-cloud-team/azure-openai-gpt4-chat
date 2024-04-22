@@ -4,7 +4,7 @@ import { useChat } from 'ai/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import useLocalStorageState from 'use-local-storage-state';
 
@@ -12,6 +12,7 @@ import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
 
+import { useRefsContext } from '@/app/contexts/RefsContext';
 import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
 
 import { getItem, removeItem } from '@/app/utils/localStorage';
@@ -22,6 +23,7 @@ dayjs.extend(timezone);
 
 export const App = () => {
   const { userMeta } = useUserMetaContext();
+  const { formRef, textAreaRef } = useRefsContext();
 
   // migrate localStorage to indexedDB
   useEffect(() => {
@@ -42,8 +44,6 @@ export const App = () => {
     };
     migrateLocalStorage();
   }, []);
-
-  const systemMessageRef = useRef<HTMLTextAreaElement>(null);
 
   const [systemMessage, setSystemMessage] = useLocalStorageState(
     'systemMessage',
@@ -148,16 +148,14 @@ export const App = () => {
     };
   }, []);
 
-  const formRef = useRef<HTMLFormElement>(null);
   const submitForm = useCallback(() => {
     if (formRef.current) {
       formRef.current.dispatchEvent(
         new Event('submit', { cancelable: true, bubbles: true })
       );
     }
-  }, []);
+  }, [formRef]);
 
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const textareaElement = textAreaRef.current;
 
   const clearHistory = useCallback(async (doConfirm = true) => {
@@ -241,7 +239,6 @@ export const App = () => {
           isLoading={isLoading}
           systemMessage={systemMessage}
           setSystemMessage={setSystemMessage}
-          systemMessageRef={systemMessageRef}
           input={input}
           clearHistory={clearHistory}
         />
@@ -254,9 +251,6 @@ export const App = () => {
           stop={stop}
         />
         <Footer
-          formRef={formRef}
-          systemMessageRef={systemMessageRef}
-          textAreaRef={textAreaRef}
           handleSubmit={handleSubmit}
           input={input}
           isLoading={isLoading}
