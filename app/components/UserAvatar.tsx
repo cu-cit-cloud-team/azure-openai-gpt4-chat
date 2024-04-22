@@ -3,12 +3,15 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
 
-export const UserAvatar = memo(({ userMeta }) => {
+import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
+
+export const UserAvatar = memo(() => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+
+  const { userMeta } = useUserMetaContext();
 
   useEffect(() => {
     if (userMeta?.email) {
@@ -75,14 +78,5 @@ export const UserAvatar = memo(({ userMeta }) => {
 });
 
 UserAvatar.displayName = 'UserAvatar';
-UserAvatar.propTypes = {
-  userMeta: PropTypes.oneOfType([
-    PropTypes.shape({
-      email: PropTypes.string,
-      name: PropTypes.string,
-    }),
-    PropTypes.instanceOf(undefined),
-  ]),
-};
 
 export default UserAvatar;
