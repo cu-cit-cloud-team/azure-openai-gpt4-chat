@@ -4,7 +4,7 @@ import { useChat } from 'ai/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { Footer } from '@/app/components/Footer';
@@ -62,6 +62,14 @@ export const App = () => {
     onError: handleChatError,
     onFinish: addMessage,
   });
+
+  const doReload = useCallback(async () => {
+    await reload();
+  }, [reload]);
+
+  const doStop = useCallback(() => {
+    stop();
+  }, [stop]);
 
   // update indexedDB when messages changes
   useEffect(() => {
@@ -173,8 +181,8 @@ export const App = () => {
         <Messages
           isLoading={isLoading}
           messages={messages}
-          reload={reload}
-          stop={stop}
+          reload={doReload}
+          stop={doStop}
         />
         <Footer
           handleSubmit={handleSubmit}
