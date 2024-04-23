@@ -58,8 +58,8 @@ export const ChatMeta = memo(
               <div
                 className="cursor-pointer tooltip tooltip-secondary tooltip-left"
                 data-tip={'Stop loading response'}
-                onClick={() => stop()}
-                onKeyDown={() => stop()}
+                onClick={stop}
+                onKeyDown={stop}
               >
                 <FontAwesomeIcon icon={faStop} className="mr-2" />
               </div>
