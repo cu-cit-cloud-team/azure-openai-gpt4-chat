@@ -102,7 +102,7 @@ export const DefaultsProvider = ({ children }) => {
 
   const handleChatError = useCallback((error) => {
     console.error(error);
-    throw error;
+    // throw error;
   }, []);
 
   const addMessage = useCallback(async (message) => {
