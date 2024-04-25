@@ -10,6 +10,7 @@ import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
 export const UserAvatar = memo(() => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [hasData, setHasData] = useState(false);
 
   const { userMeta } = useUserMetaContext();
 
@@ -24,6 +25,10 @@ export const UserAvatar = memo(() => {
 
     if (userMeta?.name) {
       setName(userMeta.name);
+    }
+
+    if (userMeta?.email && userMeta?.name) {
+      setHasData(true);
     }
   }, [userMeta]);
 
@@ -49,17 +54,17 @@ export const UserAvatar = memo(() => {
         <label tabIndex={0} className="avatar placeholder">
           <div
             className={`p-${
-              email.length && name.length ? '2' : '1'
+              hasData ? '2' : '1'
             } rounded-full bg-primary text-primary-content cursor-pointer`}
           >
-            {email.length && name.length ? (
+            {hasData ? (
               formatName(name)
             ) : (
               <FontAwesomeIcon size="2x" icon={faCircleUser} />
             )}
           </div>
         </label>
-        {email.length && name.length ? (
+        {hasData ? (
           <ul
             tabIndex={0}
             className="w-48 p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-200 rounded-box"
