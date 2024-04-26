@@ -1,3 +1,15 @@
+## <small>0.28.1 (2024-04-26)</small>
+
+* chore(deps-dev): bump cssnano from 7.0.0 to 7.0.1 (#481) ([eb42ce4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eb42ce4)), closes [#481](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/481)
+* chore(deps-dev): bump the types group with 2 updates (#478) ([7fee2d9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7fee2d9)), closes [#478](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/478)
+* chore(deps): bump ai from 3.0.31 to 3.0.32 (#477) ([a764ea2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a764ea2)), closes [#477](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/477)
+* chore(deps): bump ai from 3.0.32 to 3.0.33 (#479) ([7f982fd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7f982fd)), closes [#479](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/479)
+* chore(deps): bump ai from 3.0.33 to 3.0.34 (#480) ([f4e581b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f4e581b)), closes [#480](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/480)
+* chore(deps): bump the react group with 2 updates (#476) ([1841aea](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1841aea)), closes [#476](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/476)
+* refactor(UserAvatar): improve logic ([ac26fe2](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ac26fe2))
+
+
+
 ## 0.28.0 (2024-04-25)
 
 * chore(deps-dev): bump @biomejs/biome from 1.7.0 to 1.7.1 (#462) ([c9b3aa5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c9b3aa5)), closes [#462](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/462)
