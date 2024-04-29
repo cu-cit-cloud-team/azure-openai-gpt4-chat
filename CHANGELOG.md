@@ -1,3 +1,20 @@
+## 0.29.0 (2024-04-29)
+
+* refactor(ChatBubble): get editorTheme from defautls context ([3f06a89](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3f06a89))
+* refactor(DefaultsContext): add editorTheme, theme, setEditorTheme and setTheme to providers ([802e7d6](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/802e7d6))
+* refactor(RootLayout): add attribute for next-themes ([3cb84fe](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3cb84fe))
+* refactor(ThemeChanger): improve logic; use defaults context ([b08f722](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b08f722))
+* feat(Providers): add ThemeProvider ([54fb3fa](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/54fb3fa))
+* chore(deps-dev): bump @tailwindcss/typography in the tailwindcss group (#485) ([91f916b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/91f916b)), closes [#485](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/485)
+* chore(deps-dev): bump @types/react in the types group (#484) ([cbe74cd](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cbe74cd)), closes [#484](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/484)
+* chore(deps): add next-themes@0.3.0 ([9f4279f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9f4279f))
+* chore(deps): bump ai from 3.0.34 to 3.0.35 (#488) ([4b93dcb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4b93dcb)), closes [#488](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/488)
+* chore(deps): bump dayjs from 1.11.10 to 1.11.11 (#487) ([3e654c1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3e654c1)), closes [#487](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/487)
+* chore(deps): bump the langchain group with 2 updates (#483) ([db77bc5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/db77bc5)), closes [#483](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/483)
+* chore(deps): bump the react group with 2 updates (#482) ([e443319](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e443319)), closes [#482](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/482)
+
+
+
 ## <small>0.28.1 (2024-04-26)</small>
 
 * chore(deps-dev): bump cssnano from 7.0.0 to 7.0.1 (#481) ([eb42ce4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eb42ce4)), closes [#481](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/481)
