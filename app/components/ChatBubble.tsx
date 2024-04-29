@@ -1,22 +1,23 @@
 import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import useLocalStorageState from 'use-local-storage-state';
 
 import { ChatMeta } from '@/app/components/ChatMeta';
 import { CopyToClipboard } from '@/app/components/CopyToClipboard';
 import { DeleteMessage } from '@/app/components/DeleteMessage';
 import { ReloadMessage } from '@/app/components/ReloadMessage';
 
-import { getItem } from '@/app/utils/localStorage';
+import { useDefaultsContext } from '@/app/contexts/DefaultsContext';
+
 import { markdownToText } from '@/app/utils/markdownToText';
-import { memo } from 'react';
 
 export const ChatBubble = memo(
   ({ index, isLoading, isUser, message, reload, stop, totalMessages }) => {
+    const { editorTheme } = useDefaultsContext();
+
     const Pre = ({ children }) => {
       return (
         <pre className="code-pre">
@@ -25,10 +26,6 @@ export const ChatBubble = memo(
         </pre>
       );
     };
-
-    const [editorTheme] = useLocalStorageState('editorTheme', {
-      defaultValue: getItem('editorTheme') || nightOwl,
-    });
 
     return (
       <div className={`chat mb-10 ${isUser ? 'chat-start' : 'chat-end'}`}>
