@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import propTypes from 'prop-types';
 import {
   createContext,
@@ -11,6 +12,7 @@ import {
 import useLocalStorageState from 'use-local-storage-state';
 
 import { getItem, removeItem } from '@/app/utils/localStorage';
+import { getEditorTheme } from '@/app/utils/themes';
 
 import { database } from '@/app/database/database.config';
 
@@ -38,6 +40,8 @@ export const useDefaultsUpdaterContext = () => {
 };
 
 export const DefaultsProvider = ({ children }) => {
+  const { theme, setTheme } = useTheme();
+
   // migrate localStorage to indexedDB
   useEffect(() => {
     const migrateLocalStorage = async () => {
@@ -58,6 +62,10 @@ export const DefaultsProvider = ({ children }) => {
     };
     migrateLocalStorage();
   }, []);
+
+  const [editorTheme, setEditorTheme] = useLocalStorageState('editorTheme', {
+    defaultValue: getEditorTheme(theme),
+  });
 
   const [systemMessage, setSystemMessage] = useLocalStorageState(
     'systemMessage',
@@ -112,10 +120,12 @@ export const DefaultsProvider = ({ children }) => {
   return (
     <DefaultsContext.Provider
       value={{
+        editorTheme,
         maxTokens,
         parameters,
         systemMessage,
         systemMessageMaxTokens,
+        theme,
       }}
     >
       <DefaultsUpdaterContext.Provider
@@ -123,8 +133,10 @@ export const DefaultsProvider = ({ children }) => {
           addMessage,
           clearHistory,
           handleChatError,
+          setEditorTheme,
           setParameters,
           setSystemMessage,
+          setTheme,
         }}
       >
         {children}
