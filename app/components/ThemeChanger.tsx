@@ -3,30 +3,18 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nanoid } from 'nanoid';
-import { useEffect } from 'react';
-import useLocalStorageState from 'use-local-storage-state';
+import { useCallback, useEffect } from 'react';
 
-import { getItem, setItem } from '@/app/utils/localStorage';
+import {
+  useDefaultsContext,
+  useDefaultsUpdaterContext,
+} from '@/app/contexts/DefaultsContext';
+
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
 export const ThemeChanger = () => {
-  const isSystemDarkMode = () =>
-    window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  const [theme, setTheme] = useLocalStorageState('theme', {
-    defaultValue: getItem('theme') || isSystemDarkMode() ? 'dark' : 'light',
-  });
-
-  const [editorTheme, setEditorTheme] = useLocalStorageState('editorTheme', {
-    defaultValue: getItem('editorTheme'),
-  });
-
-  useEffect(() => {
-    const htmlEl = document.querySelector('html');
-    htmlEl.setAttribute('data-theme', theme);
-    updateSelected(theme);
-    setEditorTheme(getEditorTheme(theme));
-  }, [theme, setEditorTheme]);
+  const { theme } = useDefaultsContext();
+  const { setEditorTheme, setTheme } = useDefaultsUpdaterContext();
 
   useEffect(() => {
     const details = [...document.querySelectorAll('details.dropdown')];
@@ -46,39 +34,37 @@ export const ThemeChanger = () => {
     });
   }, []);
 
-  const updateSelected = (theme) => {
-    const selectedSVGs = document.querySelectorAll('svg.themeSelected');
-    for (const svg of selectedSVGs) {
-      svg.classList.add('invisible');
-    }
-    const buttons = document.querySelectorAll('button');
-    for (const button of buttons) {
-      if (button.dataset.theme === theme) {
-        const svg = button.querySelector('svg');
-        svg.classList.remove('invisible');
-        svg.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        });
-      }
-    }
-  };
+  const handleClick = useCallback(
+    (e) => {
+      const button = e.target.closest('button');
+      setTheme(button.dataset.theme);
+      setEditorTheme(getEditorTheme(button.dataset.theme));
+    },
+    [setEditorTheme, setTheme]
+  );
 
-  const handleClick = (e) => {
-    const button = e.target.closest('button');
-    setTheme(button.dataset.theme);
-    setEditorTheme(getEditorTheme(button.dataset.theme));
-    setItem('theme', button.dataset.theme);
-    setItem('editorTheme', getEditorTheme(button.dataset.theme));
-  };
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  // biome-ignore lint/correctness/useExhaustiveDependencies: calling only once intentionally
   useEffect(() => {
+    const updateSelected = (theme) => {
+      const selectedSVGs = document.querySelectorAll('svg.themeSelected');
+      for (const svg of selectedSVGs) {
+        svg.classList.add('invisible');
+      }
+      const buttons = document.querySelectorAll('button');
+      for (const button of buttons) {
+        if (button.dataset.theme === theme) {
+          const svg = button.querySelector('svg');
+          svg.classList.remove('invisible');
+          svg.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center',
+          });
+        }
+      }
+    };
+
     updateSelected(theme);
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
+  }, [theme]);
 
   return (
     <details className="dropdown lg:dropdown-end">
