@@ -1,3 +1,15 @@
+## <small>0.29.1 (2024-05-01)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.7.1 to 1.7.2 (#490) ([a22f819](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a22f819)), closes [#490](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/490)
+* chore(deps-dev): bump sass from 1.75.0 to 1.76.0 (#493) ([a93de52](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a93de52)), closes [#493](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/493)
+* chore(deps): bump ai from 3.0.35 to 3.1.0 (#491) ([b365bbc](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b365bbc)), closes [#491](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/491)
+* chore(deps): bump daisyui from 4.10.2 to 4.10.3 (#495) ([de34c48](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/de34c48)), closes [#495](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/495)
+* chore(deps): bump openai from 4.38.5 to 4.39.0 (#489) ([5361f54](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5361f54)), closes [#489](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/489)
+* chore(deps): bump openai from 4.39.0 to 4.39.1 (#492) ([98b6d7e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/98b6d7e)), closes [#492](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/492)
+* chore(deps): bump openai from 4.39.1 to 4.40.0 (#494) ([20f614c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/20f614c)), closes [#494](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/494)
+
+
+
 ## 0.29.0 (2024-04-29)
 
 * refactor(ChatBubble): get editorTheme from defautls context ([3f06a89](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3f06a89))
