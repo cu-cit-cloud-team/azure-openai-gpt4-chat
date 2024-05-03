@@ -27,7 +27,7 @@ export const Footer = memo(
 
     const textAreaClasses = useMemo(() => {
       const defaultClasses =
-        'w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl h-14 lg:text-base lg:h-20';
+        'w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl min-h-14 h-14 lg:text-base lg:h-20 lg:min-h-20 max-h-75';
       const loadingClass = isLoading ? 'skeleton ' : '';
 
       return `${loadingClass}${defaultClasses}`;
@@ -47,12 +47,12 @@ export const Footer = memo(
           </TokenStateProvider>
           <textarea
             autoFocus={true}
-            ref={textAreaRef}
             className={textAreaClasses}
-            value={input}
+            disabled={isLoading}
             placeholder="Type a message..."
             onChange={handleInputChange}
-            disabled={isLoading}
+            ref={textAreaRef}
+            value={input}
           />
           <button
             type="button"
