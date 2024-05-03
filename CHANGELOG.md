@@ -1,3 +1,11 @@
+## 0.30.0 (2024-05-03)
+
+* feat(Messages): update bottom padding if textarea is resized ([c8666e4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c8666e4))
+* build(tailwind): add max-h-75 attribute with 75vh ([c2cd02a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c2cd02a))
+* refactor(Footer): set min and max height on textarea ([31456ce](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/31456ce))
+
+
+
 ## <small>0.29.2 (2024-05-03)</small>
 
 * chore(deps-dev): bump @types/node in the types group (#496) ([0820218](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0820218)), closes [#496](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/496)
