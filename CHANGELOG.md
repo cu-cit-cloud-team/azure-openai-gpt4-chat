@@ -1,3 +1,16 @@
+## <small>0.29.2 (2024-05-03)</small>
+
+* chore(deps-dev): bump @types/node in the types group (#496) ([0820218](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0820218)), closes [#496](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/496)
+* chore(deps-dev): bump @types/react-syntax-highlighter in the types group (#501) ([1f57b5c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1f57b5c)), closes [#501](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/501)
+* chore(deps-dev): bump stylelint from 16.4.0 to 16.5.0 (#497) ([467949d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/467949d)), closes [#497](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/497)
+* chore(deps): bump @langchain/community in the langchain group (#500) ([837fa01](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/837fa01)), closes [#500](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/500)
+* chore(deps): bump ai from 3.1.0 to 3.1.1 (#499) ([6fe90c0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6fe90c0)), closes [#499](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/499)
+* chore(deps): bump daisyui from 4.10.3 to 4.10.5 (#502) ([b9f9781](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b9f9781)), closes [#502](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/502)
+* chore(deps): bump openai from 4.40.0 to 4.40.1 (#498) ([6b8c205](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6b8c205)), closes [#498](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/498)
+* chore(volta): bump npm version ([af8ea87](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/af8ea87))
+
+
+
 ## <small>0.29.1 (2024-05-01)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.7.1 to 1.7.2 (#490) ([a22f819](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a22f819)), closes [#490](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/490)
