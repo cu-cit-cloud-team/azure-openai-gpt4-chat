@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.tsx'],
-  theme: {},
+  theme: {
+    extend: {
+      maxHeight: {
+        '75': '75vh',
+      },
+    },
+  },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
   daisyui: {
     themes: [
