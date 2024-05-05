@@ -77,6 +77,8 @@
     "cz-git": "1.9.1",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "9.1.0",
+    "prettier": "3.2.5",
     "postcss": "8.4.38",
     "postcss-cli": "11.0.0",
     "sass": "1.76.0",
