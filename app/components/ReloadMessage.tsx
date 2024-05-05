@@ -1,5 +1,6 @@
 import { faArrowRotateForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { memo, useCallback } from 'react';
 
@@ -22,22 +23,20 @@ export const ReloadMessage = memo(({ isUser, message, reload }) => {
 
   return !isUser ? (
     <div
-      className={`reload-container float-right mr-10 tooltip ${
-        isUser
-          ? 'tooltip-right tooltip-primary'
-          : 'tooltip-left tooltip-secondary'
-      }`}
+      className={clsx('reload-container float-right mr-10 tooltip', {
+        'tooltip-right tooltip-primary': isUser,
+        'tooltip-left tooltip-secondary': !isUser,
+      })}
       data-tip={'Regenerate response'}
     >
       <button
         key={nanoid()}
         onClick={reloadMessage}
         type="button"
-        className={`w-6 h-6 p-0 m-0 mr-0 btn btn-xs ${
-          isUser
-            ? 'btn-primary text-primary-content'
-            : 'btn-secondary text-secondary-content'
-        }`}
+        className={clsx('w-6 h-6 p-0 m-0 mr-0 btn btn-xs', {
+          'btn-primary text-primary-content': isUser,
+          'btn-secondary text-secondary-content': !isUser,
+        })}
       >
         <FontAwesomeIcon icon={faArrowRotateForward} />
       </button>
