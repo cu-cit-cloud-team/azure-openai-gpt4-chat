@@ -4,6 +4,7 @@ import {
   faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useState } from 'react';
 
@@ -98,11 +99,10 @@ export const SystemMessage = memo(({ input }) => {
           <span className="hidden lg:flex">Close</span>
         </button>
         <button
-          className={`btn btn-sm lg:btn-md join-item btn-error${
-            localSystemMessage?.trim() === originalSystemMessage?.trim()
-              ? ' btn-disabled'
-              : ''
-          }`}
+          className={clsx('btn btn-sm lg:btn-md join-item btn-error', {
+            'btn-disabled':
+              localSystemMessage?.trim() === originalSystemMessage?.trim(),
+          })}
           type="button"
           onClick={resetClickHandler}
         >
@@ -110,11 +110,10 @@ export const SystemMessage = memo(({ input }) => {
           <span className="hidden lg:flex">Reset</span>
         </button>
         <button
-          className={`btn btn-sm lg:btn-md join-item btn-success${
-            localSystemMessage?.trim() === originalSystemMessage?.trim()
-              ? ' btn-disabled'
-              : ''
-          }`}
+          className={clsx('btn btn-sm lg:btn-md join-item btn-success', {
+            'btn-disabled':
+              localSystemMessage?.trim() === originalSystemMessage?.trim(),
+          })}
           type="button"
           disabled={
             localSystemMessage?.trim() === originalSystemMessage?.trim()
