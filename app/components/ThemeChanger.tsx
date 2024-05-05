@@ -43,28 +43,28 @@ export const ThemeChanger = () => {
     [setEditorTheme, setTheme]
   );
 
-  useEffect(() => {
-    const updateSelected = (theme) => {
-      const selectedSVGs = document.querySelectorAll('svg.themeSelected');
-      for (const svg of selectedSVGs) {
-        svg.classList.add('invisible');
+  const updateSelected = useCallback(() => {
+    const selectedSVGs = document.querySelectorAll('svg.themeSelected');
+    for (const svg of selectedSVGs) {
+      svg.classList.add('invisible');
+    }
+    const buttons = document.querySelectorAll('button');
+    for (const button of buttons) {
+      if (button.dataset.theme === theme) {
+        const svg = button.querySelector('svg');
+        svg.classList.remove('invisible');
+        svg.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        });
       }
-      const buttons = document.querySelectorAll('button');
-      for (const button of buttons) {
-        if (button.dataset.theme === theme) {
-          const svg = button.querySelector('svg');
-          svg.classList.remove('invisible');
-          svg.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-            inline: 'center',
-          });
-        }
-      }
-    };
-
-    updateSelected(theme);
+    }
   }, [theme]);
+
+  useEffect(() => {
+    updateSelected();
+  }, [updateSelected]);
 
   return (
     <details className="dropdown lg:dropdown-end">
