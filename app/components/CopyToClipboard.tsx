@@ -1,5 +1,6 @@
 import { faCheck, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { memo, useState } from 'react';
 
@@ -31,11 +32,10 @@ export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
 
   return (
     <div
-      className={`clipboard-container tooltip ${
-        isUser
-          ? 'float-left -ml-4 tooltip-right tooltip-primary'
-          : 'float-right -mr-4 tooltip-left tooltip-secondary'
-      }`}
+      className={clsx('clipboard-container tooltip', {
+        'float-left -ml-4 tooltip-right tooltip-primary': isUser,
+        'float-right -mr-4 tooltip-left tooltip-secondary': !isUser,
+      })}
       data-tip={'Copy to clipboard'}
     >
       <input
@@ -51,15 +51,16 @@ export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
         key={buttonId}
         onClick={copyClickHandler}
         type="button"
-        className={`w-6 h-6 p-0 m-0 mr-0 btn btn-xs ${
-          isUser
-            ? 'btn-primary text-primary-content'
-            : 'btn-secondary text-secondary-content'
-        }`}
+        className={clsx('w-6 h-6 p-0 m-0 mr-0 btn btn-xs', {
+          'btn-primary text-primary-content': isUser,
+          'btn-secondary text-secondary-content': !isUser,
+        })}
       >
         <FontAwesomeIcon
           icon={isCopied ? faCheck : faCopy}
-          className={isCopied ? 'text-green-600' : ''}
+          className={clsx('', {
+            'text-green-600': isCopied,
+          })}
         />
       </button>
     </div>
