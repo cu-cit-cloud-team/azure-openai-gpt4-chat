@@ -1,5 +1,6 @@
 import { faSpinner, faStop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -42,11 +43,12 @@ export const ChatMeta = memo(
     return (
       <>
         <div
-          className={`cursor-default text-xs ${
-            isUser
-              ? 'tooltip-primary tooltip-right'
-              : 'tooltip-secondary tooltip-left'
-          } ${!isLoading || index !== totalMessages ? 'tooltip' : ''}`}
+          className={clsx('cursor-default text-xs', {
+            'tooltip-primary tooltip-right': isUser,
+            'tooltip-secondary tooltip-left': !isUser,
+            // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+            'tooltip': !isLoading || index !== totalMessages,
+          })}
           data-tip={
             dayjs(message.createdAt).isToday()
               ? dayjs(message.createdAt).format('hh:mm a')
