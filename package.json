@@ -37,6 +37,7 @@
     "@langchain/openai": "0.0.28",
     "ai": "3.1.1",
     "axios": "1.6.8",
+    "clsx": "2.1.1",
     "daisyui": "4.10.5",
     "dayjs": "1.11.11",
     "dexie": "4.0.4",
@@ -85,11 +86,7 @@
     "typescript": "5.4.5"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
