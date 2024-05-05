@@ -1,3 +1,24 @@
+## 0.31.0 (2024-05-05)
+
+* chore(deps-dev): add/configure prettier ([2371a11](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2371a11))
+* chore(deps-dev): bump @types/react-syntax-highlighter in the types group (#505) ([e52b986](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e52b986)), closes [#505](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/505)
+* chore(deps-dev): bump the conventional-changelog group with 3 updates (#506) ([5474232](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5474232)), closes [#506](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/506)
+* chore(deps): add clsx@2.1.1 ([e8c0c90](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e8c0c90))
+* chore(deps): add zod@3.23.6 ([c2bebbe](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c2bebbe))
+* chore(deps): bump openai from 4.40.1 to 4.40.2 (#507) ([edd515e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/edd515e)), closes [#507](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/507)
+* refactor(ChatBubble): use clsx for className logic ([785d80b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/785d80b))
+* refactor(ChatMeta): use clsx for className logic ([30c82b1](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/30c82b1))
+* refactor(CopyToClipboard): use clsx for className logic ([d3b3ced](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d3b3ced))
+* refactor(DeleteMessage): use clsx for className logic ([0ee167b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0ee167b))
+* refactor(ReloadMessage): use clsx for className logic ([8deda95](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/8deda95))
+* refactor(SystemMessage): use clsx for className logic ([15d2631](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/15d2631))
+* refactor(TokenCount): use clsx for className logic ([cfa3977](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cfa3977))
+* refactor(UserAvatar): use clsx for className logic ([6f5fae0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6f5fae0))
+* fix(TokenCount): systemMessage count ([27a45b4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/27a45b4))
+* style(Messages): reduce top padding ([5021d88](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5021d88))
+
+
+
 ## 0.30.0 (2024-05-03)
 
 * feat(Messages): update bottom padding if textarea is resized ([c8666e4](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c8666e4))
