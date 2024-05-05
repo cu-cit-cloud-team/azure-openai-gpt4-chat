@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useMemo } from 'react';
 
@@ -49,9 +50,10 @@ export const TokenCount = memo(({ input = '', display = 'input' }) => {
   return (
     <>
       <div
-        className={`${
-          display === 'systemMessage' ? '-mb-3' : 'mb-1'
-        } text-xs text-base-content opacity-50 uppercase cursor-default`}
+        className={clsx('text-xs text-base-content opacity-50 uppercase', {
+          '-mb-3': display === 'systemMessage',
+          'mb-1': display !== 'systemMessage',
+        })}
         key={`${display}-token-count`}
       >
         <strong>
