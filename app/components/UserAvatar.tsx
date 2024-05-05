@@ -3,6 +3,7 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { memo, useEffect, useState } from 'react';
 
 import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
@@ -53,9 +54,13 @@ export const UserAvatar = memo(() => {
       <div className="dropdown dropdown-end bg-base-300">
         <label tabIndex={0} className="avatar placeholder">
           <div
-            className={`p-${
-              hasData ? '2' : '1'
-            } rounded-full bg-primary text-primary-content cursor-pointer`}
+            className={clsx(
+              'rounded-full bg-primary text-primary-content cursor-pointer',
+              {
+                'p-2': hasData,
+                'p-1': !hasData,
+              }
+            )}
           >
             {hasData ? (
               formatName(name)
