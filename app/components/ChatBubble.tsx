@@ -1,5 +1,6 @@
 import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import Markdown from 'react-markdown';
@@ -28,14 +29,18 @@ export const ChatBubble = memo(
     };
 
     return (
-      <div className={`chat mb-10 ${isUser ? 'chat-start' : 'chat-end'}`}>
+      <div
+        className={clsx('chat mb-10', {
+          'chat-start': isUser,
+          'chat-end': !isUser,
+        })}
+      >
         <div className="chat-image avatar">
           <div
-            className={`w-12 pt-2 p-1 rounded ${
-              isUser
-                ? 'bg-primary text-primary-content'
-                : 'bg-secondary text-secondary-content'
-            }`}
+            className={clsx('w-12 pt-2 p-1 rounded', {
+              'bg-primary text-primary-content': isUser,
+              'bg-secondary text-secondary-content': !isUser,
+            })}
           >
             <FontAwesomeIcon
               className="chat-avatar-icon"
@@ -53,9 +58,10 @@ export const ChatBubble = memo(
           </div>
         </div>
         <div
-          className={`prose relative chat-bubble${
-            isUser ? ' chat-bubble-primary' : ' chat-bubble-secondary bot'
-          }`}
+          className={clsx('prose relative chat-bubble', {
+            'chat-bubble-primary': isUser,
+            'chat-bubble-secondary bot': !isUser,
+          })}
         >
           {(isUser || !isLoading || index !== totalMessages) && (
             <>
@@ -105,7 +111,12 @@ export const ChatBubble = memo(
             {message.content}
           </Markdown>
         </div>
-        <div className={`chat-footer${isUser ? '' : ' bot'}`}>
+        <div
+          className={clsx('chat-footer', {
+            // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+            'bot': !isUser,
+          })}
+        >
           <ChatMeta
             index={index}
             isLoading={isLoading}
