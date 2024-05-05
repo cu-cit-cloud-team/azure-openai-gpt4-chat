@@ -1,5 +1,6 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { memo, useCallback, useState } from 'react';
 
@@ -20,22 +21,20 @@ export const DeleteMessage = memo(({ isUser, message }) => {
 
   return (
     <div
-      className={`delete-container tooltip ${
-        isUser
-          ? 'float-left ml-3 tooltip-right tooltip-primary'
-          : 'float-right mr-3 tooltip-left tooltip-secondary'
-      }`}
+      className={clsx('delete-container tooltip', {
+        'float-left ml-3 tooltip-right tooltip-primary': isUser,
+        'float-right mr-3 tooltip-left tooltip-secondary': !isUser,
+      })}
       data-tip={`Delete ${isUser ? 'message' : 'response'}`}
     >
       <button
         key={buttonId}
         onClick={deleteMessage}
         type="button"
-        className={`w-6 h-6 p-0 m-0 mr-0 btn btn-xs ${
-          isUser
-            ? 'btn-primary text-primary-content'
-            : 'btn-secondary text-secondary-content'
-        }`}
+        className={clsx('w-6 h-6 p-0 m-0 mr-0 btn btn-xs', {
+          'btn-primary text-primary-content': isUser,
+          'btn-secondary text-secondary-content': !isUser,
+        })}
       >
         <FontAwesomeIcon icon={faTrash} />
       </button>
