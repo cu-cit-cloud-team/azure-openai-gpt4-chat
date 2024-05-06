@@ -76,7 +76,7 @@ export const DefaultsProvider = ({ children }) => {
 
   const [parameters, setParameters] = useLocalStorageState('parameters', {
     defaultValue: {
-      model: 'gpt-4',
+      model: 'gpt-4-turbo',
       temperature: '1',
       top_p: '1',
       frequency_penalty: '0',
@@ -85,7 +85,7 @@ export const DefaultsProvider = ({ children }) => {
   });
 
   const maxTokens = useMemo(() => {
-    return parameters?.model === 'gpt-4' ? 128000 : 16384;
+    return parameters?.model?.includes('gpt-4') ? 128000 : 16384;
   }, [parameters]);
 
   const systemMessageMaxTokens = 400;
