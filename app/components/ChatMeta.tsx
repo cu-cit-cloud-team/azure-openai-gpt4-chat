@@ -22,7 +22,7 @@ export const ChatMeta = memo(
       dayjs(dayjs(message.createdAt)).from()
     );
 
-    const [model, setModel] = useState('gpt-4');
+    const [model, setModel] = useState('gpt-4-turbo');
 
     useEffect(() => {
       const params = getItem('parameters');
@@ -70,7 +70,13 @@ export const ChatMeta = memo(
           ) : null}
           {isUser
             ? `${userMeta?.name ?? 'User'}`
-            : `Azure OpenAI ${model === 'gpt-35-turbo' ? 'GPT-3.5' : 'GPT-4'}`}
+            : `Azure OpenAI ${
+                model === 'gpt-35-turbo'
+                  ? 'GPT-3.5 Turbo (1106)'
+                  : model === 'gpt-4'
+                    ? 'GPT-4 (1106)'
+                    : 'GPT-4 Turbo (2024-04-09)'
+              }`}
           {isUser || index !== totalMessages ? (
             <time>
               <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
