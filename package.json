@@ -33,7 +33,7 @@
     "@fortawesome/free-solid-svg-icons": "6.5.2",
     "@fortawesome/react-fontawesome": "0.2.0",
     "@langchain/community": "0.0.54",
-    "@langchain/core": "0.1.61",
+    "@langchain/core": "0.1.62",
     "@langchain/openai": "0.0.28",
     "ai": "3.1.1",
     "axios": "1.6.8",
