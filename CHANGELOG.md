@@ -1,3 +1,15 @@
+## 0.32.0 (2024-05-06)
+
+* feat(api): add support for gpt-4-turbo ([5469a7a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5469a7a))
+* feat(ChatMeta): add support for gpt-4-turbo ([cfc4282](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/cfc4282))
+* feat(ParameterModelSelect): include gpt-4 and gpt-4-turbo models ([ee7b3a8](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ee7b3a8))
+* refactor(DefaultsContext): set upt-4-turbo as default ([a9e5e96](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a9e5e96))
+* refactor(ParameterModelSelect): update GPT-4 model info ([dd2e55f](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dd2e55f))
+* refactor(ParameterSlider): use gpt-4-turbo as default ([a2ea069](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a2ea069))
+* refactor(utils/tokens): use gpt-4-turbo for token model ([c09aaa9](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/c09aaa9))
+
+
+
 ## <small>0.31.1 (2024-05-06)</small>
 
 * chore(deps-dev): bump @biomejs/biome from 1.7.2 to 1.7.3 (#509) ([e818995](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e818995)), closes [#509](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/509)
