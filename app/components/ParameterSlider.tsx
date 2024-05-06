@@ -9,7 +9,7 @@ export const ParameterSlider = memo(
   ({ paramName, displayName = null, min = 0, max = 1, step = 0.1 }) => {
     const [parameters, setParameters] = useLocalStorageState('parameters', {
       defaultValue: {
-        model: 'gpt-4',
+        model: 'gpt-4-turbo',
         temperature: '1',
         top_p: '1',
         frequency_penalty: '0',
