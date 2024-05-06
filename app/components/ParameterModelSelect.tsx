@@ -7,7 +7,7 @@ import { getItem, setItem } from '@/app/utils/localStorage';
 export const ParameterModelSelect = memo(({ clearHistory }) => {
   const [parameters, setParameters] = useLocalStorageState('parameters', {
     defaultValue: {
-      model: 'gpt-4',
+      model: 'gpt-4-turbo',
       temperature: '1',
       top_p: '1',
       frequency_penalty: '0',
@@ -33,12 +33,16 @@ export const ParameterModelSelect = memo(({ clearHistory }) => {
   };
 
   useEffect(() => {
-    if (parameters.model !== 'gpt-4' && parameters.model !== 'gpt-35-turbo') {
+    if (
+      parameters?.model !== 'gpt-4-turbo' &&
+      parameters?.model !== 'gpt-4' &&
+      parameters?.model !== 'gpt-35-turbo'
+    ) {
       setItem('parameters', {
         ...getItem('parameters'),
-        model: 'gpt-4',
+        model: 'gpt-4-turbo',
       });
-      setParameters({ ...parameters, model: 'gpt-4' });
+      setParameters({ ...parameters, model: 'gpt-4-turbo' });
     }
   }, [parameters, setParameters]);
 
@@ -51,7 +55,8 @@ export const ParameterModelSelect = memo(({ clearHistory }) => {
         onChange={(e) => modelChangeHandler(e)}
       >
         <option value="gpt-35-turbo">gpt-35-turbo (1106)</option>
-        <option value="gpt-4">gpt-4-turbo (2024-04-09)</option>
+        <option value="gpt-4">gpt-4 (1106)</option>
+        <option value="gpt-4-turbo">gpt-4-turbo (2024-04-09)</option>
       </select>
     </>
   );
