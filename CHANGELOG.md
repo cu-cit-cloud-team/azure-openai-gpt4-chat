@@ -1,3 +1,11 @@
+## <small>0.31.1 (2024-05-06)</small>
+
+* chore(deps-dev): bump @biomejs/biome from 1.7.2 to 1.7.3 (#509) ([e818995](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e818995)), closes [#509](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/509)
+* chore(deps): bump openai from 4.40.2 to 4.41.0 (#510) ([09f6bba](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/09f6bba)), closes [#510](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/510)
+* fix(ThemeChanger): initial selection of current theme ([eec8d1d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eec8d1d))
+
+
+
 ## 0.31.0 (2024-05-05)
 
 * chore(deps-dev): add/configure prettier ([2371a11](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2371a11))
