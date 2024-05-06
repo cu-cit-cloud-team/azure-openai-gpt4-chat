@@ -49,7 +49,9 @@ export const Footer = memo(
             autoFocus={true}
             className={textAreaClasses}
             disabled={isLoading}
-            placeholder="Type a message..."
+            placeholder={
+              isLoading ? 'Loading response...' : 'Type a message...'
+            }
             onChange={handleInputChange}
             ref={textAreaRef}
             value={input}
