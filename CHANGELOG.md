@@ -1,3 +1,17 @@
+## <small>0.32.1 (2024-05-08)</small>
+
+* chore(deps-dev): bump @types/node in the types group (#512) ([102305e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/102305e)), closes [#512](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/512)
+* chore(deps-dev): bump sass from 1.76.0 to 1.77.0 (#515) ([fa57a94](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fa57a94)), closes [#515](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/515)
+* chore(deps): bump @langchain/community in the langchain group (#514) ([219779e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/219779e)), closes [#514](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/514)
+* chore(deps): bump @langchain/core in the langchain group (#511) ([3408349](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3408349)), closes [#511](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/511)
+* chore(deps): bump ai from 3.1.1 to 3.1.2 (#518) ([f32979a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/f32979a)), closes [#518](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/518)
+* chore(deps): bump daisyui from 4.10.5 to 4.11.1 (#516) ([176bc79](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/176bc79)), closes [#516](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/516)
+* chore(deps): bump openai from 4.41.0 to 4.42.0 (#513) ([9e58cd0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/9e58cd0)), closes [#513](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/513)
+* chore(deps): bump zod from 3.23.6 to 3.23.7 (#517) ([5f439ad](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5f439ad)), closes [#517](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/517)
+* refactor(Footer): change textarea placeholder while loading ([24e7c0d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/24e7c0d))
+
+
+
 ## 0.32.0 (2024-05-06)
 
 * feat(api): add support for gpt-4-turbo ([5469a7a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5469a7a))
