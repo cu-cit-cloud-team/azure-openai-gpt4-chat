@@ -1,3 +1,14 @@
+## <small>0.32.2 (2024-05-09)</small>
+
+* fix(ChatBubble): preserve line breaks in user messages ([dbae43a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dbae43a))
+* chore(deps-dev): bump @types/node in the types group (#519) ([70ae557](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/70ae557)), closes [#519](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/519)
+* chore(deps): bump ai from 3.1.2 to 3.1.3 (#521) ([5bcf759](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/5bcf759)), closes [#521](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/521)
+* chore(deps): bump openai from 4.42.0 to 4.43.0 (#520) ([e928b59](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e928b59)), closes [#520](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/520)
+* chore(deps): bump zod from 3.23.7 to 3.23.8 (#522) ([acbc81d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/acbc81d)), closes [#522](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/522)
+* chore(volta): bump node version ([1a7d961](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1a7d961))
+
+
+
 ## <small>0.32.1 (2024-05-08)</small>
 
 * chore(deps-dev): bump @types/node in the types group (#512) ([102305e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/102305e)), closes [#512](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/512)
