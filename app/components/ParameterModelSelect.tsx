@@ -1,50 +1,33 @@
-import PropTypes from 'prop-types';
-import { memo, useEffect } from 'react';
-import useLocalStorageState from 'use-local-storage-state';
+import { useAtom } from 'jotai';
+import { memo, useCallback } from 'react';
 
-import { getItem, setItem } from '@/app/utils/localStorage';
+import { database } from '@/app/database/database.config';
 
-export const ParameterModelSelect = memo(({ clearHistory }) => {
-  const [parameters, setParameters] = useLocalStorageState('parameters', {
-    defaultValue: {
-      model: 'gpt-4-turbo',
-      temperature: '1',
-      top_p: '1',
-      frequency_penalty: '0',
-      presence_penalty: '0',
+import { parametersAtom } from '@/app/components/Parameters';
+
+export const ParameterModelSelect = memo(() => {
+  const [parameters, setParameters] = useAtom(parametersAtom);
+
+  const modelChangeHandler = useCallback(
+    async (event) => {
+      if (
+        confirm(
+          'Changing the model will reset the chat history. Are you sure you want to continue?'
+        )
+      ) {
+        setParameters({ ...parameters, model: event.target.value });
+        try {
+          await database.messages.clear();
+          window.location.reload();
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        event.target.value = parameters.model;
+      }
     },
-  });
-
-  const modelChangeHandler = (event) => {
-    if (
-      confirm(
-        'Changing the model will reset the chat history. Are you sure you want to continue?'
-      )
-    ) {
-      setItem('parameters', {
-        ...getItem('parameters'),
-        model: event.target.value,
-      });
-      setParameters({ ...parameters, model: event.target.value });
-      clearHistory(false);
-    } else {
-      event.target.value = parameters.model;
-    }
-  };
-
-  useEffect(() => {
-    if (
-      parameters?.model !== 'gpt-4-turbo' &&
-      parameters?.model !== 'gpt-4' &&
-      parameters?.model !== 'gpt-35-turbo'
-    ) {
-      setItem('parameters', {
-        ...getItem('parameters'),
-        model: 'gpt-4-turbo',
-      });
-      setParameters({ ...parameters, model: 'gpt-4-turbo' });
-    }
-  }, [parameters, setParameters]);
+    [parameters, setParameters]
+  );
 
   return (
     <>
@@ -52,7 +35,7 @@ export const ParameterModelSelect = memo(({ clearHistory }) => {
       <select
         className="w-full max-w-xs text-xs select select-sm select-bordered"
         value={parameters.model}
-        onChange={(e) => modelChangeHandler(e)}
+        onChange={modelChangeHandler}
       >
         <option value="gpt-35-turbo">gpt-35-turbo (1106)</option>
         <option value="gpt-4">gpt-4 (1106)</option>
@@ -63,8 +46,5 @@ export const ParameterModelSelect = memo(({ clearHistory }) => {
 });
 
 ParameterModelSelect.displayName = 'ModelSelect';
-ParameterModelSelect.propTypes = {
-  clearHistory: PropTypes.func.isRequired,
-};
 
 export default ParameterModelSelect;

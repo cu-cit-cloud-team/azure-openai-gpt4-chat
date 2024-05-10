@@ -1,13 +1,18 @@
 import { faCheck, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
+import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
-import { memo, useState } from 'react';
+import { memo } from 'react';
+
+const isCopiedAtom = atom(false);
+const inputIdAtom = atom(() => nanoid());
+const buttonIdAtom = atom(() => nanoid());
 
 export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
-  const [isCopied, setIsCopied] = useState(false);
-  const [inputId] = useState(nanoid());
-  const [buttonId] = useState(nanoid());
+  const [isCopied, setIsCopied] = useAtom(isCopiedAtom);
+  const inputId = useAtomValue(inputIdAtom);
+  const buttonId = useAtomValue(buttonIdAtom);
 
   const copyTextToClipboard = async (text) => {
     if ('clipboard' in navigator) {

@@ -2,19 +2,24 @@
 
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSetAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 import { nanoid } from 'nanoid';
+import { useTheme } from 'next-themes';
 import { useCallback, useEffect } from 'react';
-
-import {
-  useDefaultsContext,
-  useDefaultsUpdaterContext,
-} from '@/app/contexts/DefaultsContext';
 
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
+export const editorThemeAtom = atomWithStorage(
+  'editorTheme',
+  getEditorTheme('dark')
+);
+
+export const themeAtom = atomWithStorage('theme', 'dark');
+
 export const ThemeChanger = () => {
-  const { theme } = useDefaultsContext();
-  const { setEditorTheme, setTheme } = useDefaultsUpdaterContext();
+  const { theme, setTheme } = useTheme();
+  const setEditorTheme = useSetAtom(editorThemeAtom);
 
   useEffect(() => {
     const details = [...document.querySelectorAll('details.dropdown')];

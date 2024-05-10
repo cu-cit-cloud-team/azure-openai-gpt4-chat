@@ -21,7 +21,7 @@ const ThemeChanger = dynamic(
 
 import pkg from '@/package.json';
 
-export const Header = memo(({ input, isLoading }) => {
+export const Header = memo(({ input, isLoading, systemMessageRef }) => {
   useEffect(() => {
     const details = [...document.querySelectorAll('.menu details')];
     document.addEventListener('click', (event) => {
@@ -56,7 +56,10 @@ export const Header = memo(({ input, isLoading }) => {
                 </summary>
                 <ul className="bg-base-200">
                   <li>
-                    <SystemMessage input={input} />
+                    <SystemMessage
+                      input={input}
+                      systemMessageRef={systemMessageRef}
+                    />
                   </li>
                 </ul>
               </details>
@@ -95,7 +98,10 @@ export const Header = memo(({ input, isLoading }) => {
               </summary>
               <ul className="w-fit bg-base-200">
                 <li>
-                  <SystemMessage input={input} />
+                  <SystemMessage
+                    input={input}
+                    systemMessageRef={systemMessageRef}
+                  />
                 </li>
               </ul>
             </details>

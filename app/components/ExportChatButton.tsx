@@ -1,15 +1,16 @@
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
-import { useDefaultsContext } from '@/app/contexts/DefaultsContext';
-
 import { database } from '@/app/database/database.config';
+
+import { systemMessageAtom } from '@/app/components/SystemMessage';
 
 export const ExportChatButton = memo(
   ({ buttonText = 'Export Chat', isLoading }) => {
-    const { systemMessage } = useDefaultsContext();
+    const systemMessage = useAtomValue(systemMessageAtom);
     const exportHandler = useCallback(
       async (event) => {
         const downloadFile = ({

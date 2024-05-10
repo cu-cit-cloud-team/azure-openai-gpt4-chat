@@ -1,13 +1,29 @@
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 
-import { useDefaultsUpdaterContext } from '@/app/contexts/DefaultsContext';
+import { database } from '@/app/database/database.config';
 
 export const ClearChatButton = memo(
   ({ buttonText = 'Clear Chat', isLoading }) => {
-    const { clearHistory } = useDefaultsUpdaterContext();
+    const clearHistory = useCallback(async (doConfirm = true) => {
+      const clearMessages = async () => {
+        try {
+          await database.messages.clear();
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      if (!doConfirm) {
+        await clearMessages();
+        window.location.reload();
+      } else if (confirm('Are you sure you want to clear the chat history?')) {
+        await clearMessages();
+        window.location.reload();
+      }
+    }, []);
 
     return (
       <>

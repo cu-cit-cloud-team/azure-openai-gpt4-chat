@@ -1,16 +1,20 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
+import { atomWithStorage } from 'jotai/utils';
 import { memo } from 'react';
 
 import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
 import { ParameterSlider } from '@/app/components/ParameterSlider';
 
-import { useDefaultsUpdaterContext } from '@/app/contexts/DefaultsContext';
+export const parametersAtom = atomWithStorage('parameters', {
+  model: 'gpt-4-turbo',
+  temperature: '1',
+  top_p: '1',
+  frequency_penalty: '0',
+  presence_penalty: '0',
+});
 
 export const Parameters = memo(() => {
-  const { clearHistory } = useDefaultsUpdaterContext();
-
   return (
     <details>
       <summary>
@@ -19,7 +23,7 @@ export const Parameters = memo(() => {
       </summary>
       <ul className="bg-base-200">
         <li className="text-xs">
-          <ParameterModelSelect clearHistory={clearHistory} />
+          <ParameterModelSelect />
         </li>
         <li className="text-xs">
           <ParameterSlider
@@ -54,9 +58,5 @@ export const Parameters = memo(() => {
 });
 
 Parameters.displayName = 'Parameters';
-
-Parameters.propTypes = {
-  clearHistory: PropTypes.func.isRequired,
-};
 
 export default Parameters;

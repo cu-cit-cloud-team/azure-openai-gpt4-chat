@@ -3,19 +3,72 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import clsx from 'clsx';
-import { memo, useEffect, useState } from 'react';
+import { atom, useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
+import { memo, useEffect } from 'react';
 
-import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
+const emailAtom = atom('');
+const nameAtom = atom('');
+const hasDataAtom = atom(false);
+export const userMetaAtom = atomWithStorage('userMeta', {});
 
 export const UserAvatar = memo(() => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [hasData, setHasData] = useState(false);
+  const [email, setEmail] = useAtom(emailAtom);
+  const [name, setName] = useAtom(nameAtom);
+  const [hasData, setHasData] = useAtom(hasDataAtom);
 
-  const { userMeta } = useUserMetaContext();
+  const [userMeta, setUserMeta] = useAtom(userMetaAtom);
 
   useEffect(() => {
+    if (userMeta?.email && userMeta?.name) {
+      return;
+    }
+    const getUserMeta = async () => {
+      await axios
+        .get('/.auth/me', {
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+            Expires: '0',
+          },
+        })
+        .then((response) => {
+          const email = response?.data[0]?.user_claims.find(
+            (item) => item.typ === 'preferred_username'
+          ).val;
+
+          const name = response?.data[0]?.user_claims.find(
+            (item) => item.typ === 'name'
+          ).val;
+
+          const user_id = response?.data[0]?.user_id;
+
+          const expires_on = response?.data[0]?.expires_on;
+
+          const meta = {
+            email,
+            name,
+            user_id,
+            expires_on,
+          };
+
+          setUserMeta(meta);
+        })
+        // biome-ignore lint/correctness/noUnusedVariables: used for debugging
+        .catch((error) => {
+          // console.error(error);
+        });
+    };
+    getUserMeta();
+  }, [userMeta, setUserMeta]);
+
+  useEffect(() => {
+    if (!userMeta) {
+      return;
+    }
+
     if (userMeta?.email) {
       setEmail(userMeta.email);
     } else {
@@ -31,7 +84,7 @@ export const UserAvatar = memo(() => {
     if (userMeta?.email && userMeta?.name) {
       setHasData(true);
     }
-  }, [userMeta]);
+  }, [setEmail, setHasData, setName, userMeta]);
 
   const formatName = (name) => {
     if (!name) {

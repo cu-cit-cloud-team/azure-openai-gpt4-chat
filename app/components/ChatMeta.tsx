@@ -4,30 +4,32 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 
 import { getItem } from '@/app/utils/localStorage';
 
-import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
+import { userMetaAtom } from '@/app/components/UserAvatar';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
 export const ChatMeta = memo(
   ({ index, isLoading, isUser, message, stop, totalMessages }) => {
-    const { userMeta } = useUserMetaContext();
-
-    const [lastUpdatedString, setLastUpdatedString] = useState(
-      dayjs(dayjs(message.createdAt)).from()
+    const userMeta = useAtomValue(userMetaAtom);
+    const lastUpdatedStringAtom = atom(dayjs(dayjs(message.createdAt)).from());
+    const [lastUpdatedString, setLastUpdatedString] = useAtom(
+      lastUpdatedStringAtom
     );
 
-    const [model, setModel] = useState('gpt-4-turbo');
+    const modelAtom = atom('gpt-4-turbo');
+    const [model, setModel] = useAtom(modelAtom);
 
     useEffect(() => {
       const params = getItem('parameters');
       setModel(params.model);
-    }, []);
+    }, [setModel]);
 
     useEffect(() => {
       const updateString = () => {
@@ -38,7 +40,7 @@ export const ChatMeta = memo(
       updateString();
 
       return () => clearInterval(clockInterval);
-    }, [message]);
+    }, [message, setLastUpdatedString]);
 
     return (
       <>

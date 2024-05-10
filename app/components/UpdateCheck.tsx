@@ -4,7 +4,8 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { useEffect, useState } from 'react';
+import { atom, useAtom } from 'jotai';
+import { useEffect } from 'react';
 
 import pkg from '../../package.json';
 
@@ -14,8 +15,10 @@ dayjs.tz.setDefault('America/New_York');
 
 const DEPLOY_INTERVAL = 10; // minutes
 
+const updateAvailableAtom = atom(false);
+
 export const UpdateCheck = () => {
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateAvailable, setUpdateAvailable] = useAtom(updateAvailableAtom);
 
   useEffect(() => {
     const getLatestVersion = async (
@@ -54,7 +57,7 @@ export const UpdateCheck = () => {
 
     // clear update check interval on unmount
     return () => clearInterval(updateHandle);
-  }, []);
+  }, [setUpdateAvailable]);
 
   const clickHandler = () => {
     window.location.reload();

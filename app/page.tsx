@@ -4,30 +4,30 @@ import { useChat } from 'ai/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { memo, useCallback, useEffect } from 'react';
+import { useAtomValue } from 'jotai';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
 
-import {
-  useDefaultsContext,
-  useDefaultsUpdaterContext,
-} from '@/app/contexts/DefaultsContext';
-import { useRefsContext } from '@/app/contexts/RefsContext';
-import { useUserMetaContext } from '@/app/contexts/UserMetaContext';
-
 import { database } from '@/app/database/database.config';
+
+import { parametersAtom } from '@/app/components/Parameters';
+import { systemMessageAtom } from '@/app/components/SystemMessage';
+import { userMetaAtom } from '@/app/components/UserAvatar';
 
 dayjs.extend(timezone);
 
 export const App = () => {
-  const { parameters, systemMessage } = useDefaultsContext();
-  const { addMessage, clearHistory, handleChatError, setSystemMessage } =
-    useDefaultsUpdaterContext();
-  const { userMeta } = useUserMetaContext();
-  const { formRef, textAreaRef } = useRefsContext();
+  const systemMessageRef = useRef<HTMLTextAreaElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const parameters = useAtomValue(parametersAtom);
+  const systemMessage = useAtomValue(systemMessageAtom);
+  const userMeta = useAtomValue(userMetaAtom);
 
   const savedMessages = useLiveQuery(async () => {
     let messages = await database.messages.toArray();
@@ -36,6 +36,15 @@ export const App = () => {
     );
     return messages;
   }, [database.messages]);
+
+  const handleChatError = useCallback((error) => {
+    console.error(error);
+    // throw error;
+  }, []);
+
+  const addMessage = useCallback(async (message) => {
+    await database.messages.put(message);
+  }, []);
 
   const {
     handleInputChange,
@@ -62,14 +71,6 @@ export const App = () => {
     onError: handleChatError,
     onFinish: addMessage,
   });
-
-  const doReload = useCallback(async () => {
-    await reload();
-  }, [reload]);
-
-  const doStop = useCallback(() => {
-    stop();
-  }, [stop]);
 
   // update indexedDB when messages changes
   useEffect(() => {
@@ -109,13 +110,6 @@ export const App = () => {
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
-      event.stopPropagation();
-      if (event.key === 'Escape' && event.metaKey) {
-        if (confirm('Are you sure you want to clear the chat history?')) {
-          clearHistory(false);
-          window.location.reload();
-        }
-      }
       // if (event.key === 'Enter' && event.shiftKey) {
       //   console.log('new line');
       // }
@@ -142,7 +136,7 @@ export const App = () => {
         textareaElement.removeEventListener('keydown', listener);
       }
     };
-  }, [formRef, textareaElement, clearHistory]);
+  }, [textareaElement]);
 
   const ErrorFallback = memo(({ error, resetErrorBoundary }) => {
     return (
@@ -173,22 +167,25 @@ export const App = () => {
     <>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Header
-          isLoading={isLoading}
-          systemMessage={systemMessage}
-          setSystemMessage={setSystemMessage}
           input={input}
+          isLoading={isLoading}
+          systemMessageRef={systemMessageRef}
         />
         <Messages
           isLoading={isLoading}
           messages={messages}
-          reload={doReload}
-          stop={doStop}
+          reload={reload}
+          stop={stop}
+          textAreaRef={textAreaRef}
         />
         <Footer
+          formRef={formRef}
+          handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           input={input}
           isLoading={isLoading}
-          handleInputChange={handleInputChange}
+          systemMessageRef={systemMessageRef}
+          textAreaRef={textAreaRef}
         />
       </ErrorBoundary>
     </>

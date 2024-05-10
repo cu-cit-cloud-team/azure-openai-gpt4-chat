@@ -1,6 +1,7 @@
 import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
+import { useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import Markdown from 'react-markdown';
@@ -11,13 +12,13 @@ import { CopyToClipboard } from '@/app/components/CopyToClipboard';
 import { DeleteMessage } from '@/app/components/DeleteMessage';
 import { ReloadMessage } from '@/app/components/ReloadMessage';
 
-import { useDefaultsContext } from '@/app/contexts/DefaultsContext';
-
 import { markdownToText } from '@/app/utils/markdownToText';
+
+import { editorThemeAtom } from '@/app/components/ThemeChanger';
 
 export const ChatBubble = memo(
   ({ index, isLoading, isUser, message, reload, stop, totalMessages }) => {
-    const { editorTheme } = useDefaultsContext();
+    const editorTheme = useAtomValue(editorThemeAtom);
 
     const Pre = ({ children }) => {
       return (

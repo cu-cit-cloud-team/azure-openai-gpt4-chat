@@ -1,24 +1,56 @@
 import clsx from 'clsx';
+import { atom, useAtom, useAtomValue } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useMemo } from 'react';
 
-import {
-  useTokenStateContext,
-  useTokenUpdaterContext,
-} from '@/app/contexts/TokenContext';
-
 import { getTokenCount } from '@/app/utils/tokens';
+
+import { parametersAtom } from '@/app/components/Parameters';
+
+const systemMessageMaxTokens = 400;
+const inputTokensAtom = atom(0);
+const systemMessageTokensAtom = atom(0);
+const remainingTokensAtom = atom(16384);
+const remainingSystemTokensAtom = atom(systemMessageMaxTokens);
+export const tokensAtom = atomWithStorage('tokens', {
+  input: 0,
+  maximum: 16384,
+  remaining: 16384,
+  systemMessage: 0,
+  systemMessageRemaining: systemMessageMaxTokens,
+});
 
 export const TokenCount = memo(
   ({ input = '', systemMessage, display = 'input' }) => {
-    const { maxTokens, systemMessageMaxTokens, tokens } =
-      useTokenStateContext();
-    const {
-      setInputTokens,
-      setRemainingSystemTokens,
-      setRemainingTokens,
-      setSystemMessageTokens,
-    } = useTokenUpdaterContext();
+    const [inputTokens, setInputTokens] = useAtom(inputTokensAtom);
+    const [systemMessageTokens, setSystemMessageTokens] = useAtom(
+      systemMessageTokensAtom
+    );
+    const [remainingTokens, setRemainingTokens] = useAtom(remainingTokensAtom);
+    const [remainingSystemTokens, setRemainingSystemTokens] = useAtom(
+      remainingSystemTokensAtom
+    );
+    const parameters = useAtomValue(parametersAtom);
+    const maxTokens = parameters.model.includes('gpt-4') ? 128000 : 16384;
+    const [tokens, setTokens] = useAtom(tokensAtom);
+
+    useEffect(() => {
+      setTokens({
+        input: inputTokens,
+        maximum: maxTokens,
+        remaining: remainingTokens,
+        systemMessage: systemMessageTokens,
+        systemMessageRemaining: remainingSystemTokens,
+      });
+    }, [
+      inputTokens,
+      maxTokens,
+      remainingSystemTokens,
+      remainingTokens,
+      setTokens,
+      systemMessageTokens,
+    ]);
 
     const updateSystemMessageCount = useMemo(() => {
       return getTokenCount(systemMessage);
@@ -44,7 +76,6 @@ export const TokenCount = memo(
       setRemainingSystemTokens,
       setRemainingTokens,
       setSystemMessageTokens,
-      systemMessageMaxTokens,
       updateInputCount,
       updateSystemMessageCount,
     ]);

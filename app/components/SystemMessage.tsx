@@ -5,35 +5,38 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
+import { atom, useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 import PropTypes from 'prop-types';
-import { memo, useEffect, useState } from 'react';
-
-import {
-  useDefaultsContext,
-  useDefaultsUpdaterContext,
-} from '@/app/contexts/DefaultsContext';
-import { useRefsContext } from '@/app/contexts/RefsContext';
-import { TokenStateProvider } from '@/app/contexts/TokenContext';
+import { memo, useCallback, useEffect } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 
-import { useDebounce } from '@/app/hooks/useDebounce';
+import { database } from '@/app/database/database.config';
 
-export const SystemMessage = memo(({ input }) => {
-  const { systemMessage } = useDefaultsContext();
-  const { clearHistory, setSystemMessage } = useDefaultsUpdaterContext();
-  const { systemMessageRef } = useRefsContext();
-  const [localSystemMessage, setLocalSystemMessage] = useState('');
-  const [originalSystemMessage, setOriginalSystemMessage] = useState('');
+export const systemMessageAtom = atomWithStorage(
+  'systemMessage',
+  'You are a helpful AI assistant.'
+);
 
-  const debouncedSystemMessage = useDebounce(systemMessage, 200);
+const localSystemMessageAtom = atom('');
+const originalSystemMessageAtom = atom('');
+
+export const SystemMessage = memo(({ input, systemMessageRef }) => {
+  const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
+  const [localSystemMessage, setLocalSystemMessage] = useAtom(
+    localSystemMessageAtom
+  );
+  const [originalSystemMessage, setOriginalSystemMessage] = useAtom(
+    originalSystemMessageAtom
+  );
 
   useEffect(() => {
-    setOriginalSystemMessage(debouncedSystemMessage);
-    setLocalSystemMessage(debouncedSystemMessage);
-  }, [debouncedSystemMessage]);
+    setOriginalSystemMessage(systemMessage);
+    setLocalSystemMessage(systemMessage);
+  }, [setLocalSystemMessage, setOriginalSystemMessage, systemMessage]);
 
-  const cancelClickHandler = () => {
+  const cancelClickHandler = useCallback(() => {
     setSystemMessage(originalSystemMessage);
     const systemMessageMenu = document.querySelectorAll(
       'details.system-message-dropdown'
@@ -43,18 +46,23 @@ export const SystemMessage = memo(({ input }) => {
         menu.removeAttribute('open');
       }
     }
-  };
+  }, [originalSystemMessage, setSystemMessage]);
 
-  const resetClickHandler = () => {
+  const resetClickHandler = useCallback(() => {
     if (localSystemMessage !== originalSystemMessage) {
       if (confirm('Are you sure you want to reset your unsaved changes?')) {
         setSystemMessage(originalSystemMessage);
         setLocalSystemMessage(originalSystemMessage);
       }
     }
-  };
+  }, [
+    localSystemMessage,
+    originalSystemMessage,
+    setLocalSystemMessage,
+    setSystemMessage,
+  ]);
 
-  const saveClickHandler = () => {
+  const saveClickHandler = useCallback(async () => {
     if (localSystemMessage !== originalSystemMessage) {
       if (
         confirm(
@@ -63,26 +71,32 @@ export const SystemMessage = memo(({ input }) => {
       ) {
         setLocalSystemMessage(localSystemMessage);
         setSystemMessage(localSystemMessage);
-        clearHistory(false);
+        try {
+          await database.messages.clear();
+          window.location.reload();
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
-  };
+  }, [
+    localSystemMessage,
+    originalSystemMessage,
+    setLocalSystemMessage,
+    setSystemMessage,
+  ]);
 
   const handleSystemMessageChange = (e) => {
     setLocalSystemMessage(e.target.value);
   };
 
-  const debouncedLocalSystemMessage = useDebounce(localSystemMessage, 200);
-
   return (
     <>
-      <TokenStateProvider>
-        <TokenCount
-          input={input}
-          systemMessage={debouncedLocalSystemMessage}
-          display={'systemMessage'}
-        />
-      </TokenStateProvider>
+      <TokenCount
+        input={input}
+        systemMessage={localSystemMessage}
+        display={'systemMessage'}
+      />
       <textarea
         className="h-48 m-2 whitespace-pre-line w-52 lg:w-96"
         ref={systemMessageRef}
@@ -131,6 +145,10 @@ export const SystemMessage = memo(({ input }) => {
 SystemMessage.displayName = 'SystemMessage';
 SystemMessage.propTypes = {
   input: PropTypes.string,
+  systemMessageRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.object }),
+  ]),
 };
 
 export default SystemMessage;

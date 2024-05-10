@@ -1,21 +1,15 @@
+import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
 import propTypes from 'prop-types';
 import { memo } from 'react';
-import useLocalStorageState from 'use-local-storage-state';
 
 import { getItem, setItem } from '@/app/utils/localStorage';
 
+import { parametersAtom } from '@/app/components/Parameters';
+
 export const ParameterSlider = memo(
   ({ paramName, displayName = null, min = 0, max = 1, step = 0.1 }) => {
-    const [parameters, setParameters] = useLocalStorageState('parameters', {
-      defaultValue: {
-        model: 'gpt-4-turbo',
-        temperature: '1',
-        top_p: '1',
-        frequency_penalty: '0',
-        presence_penalty: '0',
-      },
-    });
+    const [parameters, setParameters] = useAtom(parametersAtom);
 
     const paramDetails = (param) => {
       const map = {

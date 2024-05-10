@@ -2,12 +2,12 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
 export const DeleteMessage = memo(({ isUser, message }) => {
-  const [buttonId] = useState(nanoid());
+  const buttonId = nanoid();
 
   const deleteMessage = useCallback(async () => {
     const deleteFromDb = async () => {
