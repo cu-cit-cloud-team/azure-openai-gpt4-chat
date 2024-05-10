@@ -8,28 +8,28 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import { memo, useEffect } from 'react';
 
-import { getItem } from '@/app/utils/localStorage';
-
+import { parametersAtom } from '@/app/components/Parameters';
 import { userMetaAtom } from '@/app/components/UserAvatar';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
+const modelAtom = atom('gpt-4-turbo');
+
 export const ChatMeta = memo(
   ({ index, isLoading, isUser, message, stop, totalMessages }) => {
+    const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
     const lastUpdatedStringAtom = atom(dayjs(dayjs(message.createdAt)).from());
     const [lastUpdatedString, setLastUpdatedString] = useAtom(
       lastUpdatedStringAtom
     );
 
-    const modelAtom = atom('gpt-4-turbo');
     const [model, setModel] = useAtom(modelAtom);
 
     useEffect(() => {
-      const params = getItem('parameters');
-      setModel(params.model);
-    }, [setModel]);
+      setModel(parameters.model);
+    }, [parameters, setModel]);
 
     useEffect(() => {
       const updateString = () => {
