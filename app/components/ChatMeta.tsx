@@ -15,15 +15,20 @@ dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
 const modelAtom = atom('gpt-4-turbo');
+const lastUpdatedStringAtom = atom('');
 
 export const ChatMeta = memo(
   ({ index, isLoading, isUser, message, stop, totalMessages }) => {
     const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
-    const lastUpdatedStringAtom = atom(dayjs(dayjs(message.createdAt)).from());
+
     const [lastUpdatedString, setLastUpdatedString] = useAtom(
       lastUpdatedStringAtom
     );
+
+    useEffect(() => {
+      setLastUpdatedString(dayjs(dayjs(message.createdAt)).from());
+    }, [message, setLastUpdatedString]);
 
     const [model, setModel] = useAtom(modelAtom);
 
