@@ -1,3 +1,23 @@
+## 0.33.0 (2024-05-12)
+
+* chore(deps-dev): bump @types/react in the types group (#527) ([893368b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/893368b)), closes [#527](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/527)
+* chore(deps-dev): bump sass from 1.77.0 to 1.77.1 (#529) ([a74fc6b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a74fc6b)), closes [#529](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/529)
+* chore(deps): add jotai@2.8.0 ([1ead02a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1ead02a))
+* chore(deps): bump ai from 3.1.3 to 3.1.4 (#524) ([eac84ef](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/eac84ef)), closes [#524](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/524)
+* chore(deps): bump ai from 3.1.4 to 3.1.5 (#525) ([b26b230](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b26b230)), closes [#525](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/525)
+* chore(deps): bump openai from 4.43.0 to 4.44.0 (#523) ([1f0bc37](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1f0bc37)), closes [#523](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/523)
+* chore(deps): bump openai from 4.44.0 to 4.45.0 (#528) ([ae1ba31](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ae1ba31)), closes [#528](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/528)
+* chore(deps): bump the langchain group with 2 updates (#526) ([076aeaf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/076aeaf)), closes [#526](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/526)
+* chore(deps): remove unused dependencies ([81130c3](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/81130c3))
+* perf(chatMeta): improve last updated logic and reduce renders ([34513ba](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/34513ba))
+* fix(ChatMeta): update logic that sets model name ([95bbe3d](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/95bbe3d))
+* refactor: use jotai for state management ([a9ac564](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a9ac564))
+* refactor(CopyToClipboard): update click handler ([1ce9434](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/1ce9434))
+* refactor(hooks): remove useDebounce and hooks folder ([24ca098](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/24ca098))
+* refactor(Providers): remove custom providers ([fa7c6d5](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/fa7c6d5))
+
+
+
 ## <small>0.32.2 (2024-05-09)</small>
 
 * fix(ChatBubble): preserve line breaks in user messages ([dbae43a](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dbae43a))
