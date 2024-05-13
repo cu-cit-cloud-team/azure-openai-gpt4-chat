@@ -1,9 +1,8 @@
+import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
-import OpenAI from 'openai';
 
 // destructure env vars we need
 const {
-  OPENAI_API_KEY,
   AZURE_OPENAI_BASE_PATH,
   AZURE_OPENAI_API_KEY,
   AZURE_OPENAI_MODEL_DEPLOYMENT,
@@ -14,15 +13,12 @@ const {
 
 // make sure env vars are set
 if (
-  !OPENAI_API_KEY &&
-  (!AZURE_OPENAI_API_KEY ||
-    !AZURE_OPENAI_BASE_PATH ||
-    !AZURE_OPENAI_MODEL_DEPLOYMENT ||
-    !AZURE_OPENAI_API_VERSION)
+  !AZURE_OPENAI_API_KEY ||
+  !AZURE_OPENAI_BASE_PATH ||
+  !AZURE_OPENAI_MODEL_DEPLOYMENT ||
+  !AZURE_OPENAI_API_VERSION
 ) {
-  throw new Error(
-    'No AZURE_OPENAI_API_KEY or OPENAI_API_KEY defined in the environment.'
-  );
+  throw new Error('Required variables are not defined in the environment.');
 }
 
 // tell next.js to use the edge runtime
@@ -82,51 +78,37 @@ export async function POST(req: Request) {
   let chatMessages = [...messages];
 
   // helper function to check if system prompt is already in messages
-  const hasSystemPrompt = messages.some(
-    (message: OpenAI.Chat.ChatCompletionMessage) => message.role === 'system'
-  );
+  const hasSystemPrompt = messages.some((message) => message.role === 'system');
 
   // add system prompt to messages if not already there
   if (!hasSystemPrompt) {
     chatMessages = [systemPrompt, ...messages];
   }
 
-  // set up chat config
-  const chatConfig: OpenAI.Chat.ChatCompletionCreateParams = {
-    temperature,
-    top_p,
-    presence_penalty,
-    frequency_penalty,
-    max_tokens,
-    model,
-    messages: chatMessages,
-    stream: true,
-    user,
-  };
+  const openai = new OpenAIClient(
+    AZURE_OPENAI_BASE_PATH,
+    new AzureKeyCredential(AZURE_OPENAI_API_KEY),
+    {
+      apiVersion: AZURE_OPENAI_API_VERSION,
+    }
+  );
 
-  const chatModelDeployment =
+  const response = await openai.streamChatCompletions(
     model === 'gpt-35-turbo' && AZURE_OPENAI_GPT35_DEPLOYMENT
       ? AZURE_OPENAI_GPT35_DEPLOYMENT
       : model === 'gpt-4' && AZURE_OPENAI_GPT4_DEPLOYMENT
         ? AZURE_OPENAI_GPT4_DEPLOYMENT
-        : AZURE_OPENAI_MODEL_DEPLOYMENT;
-
-  // instantiate the OpenAI client
-  const openai = OPENAI_API_KEY
-    ? new OpenAI({
-        apiKey: OPENAI_API_KEY,
-      })
-    : new OpenAI({
-        apiKey: AZURE_OPENAI_API_KEY,
-        baseURL: `${AZURE_OPENAI_BASE_PATH}openai/deployments/${chatModelDeployment}`,
-        defaultQuery: { 'api-version': AZURE_OPENAI_API_VERSION },
-        defaultHeaders: { 'api-key': AZURE_OPENAI_API_KEY },
-      });
-
-  // fetch a streaming chat completion using the given system prompt and messages
-  const response = await openai.chat.completions.create({
-    ...chatConfig,
-  });
+        : AZURE_OPENAI_MODEL_DEPLOYMENT,
+    chatMessages,
+    {
+      frequencyPenalty: frequency_penalty,
+      maxTokens: max_tokens,
+      presencePenalty: presence_penalty,
+      temperature,
+      topP: top_p,
+      user,
+    }
+  );
 
   // convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
