@@ -1,3 +1,19 @@
+## <small>0.33.1 (2024-05-16)</small>
+
+* chore(deps-dev): bump types group with 1 update ([7894eaf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7894eaf))
+* chore(deps): bump @langchain/openai in the langchain group (#534) ([790d4ea](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/790d4ea)), closes [#534](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/534)
+* chore(deps): bump ai from 3.1.5 to 3.1.7 (#530) ([3a29679](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3a29679)), closes [#530](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/530)
+* chore(deps): bump ai from 3.1.7 to 3.1.8 (#531) ([3093449](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3093449)), closes [#531](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/531)
+* chore(deps): bump ai from 3.1.8 to 3.1.9 (#533) ([4e12d39](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4e12d39)), closes [#533](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/533)
+* chore(deps): bump js-tiktoken from 1.0.11 to 1.0.12 ([dcf19ae](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/dcf19ae))
+* chore(deps): bump langchain group with 3 updates ([60ea709](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/60ea709))
+* chore(deps): bump openai from 4.45.0 to 4.46.1 ([47d8238](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/47d8238))
+* chore(deps): bump openai from 4.46.1 to 4.47.1 (#532) ([ea70d11](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ea70d11)), closes [#532](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/532)
+* chore(volta): update npm version ([0a77175](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0a77175))
+* refactor(api/chat): use azure client ([a00e35e](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/a00e35e))
+
+
+
 ## 0.33.0 (2024-05-12)
 
 * chore(deps-dev): bump @types/react in the types group (#527) ([893368b](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/893368b)), closes [#527](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/527)
