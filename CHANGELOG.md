@@ -1,3 +1,14 @@
+## <small>0.33.2 (2024-05-20)</small>
+
+* chore(deps-dev): bump sass from 1.77.1 to 1.77.2 (#536) ([ecf5fcb](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ecf5fcb)), closes [#536](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/536)
+* chore(deps): bump @fortawesome/react-fontawesome (#535) ([6f94219](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/6f94219)), closes [#535](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/535)
+* chore(deps): bump @langchain/openai in the langchain group (#540) ([ea43af0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/ea43af0)), closes [#540](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/540)
+* chore(deps): bump ai from 3.1.9 to 3.1.12 (#537) ([3700290](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/3700290)), closes [#537](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/537)
+* chore(deps): bump axios from 1.6.8 to 1.7.0 (#541) ([e2895e0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/e2895e0)), closes [#541](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/541)
+* chore(deps): bump the langchain group with 4 updates (#538) ([d5cbcc0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d5cbcc0)), closes [#538](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/538)
+
+
+
 ## <small>0.33.1 (2024-05-16)</small>
 
 * chore(deps-dev): bump types group with 1 update ([7894eaf](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7894eaf))
