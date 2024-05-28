@@ -1,6 +1,7 @@
 import { PromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
-import { Message as ChatMessage, StreamingTextResponse } from 'ai';
+import { StreamingTextResponse } from 'ai';
+import type { Message as ChatMessage } from 'ai';
 import { HttpResponseOutputParser } from 'langchain/output_parsers';
 
 // destructure env vars we need
@@ -10,6 +11,7 @@ const {
   AZURE_OPENAI_MODEL_DEPLOYMENT,
   AZURE_OPENAI_GPT35_DEPLOYMENT,
   AZURE_OPENAI_GPT4_DEPLOYMENT,
+  AZURE_OPENAI_GPT4O_DEPLOYMENT,
   AZURE_OPENAI_API_VERSION,
 } = process.env;
 
@@ -105,7 +107,9 @@ export async function POST(req: Request) {
       ? AZURE_OPENAI_GPT35_DEPLOYMENT
       : model === 'gpt-4' && AZURE_OPENAI_GPT4_DEPLOYMENT
         ? AZURE_OPENAI_GPT4_DEPLOYMENT
-        : AZURE_OPENAI_MODEL_DEPLOYMENT;
+        : model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
+          ? AZURE_OPENAI_GPT4O_DEPLOYMENT
+          : AZURE_OPENAI_MODEL_DEPLOYMENT;
 
   const chatModel = new ChatOpenAI({
     azureOpenAIApiKey: AZURE_OPENAI_API_KEY,
