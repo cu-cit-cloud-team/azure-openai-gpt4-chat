@@ -1,3 +1,19 @@
+## 0.34.0 (2024-05-28)
+
+* chore(CODEOWNERS): remove CU-CommunityApps/cloud-team ([b50458b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b50458b))
+* chore(deps-dev): bump stylelint from 16.6.0 to 16.6.1 (#561) ([e1b9e09](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e1b9e09)), closes [#561](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/561)
+* chore(deps): bump ai from 3.1.15 to 3.1.16 (#562) ([139378b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/139378b)), closes [#562](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/562)
+* build(npm): remove `--turbo` flag from `dev` script ([205703f](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/205703f))
+* build(npm): update name, repo, and homepage ([7de2b82](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7de2b82))
+* docs(README): update project URLs and name ([a95d322](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a95d322))
+* refactor(UpdateCheck): update org and repo ([40694bf](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/40694bf))
+* style(Header): update repo url ([d2eaa97](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/d2eaa97))
+* feat(api/chat): add gpt-4o support ([e021fba](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e021fba))
+* feat(api/langchain): add gpt-4o support ([4f84815](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/4f84815))
+* feat(ChatMeta/ParameterModelSelect): add gpt-4o support ([da5c2c8](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/da5c2c8))
+
+
+
 ## <small>0.33.4 (2024-05-28)</small>
 
 * chore(deps-dev): bump cz-git from 1.9.1 to 1.9.2 (#557) ([2701827](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2701827)), closes [#557](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/557)
