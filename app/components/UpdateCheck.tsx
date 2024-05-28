@@ -22,8 +22,8 @@ export const UpdateCheck = () => {
 
   useEffect(() => {
     const getLatestVersion = async (
-      org = 'CU-CommunityApps',
-      repo = 'ct-azure-openai-gpt4-chat'
+      org = 'cu-cit-cloud-team',
+      repo = 'azure-openai-gpt4-chat'
     ) => {
       const latest = await axios
         .get(`https://api.github.com/repos/${org}/${repo}/releases/latest`)
