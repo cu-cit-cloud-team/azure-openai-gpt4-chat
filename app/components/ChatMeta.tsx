@@ -82,7 +82,9 @@ export const ChatMeta = memo(
                   ? 'GPT-3.5 Turbo (1106)'
                   : model === 'gpt-4'
                     ? 'GPT-4 (1106)'
-                    : 'GPT-4 Turbo (2024-04-09)'
+                    : model === 'gpt-4o'
+                      ? 'GPT-4o (2024-05-13)'
+                      : 'GPT-4 Turbo (2024-04-09)'
               }`}
           {isUser || index !== totalMessages ? (
             <time>

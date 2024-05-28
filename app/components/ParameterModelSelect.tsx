@@ -40,6 +40,7 @@ export const ParameterModelSelect = memo(() => {
         <option value="gpt-35-turbo">gpt-35-turbo (1106)</option>
         <option value="gpt-4">gpt-4 (1106)</option>
         <option value="gpt-4-turbo">gpt-4-turbo (2024-04-09)</option>
+        <option value="gpt-4o">gpt-4o (2024-05-13)</option>
       </select>
     </>
   );
