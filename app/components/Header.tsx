@@ -80,7 +80,7 @@ export const Header = memo(({ input, isLoading, systemMessageRef }) => {
         </div>
         <a
           className="text-sm leading-4 normal-case lg:text-xl"
-          href="https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat"
+          href="https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat"
           target="_blank"
           rel="noreferrer noopener"
         >
