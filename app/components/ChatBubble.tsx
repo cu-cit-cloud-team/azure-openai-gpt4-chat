@@ -109,7 +109,7 @@ export const ChatBubble = memo(
               },
             }}
           >
-            {isUser ? message.content.replace(/\n/g, '  \n') : message.content}
+            {message.content.replace(/\n/g, '  \n')}
           </Markdown>
         </div>
         <div
