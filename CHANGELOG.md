@@ -1,3 +1,15 @@
+## <small>0.33.4 (2024-05-28)</small>
+
+* chore(deps-dev): bump cz-git from 1.9.1 to 1.9.2 (#557) ([2701827](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2701827)), closes [#557](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/557)
+* chore(deps): bump ai from 3.1.14 to 3.1.15 (#560) ([2584035](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/2584035)), closes [#560](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/560)
+* chore(deps): bump dexie from 4.0.4 to 4.0.5 (#554) ([427480c](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/427480c)), closes [#554](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/554)
+* chore(deps): bump dexie from 4.0.5 to 4.0.7 (#556) ([4e054da](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/4e054da)), closes [#556](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/556)
+* chore(deps): bump jotai from 2.8.1 to 2.8.2 (#558) ([7692b86](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/7692b86)), closes [#558](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/558)
+* chore(deps): bump the langchain group with 2 updates (#555) ([d1d8ad0](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/d1d8ad0)), closes [#555](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/555)
+* chore(deps): bump the langchain group with 2 updates (#559) ([b31ef01](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/b31ef01)), closes [#559](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/559)
+
+
+
 ## <small>0.33.3 (2024-05-24)</small>
 
 * chore(deps-dev): bump @types/react in the types group (#551) ([0657974](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/commit/0657974)), closes [#551](https://github.com/CU-CommunityApps/ct-azure-openai-gpt4-chat/issues/551)
