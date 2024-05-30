@@ -1,3 +1,18 @@
+## <small>0.34.1 (2024-05-30)</small>
+
+* chore(deps-dev): bump @types/node in the types group (#566) ([fdd58f8](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/fdd58f8)), closes [#566](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/566)
+* chore(deps-dev): bump sass from 1.77.2 to 1.77.3 (#567) ([29ab84a](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/29ab84a)), closes [#567](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/567)
+* chore(deps): bump @langchain/core in the langchain group (#565) ([64d5a2d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/64d5a2d)), closes [#565](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/565)
+* chore(deps): bump @langchain/core in the langchain group (#569) ([025684a](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/025684a)), closes [#569](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/569)
+* chore(deps): bump ai from 3.1.16 to 3.1.20 (#568) ([756ef84](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/756ef84)), closes [#568](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/568)
+* chore(deps): bump ai from 3.1.20 to 3.1.21 (#570) ([5c176e9](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/5c176e9)), closes [#570](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/570)
+* chore(deps): bump openai from 4.47.1 to 4.47.2 (#564) ([940db58](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/940db58)), closes [#564](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/564)
+* chore(deps): bump the langchain group with 2 updates (#563) ([9239f26](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9239f26)), closes [#563](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/563)
+* chore(volta): bump node/npm versions ([e71b702](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e71b702))
+* refactor(ChatBubble): preserve line breaks in all messages ([7b1e916](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7b1e916))
+
+
+
 ## 0.34.0 (2024-05-28)
 
 * chore(CODEOWNERS): remove CU-CommunityApps/cloud-team ([b50458b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b50458b))
