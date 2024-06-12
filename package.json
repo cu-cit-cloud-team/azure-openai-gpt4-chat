@@ -75,7 +75,7 @@
     "cssnano": "7.0.2",
     "cz-git": "1.9.2",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.3",
+    "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "9.1.0",
     "prettier": "3.3.2",
     "postcss": "8.4.38",
