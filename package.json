@@ -47,7 +47,6 @@
     "js-tiktoken": "1.0.12",
     "langchain": "0.2.5",
     "marked": "13.0.0",
-    "marked-plaintext": "0.0.2",
     "nanoid": "5.0.7",
     "next": "14.2.4",
     "next-themes": "0.3.0",
