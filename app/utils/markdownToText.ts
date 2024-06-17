@@ -2,12 +2,14 @@ import { decode, encode } from 'he';
 import { marked } from 'marked';
 
 const block = (token) => {
-  const text = marked.parseInline(token.text || token);
+  let text = marked.parseInline(token.text || token);
+  // remove code, strong, etc tags
+  text = text.replace(/(<([^>]+)>)/gi, '');
   return `${text}\n\n`;
 };
 const escapeBlock = (token) => {
   const text = marked.parseInline(token.text);
-  return `${encode(text)}\n\n`;
+  return `${text}\n\n`;
 };
 const line = (token) => {
   const text = marked.parseInline(token.text);
