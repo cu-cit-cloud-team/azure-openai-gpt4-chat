@@ -1,6 +1,6 @@
-# azure-openai-gpt4-chat
+# aoai-gpt-chat-demo
 
-[![Build & Deploy](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml)
+[![Build & Deploy](https://github.com/cu-cit-cloud-team/aoai-gpt-chat-demo/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/cu-cit-cloud-team/aoai-gpt-chat-demo/actions/workflows/build-and-deploy.yml)
 
 ChatGPT-like streaming chat bot powered by Azure OpenAI and GPT-4
 
@@ -20,8 +20,8 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 
 ### Running Locally
 
-1. Clone repo `git clone https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat.git`
-1. Enter directory `cd azure-openai-gpt4-chat`
+1. Clone repo `git clone https://github.com/cu-cit-cloud-team/aoai-gpt-chat-demo.git`
+1. Enter directory `cd aoai-gpt-chat-demo`
 1. Copy `.env.local.example` to `.env.local` and fill in values
 1. If using locally installed Node.js:
     1. Install dependencies `npm install`

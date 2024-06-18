@@ -84,7 +84,7 @@ export const Header = memo(({ input, isLoading, systemMessageRef }) => {
           target="_blank"
           rel="noreferrer noopener"
         >
-          Cloud Team GPT Chat v{pkg.version}
+          GPT Chat Demo v{pkg.version}
         </a>
         <UpdateCheck />
       </div>
