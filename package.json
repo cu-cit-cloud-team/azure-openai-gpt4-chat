@@ -78,7 +78,7 @@
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "9.1.0",
     "prettier": "3.3.2",
-    "postcss": "8.4.38",
+    "postcss": "8.4.39",
     "postcss-cli": "11.0.0",
     "sass": "1.77.6",
     "stylelint": "16.6.1",
