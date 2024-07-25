@@ -53,7 +53,6 @@ export const ChatMeta = memo(
           className={clsx('cursor-default text-xs', {
             'tooltip-primary tooltip-right': isUser,
             'tooltip-secondary tooltip-left': !isUser,
-            // biome-ignore lint/complexity/useLiteralKeys: <explanation>
             'tooltip': !isLoading || index !== totalMessages,
           })}
           data-tip={
