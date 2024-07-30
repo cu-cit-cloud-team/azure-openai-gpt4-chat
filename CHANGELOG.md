@@ -1,3 +1,19 @@
+## <small>0.34.11 (2024-07-30)</small>
+
+* chore(deps-dev): bump @types/node in the types group (#725) ([4f01872](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/4f01872)), closes [#725](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/725)
+* chore(deps-dev): bump stylelint from 16.7.0 to 16.8.0 (#727) ([a214d24](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a214d24)), closes [#727](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/727)
+* chore(deps-dev): bump tailwindcss in the tailwindcss group (#719) ([ba83ea0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/ba83ea0)), closes [#719](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/719)
+* chore(deps): bump @langchain/community in the langchain group (#729) ([bd8fa88](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/bd8fa88)), closes [#729](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/729)
+* chore(deps): bump ai from 3.2.35 to 3.2.36 (#720) ([d511ff2](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/d511ff2)), closes [#720](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/720)
+* chore(deps): bump ai from 3.2.36 to 3.2.37 (#723) ([8a5dfc2](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/8a5dfc2)), closes [#723](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/723)
+* chore(deps): bump ai from 3.2.37 to 3.2.38 (#728) ([e9ab98f](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e9ab98f)), closes [#728](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/728)
+* chore(deps): bump marked from 13.0.2 to 13.0.3 (#726) ([ef3a184](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/ef3a184)), closes [#726](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/726)
+* chore(deps): bump openai from 4.53.0 to 4.53.1 (#721) ([4e2fafe](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/4e2fafe)), closes [#721](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/721)
+* chore(deps): bump openai from 4.53.1 to 4.53.2 (#724) ([087324e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/087324e)), closes [#724](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/724)
+* style(ChatMeta): remove unused suppression comment ([6a9bdc3](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6a9bdc3))
+
+
+
 ## <small>0.34.10 (2024-07-25)</small>
 
 * chore(deps-dev): bump @types/node in the types group (#715) ([a1d4202](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a1d4202)), closes [#715](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/715)
