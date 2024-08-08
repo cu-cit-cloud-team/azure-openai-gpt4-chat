@@ -63,7 +63,7 @@
     "@biomejs/biome": "1.8.3",
     "@fullhuman/postcss-purgecss": "6.0.0",
     "@tailwindcss/forms": "0.5.7",
-    "@tailwindcss/typography": "0.5.13",
+    "@tailwindcss/typography": "0.5.14",
     "@types/node": "22.1.0",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
@@ -84,7 +84,7 @@
     "stylelint": "16.8.1",
     "stylelint-config-standard": "36.0.1",
     "stylelint-config-standard-scss": "13.1.0",
-    "tailwindcss": "3.4.7",
+    "tailwindcss": "3.4.8",
     "typescript": "5.5.4"
   },
   "browserslist": {
