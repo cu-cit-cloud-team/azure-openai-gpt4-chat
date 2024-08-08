@@ -32,7 +32,7 @@
     "@fortawesome/free-brands-svg-icons": "6.6.0",
     "@fortawesome/free-solid-svg-icons": "6.6.0",
     "@fortawesome/react-fontawesome": "0.2.2",
-    "@langchain/community": "0.2.24",
+    "@langchain/community": "0.2.25",
     "@langchain/core": "0.2.21",
     "@langchain/openai": "0.2.6",
     "ai": "3.3.3",
