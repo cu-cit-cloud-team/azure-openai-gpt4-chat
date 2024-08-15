@@ -7,7 +7,7 @@ import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
 import { ParameterSlider } from '@/app/components/ParameterSlider';
 
 export const parametersAtom = atomWithStorage('parameters', {
-  model: 'gpt-4-turbo',
+  model: 'gpt-4o',
   temperature: '1',
   top_p: '1',
   frequency_penalty: '0',
