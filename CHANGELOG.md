@@ -1,3 +1,14 @@
+## 0.35.0 (2024-08-15)
+
+* feat(api): add gpt-4o-mini support ([a345e96](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a345e96))
+* feat(App): add atom to track if gpt-4o-mini is enabled ([2c8c556](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/2c8c556))
+* feat(ChatMeta/ParameterModelSelect): add gpt-4o-mini support ([ab45e3f](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/ab45e3f))
+* refactor(api): default to gpt-4o ([2d46c07](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/2d46c07))
+* refactor(Parameters): default to gpt-4o ([e9ccb8c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e9ccb8c))
+* refactor(utils/tokens): default to gpt-4o ([f30cbaf](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/f30cbaf))
+
+
+
 ## <small>0.34.13 (2024-08-14)</small>
 
 * chore(deps-dev): bump @types/node in the types group (#759) ([cd399b1](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/cd399b1)), closes [#759](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/759)
