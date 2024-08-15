@@ -10,17 +10,19 @@ import { memo, useEffect } from 'react';
 
 import { parametersAtom } from '@/app/components/Parameters';
 import { userMetaAtom } from '@/app/components/UserAvatar';
+import { gpt4oMiniEnabledAtom } from '@/app/page';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
-const modelAtom = atom('gpt-4-turbo');
+const modelAtom = atom('gpt-4o');
 const lastUpdatedStringAtom = atom('');
 
 export const ChatMeta = memo(
   ({ index, isLoading, isUser, message, stop, totalMessages }) => {
     const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
+    const gpt4oMiniEnabled = useAtomValue(gpt4oMiniEnabledAtom);
 
     const [lastUpdatedString, setLastUpdatedString] = useAtom(
       lastUpdatedStringAtom
@@ -81,9 +83,13 @@ export const ChatMeta = memo(
                   ? 'GPT-3.5 Turbo (1106)'
                   : model === 'gpt-4'
                     ? 'GPT-4 (1106)'
-                    : model === 'gpt-4o'
-                      ? 'GPT-4o (2024-05-13)'
-                      : 'GPT-4 Turbo (2024-04-09)'
+                    : model === 'gpt-4-turbo'
+                      ? 'GPT-4 Turbo (2024-04-09)'
+                      : model === 'gpt-4o'
+                        ? 'GPT-4o (2024-05-13)'
+                        : gpt4oMiniEnabled && model === 'gpt-4o-mini'
+                          ? 'GPT-4o Mini (2024-07-18)'
+                          : 'GPT-4o (2024-05-13)'
               }`}
           {isUser || index !== totalMessages ? (
             <time>
