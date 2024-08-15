@@ -36,7 +36,7 @@ const defaults = {
   frequency_penalty: 0, // -2.0 to 2.0
   presence_penalty: 0, // -2.0 to 2.0
   max_tokens: 1024,
-  model: 'gpt-4-turbo', // currently gpt-4-turbo, gpt-4, or gpt-35-turbo
+  model: 'gpt-4o', // currently gpt-4o, gpt-4-turbo, gpt-4, or gpt-35-turbo
   user: 'Cloud Team GPT Chat User',
 };
 
