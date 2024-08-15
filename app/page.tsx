@@ -4,7 +4,7 @@ import { useChat } from 'ai/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useAtomValue } from 'jotai';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -20,6 +20,11 @@ import { userMetaAtom } from '@/app/components/UserAvatar';
 
 dayjs.extend(timezone);
 
+const AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT =
+  process.env.AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT;
+
+export const gpt4oMiniEnabledAtom = atom(false);
+
 export const App = () => {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -28,6 +33,14 @@ export const App = () => {
   const parameters = useAtomValue(parametersAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
+
+  const setGpt4oMiniEnabled = useSetAtom(gpt4oMiniEnabledAtom);
+  if (
+    AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT &&
+    AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT.trim().length > 4
+  ) {
+    setGpt4oMiniEnabled(true);
+  }
 
   const savedMessages = useLiveQuery(async () => {
     let messages = await database.messages.toArray();
@@ -75,7 +88,7 @@ export const App = () => {
   // update indexedDB when messages changes
   useEffect(() => {
     if (savedMessages && savedMessages?.length !== messages?.length) {
-      if (messages[messages.length - 1].role === 'user' || !isLoading) {
+      if (messages[messages.length - 1]?.role === 'user' || !isLoading) {
         addMessage(messages[messages.length - 1]);
       }
     }
