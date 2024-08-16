@@ -1,3 +1,19 @@
+## 0.36.0 (2024-08-16)
+
+* chore(deps-dev): bump stylelint from 16.8.1 to 16.8.2 (#780) ([69272fd](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/69272fd)), closes [#780](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/780)
+* chore(deps): add markdown-to-txt@2.0.1 ([9504435](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9504435))
+* chore(deps): add some remark/rehype plugins ([7c29935](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7c29935))
+* chore(deps): add unified@11.0.5 ([f9a4dfb](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/f9a4dfb))
+* chore(deps): bump @langchain/core in the langchain group (#781) ([08d465b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/08d465b)), closes [#781](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/781)
+* chore(deps): bump ai from 3.3.7 to 3.3.8 (#777) ([dd06fa0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/dd06fa0)), closes [#777](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/777)
+* chore(deps): bump js-tiktoken from 1.0.12 to 1.0.14 (#779) ([c3be53a](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/c3be53a)), closes [#779](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/779)
+* chore(deps): bump openai from 4.55.7 to 4.55.9 (#778) ([b55fd7a](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b55fd7a)), closes [#778](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/778)
+* chore(deps): bump openai from 4.55.9 to 4.56.0 (#782) ([bbeeb7c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/bbeeb7c)), closes [#782](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/782)
+* chore(deps): bump the langchain group with 2 updates (#776) ([185edbb](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/185edbb)), closes [#776](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/776)
+* feat(ChatBubble): add/use remark and rehype plugins ([6e9fe0d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6e9fe0d))
+
+
+
 ## 0.35.0 (2024-08-15)
 
 * feat(api): add gpt-4o-mini support ([a345e96](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a345e96))
