@@ -46,7 +46,7 @@
     "jotai": "2.9.3",
     "js-tiktoken": "1.0.14",
     "langchain": "0.2.16",
-    "marked": "14.0.0",
+    "markdown-to-txt": "2.0.1",
     "nanoid": "5.0.7",
     "next": "14.2.5",
     "next-themes": "0.3.0",
@@ -94,6 +94,9 @@
     "stylelint-config-standard-scss": "13.1.0",
     "tailwindcss": "3.4.10",
     "typescript": "5.5.4"
+  },
+  "peerDependencies": {
+    "lodash": "4.17.21"
   },
   "browserslist": {
     "production": [">0.2%", "not dead", "not op_mini all"],
