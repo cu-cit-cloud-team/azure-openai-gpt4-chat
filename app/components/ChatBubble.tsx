@@ -2,17 +2,25 @@ import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
+import markdownToTxt from 'markdown-to-txt';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import rehypeKatex from 'rehype-katex';
+import rehypeSanitize from 'rehype-sanitize';
+import rehypeStringify from 'rehype-stringify';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
 
 import { ChatMeta } from '@/app/components/ChatMeta';
 import { CopyToClipboard } from '@/app/components/CopyToClipboard';
 import { DeleteMessage } from '@/app/components/DeleteMessage';
 import { ReloadMessage } from '@/app/components/ReloadMessage';
 
-import { markdownToText } from '@/app/utils/markdownToText';
+// import { markdownToText } from '@/app/utils/markdownToText';
 
 import { editorThemeAtom } from '@/app/components/ThemeChanger';
 
@@ -68,7 +76,7 @@ export const ChatBubble = memo(
             <>
               <CopyToClipboard
                 isUser={isUser}
-                textToCopy={markdownToText(message.content)}
+                textToCopy={markdownToTxt(message.content)}
               />
               <DeleteMessage isUser={isUser} message={message} />
               {index === totalMessages ? (
@@ -81,6 +89,8 @@ export const ChatBubble = memo(
             </>
           )}
           <Markdown
+            rehypePlugins={[rehypeKatex, rehypeSanitize, rehypeStringify]}
+            remarkPlugins={[remarkGfm, remarkMath, remarkParse, remarkRehype]}
             components={{
               pre: Pre,
               code(props) {
@@ -114,7 +124,6 @@ export const ChatBubble = memo(
         </div>
         <div
           className={clsx('chat-footer', {
-            // biome-ignore lint/complexity/useLiteralKeys: <explanation>
             'bot': !isUser,
           })}
         >
