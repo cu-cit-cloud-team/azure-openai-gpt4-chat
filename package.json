@@ -35,7 +35,7 @@
     "@langchain/community": "0.2.28",
     "@langchain/core": "0.2.27",
     "@langchain/openai": "0.2.7",
-    "ai": "3.3.10",
+    "ai": "3.3.11",
     "axios": "1.7.4",
     "clsx": "2.1.1",
     "daisyui": "4.12.10",
