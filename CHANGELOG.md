@@ -1,3 +1,18 @@
+## <small>0.36.2 (2024-08-27)</small>
+
+* chore(deps-dev): bump eslint-config-next from 14.2.6 to 14.2.7 (#808) ([10e3991](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/10e3991)), closes [#808](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/808)
+* chore(deps): bump ai from 3.3.15 to 3.3.16 (#801) ([ca3d355](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/ca3d355)), closes [#801](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/801)
+* chore(deps): bump ai from 3.3.16 to 3.3.17 (#803) ([1c113ac](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/1c113ac)), closes [#803](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/803)
+* chore(deps): bump ai from 3.3.17 to 3.3.19 (#807) ([86cfc24](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/86cfc24)), closes [#807](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/807)
+* chore(deps): bump axios from 1.7.4 to 1.7.5 (#802) ([eb956f8](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/eb956f8)), closes [#802](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/802)
+* chore(deps): bump micromatch (#805) ([cbff2f9](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/cbff2f9)), closes [#805](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/805)
+* chore(deps): bump next from 14.2.6 to 14.2.7 (#809) ([1baa768](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/1baa768)), closes [#809](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/809)
+* chore(deps): bump the langchain group with 2 updates (#800) ([a6f094d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a6f094d)), closes [#800](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/800)
+* chore(deps): bump the langchain group with 2 updates (#806) ([bcfe08a](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/bcfe08a)), closes [#806](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/806)
+* chore(volta): bump node version ([370f533](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/370f533))
+
+
+
 ## <small>0.36.1 (2024-08-22)</small>
 
 * chore(deps-dev): bump @types/node in the types group (#784) ([fb4d1d0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/fb4d1d0)), closes [#784](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/784)
