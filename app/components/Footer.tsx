@@ -33,7 +33,6 @@ export const Footer = memo(
             className={clsx(
               'w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl min-h-14 h-14 lg:text-base lg:h-20 lg:min-h-20 max-h-75',
               {
-                // biome-ignore lint/complexity/useLiteralKeys: <explanation>
                 'skeleton': isLoading,
               }
             )}
