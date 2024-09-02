@@ -1,3 +1,30 @@
+## 0.37.0 (2024-09-02)
+
+* chore(deps-dev): bump @types/node in the types group (#810) ([cfd60f0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/cfd60f0)), closes [#810](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/810)
+* chore(deps-dev): bump @types/node in the types group (#821) ([651adec](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/651adec)), closes [#821](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/821)
+* chore(deps-dev): bump @types/react in the types group (#816) ([a9d5655](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a9d5655)), closes [#816](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/816)
+* chore(deps-dev): bump postcss from 8.4.41 to 8.4.42 in the postcss group (#822) ([849119b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/849119b)), closes [#822](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/822)
+* chore(deps-dev): bump postcss from 8.4.42 to 8.4.44 in the postcss group (#824) ([17d0eaa](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/17d0eaa)), closes [#824](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/824)
+* chore(deps-dev): bump stylelint from 16.8.2 to 16.9.0 (#813) ([8362663](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/8362663)), closes [#813](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/813)
+* chore(deps-dev): bump the tailwindcss group with 2 updates (#815) ([e48a193](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e48a193)), closes [#815](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/815)
+* chore(deps): add deps to enable react compiler ([3a5afd4](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/3a5afd4))
+* chore(deps): bump @langchain/core in the langchain group (#814) ([5b4b424](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/5b4b424)), closes [#814](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/814)
+* chore(deps): bump ai from 3.3.19 to 3.3.20 (#812) ([a056ef6](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a056ef6)), closes [#812](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/812)
+* chore(deps): bump ai from 3.3.20 to 3.3.21 (#819) ([014aeb4](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/014aeb4)), closes [#819](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/819)
+* chore(deps): bump ai from 3.3.21 to 3.3.24 (#825) ([e839ad2](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e839ad2)), closes [#825](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/825)
+* chore(deps): bump axios from 1.7.5 to 1.7.6 (#818) ([f05d565](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/f05d565)), closes [#818](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/818)
+* chore(deps): bump axios from 1.7.6 to 1.7.7 (#823) ([6bd0245](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6bd0245)), closes [#823](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/823)
+* chore(deps): bump next from 15.0.0-canary.136 to 15.0.0-rc.0 (#826) ([61610c9](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/61610c9)), closes [#826](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/826)
+* chore(deps): bump openai from 4.56.0 to 4.56.1 (#811) ([61dd473](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/61dd473)), closes [#811](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/811)
+* chore(deps): bump openai from 4.56.1 to 4.57.0 (#817) ([6913e12](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6913e12)), closes [#817](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/817)
+* chore(deps): bump the react group with 2 updates (#820) ([b73f618](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b73f618)), closes [#820](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/820)
+* chore(workspace): update ignore list ([90f21cb](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/90f21cb))
+* build(next): enable react compiler ([c28c319](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/c28c319))
+* ci(actions): add `--force` to allow react compiler deps to install ([b162937](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b162937))
+* style(Footer): remove unused suppression comment ([fcc45ba](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/fcc45ba))
+
+
+
 ## <small>0.36.2 (2024-08-27)</small>
 
 * chore(deps-dev): bump eslint-config-next from 14.2.6 to 14.2.7 (#808) ([10e3991](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/10e3991)), closes [#808](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/808)
