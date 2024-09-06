@@ -71,7 +71,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@fullhuman/postcss-purgecss": "6.0.0",
-    "@tailwindcss/forms": "0.5.8",
+    "@tailwindcss/forms": "0.5.9",
     "@tailwindcss/typography": "0.5.15",
     "@types/node": "22.5.4",
     "@types/react": "18.3.5",
