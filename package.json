@@ -37,7 +37,7 @@
     "@langchain/openai": "0.2.10",
     "ai": "3.3.26",
     "axios": "1.7.7",
-    "babel-plugin-react-compiler": "0.0.0-experimental-4e0eccf-20240903",
+    "babel-plugin-react-compiler": "0.0.0-experimental-7449567-20240904",
     "clsx": "2.1.1",
     "daisyui": "4.12.10",
     "dayjs": "1.11.13",
