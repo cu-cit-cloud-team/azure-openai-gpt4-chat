@@ -35,7 +35,7 @@
     "@langchain/community": "0.2.32",
     "@langchain/core": "0.2.31",
     "@langchain/openai": "0.2.10",
-    "ai": "3.3.30",
+    "ai": "3.3.31",
     "axios": "1.7.7",
     "babel-plugin-react-compiler": "0.0.0-experimental-7449567-20240905",
     "clsx": "2.1.1",
