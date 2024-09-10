@@ -84,7 +84,7 @@
     "cssnano": "7.0.6",
     "cz-git": "1.9.4",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.8",
+    "eslint-config-next": "14.2.9",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react-compiler": "0.0.0-experimental-8d8bd53-20240905",
     "prettier": "3.3.3",
