@@ -37,7 +37,7 @@
     "@langchain/openai": "0.2.10",
     "ai": "3.3.35",
     "axios": "1.7.7",
-    "babel-plugin-react-compiler": "0.0.0",
+    "babel-plugin-react-compiler": "0.0.0-experimental-334f00b-20240725",
     "clsx": "2.1.1",
     "daisyui": "4.12.10",
     "dayjs": "1.11.13",
@@ -101,11 +101,7 @@
     "lodash": "4.17.21"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
