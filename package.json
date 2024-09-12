@@ -90,6 +90,7 @@
     "prettier": "3.3.3",
     "postcss": "8.4.45",
     "postcss-cli": "11.0.0",
+    "prop-types": "15.8.1",
     "sass": "1.78.0",
     "stylelint": "16.9.0",
     "stylelint-config-standard": "36.0.1",
@@ -101,11 +102,7 @@
     "lodash": "4.17.21"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
