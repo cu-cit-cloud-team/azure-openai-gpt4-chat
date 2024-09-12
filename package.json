@@ -46,7 +46,7 @@
     "he": "1.2.0",
     "jotai": "2.9.3",
     "js-tiktoken": "1.0.14",
-    "langchain": "0.2.18",
+    "langchain": "0.2.19",
     "markdown-to-txt": "2.0.1",
     "nanoid": "5.0.7",
     "next": "15.0.0-rc.0",
