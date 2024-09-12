@@ -8,9 +8,11 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import { memo, useEffect } from 'react';
 
-import { parametersAtom } from '@/app/components/Parameters';
+import {
+  gpt4oMiniEnabledAtom,
+  parametersAtom,
+} from '@/app/components/Parameters';
 import { userMetaAtom } from '@/app/components/UserAvatar';
-import { gpt4oMiniEnabledAtom } from '@/app/page';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);

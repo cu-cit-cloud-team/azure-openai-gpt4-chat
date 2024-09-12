@@ -3,8 +3,10 @@ import { memo, useCallback, useEffect } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-import { parametersAtom } from '@/app/components/Parameters';
-import { gpt4oMiniEnabledAtom } from '@/app/page';
+import {
+  gpt4oMiniEnabledAtom,
+  parametersAtom,
+} from '@/app/components/Parameters';
 
 export const ParameterModelSelect = memo(() => {
   const [parameters, setParameters] = useAtom(parametersAtom);
