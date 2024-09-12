@@ -49,5 +49,9 @@
       "semicolons": "always",
       "trailingCommas": "es5"
     }
+  },
+  "css": {
+    "formatter": { "enabled": true },
+    "linter": { "enabled": true }
   }
 }
