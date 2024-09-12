@@ -4,7 +4,7 @@ import { useChat } from 'ai/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { atom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -14,7 +14,7 @@ import { Messages } from '@/app/components/Messages';
 
 import { database } from '@/app/database/database.config';
 
-import { parametersAtom } from '@/app/components/Parameters';
+import { gpt4oMiniEnabledAtom, parametersAtom } from '@/app/components/Parameters';
 import { systemMessageAtom } from '@/app/components/SystemMessage';
 import { userMetaAtom } from '@/app/components/UserAvatar';
 
@@ -22,8 +22,6 @@ dayjs.extend(timezone);
 
 const AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT =
   process.env.AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT;
-
-export const gpt4oMiniEnabledAtom = atom(false);
 
 export const App = () => {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);

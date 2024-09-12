@@ -1,10 +1,13 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo } from 'react';
 
 import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
 import { ParameterSlider } from '@/app/components/ParameterSlider';
+
+export const gpt4oMiniEnabledAtom = atom(false);
 
 export const parametersAtom = atomWithStorage('parameters', {
   model: 'gpt-4o',
