@@ -6,9 +6,12 @@ import { nanoid } from 'nanoid';
 import { memo, useCallback } from 'react';
 
 export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
+  const inputIdKey = nanoid();
+  const buttonIdKey = nanoid();
+
   const isCopiedAtom = atom(false);
-  const inputIdAtom = atom(() => nanoid());
-  const buttonIdAtom = atom(() => nanoid());
+  const inputIdAtom = atom(inputIdKey);
+  const buttonIdAtom = atom(buttonIdKey);
 
   const [isCopied, setIsCopied] = useAtom(isCopiedAtom);
   const inputId = useAtomValue(inputIdAtom);
