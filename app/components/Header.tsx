@@ -9,7 +9,6 @@ import { ExportChatButton } from '@/app/components/ExportChatButton';
 import { Parameters } from '@/app/components/Parameters';
 import { SystemMessage } from '@/app/components/SystemMessage';
 import { UpdateCheck } from '@/app/components/UpdateCheck';
-import { UserAvatar } from '@/app/components/UserAvatar';
 
 const ThemeChanger = dynamic(
   () => import('@/app/components/ThemeChanger.tsx'),
@@ -18,6 +17,8 @@ const ThemeChanger = dynamic(
     ssr: false,
   }
 );
+
+const UserAvatar = dynamic(() => import('@/app/components/UserAvatar.tsx'));
 
 import pkg from '@/package.json';
 
@@ -41,6 +42,7 @@ export const Header = memo(({ input, isLoading, systemMessageRef }) => {
     <div className="fixed top-0 z-50 navbar bg-base-300">
       <div className="navbar-start">
         <div className="dropdown">
+          {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <FontAwesomeIcon icon={faBars} />
           </label>
