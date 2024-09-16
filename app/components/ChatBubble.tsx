@@ -63,16 +63,30 @@ export const ChatBubble = memo(
       []
     );
 
-    const bubbleIcon = useMemo(() => {
-      return isUser
-        ? faUser
-        : isLoading && index === totalMessages
-          ? faSpinner
-          : faRobot;
-    }, [index, isLoading, isUser, totalMessages]);
-
-    const bubbleIconSpinPulse = useMemo(() => {
-      return !isUser && isLoading && index === totalMessages;
+    const chatBubbleUserIcon = useMemo(() => {
+      return isUser ? (
+        <FontAwesomeIcon
+          className="chat-avatar-icon"
+          size="2x"
+          icon={faUser}
+          fixedWidth
+        />
+      ) : isLoading && index === totalMessages ? (
+        <FontAwesomeIcon
+          className="chat-avatar-icon"
+          size="2x"
+          icon={faSpinner}
+          spinPulse={true}
+          fixedWidth
+        />
+      ) : (
+        <FontAwesomeIcon
+          className="chat-avatar-icon"
+          size="2x"
+          icon={faRobot}
+          fixedWidth
+        />
+      );
     }, [index, isLoading, isUser, totalMessages]);
 
     return (
@@ -89,13 +103,7 @@ export const ChatBubble = memo(
               'bg-secondary text-secondary-content': !isUser,
             })}
           >
-            <FontAwesomeIcon
-              className="chat-avatar-icon"
-              size="2x"
-              icon={bubbleIcon}
-              spinPulse={bubbleIconSpinPulse}
-              fixedWidth
-            />
+            {chatBubbleUserIcon}
           </div>
         </div>
         <div
