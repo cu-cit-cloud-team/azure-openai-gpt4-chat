@@ -5,7 +5,7 @@ const nextConfig = {
     optimizePackageImports: [
       'daisyui',
       'dexie',
-      'js-tiktoken',
+      'gpt-tokenizer',
       'openai',
       'react-markdown',
       'react-syntax-highlighter',
