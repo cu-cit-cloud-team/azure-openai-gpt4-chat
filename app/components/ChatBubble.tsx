@@ -26,7 +26,17 @@ import { ReloadMessage } from '@/app/components/ReloadMessage';
 import { editorThemeAtom } from '@/app/components/ThemeChanger';
 
 export const ChatBubble = memo(
-  ({ index, isLoading, isUser, message, reload, stop, totalMessages }) => {
+  ({
+    index,
+    isLoading,
+    isUser,
+    messageContent,
+    messageCreatedAt,
+    messageId,
+    reload,
+    stop,
+    totalMessages,
+  }) => {
     const editorTheme = useAtomValue(editorThemeAtom);
     const copyToClipBoardKey = nanoid();
     const preCopyToClipBoardKey = nanoid();
@@ -99,14 +109,14 @@ export const ChatBubble = memo(
               <CopyToClipboard
                 key={copyToClipBoardKey}
                 isUser={isUser}
-                textToCopy={markdownToTxt(message.content)}
+                textToCopy={markdownToTxt(messageContent)}
               />
-              <DeleteMessage isUser={isUser} message={message} />
+              <DeleteMessage isUser={isUser} messageId={messageId} />
               {index === totalMessages ? (
                 <ReloadMessage
                   isUser={isUser}
                   reload={reload}
-                  message={message}
+                  messageId={messageId}
                 />
               ) : null}
             </>
@@ -142,7 +152,7 @@ export const ChatBubble = memo(
               },
             }}
           >
-            {message.content.replace(/\n/g, '  \n')}
+            {messageContent.replace(/\n/g, '  \n')}
           </Markdown>
         </div>
         <div
@@ -154,7 +164,7 @@ export const ChatBubble = memo(
             index={index}
             isLoading={isLoading}
             isUser={isUser}
-            message={message}
+            messageCreatedAt={messageCreatedAt}
             stop={stop}
             totalMessages={totalMessages}
           />

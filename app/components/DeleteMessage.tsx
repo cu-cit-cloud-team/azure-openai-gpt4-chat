@@ -6,18 +6,18 @@ import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-export const DeleteMessage = memo(({ isUser, message }) => {
+export const DeleteMessage = memo(({ isUser, messageId }) => {
   const buttonId = nanoid();
 
   const deleteMessage = useCallback(async () => {
     const deleteFromDb = async () => {
-      await database.messages.where('id').equals(message.id).delete();
+      await database.messages.where('id').equals(messageId).delete();
     };
     if (confirm('Are you sure you want to delete this message?')) {
       await deleteFromDb();
       window.location.reload();
     }
-  }, [message]);
+  }, [messageId]);
 
   return (
     <div

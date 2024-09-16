@@ -18,7 +18,7 @@ dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
 export const ChatMeta = memo(
-  ({ index, isLoading, isUser, message, stop, totalMessages }) => {
+  ({ index, isLoading, isUser, messageCreatedAt, stop, totalMessages }) => {
     const modelAtom = atom('gpt-4o');
     const lastUpdatedStringAtom = atom('');
 
@@ -31,8 +31,8 @@ export const ChatMeta = memo(
     );
 
     useEffect(() => {
-      setLastUpdatedString(dayjs(dayjs(message.createdAt)).from());
-    }, [message, setLastUpdatedString]);
+      setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());
+    }, [messageCreatedAt, setLastUpdatedString]);
 
     const [model, setModel] = useAtom(modelAtom);
 
@@ -42,14 +42,14 @@ export const ChatMeta = memo(
 
     useEffect(() => {
       const updateString = () => {
-        setLastUpdatedString(dayjs(dayjs(message.createdAt)).from());
+        setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());
       };
       const clockInterval = setInterval(updateString, 10000);
 
       updateString();
 
       return () => clearInterval(clockInterval);
-    }, [message, setLastUpdatedString]);
+    }, [messageCreatedAt, setLastUpdatedString]);
 
     return (
       <>
@@ -60,9 +60,9 @@ export const ChatMeta = memo(
             'tooltip': !isLoading || index !== totalMessages,
           })}
           data-tip={
-            dayjs(message.createdAt).isToday()
-              ? dayjs(message.createdAt).format('hh:mm a')
-              : dayjs(message.createdAt).format('ddd MMM DD YYYY [at] h:mm a')
+            dayjs(messageCreatedAt).isToday()
+              ? dayjs(messageCreatedAt).format('hh:mm a')
+              : dayjs(messageCreatedAt).format('ddd MMM DD YYYY [at] h:mm a')
           }
         >
           {!isUser && index === totalMessages && isLoading ? (
@@ -115,14 +115,10 @@ ChatMeta.propTypes = {
   index: PropTypes.number,
   totalMessages: PropTypes.number,
   isUser: PropTypes.bool,
-  message: PropTypes.shape({
-    id: PropTypes.string,
-    content: PropTypes.string,
-    createdAt: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date),
-    ]),
-  }),
+  messageCreatedAt: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   stop: PropTypes.func,
 };
 

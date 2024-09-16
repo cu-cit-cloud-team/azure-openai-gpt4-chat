@@ -6,10 +6,10 @@ import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-export const ReloadMessage = memo(({ isUser, message, reload }) => {
+export const ReloadMessage = memo(({ isUser, messageId, reload }) => {
   const reloadMessage = useCallback(async () => {
     const deleteFromDb = async () => {
-      await database.messages.where('id').equals(message.id).delete();
+      await database.messages.where('id').equals(messageId).delete();
     };
     if (
       confirm(
@@ -19,7 +19,7 @@ export const ReloadMessage = memo(({ isUser, message, reload }) => {
       await deleteFromDb();
       reload();
     }
-  }, [message, reload]);
+  }, [messageId, reload]);
 
   return !isUser ? (
     <div
