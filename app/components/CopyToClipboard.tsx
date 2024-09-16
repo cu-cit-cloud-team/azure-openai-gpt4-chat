@@ -64,12 +64,11 @@ export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
           'btn-secondary text-secondary-content': !isUser,
         })}
       >
-        <FontAwesomeIcon
-          icon={isCopied ? faCheck : faCopy}
-          className={clsx('', {
-            'text-green-600': isCopied,
-          })}
-        />
+        {isCopied ? (
+          <FontAwesomeIcon icon={faCheck} className="text-green-600" />
+        ) : (
+          <FontAwesomeIcon icon={faCopy} />
+        )}
       </button>
     </div>
   );
