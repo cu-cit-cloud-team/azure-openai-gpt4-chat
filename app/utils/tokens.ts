@@ -1,8 +1,6 @@
-import { encodingForModel } from 'js-tiktoken';
-
-const tokenizer = encodingForModel('gpt-4o');
+import { encode } from 'gpt-tokenizer';
 
 export const getTokenCount = (string): number => {
-  const tokenCount = tokenizer.encode(string).length;
+  const tokenCount = encode(string).length;
   return tokenCount;
 };
