@@ -1,3 +1,21 @@
+## <small>0.37.2 (2024-09-16)</small>
+
+* chore(biome): enable css linting/formatting ([1809f40](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/1809f40))
+* chore(biome): update config ([38e2dad](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/38e2dad))
+* chore(biome): update config ([781396b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/781396b))
+* chore(deps-dev): add missing prop-types dependency ([19c8ed4](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/19c8ed4))
+* chore(deps-dev): bump @biomejs/biome from 1.9.0 to 1.9.1 (#872) ([f363347](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/f363347)), closes [#872](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/872)
+* chore(deps-dev): bump eslint-config-next from 14.2.10 to 14.2.11 (#867) ([94e9551](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/94e9551)), closes [#867](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/867)
+* chore(deps-dev): bump postcss from 8.4.45 to 8.4.47 in the postcss group (#870) ([f75053e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/f75053e)), closes [#870](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/870)
+* chore(deps-dev): bump the types group with 2 updates (#869) ([bccfc81](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/bccfc81)), closes [#869](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/869)
+* chore(deps): bump @langchain/openai in the langchain group (#865) ([b43da08](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b43da08)), closes [#865](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/865)
+* chore(deps): bump ai from 3.3.35 to 3.3.39 (#873) ([9eab643](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9eab643)), closes [#873](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/873)
+* chore(deps): bump openai from 4.59.0 to 4.61.0 (#871) ([dd76c2e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/dd76c2e)), closes [#871](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/871)
+* chore(deps): bump the langchain group with 4 updates (#868) ([90c1b95](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/90c1b95)), closes [#868](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/868)
+* chore(deps): update react compiler deps ([e2b0702](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e2b0702))
+
+
+
 ## <small>0.37.1 (2024-09-12)</small>
 
 * refactor(App/Parameters): move atom into component ([5130331](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/5130331))
