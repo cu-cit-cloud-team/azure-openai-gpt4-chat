@@ -28,12 +28,14 @@ import { editorThemeAtom } from '@/app/components/ThemeChanger';
 export const ChatBubble = memo(
   ({ index, isLoading, isUser, message, reload, stop, totalMessages }) => {
     const editorTheme = useAtomValue(editorThemeAtom);
+    const copyToClipBoardKey = nanoid();
+    const preCopyToClipBoardKey = nanoid();
 
     const Pre = ({ children }) => {
       return (
         <pre className="code-pre">
           <CopyToClipboard
-            key={nanoid()}
+            key={preCopyToClipBoardKey}
             textToCopy={children.props.children}
           />
           {children}
@@ -79,7 +81,7 @@ export const ChatBubble = memo(
           {(isUser || !isLoading || index !== totalMessages) && (
             <>
               <CopyToClipboard
-                key={nanoid()}
+                key={copyToClipBoardKey}
                 isUser={isUser}
                 textToCopy={markdownToTxt(message.content)}
               />
