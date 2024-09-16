@@ -5,7 +5,7 @@ import { useAtomValue } from 'jotai';
 import markdownToTxt from 'markdown-to-txt';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeKatex from 'rehype-katex';
@@ -43,6 +43,28 @@ export const ChatBubble = memo(
       );
     };
 
+    const rehypePlugins = useMemo(
+      () => [rehypeKatex, rehypeSanitize, rehypeStringify],
+      []
+    );
+
+    const remarkPlugins = useMemo(
+      () => [remarkGfm, remarkMath, remarkParse, remarkRehype],
+      []
+    );
+
+    const bubbleIcon = useMemo(() => {
+      return isUser
+        ? faUser
+        : isLoading && index === totalMessages
+          ? faSpinner
+          : faRobot;
+    }, [index, isLoading, isUser, totalMessages]);
+
+    const bubbleIconSpinPulse = useMemo(() => {
+      return !isUser && isLoading && index === totalMessages;
+    }, [index, isLoading, isUser, totalMessages]);
+
     return (
       <div
         className={clsx('chat mb-10', {
@@ -60,14 +82,8 @@ export const ChatBubble = memo(
             <FontAwesomeIcon
               className="chat-avatar-icon"
               size="2x"
-              icon={
-                isUser
-                  ? faUser
-                  : isLoading && index === totalMessages
-                    ? faSpinner
-                    : faRobot
-              }
-              spinPulse={!isUser && isLoading && index === totalMessages}
+              icon={bubbleIcon}
+              spinPulse={bubbleIconSpinPulse}
               fixedWidth
             />
           </div>
@@ -96,8 +112,8 @@ export const ChatBubble = memo(
             </>
           )}
           <Markdown
-            rehypePlugins={[rehypeKatex, rehypeSanitize, rehypeStringify]}
-            remarkPlugins={[remarkGfm, remarkMath, remarkParse, remarkRehype]}
+            rehypePlugins={rehypePlugins}
+            remarkPlugins={remarkPlugins}
             components={{
               pre: Pre,
               code(props) {
