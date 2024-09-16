@@ -7,7 +7,7 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 
 export const userMetaAtom = atomWithStorage('userMeta', {});
 
@@ -87,7 +87,7 @@ export const UserAvatar = memo(() => {
     }
   }, [setEmail, setHasData, setName, userMeta]);
 
-  const formatName = (name) => {
+  const formatName = useCallback((name) => {
     if (!name) {
       return;
     }
@@ -100,12 +100,21 @@ export const UserAvatar = memo(() => {
       returnName = `${firstInitial}${lastInitial}`;
     }
     return returnName;
-  };
+  }, []);
+
+  const icon = useMemo(() => {
+    return hasData ? (
+      formatName(name)
+    ) : (
+      <FontAwesomeIcon size="2x" icon={faCircleUser} />
+    );
+  }, [formatName, hasData, name]);
 
   return (
     <>
       <span className="hidden mr-2 text-sm lg:flex">{email}</span>
       <div className="dropdown dropdown-end bg-base-300">
+        {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
         <label tabIndex={0} className="avatar placeholder">
           <div
             className={clsx(
@@ -116,11 +125,7 @@ export const UserAvatar = memo(() => {
               }
             )}
           >
-            {hasData ? (
-              formatName(name)
-            ) : (
-              <FontAwesomeIcon size="2x" icon={faCircleUser} />
-            )}
+            {icon}
           </div>
         </label>
         {hasData ? (
