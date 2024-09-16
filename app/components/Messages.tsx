@@ -40,7 +40,7 @@ export const Messages = memo(
             ? messages.map((m, idx) => {
                 return (
                   <ChatBubble
-                    key={nanoid()}
+                    key={m.id}
                     index={idx}
                     isLoading={isLoading}
                     isUser={m.role === 'user'}
