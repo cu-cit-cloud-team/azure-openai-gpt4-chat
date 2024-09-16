@@ -187,7 +187,12 @@ ChatBubble.propTypes = {
   index: PropTypes.number,
   isLoading: PropTypes.bool,
   isUser: PropTypes.bool,
-  message: PropTypes.object,
+  messageContent: PropTypes.string,
+  messageCreatedAt: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
+  messageId: PropTypes.string,
   reload: PropTypes.func,
   stop: PropTypes.func,
   totalMessages: PropTypes.number,

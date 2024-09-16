@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
 export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
@@ -75,5 +76,9 @@ export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
 });
 
 CopyToClipboard.displayName = 'CopyToClipboard';
+CopyToClipboard.propTypes = {
+  isUser: PropTypes.bool.isRequired,
+  textToCopy: PropTypes.string.isRequired,
+};
 
 export default CopyToClipboard;

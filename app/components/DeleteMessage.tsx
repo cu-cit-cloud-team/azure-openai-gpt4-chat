@@ -2,6 +2,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
@@ -43,5 +44,9 @@ export const DeleteMessage = memo(({ isUser, messageId }) => {
 });
 
 DeleteMessage.displayName = 'DeleteMessage';
+DeleteMessage.propTypes = {
+  isUser: PropTypes.bool.isRequired,
+  messageId: PropTypes.string.isRequired,
+};
 
 export default DeleteMessage;

@@ -133,6 +133,7 @@ Header.displayName = 'Header';
 Header.propTypes = {
   input: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  systemMessageRef: PropTypes.object.isRequired,
 };
 
 export default Header;
