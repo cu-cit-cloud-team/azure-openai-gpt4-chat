@@ -1,3 +1,5 @@
+import MillionLint from '@million/lint';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -34,4 +36,7 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+// export default nextConfig;
+export default process.env.NODE_ENV === 'production'
+  ? nextConfig
+  : MillionLint.next({ rsc: true })(nextConfig);
