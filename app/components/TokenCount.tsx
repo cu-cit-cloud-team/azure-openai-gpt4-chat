@@ -55,10 +55,16 @@ export const TokenCount = memo(
     ]);
 
     const updateSystemMessageCount = useMemo(() => {
+      if (!systemMessage) {
+        return 0;
+      }
       return getTokenCount(systemMessage);
     }, [systemMessage]);
 
     const updateInputCount = useMemo(() => {
+      if (!input) {
+        return 0;
+      }
       return getTokenCount(input);
     }, [input]);
 
