@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import markdownToTxt from 'markdown-to-txt';
+import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
 import Markdown from 'react-markdown';
@@ -31,7 +32,10 @@ export const ChatBubble = memo(
     const Pre = ({ children }) => {
       return (
         <pre className="code-pre">
-          <CopyToClipboard textToCopy={children.props.children} />
+          <CopyToClipboard
+            key={nanoid()}
+            textToCopy={children.props.children}
+          />
           {children}
         </pre>
       );
@@ -75,6 +79,7 @@ export const ChatBubble = memo(
           {(isUser || !isLoading || index !== totalMessages) && (
             <>
               <CopyToClipboard
+                key={nanoid()}
                 isUser={isUser}
                 textToCopy={markdownToTxt(message.content)}
               />

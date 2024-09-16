@@ -5,11 +5,11 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
 import { memo, useCallback } from 'react';
 
-const isCopiedAtom = atom(false);
-const inputIdAtom = atom(() => nanoid());
-const buttonIdAtom = atom(() => nanoid());
-
 export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
+  const isCopiedAtom = atom(false);
+  const inputIdAtom = atom(() => nanoid());
+  const buttonIdAtom = atom(() => nanoid());
+
   const [isCopied, setIsCopied] = useAtom(isCopiedAtom);
   const inputId = useAtomValue(inputIdAtom);
   const buttonId = useAtomValue(buttonIdAtom);

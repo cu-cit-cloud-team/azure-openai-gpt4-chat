@@ -9,12 +9,13 @@ import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo, useEffect } from 'react';
 
-const emailAtom = atom('');
-const nameAtom = atom('');
-const hasDataAtom = atom(false);
 export const userMetaAtom = atomWithStorage('userMeta', {});
 
 export const UserAvatar = memo(() => {
+  const emailAtom = atom('');
+  const nameAtom = atom('');
+  const hasDataAtom = atom(false);
+
   const [email, setEmail] = useAtom(emailAtom);
   const [name, setName] = useAtom(nameAtom);
   const [hasData, setHasData] = useAtom(hasDataAtom);

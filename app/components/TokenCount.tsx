@@ -9,10 +9,7 @@ import { getTokenCount } from '@/app/utils/tokens';
 import { parametersAtom } from '@/app/components/Parameters';
 
 const systemMessageMaxTokens = 400;
-const inputTokensAtom = atom(0);
-const systemMessageTokensAtom = atom(0);
-const remainingTokensAtom = atom(16384);
-const remainingSystemTokensAtom = atom(systemMessageMaxTokens);
+
 export const tokensAtom = atomWithStorage('tokens', {
   input: 0,
   maximum: 16384,
@@ -23,6 +20,11 @@ export const tokensAtom = atomWithStorage('tokens', {
 
 export const TokenCount = memo(
   ({ input = '', systemMessage, display = 'input' }) => {
+    const inputTokensAtom = atom(0);
+    const systemMessageTokensAtom = atom(0);
+    const remainingTokensAtom = atom(16384);
+    const remainingSystemTokensAtom = atom(systemMessageMaxTokens);
+
     const [inputTokens, setInputTokens] = useAtom(inputTokensAtom);
     const [systemMessageTokens, setSystemMessageTokens] = useAtom(
       systemMessageTokensAtom

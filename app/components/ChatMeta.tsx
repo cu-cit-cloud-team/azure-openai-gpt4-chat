@@ -17,11 +17,11 @@ import { userMetaAtom } from '@/app/components/UserAvatar';
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
-const modelAtom = atom('gpt-4o');
-const lastUpdatedStringAtom = atom('');
-
 export const ChatMeta = memo(
   ({ index, isLoading, isUser, message, stop, totalMessages }) => {
+    const modelAtom = atom('gpt-4o');
+    const lastUpdatedStringAtom = atom('');
+
     const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
     const gpt4oMiniEnabled = useAtomValue(gpt4oMiniEnabledAtom);

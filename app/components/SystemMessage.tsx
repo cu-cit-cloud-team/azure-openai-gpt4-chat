@@ -19,10 +19,10 @@ export const systemMessageAtom = atomWithStorage(
   'You are a helpful AI assistant.'
 );
 
-const localSystemMessageAtom = atom('');
-const originalSystemMessageAtom = atom('');
-
 export const SystemMessage = memo(({ input, systemMessageRef }) => {
+  const localSystemMessageAtom = atom('');
+  const originalSystemMessageAtom = atom('');
+
   const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
   const [localSystemMessage, setLocalSystemMessage] = useAtom(
     localSystemMessageAtom

@@ -15,9 +15,9 @@ dayjs.tz.setDefault('America/New_York');
 
 const DEPLOY_INTERVAL = 10; // minutes
 
-const updateAvailableAtom = atom(false);
-
 export const UpdateCheck = () => {
+  const updateAvailableAtom = atom(false);
+
   const [updateAvailable, setUpdateAvailable] = useAtom(updateAvailableAtom);
 
   useEffect(() => {
