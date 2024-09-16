@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { memo, useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { Footer } from '@/app/components/Footer';
@@ -108,6 +108,10 @@ export const App = () => {
     stop();
   }, [stop]);
 
+  const messagesMemoized = useMemo(() => {
+    return messages;
+  }, [messages]);
+
   // update indexedDB when messages changes
   useEffect(() => {
     if (savedMessages && savedMessages?.length !== messages?.length) {
@@ -209,7 +213,7 @@ export const App = () => {
         />
         <Messages
           isLoading={isLoading}
-          messages={messages}
+          messages={messagesMemoized}
           reload={reloadCb}
           stop={stopCb}
           textAreaRef={textAreaRef}
