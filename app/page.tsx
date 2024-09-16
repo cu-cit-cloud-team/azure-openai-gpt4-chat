@@ -14,7 +14,10 @@ import { Messages } from '@/app/components/Messages';
 
 import { database } from '@/app/database/database.config';
 
-import { gpt4oMiniEnabledAtom, parametersAtom } from '@/app/components/Parameters';
+import {
+  gpt4oMiniEnabledAtom,
+  parametersAtom,
+} from '@/app/components/Parameters';
 import { systemMessageAtom } from '@/app/components/SystemMessage';
 import { userMetaAtom } from '@/app/components/UserAvatar';
 
@@ -82,6 +85,28 @@ export const App = () => {
     onError: handleChatError,
     onFinish: addMessage,
   });
+
+  const handleInputChangeCb = useCallback(
+    (event) => {
+      handleInputChange(event);
+    },
+    [handleInputChange]
+  );
+
+  const handleSubmitCb = useCallback(
+    (event) => {
+      handleSubmit(event);
+    },
+    [handleSubmit]
+  );
+
+  const reloadCb = useCallback(() => {
+    reload();
+  }, [reload]);
+
+  const stopCb = useCallback(() => {
+    stop();
+  }, [stop]);
 
   // update indexedDB when messages changes
   useEffect(() => {
@@ -185,14 +210,14 @@ export const App = () => {
         <Messages
           isLoading={isLoading}
           messages={messages}
-          reload={reload}
-          stop={stop}
+          reload={reloadCb}
+          stop={stopCb}
           textAreaRef={textAreaRef}
         />
         <Footer
           formRef={formRef}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChangeCb}
+          handleSubmit={handleSubmitCb}
           input={input}
           isLoading={isLoading}
           systemMessageRef={systemMessageRef}
