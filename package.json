@@ -104,7 +104,11 @@
     "lodash": "4.17.21"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -121,6 +125,6 @@
   },
   "volta": {
     "node": "20.17.0",
-    "npm": "10.8.2"
+    "npm": "10.8.3"
   }
 }
