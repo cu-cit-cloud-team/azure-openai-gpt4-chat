@@ -1,3 +1,38 @@
+## 0.38.0 (2024-09-17)
+
+* chore(deps-dev): bump @types/react in the types group (#879) ([dea3972](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/dea3972)), closes [#879](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/879)
+* chore(deps-dev): bump eslint from 8.57.0 to 8.57.1 ([dadc833](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/dadc833))
+* chore(deps-dev): bump eslint-plugin-react-compiler (#875) ([a12c4ce](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a12c4ce)), closes [#875](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/875)
+* chore(deps-dev): bump eslint-plugin-react-compiler (#877) ([96aaa8b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/96aaa8b)), closes [#877](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/877)
+* chore(deps): add @million/lint ([b23f4dc](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b23f4dc))
+* chore(deps): bump @langchain/community in the langchain group (#878) ([52a7a3d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/52a7a3d)), closes [#878](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/878)
+* chore(deps): bump ai from 3.3.39 to 3.3.40 (#880) ([86ea2bd](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/86ea2bd)), closes [#880](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/880)
+* chore(deps): bump babel-plugin-react-compiler (#876) ([97d86a6](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/97d86a6)), closes [#876](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/876)
+* chore(deps): bump openai from 4.61.0 to 4.61.1 (#874) ([e1298d4](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e1298d4)), closes [#874](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/874)
+* chore(deps): remove js-tiktoken; add gpt-tokenizer@2.2.3 ([9c5a16b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9c5a16b))
+* chore(gitignore): add million lint folder ([7ab87cf](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7ab87cf))
+* style(ChatBubble/CopyToClipboard/DeleteMessage/Header/ReloadMessage): add/update prop types ([7169c52](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7169c52))
+* perf(App): memoize messages ([ced36d2](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/ced36d2))
+* perf(App): memoize some callbacks ([de489a2](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/de489a2))
+* perf(ChatBubble): icon logic improvements ([06c18a6](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/06c18a6))
+* perf(ChatBubble): make nanoid calls outside of props ([5c70209](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/5c70209))
+* perf(ChatBubble): memoize some content ([4dd176e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/4dd176e))
+* perf(CopyToClipboard): make nanoid calls outside of atoms ([adb8ba5](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/adb8ba5))
+* perf(CopyToClipboard): move logic outside of props ([534a313](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/534a313))
+* perf(Header): load UserAvatar dynamically ([46e1bf7](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/46e1bf7))
+* perf(Messages): only pass parts of message object used ([8c3ee53](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/8c3ee53))
+* perf(Messages): use message id for key ([cd37fac](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/cd37fac))
+* perf(UserAvatar): memoize some content ([5eddf6c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/5eddf6c))
+* build(next): add million-lint config (if dev) ([94378b7](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/94378b7))
+* build(next): improve logic for when to use million lint ([9c2962d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9c2962d))
+* build(next): update config ([efbcb09](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/efbcb09))
+* refactor: move local atoms inside of components ([33c19f1](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/33c19f1))
+* refactor(ChatBubble/ChatMeta/DeleteMessage/ReloadMessage): use updated props ([2d0f25b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/2d0f25b))
+* refactor(TokenCount): improve default returns ([687002a](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/687002a))
+* refactor(utils/tokens): replace js-tiktoken with gpt-tokenizer ([9a2de87](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9a2de87))
+
+
+
 ## <small>0.37.2 (2024-09-16)</small>
 
 * chore(biome): enable css linting/formatting ([1809f40](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/1809f40))
