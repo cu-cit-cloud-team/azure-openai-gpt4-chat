@@ -36,6 +36,6 @@ const nextConfig = {
   },
 };
 
-export default process.env.NODE_ENV === 'development'
+export default process.env.MILLION_LINT === 'true'
   ? MillionLint.next({ rsc: true })(nextConfig)
   : nextConfig;
