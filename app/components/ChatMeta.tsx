@@ -88,10 +88,10 @@ export const ChatMeta = memo(
                     : model === 'gpt-4-turbo'
                       ? 'GPT-4 Turbo (2024-04-09)'
                       : model === 'gpt-4o'
-                        ? 'GPT-4o (2024-05-13)'
+                        ? 'GPT-4o (2024-08-06)'
                         : gpt4oMiniEnabled && model === 'gpt-4o-mini'
                           ? 'GPT-4o Mini (2024-07-18)'
-                          : 'GPT-4o (2024-05-13)'
+                          : 'GPT-4o (2024-08-06)'
               }`}
           {isUser || index !== totalMessages ? (
             <time>
