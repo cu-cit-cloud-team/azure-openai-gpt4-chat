@@ -45,7 +45,7 @@ export const CopyToClipboard = memo(({ isUser, textToCopy }) => {
         'float-left -ml-4 tooltip-right tooltip-primary': isUser,
         'float-right -mr-4 tooltip-left tooltip-secondary': !isUser,
       })}
-      data-tip={'Copy to clipboard'}
+      data-tip={isCopied ? 'Copied' : 'Copy to clipboard'}
     >
       <input
         key={inputId}
