@@ -1,8 +1,6 @@
 import { useAtom, useAtomValue } from 'jotai';
 import { memo, useCallback, useEffect } from 'react';
 
-import { database } from '@/app/database/database.config';
-
 import {
   gpt4oMiniEnabledAtom,
   parametersAtom,
@@ -16,16 +14,11 @@ export const ParameterModelSelect = memo(() => {
     async (event) => {
       if (
         confirm(
-          'Changing the model will reset the chat history. Are you sure you want to continue?'
+          `Are you sure you want to switch the model to ${event.target.value}?`
         )
       ) {
         setParameters({ ...parameters, model: event.target.value });
-        try {
-          await database.messages.clear();
-          window.location.reload();
-        } catch (error) {
-          console.error(error);
-        }
+        window.location.reload();
       } else {
         event.target.value = parameters.model;
       }
@@ -52,7 +45,7 @@ export const ParameterModelSelect = memo(() => {
         <option value="gpt-4">gpt-4 (1106)</option>
         <option value="gpt-4-turbo">gpt-4-turbo (2024-04-09)</option>
         <option value="gpt-4o">gpt-4o (2024-08-06)</option>
-        <option value="gpt-4o-mini" disabled={!gpt4oMiniEnabled}>
+        <option value="gpt-4o-mini" disabled={!gpt4oMiniEnabled || true}>
           gpt-4o-mini (2024-07-18)
         </option>
       </select>
