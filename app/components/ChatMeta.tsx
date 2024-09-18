@@ -8,37 +8,44 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import PropTypes from 'prop-types';
 import { memo, useEffect } from 'react';
 
-import {
-  gpt4oMiniEnabledAtom,
-  parametersAtom,
-} from '@/app/components/Parameters';
+import { parametersAtom } from '@/app/components/Parameters';
 import { userMetaAtom } from '@/app/components/UserAvatar';
+
+import { modelStringFromName } from '@/app/utils/models';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
 export const ChatMeta = memo(
-  ({ index, isLoading, isUser, messageCreatedAt, stop, totalMessages }) => {
-    const modelAtom = atom('gpt-4o');
+  ({
+    index,
+    isLoading,
+    isUser,
+    messageCreatedAt,
+    modelString,
+    stop,
+    totalMessages,
+  }) => {
     const lastUpdatedStringAtom = atom('');
+    const modelInfoStringAtom = atom(modelString);
 
     const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
-    const gpt4oMiniEnabled = useAtomValue(gpt4oMiniEnabledAtom);
 
     const [lastUpdatedString, setLastUpdatedString] = useAtom(
       lastUpdatedStringAtom
     );
+    const [modelInfo, setModelInfo] = useAtom(modelInfoStringAtom);
+
+    useEffect(() => {
+      if (modelInfo === undefined) {
+        setModelInfo(modelStringFromName(parameters.model));
+      }
+    }, [modelInfo, parameters.model, setModelInfo]);
 
     useEffect(() => {
       setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());
     }, [messageCreatedAt, setLastUpdatedString]);
-
-    const [model, setModel] = useAtom(modelAtom);
-
-    useEffect(() => {
-      setModel(parameters.model);
-    }, [parameters, setModel]);
 
     useEffect(() => {
       const updateString = () => {
@@ -78,21 +85,7 @@ export const ChatMeta = memo(
               <FontAwesomeIcon icon={faSpinner} spinPulse className="mr-2" />
             </>
           ) : null}
-          {isUser
-            ? `${userMeta?.name ?? 'User'}`
-            : `Azure OpenAI ${
-                model === 'gpt-35-turbo'
-                  ? 'GPT-3.5 Turbo (1106)'
-                  : model === 'gpt-4'
-                    ? 'GPT-4 (1106)'
-                    : model === 'gpt-4-turbo'
-                      ? 'GPT-4 Turbo (2024-04-09)'
-                      : model === 'gpt-4o'
-                        ? 'GPT-4o (2024-08-06)'
-                        : gpt4oMiniEnabled && model === 'gpt-4o-mini'
-                          ? 'GPT-4o Mini (2024-07-18)'
-                          : 'GPT-4o (2024-08-06)'
-              }`}
+          {isUser ? `${userMeta?.name ?? 'User'}` : `${modelInfo}`}
           {isUser || index !== totalMessages ? (
             <time>
               <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
