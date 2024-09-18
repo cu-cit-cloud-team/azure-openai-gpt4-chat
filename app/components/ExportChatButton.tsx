@@ -46,7 +46,7 @@ export const ExportChatButton = memo(
                 .reduce((res, key) => ((res[key] = message[key]), res), {})
             );
           });
-          console.log(systemMessage);
+          // console.log(systemMessage);
           sortedMessages.unshift({
             role: 'system',
             content: systemMessage,
