@@ -4,7 +4,7 @@ import { useChat } from 'ai/react';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -14,17 +14,13 @@ import { Messages } from '@/app/components/Messages';
 
 import { database } from '@/app/database/database.config';
 
-import {
-  gpt4oMiniEnabledAtom,
-  parametersAtom,
-} from '@/app/components/Parameters';
+import { parametersAtom } from '@/app/components/Parameters';
 import { systemMessageAtom } from '@/app/components/SystemMessage';
 import { userMetaAtom } from '@/app/components/UserAvatar';
 
-dayjs.extend(timezone);
+import { modelStringFromName } from '@/app/utils/models';
 
-const AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT =
-  process.env.AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT;
+dayjs.extend(timezone);
 
 export const App = () => {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
@@ -34,14 +30,6 @@ export const App = () => {
   const parameters = useAtomValue(parametersAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
-
-  const setGpt4oMiniEnabled = useSetAtom(gpt4oMiniEnabledAtom);
-  if (
-    AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT &&
-    AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT.trim().length > 4
-  ) {
-    setGpt4oMiniEnabled(true);
-  }
 
   const savedMessages = useLiveQuery(async () => {
     let messages = await database.messages.toArray();
@@ -56,9 +44,16 @@ export const App = () => {
     // throw error;
   }, []);
 
-  const addMessage = useCallback(async (message) => {
-    await database.messages.put(message);
-  }, []);
+  const addMessage = useCallback(
+    async (message) => {
+      await database.messages.put({
+        ...message,
+        model: parameters.model,
+        modelString: `Azure OpenAI ${modelStringFromName(parameters.model)}`,
+      });
+    },
+    [parameters.model]
+  );
 
   const {
     handleInputChange,
@@ -213,7 +208,7 @@ export const App = () => {
         />
         <Messages
           isLoading={isLoading}
-          messages={messagesMemoized}
+          messages={savedMessages || messagesMemoized}
           reload={reloadCb}
           stop={stopCb}
           textAreaRef={textAreaRef}
