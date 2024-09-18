@@ -47,6 +47,7 @@ export const Messages = memo(
                     messageCreatedAt={m.createdAt}
                     messageContent={m.content}
                     messageId={m.id}
+                    modelString={m.modelString}
                     reload={reload}
                     stop={stop}
                     totalMessages={messages.length - 1}
