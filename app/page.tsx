@@ -103,6 +103,8 @@ export const App = () => {
     stop();
   }, [stop]);
 
+  const memoizedMessages = useMemo(() => messages, [messages]);
+
   // update indexedDB when messages changes
   useEffect(() => {
     if (savedMessages && savedMessages?.length !== messages?.length) {
@@ -204,7 +206,7 @@ export const App = () => {
         />
         <Messages
           isLoading={isLoading}
-          messages={savedMessages || messages}
+          messages={memoizedMessages}
           reload={reloadCb}
           stop={stopCb}
           textAreaRef={textAreaRef}
