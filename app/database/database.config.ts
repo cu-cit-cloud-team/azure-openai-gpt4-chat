@@ -20,6 +20,11 @@ database
     });
   });
 
+// remove modelString column
+database.version(3).stores({
+  messages: '&id, role, content, createdAt, model',
+});
+
 export const messagesTable = database.table('messages');
 
 export default database;
