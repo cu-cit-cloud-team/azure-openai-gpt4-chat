@@ -33,7 +33,7 @@ export const ChatBubble = memo(
     messageContent,
     messageCreatedAt,
     messageId,
-    modelString,
+    model,
     reload,
     stop,
     totalMessages,
@@ -173,7 +173,7 @@ export const ChatBubble = memo(
             index={index}
             isLoading={isLoading}
             isUser={isUser}
-            modelString={modelString}
+            model={model}
             messageCreatedAt={messageCreatedAt}
             stop={stop}
             totalMessages={totalMessages}
@@ -195,6 +195,7 @@ ChatBubble.propTypes = {
     PropTypes.instanceOf(Date),
   ]),
   messageId: PropTypes.string,
+  model: PropTypes.string,
   reload: PropTypes.func,
   stop: PropTypes.func,
   totalMessages: PropTypes.number,
