@@ -22,12 +22,12 @@ export const ChatMeta = memo(
     isLoading,
     isUser,
     messageCreatedAt,
-    modelString,
+    model,
     stop,
     totalMessages,
   }) => {
     const lastUpdatedStringAtom = atom('');
-    const modelInfoStringAtom = atom(modelString);
+    const modelAtom = atom(model);
 
     const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
@@ -35,13 +35,15 @@ export const ChatMeta = memo(
     const [lastUpdatedString, setLastUpdatedString] = useAtom(
       lastUpdatedStringAtom
     );
-    const [modelInfo, setModelInfo] = useAtom(modelInfoStringAtom);
+    const [modelInfo, setModelInfo] = useAtom(modelAtom);
 
     useEffect(() => {
-      if (modelInfo === undefined) {
+      if (!modelInfo || model === undefined) {
         setModelInfo(modelStringFromName(parameters.model));
+      } else {
+        setModelInfo(modelStringFromName(model));
       }
-    }, [modelInfo, parameters.model, setModelInfo]);
+    }, [model, modelInfo, parameters.model, setModelInfo]);
 
     useEffect(() => {
       setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());
@@ -104,15 +106,16 @@ export const ChatMeta = memo(
 
 ChatMeta.displayName = 'ChatMeta';
 ChatMeta.propTypes = {
-  isLoading: PropTypes.bool,
   index: PropTypes.number,
-  totalMessages: PropTypes.number,
+  isLoading: PropTypes.bool,
   isUser: PropTypes.bool,
   messageCreatedAt: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
+  model: PropTypes.string,
   stop: PropTypes.func,
+  totalMessages: PropTypes.number,
 };
 
 export default ChatMeta;
