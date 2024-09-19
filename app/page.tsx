@@ -18,8 +18,6 @@ import { parametersAtom } from '@/app/components/Parameters';
 import { systemMessageAtom } from '@/app/components/SystemMessage';
 import { userMetaAtom } from '@/app/components/UserAvatar';
 
-import { modelStringFromName } from '@/app/utils/models';
-
 dayjs.extend(timezone);
 
 export const App = () => {
@@ -49,7 +47,6 @@ export const App = () => {
       await database.messages.put({
         ...message,
         model: parameters.model,
-        modelString: `Azure OpenAI ${modelStringFromName(parameters.model)}`,
       });
     },
     [parameters.model]
