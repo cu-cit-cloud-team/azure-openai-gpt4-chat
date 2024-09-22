@@ -1,3 +1,17 @@
+## <small>0.39.1 (2024-09-22)</small>
+
+* chore(deps-dev): bump @types/react in the types group (#896) ([66f4b04](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/66f4b04)), closes [#896](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/896)
+* chore(deps-dev): bump sass from 1.79.1 to 1.79.2 (#899) ([d066f66](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/d066f66)), closes [#899](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/899)
+* chore(deps-dev): bump sass from 1.79.2 to 1.79.3 (#904) ([0e06116](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/0e06116)), closes [#904](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/904)
+* chore(deps): bump ai from 3.3.42 to 3.3.43 (#895) ([20dc334](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/20dc334)), closes [#895](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/895)
+* chore(deps): bump ai from 3.3.43 to 3.4.0 (#903) ([d884406](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/d884406)), closes [#903](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/903)
+* chore(deps): bump babel-plugin-react-compiler (#898) ([0b9c77e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/0b9c77e)), closes [#898](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/898)
+* chore(deps): bump gpt-tokenizer from 2.2.3 to 2.3.0 (#900) ([887004c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/887004c)), closes [#900](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/900)
+* chore(deps): bump jotai from 2.9.3 to 2.10.0 (#897) ([5f99584](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/5f99584)), closes [#897](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/897)
+* chore(deps): bump openai from 4.62.1 to 4.63.0 (#901) ([11b2638](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/11b2638)), closes [#901](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/901)
+
+
+
 ## 0.39.0 (2024-09-19)
 
 * refactor(App): pass object directly ([40491a3](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/40491a3))
