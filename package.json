@@ -37,7 +37,7 @@
     "@langchain/core": "0.3.3",
     "@langchain/openai": "0.3.0",
     "@million/lint": "1.0.0-rc.84",
-    "ai": "3.4.1",
+    "ai": "3.4.2",
     "axios": "1.7.7",
     "babel-plugin-react-compiler": "0.0.0-experimental-6067d4e-20240923",
     "clsx": "2.1.1",
