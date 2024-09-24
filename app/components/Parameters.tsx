@@ -1,21 +1,11 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo } from 'react';
 
 import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
 import { ParameterSlider } from '@/app/components/ParameterSlider';
 
-const AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT =
-  process.env.AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT;
-
-export const gpt4oMiniEnabledAtom = atom(() => {
-  return (
-    AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT &&
-    AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT.trim().length > 4
-  );
-});
 export const parametersAtom = atomWithStorage('parameters', {
   model: 'gpt-4o',
   temperature: '1',

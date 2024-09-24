@@ -1,14 +1,10 @@
-import { useAtom, useAtomValue } from 'jotai';
-import { memo, useCallback, useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { memo, useCallback } from 'react';
 
-import {
-  gpt4oMiniEnabledAtom,
-  parametersAtom,
-} from '@/app/components/Parameters';
+import { parametersAtom } from '@/app/components/Parameters';
 
 export const ParameterModelSelect = memo(() => {
   const [parameters, setParameters] = useAtom(parametersAtom);
-  const gpt4oMiniEnabled = useAtomValue(gpt4oMiniEnabledAtom);
 
   const modelChangeHandler = useCallback(
     async (event) => {
@@ -26,12 +22,6 @@ export const ParameterModelSelect = memo(() => {
     [parameters, setParameters]
   );
 
-  useEffect(() => {
-    if (!gpt4oMiniEnabled && parameters.model === 'gpt-4o-mini') {
-      setParameters({ ...parameters, model: 'gpt-4o' });
-    }
-  }, [gpt4oMiniEnabled, parameters, setParameters]);
-
   return (
     <>
       <span className="px-0 text-sm font-normal text-left">model:</span>
@@ -45,9 +35,7 @@ export const ParameterModelSelect = memo(() => {
         <option value="gpt-4">gpt-4 (1106)</option>
         <option value="gpt-4-turbo">gpt-4-turbo (2024-04-09)</option>
         <option value="gpt-4o">gpt-4o (2024-08-06)</option>
-        <option value="gpt-4o-mini" disabled={!gpt4oMiniEnabled || true}>
-          gpt-4o-mini (2024-07-18)
-        </option>
+        <option value="gpt-4o-mini">gpt-4o-mini (2024-07-18)</option>
       </select>
     </>
   );
