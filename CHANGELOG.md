@@ -1,3 +1,16 @@
+## <small>0.39.2 (2024-09-24)</small>
+
+* chore(deps-dev): bump @types/node in the types group (#907) ([2de6ca8](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/2de6ca8)), closes [#907](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/907)
+* chore(deps-dev): bump tailwindcss in the tailwindcss group (#908) ([41b12b9](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/41b12b9)), closes [#908](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/908)
+* chore(deps): bump @langchain/community in the langchain group (#905) ([57dc228](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/57dc228)), closes [#905](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/905)
+* chore(deps): bump ai from 3.4.0 to 3.4.1 (#911) ([40c6b1f](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/40c6b1f)), closes [#911](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/911)
+* chore(deps): bump ai from 3.4.1 to 3.4.2 (#912) ([556db75](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/556db75)), closes [#912](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/912)
+* chore(deps): bump babel-plugin-react-compiler (#909) ([cc4a65e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/cc4a65e)), closes [#909](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/909)
+* chore(deps): bump gpt-tokenizer from 2.3.0 to 2.4.0 (#906) ([0308fa0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/0308fa0)), closes [#906](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/906)
+* refactor(Parameters/ParamterModelSelect): enable gpt-4o-mini always (remove conditional logic) ([4701df7](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/4701df7))
+
+
+
 ## <small>0.39.1 (2024-09-22)</small>
 
 * chore(deps-dev): bump @types/react in the types group (#896) ([66f4b04](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/66f4b04)), closes [#896](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/896)
