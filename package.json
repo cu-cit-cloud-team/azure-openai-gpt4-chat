@@ -39,7 +39,7 @@
     "@million/lint": "1.0.0-rc.84",
     "ai": "3.4.6",
     "axios": "1.7.7",
-    "babel-plugin-react-compiler": "0.0.0",
+    "babel-plugin-react-compiler": "0.0.0-experimental-b12479e-20240926",
     "clsx": "2.1.1",
     "daisyui": "4.12.10",
     "dayjs": "1.11.13",
@@ -88,7 +88,7 @@
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.0-rc.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-react-compiler": "0.0.0",
+    "eslint-plugin-react-compiler": "0.0.0-experimental-f444e11-20240926",
     "postcss": "8.4.47",
     "postcss-cli": "11.0.0",
     "prettier": "3.3.3",
@@ -104,11 +104,7 @@
     "lodash": "4.17.21"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
