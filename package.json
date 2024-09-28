@@ -85,7 +85,7 @@
     "conventional-changelog-conventionalcommits": "8.0.0",
     "cssnano": "7.0.6",
     "cz-git": "1.10.0",
-    "eslint": "8.57.1",
+    "eslint": "9.11.1",
     "eslint-config-next": "15.0.0-rc.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react-compiler": "0.0.0-experimental-f444e11-20240926",
