@@ -1,12 +1,28 @@
-export const modelStringFromName = (name: string) =>
-  name === 'gpt-35-turbo'
-    ? 'GPT-3.5 Turbo (1106)'
-    : name === 'gpt-4'
-      ? 'GPT-4 (1106)'
-      : name === 'gpt-4-turbo'
-        ? 'GPT-4 Turbo (2024-04-09)'
-        : name === 'gpt-4o'
-          ? 'GPT-4o (2024-08-06)'
-          : name === 'gpt-4o-mini'
-            ? 'GPT-4o Mini (2024-07-18)'
-            : 'GPT-4o (2024-08-06)';
+export interface Model {
+  name: string;
+  displayName: string;
+  default: boolean | undefined;
+}
+
+export interface Models {
+  models: Model[];
+}
+
+export const models: Models = [
+  { name: 'gpt-35-turbo', displayName: 'GPT-3.5 Turbo (1106)' },
+  { name: 'gpt-4', displayName: 'GPT-4 (1106)' },
+  {
+    name: 'gpt-4-turbo',
+    displayName: 'GPT-4 Turbo (2024-04-09)',
+  },
+  { name: 'gpt-4o', displayName: 'GPT-4o (2024-08-06)', default: true },
+  {
+    name: 'gpt-4o-mini',
+    displayName: 'GPT-4o Mini (2024-07-18)',
+  },
+];
+
+export const modelStringFromName: string = (name: string) =>
+  models.find((model) => model.name === name)?.displayName ||
+  models.find((model) => model?.default)?.displayName ||
+  'GPT-4o (2024-08-06)';
