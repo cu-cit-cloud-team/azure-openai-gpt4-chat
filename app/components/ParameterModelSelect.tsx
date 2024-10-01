@@ -3,6 +3,8 @@ import { memo, useCallback } from 'react';
 
 import { parametersAtom } from '@/app/components/Parameters';
 
+import { models } from '@/app/utils/models';
+
 export const ParameterModelSelect = memo(() => {
   const [parameters, setParameters] = useAtom(parametersAtom);
 
@@ -31,11 +33,11 @@ export const ParameterModelSelect = memo(() => {
         value={parameters.model}
         onChange={modelChangeHandler}
       >
-        <option value="gpt-35-turbo">gpt-35-turbo (1106)</option>
-        <option value="gpt-4">gpt-4 (1106)</option>
-        <option value="gpt-4-turbo">gpt-4-turbo (2024-04-09)</option>
-        <option value="gpt-4o">gpt-4o (2024-08-06)</option>
-        <option value="gpt-4o-mini">gpt-4o-mini (2024-07-18)</option>
+        {models.map((model) => (
+          <option key={model.name} value={model.name}>
+            {model.displayName}
+          </option>
+        ))}
       </select>
     </>
   );
