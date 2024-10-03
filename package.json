@@ -87,7 +87,7 @@
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.0-rc.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-react-compiler": "0.0.0-experimental-42acc6a-20241001",
+    "eslint-plugin-react-compiler": "0.0.0",
     "postcss": "8.4.47",
     "postcss-cli": "11.0.0",
     "prettier": "3.3.3",
