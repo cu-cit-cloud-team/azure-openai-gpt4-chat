@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useRef } from 'react';
 
