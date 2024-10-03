@@ -7,6 +7,9 @@ import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
+// Memoized FontAwesomeIcon to prevent unnecessary re-renders
+const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
+
 export const DeleteMessage = memo(({ isUser, messageId }) => {
   const buttonId = nanoid();
 
@@ -37,7 +40,7 @@ export const DeleteMessage = memo(({ isUser, messageId }) => {
           'btn-secondary text-secondary-content': !isUser,
         })}
       >
-        <FontAwesomeIcon icon={faTrash} />
+        <MemoizedFontAwesomeIcon icon={faTrash} />
       </button>
     </div>
   );

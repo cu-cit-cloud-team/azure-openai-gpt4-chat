@@ -3,6 +3,8 @@ import { memo, useEffect, useRef } from 'react';
 
 import { ChatBubble } from '@/app/components/ChatBubble';
 
+const MemoizedChatBubble = memo(ChatBubble);
+
 export const Messages = memo(
   ({ isLoading, messages, reload, stop, textAreaRef }) => {
     const messagesRef = useRef(null);
@@ -38,7 +40,7 @@ export const Messages = memo(
           {messages.length > 0
             ? messages.map((m, idx) => {
                 return (
-                  <ChatBubble
+                  <MemoizedChatBubble
                     key={m.id}
                     index={idx}
                     isLoading={isLoading}

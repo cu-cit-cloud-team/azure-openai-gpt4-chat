@@ -1,8 +1,7 @@
 import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
-import { memo, useEffect } from 'react';
+import { Suspense, lazy, memo, useEffect } from 'react';
 
 import { ClearChatButton } from '@/app/components/ClearChatButton';
 import { ExportChatButton } from '@/app/components/ExportChatButton';
@@ -19,6 +18,13 @@ const ThemeChanger = dynamic(
 );
 
 const UserAvatar = dynamic(() => import('@/app/components/UserAvatar.tsx'));
+
+// Lazy load FontAwesomeIcon
+const FontAwesomeIcon = lazy(() =>
+  import('@fortawesome/react-fontawesome').then((module) => ({
+    default: module.FontAwesomeIcon,
+  }))
+);
 
 import pkg from '@/package.json';
 
@@ -44,7 +50,9 @@ export const Header = memo(({ input, isLoading, systemMessageRef }) => {
         <div className="dropdown">
           {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <FontAwesomeIcon icon={faBars} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <FontAwesomeIcon icon={faBars} />
+            </Suspense>
           </label>
           <ul
             tabIndex={0}
@@ -53,7 +61,9 @@ export const Header = memo(({ input, isLoading, systemMessageRef }) => {
             <li>
               <details className="system-message-dropdown">
                 <summary className="whitespace-nowrap">
-                  <FontAwesomeIcon icon={faRobot} />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <FontAwesomeIcon icon={faRobot} />
+                  </Suspense>
                   System
                 </summary>
                 <ul className="bg-base-200">
@@ -95,7 +105,9 @@ export const Header = memo(({ input, isLoading, systemMessageRef }) => {
           <li>
             <details className="system-message-dropdown">
               <summary>
-                <FontAwesomeIcon icon={faRobot} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <FontAwesomeIcon icon={faRobot} />
+                </Suspense>
                 System
               </summary>
               <ul className="w-fit bg-base-200">

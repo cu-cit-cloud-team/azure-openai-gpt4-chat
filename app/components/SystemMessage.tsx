@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import PropTypes from 'prop-types';
-import { memo, useCallback, useEffect } from 'react';
+import { Suspense, lazy, memo, useCallback, useEffect } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 
@@ -17,6 +17,12 @@ import { database } from '@/app/database/database.config';
 export const systemMessageAtom = atomWithStorage(
   'systemMessage',
   'You are a helpful AI assistant.'
+);
+
+const LazyFontAwesomeIcon = lazy(() =>
+  import('@fortawesome/react-fontawesome').then((module) => ({
+    default: module.FontAwesomeIcon,
+  }))
 );
 
 export const SystemMessage = memo(({ input, systemMessageRef }) => {
@@ -109,7 +115,9 @@ export const SystemMessage = memo(({ input, systemMessageRef }) => {
           type="button"
           onClick={cancelClickHandler}
         >
-          <FontAwesomeIcon icon={faRectangleXmark} />
+          <Suspense fallback={<span>Loading...</span>}>
+            <LazyFontAwesomeIcon icon={faRectangleXmark} />
+          </Suspense>
           <span className="hidden lg:flex">Close</span>
         </button>
         <button

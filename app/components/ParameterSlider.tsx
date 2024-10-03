@@ -26,8 +26,6 @@ export const ParameterSlider = memo(
       return map[param];
     };
 
-    const newKey = useCallback(() => nanoid(), []);
-
     return (
       <>
         <span
@@ -58,7 +56,7 @@ export const ParameterSlider = memo(
         />
         <div className="flex justify-between w-full px-2 text-xs !menu:hover">
           {Array.from({ length: max / step + 1 }, (_, i) => i).map(() => (
-            <span className="text-xs" key={newKey()}>
+            <span className="text-xs" key={nanoid()}>
               |
             </span>
           ))}
