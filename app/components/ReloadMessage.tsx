@@ -22,6 +22,8 @@ export const ReloadMessage = memo(({ isUser, messageId, reload }) => {
     }
   }, [messageId, reload]);
 
+  const newKey = useCallback(() => nanoid(), []);
+
   return !isUser ? (
     <div
       className={clsx('reload-container float-right mr-10 tooltip', {
@@ -31,7 +33,7 @@ export const ReloadMessage = memo(({ isUser, messageId, reload }) => {
       data-tip={'Regenerate response'}
     >
       <button
-        key={nanoid()}
+        key={newKey()}
         onClick={reloadMessage}
         type="button"
         className={clsx('w-6 h-6 p-0 m-0 mr-0 btn btn-xs', {

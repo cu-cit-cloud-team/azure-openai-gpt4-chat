@@ -21,6 +21,8 @@ export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
 
+  const newKey = useCallback(() => nanoid(), []);
+
   useEffect(() => {
     const details = [...document.querySelectorAll('details.dropdown')];
     document.addEventListener('click', (event) => {
@@ -87,7 +89,7 @@ export const ThemeChanger = () => {
               data-editor-theme={getEditorTheme(theme)}
               onClick={handleClick}
               type="button"
-              key={nanoid()}
+              key={newKey()}
             >
               <span className="block w-full font-sans cursor-pointer bg-base-100 text-base-content">
                 <span className="grid grid-cols-5 grid-rows-3">
