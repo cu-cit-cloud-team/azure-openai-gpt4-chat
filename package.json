@@ -39,7 +39,7 @@
     "@million/lint": "1.0.0",
     "ai": "3.4.8",
     "axios": "1.7.7",
-    "babel-plugin-react-compiler": "0.0.0-experimental-b4db8c3-20241001",
+    "babel-plugin-react-compiler": "0.0.0-experimental-27e0f40-20241002",
     "clsx": "2.1.1",
     "daisyui": "4.12.11",
     "dayjs": "1.11.13",
