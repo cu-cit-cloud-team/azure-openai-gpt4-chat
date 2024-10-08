@@ -87,7 +87,7 @@
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.0-rc.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-react-compiler": "0.0.0",
+    "eslint-plugin-react-compiler": "0.0.0-experimental-4c9207a-20241007",
     "postcss": "8.4.47",
     "postcss-cli": "11.0.0",
     "prettier": "3.3.3",
@@ -103,11 +103,7 @@
     "lodash": "4.17.21"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
