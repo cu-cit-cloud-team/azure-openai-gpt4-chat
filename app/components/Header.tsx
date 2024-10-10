@@ -1,6 +1,5 @@
 import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
-import PropTypes from 'prop-types';
 import { Suspense, lazy, memo, useEffect } from 'react';
 
 import { ClearChatButton } from '@/app/components/ClearChatButton';
@@ -28,7 +27,17 @@ const FontAwesomeIcon = lazy(() =>
 
 import pkg from '@/package.json';
 
-export const Header = memo(({ input, isLoading, systemMessageRef }) => {
+interface HeaderProps {
+  input: string;
+  isLoading: boolean;
+  systemMessageRef: object;
+}
+
+export const Header = memo(({
+  input,
+  isLoading,
+  systemMessageRef
+}: HeaderProps) => {
   useEffect(() => {
     const details = [...document.querySelectorAll('.menu details')];
     document.addEventListener('click', (event) => {
@@ -142,10 +151,5 @@ export const Header = memo(({ input, isLoading, systemMessageRef }) => {
 });
 
 Header.displayName = 'Header';
-Header.propTypes = {
-  input: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  systemMessageRef: PropTypes.object.isRequired,
-};
 
 export default Header;

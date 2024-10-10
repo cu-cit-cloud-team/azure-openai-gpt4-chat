@@ -2,7 +2,6 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
@@ -10,7 +9,15 @@ import { database } from '@/app/database/database.config';
 // Memoized FontAwesomeIcon to prevent unnecessary re-renders
 const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
 
-export const DeleteMessage = memo(({ isUser, messageId }) => {
+interface DeleteMessageProps {
+  isUser: boolean;
+  messageId: string;
+}
+
+export const DeleteMessage = memo(({
+  isUser,
+  messageId
+}: DeleteMessageProps) => {
   const buttonId = nanoid();
 
   const deleteMessage = useCallback(async () => {
@@ -47,9 +54,5 @@ export const DeleteMessage = memo(({ isUser, messageId }) => {
 });
 
 DeleteMessage.displayName = 'DeleteMessage';
-DeleteMessage.propTypes = {
-  isUser: PropTypes.bool.isRequired,
-  messageId: PropTypes.string.isRequired,
-};
 
 export default DeleteMessage;

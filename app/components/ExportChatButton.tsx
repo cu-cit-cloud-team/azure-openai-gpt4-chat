@@ -1,15 +1,22 @@
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAtomValue } from 'jotai';
-import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
 import { systemMessageAtom } from '@/app/components/SystemMessage';
 
+interface ExportChatButtonProps {
+  buttonText?: string;
+  isLoading: boolean;
+}
+
 export const ExportChatButton = memo(
-  ({ buttonText = 'Export Chat', isLoading }) => {
+  ({
+    buttonText = 'Export Chat',
+    isLoading
+  }: ExportChatButtonProps) => {
     const systemMessage = useAtomValue(systemMessageAtom);
     const exportHandler = useCallback(
       async (event) => {
@@ -77,9 +84,5 @@ export const ExportChatButton = memo(
 );
 
 ExportChatButton.displayName = 'ExportChatButton';
-ExportChatButton.propTypes = {
-  buttonText: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
-};
 
 export default ExportChatButton;

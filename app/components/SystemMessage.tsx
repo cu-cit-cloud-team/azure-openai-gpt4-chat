@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import PropTypes from 'prop-types';
 import { Suspense, lazy, memo, useCallback, useEffect } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
@@ -25,7 +24,17 @@ const LazyFontAwesomeIcon = lazy(() =>
   }))
 );
 
-export const SystemMessage = memo(({ input, systemMessageRef }) => {
+interface SystemMessageProps {
+  input?: string;
+  systemMessageRef?: (...args: unknown[]) => unknown | {
+    current?: object;
+  };
+}
+
+export const SystemMessage = memo(({
+  input,
+  systemMessageRef
+}: SystemMessageProps) => {
   const localSystemMessageAtom = atom('');
   const originalSystemMessageAtom = atom('');
 
@@ -151,12 +160,5 @@ export const SystemMessage = memo(({ input, systemMessageRef }) => {
 });
 
 SystemMessage.displayName = 'SystemMessage';
-SystemMessage.propTypes = {
-  input: PropTypes.string,
-  systemMessageRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.object }),
-  ]),
-};
 
 export default SystemMessage;

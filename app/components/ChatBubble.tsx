@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import markdownToTxt from 'markdown-to-txt';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
 import { memo, useMemo } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -25,6 +24,19 @@ import { ReloadMessage } from '@/app/components/ReloadMessage';
 
 import { editorThemeAtom } from '@/app/components/ThemeChanger';
 
+interface ChatBubbleProps {
+  index?: number;
+  isLoading?: boolean;
+  isUser?: boolean;
+  messageContent?: string;
+  messageCreatedAt?: string | Date;
+  messageId?: string;
+  model?: string;
+  reload?(...args: unknown[]): unknown;
+  stop?(...args: unknown[]): unknown;
+  totalMessages?: number;
+}
+
 export const ChatBubble = memo(
   ({
     index,
@@ -36,8 +48,8 @@ export const ChatBubble = memo(
     model,
     reload,
     stop,
-    totalMessages,
-  }) => {
+    totalMessages
+  }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
     const copyToClipBoardKey = nanoid();
     const preCopyToClipBoardKey = nanoid();
@@ -91,7 +103,7 @@ export const ChatBubble = memo(
     }, [index, isLoading, isUser, totalMessages]);
 
     return (
-      <div
+      (<div
         className={clsx('chat mb-10', {
           'chat-start': isUser,
           'chat-end': !isUser,
@@ -179,26 +191,11 @@ export const ChatBubble = memo(
             totalMessages={totalMessages}
           />
         </div>
-      </div>
+      </div>)
     );
   }
 );
 
 ChatBubble.displayName = 'ChatBubble';
-ChatBubble.propTypes = {
-  index: PropTypes.number,
-  isLoading: PropTypes.bool,
-  isUser: PropTypes.bool,
-  messageContent: PropTypes.string,
-  messageCreatedAt: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
-  messageId: PropTypes.string,
-  model: PropTypes.string,
-  reload: PropTypes.func,
-  stop: PropTypes.func,
-  totalMessages: PropTypes.number,
-};
 
 export default ChatBubble;

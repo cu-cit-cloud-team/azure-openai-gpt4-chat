@@ -1,12 +1,19 @@
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
+interface ClearChatButtonProps {
+  buttonText?: string;
+  isLoading: boolean;
+}
+
 export const ClearChatButton = memo(
-  ({ buttonText = 'Clear Chat', isLoading }) => {
+  ({
+    buttonText = 'Clear Chat',
+    isLoading
+  }: ClearChatButtonProps) => {
     const clearHistory = useCallback(async (doConfirm = true) => {
       const clearMessages = async () => {
         try {
@@ -42,9 +49,5 @@ export const ClearChatButton = memo(
 );
 
 ClearChatButton.displayName = 'ClearChatButton';
-ClearChatButton.propTypes = {
-  buttonText: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
-};
 
 export default ClearChatButton;

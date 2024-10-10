@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import PropTypes from 'prop-types';
 import { memo, useEffect } from 'react';
 
 import { parametersAtom } from '@/app/components/Parameters';
@@ -16,6 +15,16 @@ import { modelStringFromName } from '@/app/utils/models';
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
+interface ChatMetaProps {
+  index?: number;
+  isLoading?: boolean;
+  isUser?: boolean;
+  messageCreatedAt?: string | Date;
+  model?: string;
+  stop?(...args: unknown[]): unknown;
+  totalMessages?: number;
+}
+
 export const ChatMeta = memo(
   ({
     index,
@@ -24,8 +33,8 @@ export const ChatMeta = memo(
     messageCreatedAt,
     model,
     stop,
-    totalMessages,
-  }) => {
+    totalMessages
+  }: ChatMetaProps) => {
     const lastUpdatedStringAtom = atom('');
     const modelAtom = atom(model);
 
@@ -105,17 +114,5 @@ export const ChatMeta = memo(
 );
 
 ChatMeta.displayName = 'ChatMeta';
-ChatMeta.propTypes = {
-  index: PropTypes.number,
-  isLoading: PropTypes.bool,
-  isUser: PropTypes.bool,
-  messageCreatedAt: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
-  model: PropTypes.string,
-  stop: PropTypes.func,
-  totalMessages: PropTypes.number,
-};
 
 export default ChatMeta;

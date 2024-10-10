@@ -1,14 +1,27 @@
 import { useAtom } from 'jotai';
 import { nanoid } from 'nanoid';
-import propTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
 import { getItem, setItem } from '@/app/utils/localStorage';
 
 import { parametersAtom } from '@/app/components/Parameters';
 
+interface ParameterSliderProps {
+  paramName: string;
+  displayName?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
 export const ParameterSlider = memo(
-  ({ paramName, displayName = null, min = 0, max = 1, step = 0.1 }) => {
+  ({
+    paramName,
+    displayName = null,
+    min = 0,
+    max = 1,
+    step = 0.1
+  }: ParameterSliderProps) => {
     const [parameters, setParameters] = useAtom(parametersAtom);
 
     const paramDetails = (param) => {
@@ -67,12 +80,5 @@ export const ParameterSlider = memo(
 );
 
 ParameterSlider.displayName = 'ParameterSlider';
-ParameterSlider.propTypes = {
-  paramName: propTypes.string.isRequired,
-  displayName: propTypes.string,
-  min: propTypes.number,
-  max: propTypes.number,
-  step: propTypes.number,
-};
 
 export default ParameterSlider;

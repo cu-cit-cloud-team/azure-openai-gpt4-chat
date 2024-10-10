@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import PropTypes from 'prop-types';
 import { memo, useEffect, useMemo } from 'react';
 
 import { getTokenCount } from '@/app/utils/tokens';
@@ -18,8 +17,18 @@ export const tokensAtom = atomWithStorage('tokens', {
   systemMessageRemaining: systemMessageMaxTokens,
 });
 
+interface TokenCountProps {
+  input?: string;
+  systemMessage: string;
+  display?: "input" | "systemMessage";
+}
+
 export const TokenCount = memo(
-  ({ input = '', systemMessage, display = 'input' }) => {
+  ({
+    input = '',
+    systemMessage,
+    display = 'input'
+  }: TokenCountProps) => {
     const inputTokensAtom = atom(0);
     const systemMessageTokensAtom = atom(0);
     const remainingTokensAtom = atom(16384);
@@ -115,11 +124,5 @@ export const TokenCount = memo(
 );
 
 TokenCount.displayName = 'TokenCount';
-
-TokenCount.propTypes = {
-  input: PropTypes.string,
-  systemMessage: PropTypes.string.isRequired,
-  display: PropTypes.oneOf(['input', 'systemMessage']),
-};
 
 export default TokenCount;

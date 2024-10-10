@@ -2,12 +2,21 @@ import { faArrowRotateForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
 import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-export const ReloadMessage = memo(({ isUser, messageId, reload }) => {
+interface ReloadMessageProps {
+  isUser: boolean;
+  messageId: string;
+  reload(...args: unknown[]): unknown;
+}
+
+export const ReloadMessage = memo(({
+  isUser,
+  messageId,
+  reload
+}: ReloadMessageProps) => {
   const reloadMessage = useCallback(async () => {
     const deleteFromDb = async () => {
       await database.messages.where('id').equals(messageId).delete();
@@ -46,10 +55,5 @@ export const ReloadMessage = memo(({ isUser, messageId, reload }) => {
 });
 
 ReloadMessage.displayName = 'ReloadMessage';
-ReloadMessage.propTypes = {
-  isUser: PropTypes.bool.isRequired,
-  messageId: PropTypes.string.isRequired,
-  reload: PropTypes.func.isRequired,
-};
 
 export default ReloadMessage;
