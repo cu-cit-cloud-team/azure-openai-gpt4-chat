@@ -35,7 +35,7 @@
     "@fortawesome/react-fontawesome": "0.2.2",
     "@langchain/community": "0.3.6",
     "@langchain/core": "0.3.13",
-    "@langchain/openai": "0.3.8",
+    "@langchain/openai": "0.3.10",
     "@million/lint": "1.0.11",
     "ai": "3.4.13",
     "axios": "1.7.7",
