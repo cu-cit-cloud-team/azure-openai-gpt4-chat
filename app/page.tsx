@@ -1,8 +1,6 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import dayjs from 'dayjs';
-import timezone from 'dayjs/plugin/timezone';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtomValue } from 'jotai';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
@@ -17,8 +15,6 @@ import { database } from '@/app/database/database.config';
 import { parametersAtom } from '@/app/components/Parameters';
 import { systemMessageAtom } from '@/app/components/SystemMessage';
 import { userMetaAtom } from '@/app/components/UserAvatar';
-
-dayjs.extend(timezone);
 
 export const App = () => {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
