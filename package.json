@@ -41,7 +41,7 @@
     "axios": "1.7.7",
     "babel-plugin-react-compiler": "19.0.0-beta-9ee70a1-20241017",
     "clsx": "2.1.1",
-    "daisyui": "4.12.13",
+    "daisyui": "4.12.14",
     "dayjs": "1.11.13",
     "dexie": "4.0.9",
     "dexie-react-hooks": "1.1.7",
