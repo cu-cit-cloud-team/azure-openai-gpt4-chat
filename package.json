@@ -75,7 +75,7 @@
     "@fullhuman/postcss-purgecss": "6.0.0",
     "@tailwindcss/forms": "0.5.9",
     "@tailwindcss/typography": "0.5.15",
-    "@types/node": "22.8.2",
+    "@types/node": "22.8.4",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
     "@types/react-syntax-highlighter": "15.5.13",
