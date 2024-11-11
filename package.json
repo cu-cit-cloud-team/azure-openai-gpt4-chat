@@ -45,7 +45,7 @@
     "dayjs": "1.11.13",
     "dexie": "4.0.9",
     "dexie-react-hooks": "1.1.7",
-    "gpt-tokenizer": "2.6.0",
+    "gpt-tokenizer": "2.6.1",
     "he": "1.2.0",
     "jotai": "2.10.1",
     "langchain": "0.3.5",
