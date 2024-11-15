@@ -26,11 +26,11 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 1. If using locally installed Node.js:
     1. Install dependencies `npm install`
     1. Run project locally `npm run dev`
-1. If using Docker:
-    1. Run `docker-compose up dev`
-1. Visit `http://localhost:3000` in your browser
+1. If using devcontainer:
+    1. Open in devcontainer (dependencies automatically installed)
+    1. Run project `npm run dev`
+1. Visit `http://localhost:3001` in your browser
 1. `ctrl`+`c` to stop
-    1. If using Docker, optionally run `docker-compose down --rmi 'all'` to clean up
 
 ### Features
 
@@ -66,7 +66,7 @@ This is a simple chat app that streams messages to and from an Azure OpenAI Serv
 - [x] Theme changer with several light and dark themes
   - [x] Defaults to `light` or `dark` based on system preference
 - [x] Responsive layout
-- [x] Dockerfile and docker-compose for local development
+- [x] devcontainer for local development
 
 ### Roadmap
 
