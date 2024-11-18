@@ -24,7 +24,7 @@ RUN rm -rf ~/.oh-my-zsh \
   && sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" --unattended \
   && chsh -s /bin/zsh
 
-# cusrtomize oh-my-zsh
+# customize oh-my-zsh
 USER node
 RUN git clone --quiet https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions \
   && git clone --quiet https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions \
@@ -50,11 +50,11 @@ RUN echo '\nalias la="ls -lah"\nalias cl="clear"\nalias npmgls="npm -g ls --dept
   && git config --global --add tag.tag.forcesignannotated true \
   && git config --global --add core.pager "diff-so-fancy | less --tabs=4 -RFX"
 
-# install starship shell promopt
+# install starship shell prompt
 USER root
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
 
-# add straship to zshrc
+# add starship to zshrc
 USER node
 RUN echo '\neval "$(starship init zsh)"\n' >> ~/.zshrc
 
