@@ -10,18 +10,16 @@ const {
   AZURE_OPENAI_GPT4O_DEPLOYMENT,
   AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT,
   AZURE_OPENAI_GPT35_DEPLOYMENT,
-  AZURE_OPENAI_API_VERSION,
 } = process.env;
 
 // make sure env vars are set
-if (
-  !AZURE_OPENAI_API_KEY ||
-  !AZURE_OPENAI_DEPLOYMENT_NAME ||
-  !AZURE_OPENAI_MODEL_DEPLOYMENT ||
-  !AZURE_OPENAI_API_VERSION
-) {
-  throw new Error('Required variables are not defined in the environment.');
-}
+// if (
+//   !AZURE_OPENAI_API_KEY ||
+//   !AZURE_OPENAI_DEPLOYMENT_NAME ||
+//   !AZURE_OPENAI_MODEL_DEPLOYMENT
+// ) {
+//   throw new Error('Required variables are not defined in the environment.');
+// }
 
 // tell next.js to use the edge runtime
 export const runtime = 'edge';
