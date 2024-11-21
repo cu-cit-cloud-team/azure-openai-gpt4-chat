@@ -1,9 +1,9 @@
-import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { createAzure } from '@ai-sdk/azure';
+import { streamText } from 'ai';
 
 // destructure env vars we need
 const {
-  AZURE_OPENAI_BASE_PATH,
+  AZURE_OPENAI_DEPLOYMENT_NAME,
   AZURE_OPENAI_API_KEY,
   AZURE_OPENAI_MODEL_DEPLOYMENT,
   AZURE_OPENAI_GPT4_DEPLOYMENT,
@@ -16,7 +16,7 @@ const {
 // make sure env vars are set
 if (
   !AZURE_OPENAI_API_KEY ||
-  !AZURE_OPENAI_BASE_PATH ||
+  !AZURE_OPENAI_DEPLOYMENT_NAME ||
   !AZURE_OPENAI_MODEL_DEPLOYMENT ||
   !AZURE_OPENAI_API_VERSION
 ) {
@@ -87,15 +87,14 @@ export async function POST(req: Request) {
     chatMessages = [systemPrompt, ...messages];
   }
 
-  const openai = new OpenAIClient(
-    AZURE_OPENAI_BASE_PATH,
-    new AzureKeyCredential(AZURE_OPENAI_API_KEY),
-    {
-      apiVersion: AZURE_OPENAI_API_VERSION,
-    }
-  );
+  // create azure client
+  const azure = createAzure({
+    resourceName: AZURE_OPENAI_DEPLOYMENT_NAME,
+    apiKey: AZURE_OPENAI_API_KEY,
+  });
 
-  const response = await openai.streamChatCompletions(
+  // instantiate azure openai model
+  const openai = azure(
     model === 'gpt-35-turbo' && AZURE_OPENAI_GPT35_DEPLOYMENT
       ? AZURE_OPENAI_GPT35_DEPLOYMENT
       : model === 'gpt-4' && AZURE_OPENAI_GPT4_DEPLOYMENT
@@ -107,20 +106,22 @@ export async function POST(req: Request) {
             : model === 'gpt-4o-mini' && AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
               ? AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
               : AZURE_OPENAI_GPT4O_DEPLOYMENT,
-    chatMessages,
     {
-      frequencyPenalty: frequency_penalty,
-      maxTokens: max_tokens,
-      presencePenalty: presence_penalty,
-      temperature,
-      topP: top_p,
       user,
     }
   );
 
-  // convert the response into a friendly text-stream
-  const stream = OpenAIStream(response);
+  // send the request and store the response
+  const response = streamText({
+    model: openai,
+    messages: chatMessages,
+    temperature,
+    topP: top_p,
+    frequencyPenalty: frequency_penalty,
+    presencePenalty: presence_penalty,
+    maxTokens: max_tokens,
+  });
 
-  // send the stream back to the client
-  return new StreamingTextResponse(stream);
+  // convert the response into a friendly text-stream and return to client
+  return response.toDataStreamResponse();
 }
