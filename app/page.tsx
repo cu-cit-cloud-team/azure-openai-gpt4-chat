@@ -26,11 +26,11 @@ export const App = () => {
   const userMeta = useAtomValue(userMetaAtom);
 
   const savedMessages = useLiveQuery(async () => {
-    let messages = await database.messages.toArray();
-    messages = messages.sort(
-      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    const messages = await database.messages.toArray();
+    return messages.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-    return messages;
   }, [database.messages]);
 
   const handleChatError = useCallback((error) => {
@@ -48,6 +48,27 @@ export const App = () => {
     [parameters.model]
   );
 
+  const apiUrl = useMemo(
+    () =>
+      `/api/chat?systemMessage=${encodeURIComponent(
+        systemMessage
+      )}&temperature=${encodeURIComponent(
+        parameters.temperature
+      )}&top_p=${encodeURIComponent(
+        parameters.top_p
+      )}&frequency_penalty=${encodeURIComponent(
+        parameters.frequency_penalty
+      )}&presence_penalty=${encodeURIComponent(
+        parameters.presence_penalty
+      )}&model=${encodeURIComponent(parameters.model)}`,
+    [parameters, systemMessage]
+  );
+
+  const userId = useMemo(
+    () => (userMeta?.email ? btoa(userMeta?.email) : undefined),
+    [userMeta]
+  );
+
   const {
     handleInputChange,
     handleSubmit,
@@ -57,18 +78,8 @@ export const App = () => {
     reload,
     stop,
   } = useChat({
-    api: `/api/chat?systemMessage=${encodeURIComponent(
-      systemMessage
-    )}&temperature=${encodeURIComponent(
-      parameters.temperature
-    )}&top_p=${encodeURIComponent(
-      parameters.top_p
-    )}&frequency_penalty=${encodeURIComponent(
-      parameters.frequency_penalty
-    )}&presence_penalty=${encodeURIComponent(
-      parameters.presence_penalty
-    )}&model=${encodeURIComponent(parameters.model)}`,
-    id: userMeta?.email ? btoa(userMeta?.email) : undefined,
+    api: apiUrl,
+    id: userId,
     initialMessages: savedMessages,
     onError: handleChatError,
     onFinish: addMessage,
