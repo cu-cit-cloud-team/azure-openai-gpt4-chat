@@ -1,6 +1,5 @@
 import { faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -25,21 +24,20 @@ export const UpdateCheck = () => {
       org = 'cu-cit-cloud-team',
       repo = 'azure-openai-gpt4-chat'
     ) => {
-      const latest = await axios
-        .get(`https://api.github.com/repos/${org}/${repo}/releases/latest`)
-        .then((response) => {
-          const version = response.data.tag_name;
-          const published = response.data.published_at;
-
+      const latest = await fetch(
+        `https://api.github.com/repos/${org}/${repo}/releases/latest`
+      )
+        .then(async (response) => {
+          const data = await response.json();
+          const { version, published } = data;
           return {
             version,
             published,
           };
         })
-        // biome-ignore lint/correctness/noUnusedVariables: used for debugging
         .catch((error) => {
           setUpdateAvailable(false);
-          // console.error(error);
+          console.error(error);
         });
 
       setUpdateAvailable(
