@@ -3,7 +3,6 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
@@ -27,15 +26,15 @@ export const UserAvatar = memo(() => {
       return;
     }
     const getUserMeta = async () => {
-      await axios
-        .get('/.auth/me', {
-          headers: {
-            'Cache-Control': 'no-cache',
-            Pragma: 'no-cache',
-            Expires: '0',
-          },
-        })
-        .then((response) => {
+      await fetch('/.auth/me', {
+        headers: {
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      })
+        .then(async (resp) => {
+          const response = await resp.json();
           const email = response?.data[0]?.user_claims.find(
             (item) => item.typ === 'preferred_username'
           ).val;
