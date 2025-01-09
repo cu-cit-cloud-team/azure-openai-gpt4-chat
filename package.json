@@ -34,7 +34,7 @@
     "@fortawesome/free-brands-svg-icons": "6.7.2",
     "@fortawesome/free-solid-svg-icons": "6.7.2",
     "@fortawesome/react-fontawesome": "0.2.2",
-    "@langchain/community": "0.3.22",
+    "@langchain/community": "0.3.23",
     "@langchain/core": "0.3.27",
     "@langchain/openai": "0.3.16",
     "@million/lint": "1.0.14",
@@ -53,7 +53,7 @@
     "nanoid": "5.0.9",
     "next": "15.1.4",
     "next-themes": "0.4.4",
-    "openai": "4.77.3",
+    "openai": "4.77.4",
     "react": "19.0.0",
     "react-compiler-runtime": "19.0.0-beta-63e3235-20250105",
     "react-dom": "19.0.0",
@@ -97,7 +97,7 @@
     "stylelint-config-standard": "36.0.1",
     "stylelint-config-standard-scss": "14.0.0",
     "tailwindcss": "3.4.17",
-    "typescript": "5.7.2"
+    "typescript": "5.7.3"
   },
   "overrides": {
     "@types/react": "npm:types-react@rc",
