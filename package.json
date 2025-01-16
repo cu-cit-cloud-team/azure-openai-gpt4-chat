@@ -42,7 +42,7 @@
     "clsx": "2.1.1",
     "daisyui": "4.12.23",
     "dayjs": "1.11.13",
-    "dexie": "4.0.10",
+    "dexie": "4.0.11",
     "dexie-react-hooks": "1.1.7",
     "gpt-tokenizer": "2.8.1",
     "he": "1.2.0",
