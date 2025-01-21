@@ -1,5 +1,5 @@
 import { createAzure } from '@ai-sdk/azure';
-import { streamText } from 'ai';
+import { smoothStream, streamText } from 'ai';
 
 // destructure env vars we need
 const {
@@ -118,6 +118,7 @@ export async function POST(req: Request) {
     frequencyPenalty: frequency_penalty,
     presencePenalty: presence_penalty,
     maxTokens: max_tokens,
+    experimental_transform: smoothStream(),
   });
 
   // convert the response into a friendly text-stream and return to client
