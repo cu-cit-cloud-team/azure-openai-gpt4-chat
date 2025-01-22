@@ -12,7 +12,7 @@
     "build": "next build",
     "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "dev": "next dev -p 3001",
-    "dev:million": "MILLION_LINT=true next dev -p 3001",
+    "dev:million": "MILLION_LINT=true next dev -p 3002",
     "lint": "next lint",
     "start": "next start",
     "version": "npm run changelog"
