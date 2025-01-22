@@ -1,3 +1,16 @@
+## 0.42.0 (2025-01-22)
+
+* perf: several million lint suggested updates ([6764f59](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6764f59))
+* build(npm): change port in dev:million script ([76c43a5](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/76c43a5))
+* chore(deps-dev): bump eslint-config-next from 15.1.5 to 15.1.6 (#1278) ([4786c11](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/4786c11)), closes [#1278](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/1278)
+* chore(deps): bump @langchain/core in the langchain group (#1277) ([c998819](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/c998819)), closes [#1277](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/1277)
+* chore(deps): bump next from 15.1.5 to 15.1.6 (#1280) ([69ebdc9](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/69ebdc9)), closes [#1280](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/1280)
+* chore(deps): bump openai from 4.79.1 to 4.79.3 (#1276) ([455f5d9](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/455f5d9)), closes [#1276](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/1276)
+* chore(deps): bump openai from 4.79.3 to 4.79.4 (#1279) ([9f0ce3d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9f0ce3d)), closes [#1279](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/1279)
+* feat(api/chat): implement smooth streaming (using experimental transform) ([e10f9aa](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e10f9aa))
+
+
+
 ## <small>0.41.2 (2025-01-20)</small>
 
 * chore(deps-dev): bump @types/node in the types group (#1215) ([64f2294](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/64f2294)), closes [#1215](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/1215)
