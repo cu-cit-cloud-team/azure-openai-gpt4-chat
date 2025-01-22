@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
 import { ParameterSlider } from '@/app/components/ParameterSlider';
+import { useMemo } from 'react';
 
 export const parametersAtom = atomWithStorage('parameters', {
   model: 'gpt-4o',
@@ -18,7 +19,12 @@ export const Parameters = memo(() => {
   return (
     <details>
       <summary>
-        <FontAwesomeIcon icon={faSliders} />
+        {useMemo(
+          () => (
+            <FontAwesomeIcon icon={faSliders} />
+          ),
+          []
+        )}
         Parameters
       </summary>
       <ul className="bg-base-200">

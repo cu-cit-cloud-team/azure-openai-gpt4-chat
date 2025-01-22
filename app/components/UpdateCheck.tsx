@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { atom, useAtom } from 'jotai';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import pkg from '../../package.json';
 
@@ -14,7 +14,7 @@ dayjs.tz.setDefault('America/New_York');
 
 const DEPLOY_INTERVAL = 10; // minutes
 
-export const UpdateCheck = () => {
+export const UpdateCheck = memo(() => {
   const updateAvailableAtom = atom(false);
 
   const [updateAvailable, setUpdateAvailable] = useAtom(updateAvailableAtom);
@@ -74,6 +74,8 @@ export const UpdateCheck = () => {
       </span>
     </button>
   ) : null;
-};
+});
+
+UpdateCheck.displayName = 'UpdateCheck';
 
 export default UpdateCheck;
