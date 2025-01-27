@@ -114,7 +114,7 @@ export const UserAvatar = memo(() => {
       <span className="hidden mr-2 text-sm lg:flex">{email}</span>
       <div className="dropdown dropdown-end bg-base-300">
         {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
-        <label tabIndex={0} className="avatar placeholder">
+        <label tabIndex={0} className="avatar avatar-placeholder">
           <div
             className={clsx(
               'rounded-full bg-primary text-primary-content cursor-pointer',

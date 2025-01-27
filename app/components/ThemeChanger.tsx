@@ -22,6 +22,8 @@ export const ThemeChanger = () => {
   const setEditorTheme = useSetAtom(editorThemeAtom);
   const memoizedIcon = useMemo(() => <FontAwesomeIcon icon={faPalette} />, []);
 
+  console.log(theme);
+
   useEffect(() => {
     const details = [...document.querySelectorAll('details.dropdown')];
     const handleClickOutside = (event: MouseEvent) => {
@@ -43,14 +45,12 @@ export const ThemeChanger = () => {
       }
     };
     document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
   }, []);
 
   const handleClick = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
       const button = e.currentTarget;
+      console.log(button);
       setTheme(button.dataset.theme as string);
       setEditorTheme(getEditorTheme(button.dataset.theme as string));
     },
@@ -60,14 +60,14 @@ export const ThemeChanger = () => {
   const updateSelected = useCallback(() => {
     const selectedSVGs = document.querySelectorAll('svg.themeSelected');
     for (const svg of selectedSVGs) {
-      svg.classList.add('invisible');
+      svg.classList.add('hidden');
     }
     const buttons = document.querySelectorAll('button');
     for (const button of buttons) {
       if (button.getAttribute('data-theme') === theme) {
         const svg = button.querySelector('svg');
         if (svg) {
-          svg.classList.remove('invisible');
+          svg.classList.remove('hidden');
           svg.scrollIntoView({
             behavior: 'smooth',
             block: 'center',
@@ -107,7 +107,7 @@ export const ThemeChanger = () => {
                       height="16"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="invisible w-3 h-3 shrink-0 themeSelected"
+                      className="hidden w-3 h-3 shrink-0 themeSelected"
                     >
                       <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
                     </svg>
