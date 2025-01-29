@@ -6,7 +6,7 @@ import { useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { nanoid } from 'nanoid';
 import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
@@ -20,29 +20,25 @@ export const themeAtom = atomWithStorage('theme', 'dark');
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
-  const memoizedIcon = useMemo(() => <FontAwesomeIcon icon={faPalette} />, []);
 
   console.log(theme);
 
   useEffect(() => {
     const details = [...document.querySelectorAll('details.dropdown')];
-    const handleClickOutside = (event: MouseEvent) => {
-      if (event.target instanceof HTMLElement) {
-        if (
-          event.target.closest('button')?.classList?.contains('button-theme')
-        ) {
-          return;
+    document.addEventListener('click', (event) => {
+      if (event.target.closest('button')?.classList?.contains('button-theme')) {
+        return;
+      }
+      if (!details.some((el) => el.contains(event.target))) {
+        for (const el of details) {
+          el.removeAttribute('open');
         }
-        if (!details.some((el) => el.contains(event.target))) {
-          for (const el of details) {
-            el.removeAttribute('open');
-          }
-        } else {
-          for (const el of details) {
-            !el.contains(event.target) ? el.removeAttribute('open') : '';
-          }
+      } else {
+        for (const el of details) {
+          !el.contains(event.target) ? el.removeAttribute('open') : '';
         }
       }
+<<<<<<< HEAD
     };
     document.addEventListener('click', handleClickOutside);
   }, []);
@@ -53,6 +49,16 @@ export const ThemeChanger = () => {
       console.log(button);
       setTheme(button.dataset.theme as string);
       setEditorTheme(getEditorTheme(button.dataset.theme as string));
+=======
+    });
+  }, []);
+
+  const handleClick = useCallback(
+    (e) => {
+      const button = e.target.closest('button');
+      setTheme(button.dataset.theme);
+      setEditorTheme(getEditorTheme(button.dataset.theme));
+>>>>>>> parent of 6764f59 (perf: several million lint suggested updates)
     },
     [setEditorTheme, setTheme]
   );
@@ -64,8 +70,9 @@ export const ThemeChanger = () => {
     }
     const buttons = document.querySelectorAll('button');
     for (const button of buttons) {
-      if (button.getAttribute('data-theme') === theme) {
+      if (button.dataset.theme === theme) {
         const svg = button.querySelector('svg');
+<<<<<<< HEAD
         if (svg) {
           svg.classList.remove('hidden');
           svg.scrollIntoView({
@@ -74,6 +81,14 @@ export const ThemeChanger = () => {
             inline: 'center',
           });
         }
+=======
+        svg.classList.remove('invisible');
+        svg.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        });
+>>>>>>> parent of 6764f59 (perf: several million lint suggested updates)
       }
     }
   }, [theme]);
@@ -85,10 +100,12 @@ export const ThemeChanger = () => {
   return (
     <details className="dropdown lg:dropdown-end">
       <summary className="btn-sm">
-        <span className="font-normal">{memoizedIcon} Theme</span>
+        <span className="font-normal">
+          <FontAwesomeIcon icon={faPalette} /> Theme
+        </span>
       </summary>
       <div className="w-56 mt-12 overflow-y-auto shadow dropdown-content bg-base-200 text-base-content rounded-box top-px h-70vh max-h-96">
-        <div className="grid grid-cols-1 gap-3 p-3" tabIndex={0}>
+        <div className="grid grid-cols-1 gap-3 p-3" tabIndex="0">
           {themes.map((theme) => (
             <button
               className="overflow-hidden text-left rounded-lg outline-base-content button-theme"
