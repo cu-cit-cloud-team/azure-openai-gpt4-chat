@@ -107,70 +107,98 @@ export const App = () => {
     stop();
   }, [stop]);
 
-  // update indexedDB when messages change
+  const memoizedMessages = useMemo(() => messages, [messages]);
+
+  // update indexedDB when messages changes
   useEffect(() => {
-    if (savedMessages && savedMessages.length !== messages.length) {
-      const lastMessage = messages[messages.length - 1];
-      if ((lastMessage?.role === 'user' || !isLoading) && lastMessage) {
-        addMessage(lastMessage);
+    if (savedMessages && savedMessages?.length !== messages?.length) {
+      if (messages[messages.length - 1]?.role === 'user' || !isLoading) {
+        addMessage(messages[messages.length - 1]);
       }
     }
-  }, [addMessage, messages, isLoading, savedMessages]);
+  }, [addMessage, messages, savedMessages, isLoading]);
 
   // subscribe to storage change events so multiple tabs stay in sync
-  const handleStorageChanges = useCallback((e) => {
-    const keysToHandle = [
-      'editorTheme',
-      'parameters',
-      'remainingTokens',
-      'systemMessage',
-      'theme',
-      'tokens',
-      'userMeta',
-    ];
-    const { key } = e;
-    if (key && keysToHandle.includes(key)) {
-      window.dispatchEvent(new Event('storage'));
-    }
-  }, []);
-
   useEffect(() => {
+    const handleStorageChanges = (e) => {
+      const keysToHandle = [
+        'editorTheme',
+        'parameters',
+        'remainingTokens',
+        'systemMessage',
+        'theme',
+        'tokens',
+        'userMeta',
+      ];
+      const { key } = e;
+      if (key && keysToHandle.includes(key)) {
+        window.dispatchEvent(new Event('storage'));
+      }
+    };
+
     window.addEventListener('storage', handleStorageChanges);
 
     return () => {
       window.removeEventListener('storage', handleStorageChanges);
     };
-  }, [handleStorageChanges]);
-
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      const target = event.target as HTMLTextAreaElement;
-      if (target.value.trim().length) {
-        event.preventDefault();
-        if (formRef.current) {
-          formRef.current.dispatchEvent(
-            new Event('submit', { cancelable: true, bubbles: true })
-          );
-        }
-      } else {
-        event.preventDefault();
-        return false;
-      }
-    }
   }, []);
 
+  const textareaElement = textAreaRef.current;
+
   useEffect(() => {
-    const ref = textAreaRef.current;
-    if (ref) {
-      ref.addEventListener('keydown', handleKeyDown);
+    const listener = (event: KeyboardEvent) => {
+      // if (event.key === 'Enter' && event.shiftKey) {
+      //   console.log('new line');
+      // }
+      if (event.key === 'Enter' && !event.shiftKey) {
+        if (event.target.value.trim().length) {
+          event.preventDefault();
+          if (formRef.current) {
+            formRef.current.dispatchEvent(
+              new Event('submit', { cancelable: true, bubbles: true })
+            );
+          }
+        } else {
+          event.preventDefault();
+          return false;
+        }
+      }
+    };
+    if (textareaElement) {
+      textareaElement.addEventListener('keydown', listener);
     }
 
     return () => {
-      if (ref) {
-        ref.removeEventListener('keydown', handleKeyDown);
+      if (textareaElement) {
+        textareaElement.removeEventListener('keydown', listener);
       }
     };
-  }, [handleKeyDown]);
+  }, [textareaElement]);
+
+  const ErrorFallback = memo(({ error, resetErrorBoundary }) => {
+    return (
+      <dialog className="modal modal-bottom sm:modal-middle errorModal">
+        <div className="w-11/12 max-w-5xl modal-box bg-error-content">
+          <h3 className="text-lg font-bold text-error">Error</h3>
+          <p className="py-4 text-error">{error?.message}</p>
+          <div className="modal-action">
+            <button
+              type="button"
+              className="btn btnReload text-error-content btn-error"
+              onClick={() => {
+                resetErrorBoundary();
+                window.location.reload();
+              }}
+            >
+              Reload and try again
+            </button>
+          </div>
+        </div>
+      </dialog>
+    );
+  });
+
+  ErrorFallback.displayName = 'ErrorFallback';
 
   return (
     <>
@@ -182,7 +210,7 @@ export const App = () => {
         />
         <Messages
           isLoading={isLoading}
-          messages={messages}
+          messages={memoizedMessages}
           reload={reloadCb}
           stop={stopCb}
           textAreaRef={textAreaRef}
@@ -204,28 +232,3 @@ export const App = () => {
 App.displayName = 'App';
 
 export default App;
-
-export const ErrorFallback = memo(({ error, resetErrorBoundary }) => {
-  return (
-    <dialog className="modal modal-bottom sm:modal-middle errorModal">
-      <div className="w-11/12 max-w-5xl modal-box bg-error-content">
-        <h3 className="text-lg font-bold text-error">Error</h3>
-        <p className="py-4 text-error">{error?.message}</p>
-        <div className="modal-action">
-          <button
-            type="button"
-            className="btn btnReload text-error-content btn-error"
-            onClick={() => {
-              resetErrorBoundary();
-              window.location.reload();
-            }}
-          >
-            Reload and try again
-          </button>
-        </div>
-      </div>
-    </dialog>
-  );
-});
-
-ErrorFallback.displayName = 'ErrorFallback';

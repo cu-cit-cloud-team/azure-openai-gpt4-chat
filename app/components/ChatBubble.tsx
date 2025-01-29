@@ -37,18 +37,6 @@ interface ChatBubbleProps {
   totalMessages?: number;
 }
 
-const Pre = memo(
-  ({ children }) => (
-    <pre className="code-pre">
-      <CopyToClipboard key={nanoid()} textToCopy={children.props.children} />
-      {children}
-    </pre>
-  ),
-  []
-);
-
-Pre.displayName = 'Pre';
-
 export const ChatBubble = memo(
   ({
     index,
@@ -60,10 +48,23 @@ export const ChatBubble = memo(
     model,
     reload,
     stop,
-    totalMessages,
+    totalMessages
   }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
-    const copyToClipBoardKey = useMemo(() => nanoid(), []);
+    const copyToClipBoardKey = nanoid();
+    const preCopyToClipBoardKey = nanoid();
+
+    const Pre = ({ children }) => {
+      return (
+        <pre className="code-pre">
+          <CopyToClipboard
+            key={preCopyToClipBoardKey}
+            textToCopy={children.props.children}
+          />
+          {children}
+        </pre>
+      );
+    };
 
     const rehypePlugins = useMemo(
       () => [rehypeKatex, rehypeSanitize, rehypeStringify],
@@ -101,86 +102,29 @@ export const ChatBubble = memo(
       );
     }, [index, isLoading, isUser, totalMessages]);
 
-    const chatClass = useMemo(
-      () =>
-        clsx('chat mb-10', {
+    return (
+      (<div
+        className={clsx('chat mb-10', {
           'chat-start': isUser,
           'chat-end': !isUser,
-        }),
-      [isUser]
-    );
-
-    const avatarClass = useMemo(
-      () =>
-        clsx('w-12 pt-2 p-1 rounded', {
-          'bg-primary text-primary-content': isUser,
-          'bg-secondary text-secondary-content': !isUser,
-        }),
-      [isUser]
-    );
-
-    const chatBubbleClass = useMemo(
-      () =>
-        clsx('prose relative chat-bubble', {
-          'chat-bubble-primary': isUser,
-          'chat-bubble-secondary bot': !isUser,
-        }),
-      [isUser]
-    );
-
-    const chatFooterClass = useMemo(
-      () =>
-        clsx('chat-footer', {
-          bot: !isUser,
-        }),
-      [isUser]
-    );
-
-    const markdownComponents = useMemo(
-      () => ({
-        pre: Pre,
-        code(props) {
-          const { children, className = 'code-pre', node, ...rest } = props;
-          const match = /language-(\w+)/.exec(className || '');
-          return match ? (
-            <SyntaxHighlighter
-              {...rest}
-              style={editorTheme}
-              language={match[1]}
-              PreTag="div"
-              showLineNumbers={true}
-            >
-              {String(children).replace(/\n$/, '')}
-            </SyntaxHighlighter>
-          ) : (
-            <code {...rest} className={className}>
-              {children}
-            </code>
-          );
-        },
-      }),
-      [editorTheme]
-    );
-
-    const renderedMarkdown = useMemo(
-      () => (
-        <Markdown
-          rehypePlugins={rehypePlugins}
-          remarkPlugins={remarkPlugins}
-          components={markdownComponents}
-        >
-          {messageContent.replace(/\n/g, '  \n')}
-        </Markdown>
-      ),
-      [rehypePlugins, remarkPlugins, markdownComponents, messageContent]
-    );
-
-    return (
-      <div className={chatClass}>
+        })}
+      >
         <div className="chat-image avatar">
-          <div className={avatarClass}>{chatBubbleUserIcon}</div>
+          <div
+            className={clsx('w-12 pt-2 p-1 rounded', {
+              'bg-primary text-primary-content': isUser,
+              'bg-secondary text-secondary-content': !isUser,
+            })}
+          >
+            {chatBubbleUserIcon}
+          </div>
         </div>
-        <div className={chatBubbleClass}>
+        <div
+          className={clsx('prose relative chat-bubble', {
+            'chat-bubble-primary': isUser,
+            'chat-bubble-secondary bot': !isUser,
+          })}
+        >
           {(isUser || !isLoading || index !== totalMessages) && (
             <>
               <CopyToClipboard
@@ -198,9 +142,45 @@ export const ChatBubble = memo(
               ) : null}
             </>
           )}
-          {renderedMarkdown}
+          <Markdown
+            rehypePlugins={rehypePlugins}
+            remarkPlugins={remarkPlugins}
+            components={{
+              pre: Pre,
+              code(props) {
+                const {
+                  children,
+                  className = 'code-pre',
+                  node,
+                  ...rest
+                } = props;
+                const match = /language-(\w+)/.exec(className || '');
+                return match ? (
+                  <SyntaxHighlighter
+                    {...rest}
+                    style={editorTheme}
+                    language={match[1]}
+                    PreTag="div"
+                    showLineNumbers={true}
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code {...rest} className={className}>
+                    {children}
+                  </code>
+                );
+              },
+            }}
+          >
+            {messageContent.replace(/\n/g, '  \n')}
+          </Markdown>
         </div>
-        <div className={chatFooterClass}>
+        <div
+          className={clsx('chat-footer', {
+            'bot': !isUser,
+          })}
+        >
           <ChatMeta
             index={index}
             isLoading={isLoading}
@@ -211,7 +191,7 @@ export const ChatBubble = memo(
             totalMessages={totalMessages}
           />
         </div>
-      </div>
+      </div>)
     );
   }
 );

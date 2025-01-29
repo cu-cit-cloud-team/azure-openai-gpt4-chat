@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useEffect } from 'react';
 
 import { parametersAtom } from '@/app/components/Parameters';
 import { userMetaAtom } from '@/app/components/UserAvatar';
@@ -33,7 +33,7 @@ export const ChatMeta = memo(
     messageCreatedAt,
     model,
     stop,
-    totalMessages,
+    totalMessages
   }: ChatMetaProps) => {
     const lastUpdatedStringAtom = atom('');
     const modelAtom = atom(model);
@@ -69,25 +69,6 @@ export const ChatMeta = memo(
       return () => clearInterval(clockInterval);
     }, [messageCreatedAt, setLastUpdatedString]);
 
-    const MemoizedStopIcon = useMemo(
-      () => (
-        <div
-          className="cursor-pointer tooltip tooltip-secondary tooltip-left"
-          data-tip={'Stop loading response'}
-          onClick={stop}
-          onKeyDown={stop}
-        >
-          <FontAwesomeIcon icon={faStop} />
-        </div>
-      ),
-      [stop]
-    );
-
-    const MemoizedSpinnerIcon = useMemo(
-      () => <FontAwesomeIcon icon={faSpinner} />,
-      []
-    );
-
     return (
       <>
         <div
@@ -104,8 +85,15 @@ export const ChatMeta = memo(
         >
           {!isUser && index === totalMessages && isLoading ? (
             <>
-              {MemoizedStopIcon}
-              {MemoizedSpinnerIcon}
+              <div
+                className="cursor-pointer tooltip tooltip-secondary tooltip-left"
+                data-tip={'Stop loading response'}
+                onClick={stop}
+                onKeyDown={stop}
+              >
+                <FontAwesomeIcon icon={faStop} className="mr-2" />
+              </div>
+              <FontAwesomeIcon icon={faSpinner} spinPulse className="mr-2" />
             </>
           ) : null}
           {isUser ? `${userMeta?.name ?? 'User'}` : `${modelInfo}`}
