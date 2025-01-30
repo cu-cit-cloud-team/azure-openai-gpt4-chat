@@ -7,27 +7,6 @@ import { atomWithStorage } from 'jotai/utils';
 import { nanoid } from 'nanoid';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect } from 'react';
-import {
-  coldarkCold,
-  coldarkDark,
-  darcula,
-  dracula,
-  duotoneSea,
-  funky,
-  gruvboxDark,
-  gruvboxLight,
-  materialLight,
-  materialOceanic,
-  nightOwl,
-  nord,
-  okaidia,
-  oneDark,
-  oneLight,
-  prism,
-  solarizedlight,
-  synthwave84,
-  tomorrow,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
