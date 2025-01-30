@@ -6,7 +6,7 @@ import { useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { nanoid } from 'nanoid';
 import { useTheme } from 'next-themes';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
@@ -18,6 +18,11 @@ export const themeAtom = atomWithStorage('theme', 'dark');
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
+
+  const memoizedPaletteIcon = useMemo(
+    () => <FontAwesomeIcon icon={faPalette} />,
+    []
+  );
 
   // console.log(theme);
 
@@ -78,7 +83,7 @@ export const ThemeChanger = () => {
     <div title="Change Theme" className="-m-1 dropdown dropdown-end">
       {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
       <div tabIndex={0} role="button" className="btn btn-sm btn-ghost w-fit">
-        <FontAwesomeIcon icon={faPalette} /> Theme
+        {memoizedPaletteIcon} Theme
         <svg
           width="12px"
           height="12px"

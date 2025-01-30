@@ -1,7 +1,7 @@
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAtomValue } from 'jotai';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import { database } from '@/app/database/database.config';
 
@@ -13,10 +13,7 @@ interface ExportChatButtonProps {
 }
 
 export const ExportChatButton = memo(
-  ({
-    buttonText = 'Export Chat',
-    isLoading
-  }: ExportChatButtonProps) => {
+  ({ buttonText = 'Export Chat', isLoading }: ExportChatButtonProps) => {
     const systemMessage = useAtomValue(systemMessageAtom);
     const exportHandler = useCallback(
       async (event) => {
@@ -68,6 +65,11 @@ export const ExportChatButton = memo(
       [systemMessage]
     );
 
+    const memoizedIcon = useMemo(
+      () => <FontAwesomeIcon icon={faDownload} />,
+      []
+    );
+
     return (
       <>
         <button
@@ -76,7 +78,7 @@ export const ExportChatButton = memo(
           disabled={isLoading}
           className={isLoading ? 'btn-disabled' : ''}
         >
-          <FontAwesomeIcon icon={faDownload} /> {buttonText}
+          {memoizedIcon} {buttonText}
         </button>
       </>
     );

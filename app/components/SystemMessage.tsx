@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { Suspense, lazy, memo, useCallback, useEffect } from 'react';
+import { Suspense, memo, useCallback, useEffect, useMemo } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 
@@ -16,12 +16,6 @@ import { database } from '@/app/database/database.config';
 export const systemMessageAtom = atomWithStorage(
   'systemMessage',
   'You are a helpful AI assistant.'
-);
-
-const LazyFontAwesomeIcon = lazy(() =>
-  import('@fortawesome/react-fontawesome').then((module) => ({
-    default: module.FontAwesomeIcon,
-  }))
 );
 
 interface SystemMessageProps {
@@ -105,6 +99,21 @@ export const SystemMessage = memo(
       setLocalSystemMessage(e.target.value);
     };
 
+    const MemoizedFontAwesomeRectangleXIcon = useMemo(
+      () => <FontAwesomeIcon icon={faRectangleXmark} />,
+      []
+    );
+
+    const MemoizedFontAwesomeRotateIcon = useMemo(
+      () => <FontAwesomeIcon icon={faRotateLeft} />,
+      []
+    );
+
+    const MemoizedFontAwesomeSaveIcon = useMemo(
+      () => <FontAwesomeIcon icon={faFloppyDisk} />,
+      []
+    );
+
     return (
       <>
         <TokenCount
@@ -125,7 +134,7 @@ export const SystemMessage = memo(
             onClick={cancelClickHandler}
           >
             <Suspense fallback={<span>Loading...</span>}>
-              <LazyFontAwesomeIcon icon={faRectangleXmark} />
+              {MemoizedFontAwesomeRectangleXIcon}
             </Suspense>
             <span className="hidden lg:flex">Close</span>
           </button>
@@ -140,7 +149,7 @@ export const SystemMessage = memo(
             type="button"
             onClick={resetClickHandler}
           >
-            <FontAwesomeIcon icon={faRotateLeft} />
+            {MemoizedFontAwesomeRotateIcon}
             <span className="hidden lg:flex grow text-center">Reset</span>
           </button>
           <button
@@ -154,7 +163,7 @@ export const SystemMessage = memo(
             }
             onClick={saveClickHandler}
           >
-            <FontAwesomeIcon icon={faFloppyDisk} />
+            {MemoizedFontAwesomeSaveIcon}
             <span className="hidden lg:flex">Save</span>
           </button>
         </div>

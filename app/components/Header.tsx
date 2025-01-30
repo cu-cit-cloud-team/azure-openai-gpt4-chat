@@ -1,6 +1,6 @@
 import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
-import { Suspense, lazy, memo, useEffect } from 'react';
+import { Suspense, lazy, memo, useEffect, useMemo } from 'react';
 
 import { ClearChatButton } from '@/app/components/ClearChatButton';
 import { ExportChatButton } from '@/app/components/ExportChatButton';
@@ -50,15 +50,23 @@ export const Header = memo(
       });
     }, []);
 
+    const memoFaBars = useMemo(
+      () => <FontAwesomeIcon icon={faBars} />,
+      [faBars]
+    );
+    const memoFaRobot = useMemo(
+      () => <FontAwesomeIcon icon={faRobot} />,
+      [faRobot]
+    );
+    const memoThemeChanger = useMemo(() => <ThemeChanger />, []);
+
     return (
       <div className="fixed top-0 z-50 navbar bg-base-300">
         <div className="navbar-start">
           <div className="dropdown">
             {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <Suspense fallback={<div>Loading...</div>}>
-                <FontAwesomeIcon icon={faBars} />
-              </Suspense>
+              <Suspense fallback={<div>Loading...</div>}>{memoFaBars}</Suspense>
             </label>
             <ul
               tabIndex={0}
@@ -68,7 +76,7 @@ export const Header = memo(
                 <details className="system-message-dropdown">
                   <summary className="whitespace-nowrap">
                     <Suspense fallback={<div>Loading...</div>}>
-                      <FontAwesomeIcon icon={faRobot} />
+                      {memoFaRobot}
                     </Suspense>
                     System
                   </summary>
@@ -91,9 +99,7 @@ export const Header = memo(
               <li>
                 <ExportChatButton buttonText="Export" isLoading={isLoading} />
               </li>
-              <li>
-                <ThemeChanger />
-              </li>
+              <li>{memoThemeChanger}</li>
             </ul>
           </div>
           <a
@@ -112,7 +118,7 @@ export const Header = memo(
               <details className="system-message-dropdown">
                 <summary>
                   <Suspense fallback={<div>Loading...</div>}>
-                    <FontAwesomeIcon icon={faRobot} />
+                    {memoFaRobot}
                   </Suspense>
                   System
                 </summary>
@@ -135,9 +141,7 @@ export const Header = memo(
             <li>
               <ExportChatButton buttonText="Export" isLoading={isLoading} />
             </li>
-            <li>
-              <ThemeChanger />
-            </li>
+            <li>{memoThemeChanger}</li>
           </ul>
         </div>
         <div className="navbar-end">
