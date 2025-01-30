@@ -40,7 +40,7 @@
     "ai": "4.1.11",
     "babel-plugin-react-compiler": "19.0.0-beta-27714ef-20250124",
     "clsx": "2.1.1",
-    "daisyui": "5.0.0-beta.3",
+    "daisyui": "5.0.0-beta.5",
     "dayjs": "1.11.13",
     "dexie": "4.0.11",
     "dexie-react-hooks": "1.1.7",
@@ -105,11 +105,7 @@
     "lodash": "4.17.21"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
