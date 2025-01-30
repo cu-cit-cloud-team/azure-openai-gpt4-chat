@@ -10,10 +10,7 @@ interface ClearChatButtonProps {
 }
 
 export const ClearChatButton = memo(
-  ({
-    buttonText = 'Clear Chat',
-    isLoading
-  }: ClearChatButtonProps) => {
+  ({ buttonText = 'Clear Chat', isLoading }: ClearChatButtonProps) => {
     const clearHistory = useCallback(async (doConfirm = true) => {
       const clearMessages = async () => {
         try {
