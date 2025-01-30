@@ -37,6 +37,17 @@ interface ChatBubbleProps {
   totalMessages?: number;
 }
 
+const Pre = ({ children }) => {
+  return (
+    <pre className="code-pre">
+      <CopyToClipboard key={nanoid()} textToCopy={children.props.children} />
+      {children}
+    </pre>
+  );
+};
+
+Pre.displayName = 'Pre';
+
 export const ChatBubble = memo(
   ({
     index,
@@ -48,23 +59,10 @@ export const ChatBubble = memo(
     model,
     reload,
     stop,
-    totalMessages
+    totalMessages,
   }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
     const copyToClipBoardKey = nanoid();
-    const preCopyToClipBoardKey = nanoid();
-
-    const Pre = ({ children }) => {
-      return (
-        <pre className="code-pre">
-          <CopyToClipboard
-            key={preCopyToClipBoardKey}
-            textToCopy={children.props.children}
-          />
-          {children}
-        </pre>
-      );
-    };
 
     const rehypePlugins = useMemo(
       () => [rehypeKatex, rehypeSanitize, rehypeStringify],
@@ -103,7 +101,7 @@ export const ChatBubble = memo(
     }, [index, isLoading, isUser, totalMessages]);
 
     return (
-      (<div
+      <div
         className={clsx('chat mb-10', {
           'chat-start': isUser,
           'chat-end': !isUser,
@@ -191,7 +189,7 @@ export const ChatBubble = memo(
             totalMessages={totalMessages}
           />
         </div>
-      </div>)
+      </div>
     );
   }
 );
