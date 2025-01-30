@@ -1,5 +1,6 @@
 import type React from 'react';
-import './globals.scss';
+
+import './globals.css';
 
 import { Providers } from '@/app/providers';
 

@@ -1,7 +1,7 @@
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard'],
   rules: {
-    'scss/at-rule-no-unknown': [
+    'at-rule-no-unknown': [
       true,
       {
         ignoreAtRules: [
@@ -10,11 +10,13 @@ module.exports = {
           'variants',
           'responsive',
           'screen',
+          'plugin',
+          'theme',
+          'utility',
         ],
       },
     ],
     'no-descending-specificity': null,
     'no-empty-source': null,
-    'at-rule-no-unknown': null,
   },
 };

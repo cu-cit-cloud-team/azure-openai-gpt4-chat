@@ -7,19 +7,40 @@ import { atomWithStorage } from 'jotai/utils';
 import { nanoid } from 'nanoid';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect } from 'react';
+import {
+  coldarkCold,
+  coldarkDark,
+  darcula,
+  dracula,
+  duotoneSea,
+  funky,
+  gruvboxDark,
+  gruvboxLight,
+  materialLight,
+  materialOceanic,
+  nightOwl,
+  nord,
+  okaidia,
+  oneDark,
+  oneLight,
+  prism,
+  solarizedlight,
+  synthwave84,
+  tomorrow,
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
-export const editorThemeAtom = atomWithStorage(
-  'editorTheme',
-  getEditorTheme('dark')
-);
+const currentTheme = getEditorTheme('dark');
 
+export const editorThemeAtom = atomWithStorage('editorTheme', currentTheme);
 export const themeAtom = atomWithStorage('theme', 'dark');
 
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
+
+  // console.log(theme);
 
   useEffect(() => {
     const details = [...document.querySelectorAll('details.dropdown')];
@@ -40,10 +61,10 @@ export const ThemeChanger = () => {
   }, []);
 
   const handleClick = useCallback(
-    (e) => {
-      const button = e.target.closest('button');
-      setTheme(button.dataset.theme);
-      setEditorTheme(getEditorTheme(button.dataset.theme));
+    (e: MouseEvent<HTMLButtonElement>) => {
+      const button = e.currentTarget;
+      setTheme(button.dataset.set_theme as string);
+      setEditorTheme(getEditorTheme(button.dataset.set_theme as string));
     },
     [setEditorTheme, setTheme]
   );
@@ -51,18 +72,20 @@ export const ThemeChanger = () => {
   const updateSelected = useCallback(() => {
     const selectedSVGs = document.querySelectorAll('svg.themeSelected');
     for (const svg of selectedSVGs) {
-      svg.classList.add('invisible');
+      svg.classList.add('hidden');
     }
     const buttons = document.querySelectorAll('button');
     for (const button of buttons) {
       if (button.dataset.theme === theme) {
         const svg = button.querySelector('svg');
-        svg.classList.remove('invisible');
-        svg.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        });
+        if (svg) {
+          svg.classList.remove('hidden');
+          svg.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center',
+          });
+        }
       }
     }
   }, [theme]);
@@ -72,51 +95,66 @@ export const ThemeChanger = () => {
   }, [updateSelected]);
 
   return (
-    <details className="dropdown lg:dropdown-end">
-      <summary className="btn-sm">
-        <span className="font-normal">
-          <FontAwesomeIcon icon={faPalette} /> Theme
-        </span>
-      </summary>
-      <div className="w-56 mt-12 overflow-y-auto shadow dropdown-content bg-base-200 text-base-content rounded-box top-px h-70vh max-h-96">
-        <div className="grid grid-cols-1 gap-3 p-3" tabIndex="0">
-          {themes.map((theme) => (
-            <button
-              className="overflow-hidden text-left rounded-lg outline-base-content button-theme"
-              data-theme={theme}
-              data-editor-theme={getEditorTheme(theme)}
-              onClick={handleClick}
-              type="button"
-              key={nanoid()}
-            >
-              <span className="block w-full font-sans cursor-pointer bg-base-100 text-base-content">
-                <span className="grid grid-cols-5 grid-rows-3">
-                  <span className="flex items-center col-span-5 row-span-3 row-start-1 gap-2 px-4 py-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="invisible w-3 h-3 shrink-0 themeSelected"
-                    >
-                      <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                    <span className="flex-grow text-sm">{theme}</span>
-                    <span className="flex flex-wrap flex-shrink-0 h-full gap-1">
-                      <span className="w-2 rounded bg-primary" />
-                      <span className="w-2 rounded bg-secondary" />
-                      <span className="w-2 rounded bg-accent" />
-                      <span className="w-2 rounded bg-neutral" />
-                    </span>
-                  </span>
-                </span>
-              </span>
-            </button>
-          ))}
-        </div>
+    <div title="Change Theme" className="-m-1 dropdown dropdown-end">
+      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+      <div tabIndex={0} role="button" className="btn btn-sm btn-ghost w-fit">
+        <FontAwesomeIcon icon={faPalette} /> Theme
+        <svg
+          width="12px"
+          height="12px"
+          className="hidden h-2 w-2 fill-current opacity-60 sm:inline-block"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 2048 2048"
+        >
+          <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" />
+        </svg>
       </div>
-    </details>
+      <div
+        tabIndex={0}
+        className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-[28rem] max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13"
+      >
+        <ul
+          className="menu"
+          style={{
+            marginInlineStart: 'initial',
+            paddingInlineStart: 'initial',
+          }}
+        >
+          {themes.map((theme) => (
+            <li key={nanoid()}>
+              <button
+                className="px-2 gap-3"
+                data-set_theme={theme}
+                data-act-class="[&_svg]:visible"
+                type="button"
+                onClick={handleClick}
+              >
+                <div
+                  data-theme={theme}
+                  className="w-6 grid grid-cols-2 gap-0.5 p-1 rounded-md shadow-sm shrink-0 bg-base-100"
+                >
+                  <div className="size-1.5 rounded-full bg-base-content" />
+                  <div className="size-1.5 rounded-full bg-primary" />
+                  <div className="size-1.5 rounded-full bg-secondary" />
+                  <div className="size-1.5 rounded-full bg-accent" />
+                </div>
+                <div className="w-32 truncate">{theme}</div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="hidden h-3 w-3 shrink-0 themeSelected"
+                >
+                  <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
+                </svg>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: night, autumn, light, dark, abyss, acid, aqua, black, bumblebee, business, caramellatte, cmyk, coffee, corporate, cupcake, cyberpunk, dim, dracula, emerald, fantasy, forest, garden, halloween, lemonade, lofi, luxury, nord, pastel, retro, silk, sunset, synthwave, valentine, winter, wireframe;
+};
+
+@plugin "daisyui/theme" {
+  name: cyberpunk;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@plugin "daisyui/theme" {
+  name: wireframe;
+  font-family: Chalkboard, "comic sans ms", sans-serif;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+}
+
+.chat-bubble.prose > p {
+  margin-top: 0;
+  margin-bottom: calc(var(--spacing) * 5)
+}
+
+.chat-bubble.prose > p:last-of-type {
+  margin-bottom: 0;
+}
+
+div.chat-bubble > .clipboard-container:first-child,
+div.chat-bubble > .delete-container,
+div.chat-bubble > .reload-container {
+  margin-top: calc(var(--spacing) * -10);
+}
+
+.code-pre {
+  background-color: transparent;
+  margin-top: 0;
+  margin-bottom: calc(var(--spacing) * 2);
+  padding-block: 0;
+}
+
+.code-pre>div:last-of-type {
+  border-radius: var(--radius-lg);
+  padding: calc(var(--spacing) * 1);
+}
+
+.menu ul > li div:hover, .menu ul > li span:hover {
+  background-color: transparent;
+}
+
+/* fix some display issue in bot chat bubbles in light mode */
+.chat-bubble.bot code,
+.chat-bubble.bot strong,
+.chat-bubble.bot blockquote,
+.chat-bubble.bot h1,
+.chat-bubble.bot h2,
+.chat-bubble.bot h3,
+.chat-bubble.bot h4,
+.chat-bubble.bot h5,
+.chat-bubble.bot ul,
+.chat-bubble.bot ol,
+.chat-bubble.bot li,
+.chat-bubble.bot li::marker {
+  color: var(--color-secondary-content);
+}
+
+.chat-bubble ul {
+  margin-top: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 4);
+}
+
+.chat-footer.bot {
+  margin-top: calc(var(--spacing) * 1);
+}

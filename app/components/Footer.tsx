@@ -4,19 +4,25 @@ import { memo, useEffect } from 'react';
 import { TokenCount } from '@/app/components/TokenCount';
 
 interface FooterProps {
-  formRef?: (...args: unknown[]) => unknown | {
-    current?: object;
-  };
+  formRef?: (...args: unknown[]) =>
+    | unknown
+    | {
+        current?: object;
+      };
   handleInputChange(...args: unknown[]): unknown;
   handleSubmit(...args: unknown[]): unknown;
   input: string;
   isLoading: boolean;
-  systemMessageRef?: (...args: unknown[]) => unknown | {
-    current?: object;
-  };
-  textAreaRef?: (...args: unknown[]) => unknown | {
-    current?: object;
-  };
+  systemMessageRef?: (...args: unknown[]) =>
+    | unknown
+    | {
+        current?: object;
+      };
+  textAreaRef?: (...args: unknown[]) =>
+    | unknown
+    | {
+        current?: object;
+      };
 }
 
 export const Footer = memo(
@@ -27,7 +33,7 @@ export const Footer = memo(
     input,
     isLoading,
     systemMessageRef,
-    textAreaRef
+    textAreaRef,
   }: FooterProps) => {
     useEffect(() => {
       if (document?.activeElement !== systemMessageRef?.current && !isLoading) {
@@ -46,7 +52,7 @@ export const Footer = memo(
           <textarea
             autoFocus={true}
             className={clsx(
-              'w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl min-h-14 h-14 lg:text-base lg:h-20 lg:min-h-20 max-h-75',
+              'bg-base-100 w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl min-h-14 h-14 lg:text-base lg:h-20 lg:min-h-20 max-h-75',
               {
                 'skeleton': isLoading,
               }

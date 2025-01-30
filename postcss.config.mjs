@@ -1,12 +1,10 @@
-const cssWhitelistClassArray = [];
-
-module.exports = {
+const config = {
   plugins: {
-    tailwindcss: {},
     autoprefixer: {},
-    // cssnano: {
-    //   preset: 'default',
-    // },
+    '@tailwindcss/postcss': {},
+    cssnano: {
+      preset: 'default',
+    },
     // '@fullhuman/postcss-purgecss': {
     //   content: ['./app/**/*.tsx'],
     //   fontFace: false,
@@ -14,3 +12,5 @@ module.exports = {
     // },
   },
 };
+
+export default config;
