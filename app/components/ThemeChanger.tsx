@@ -55,10 +55,11 @@ export const ThemeChanger = () => {
     }
     const buttons = document.querySelectorAll('button');
     for (const button of buttons) {
-      if (button.dataset.theme === theme) {
+      if (button.dataset.set_theme === theme) {
         const svg = button.querySelector('svg');
         if (svg) {
           svg.classList.remove('hidden');
+          svg.classList.add('visible');
           svg.scrollIntoView({
             behavior: 'smooth',
             block: 'center',
@@ -104,7 +105,6 @@ export const ThemeChanger = () => {
               <button
                 className="px-2 gap-3"
                 data-set_theme={theme}
-                data-act-class="[&_svg]:visible"
                 type="button"
                 onClick={handleClick}
               >
@@ -124,7 +124,7 @@ export const ThemeChanger = () => {
                   height="16"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="hidden h-3 w-3 shrink-0 themeSelected"
+                  className="themeSelected hidden h-3 w-3 shrink-0"
                 >
                   <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
                 </svg>
