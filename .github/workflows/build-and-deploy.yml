@@ -5,7 +5,7 @@ on:
 
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - "v[0-9]+.[0-9]+.[0-9]+"
     paths:
       - "app/**.*"
       - "public/**.*"
@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: "22"
   AZURE_WEBAPP_NAME: "ct-azure-openai-gpt4-chat"
   AZURE_WEBAPP_PACKAGE_PATH: "."
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
@@ -36,7 +36,7 @@ env:
 jobs:
   build-and-deploy:
     environment:
-      name: 'production'
+      name: "production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     runs-on: ubuntu-latest
     steps:
