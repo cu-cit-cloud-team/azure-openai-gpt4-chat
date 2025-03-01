@@ -37,7 +37,7 @@
     "@langchain/core": "0.3.41",
     "@langchain/openai": "0.4.4",
     "@million/lint": "1.0.14",
-    "ai": "4.1.46",
+    "ai": "4.1.47",
     "babel-plugin-react-compiler": "19.0.0-beta-e1e972c-20250221",
     "clsx": "2.1.1",
     "daisyui": "5.0.0-beta.9",
