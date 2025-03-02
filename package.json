@@ -4,7 +4,7 @@
   "description": "A Next.js chat app that uses Azure OpenAI GPT-4 to generate responses",
   "private": true,
   "engines": {
-    "node": ">= 20.x",
+    "node": ">= 22.x",
     "npm": ">= 10.x"
   },
   "scripts": {
@@ -75,8 +75,8 @@
     "@tailwindcss/postcss": "4.0.9",
     "@tailwindcss/typography": "0.5.16",
     "@types/node": "22.13.8",
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "@types/react-syntax-highlighter": "15.5.13",
     "autoprefixer": "10.4.20",
     "conventional-changelog": "6.0.0",
@@ -95,11 +95,7 @@
     "stylelint": "16.15.0",
     "stylelint-config-standard": "37.0.0",
     "tailwindcss": "4.0.9",
-    "typescript": "5.8.2"
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc"
+    "typescript": "5.7.3"
   },
   "peerDependencies": {
     "lodash": "4.17.21"
@@ -125,7 +121,7 @@
     "preset": "conventionalcommits"
   },
   "volta": {
-    "node": "22.13.1",
+    "node": "22.14.0",
     "npm": "10.9.2"
   }
 }
