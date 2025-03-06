@@ -52,7 +52,7 @@
     "nanoid": "5.1.2",
     "next": "15.2.1",
     "next-themes": "0.4.4",
-    "openai": "4.86.1",
+    "openai": "4.86.2",
     "react": "19.0.0",
     "react-compiler-runtime": "19.0.0-beta-40c6c23-20250301",
     "react-dom": "19.0.0",
