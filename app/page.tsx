@@ -40,10 +40,6 @@ export const App = () => {
 
   const addMessage = useCallback(
     async (message) => {
-      if (!message) {
-        return;
-      }
-
       await database.messages.put({
         ...message,
         model: parameters.model,
