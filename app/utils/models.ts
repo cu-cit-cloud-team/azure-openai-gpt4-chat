@@ -20,6 +20,10 @@ export const models: Models = [
     name: 'gpt-4o-mini',
     displayName: 'GPT-4o Mini (2024-07-18)',
   },
+  {
+    name: 'gpt-45-preview',
+    displayName: 'GPT-4.5 Preview (2025-01-25)',
+  },
 ];
 
 export const modelStringFromName: string = (name: string) =>
