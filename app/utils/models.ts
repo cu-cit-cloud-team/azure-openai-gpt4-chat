@@ -22,7 +22,7 @@ export const models: Models = [
   },
   {
     name: 'gpt-45-preview',
-    displayName: 'GPT-4.5 Preview (2025-01-25)',
+    displayName: 'GPT-4.5 Preview (2025-02-27)',
   },
 ];
 
