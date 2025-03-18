@@ -54,3 +54,7 @@ export const modelStringFromName: string = (name: string) =>
   models.find((model) => model.name === name)?.displayName ||
   models.find((model) => model?.default)?.displayName ||
   'GPT-4o (2024-11-20)';
+
+export const modelFromName: string = (name: string) =>
+  models.find((model) => model.name === name) ||
+  models.find((model) => model.default);
