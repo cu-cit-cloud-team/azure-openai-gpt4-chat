@@ -3,11 +3,12 @@ import { atom, useAtom, useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo, useEffect, useMemo } from 'react';
 
+import { modelFromName } from '@/app/utils/models';
 import { getTokenCount } from '@/app/utils/tokens';
 
 import { parametersAtom } from '@/app/components/Parameters';
 
-const systemMessageMaxTokens = 400;
+const systemMessageMaxTokens = 4096;
 
 export const tokensAtom = atomWithStorage('tokens', {
   input: 0,
@@ -20,15 +21,11 @@ export const tokensAtom = atomWithStorage('tokens', {
 interface TokenCountProps {
   input?: string;
   systemMessage: string;
-  display?: "input" | "systemMessage";
+  display?: 'input' | 'systemMessage';
 }
 
 export const TokenCount = memo(
-  ({
-    input = '',
-    systemMessage,
-    display = 'input'
-  }: TokenCountProps) => {
+  ({ input = '', systemMessage, display = 'input' }: TokenCountProps) => {
     const inputTokensAtom = atom(0);
     const systemMessageTokensAtom = atom(0);
     const remainingTokensAtom = atom(16384);
@@ -43,7 +40,8 @@ export const TokenCount = memo(
       remainingSystemTokensAtom
     );
     const parameters = useAtomValue(parametersAtom);
-    const maxTokens = parameters.model.includes('gpt-4') ? 128000 : 16384;
+    const model = modelFromName(parameters.model);
+    const maxTokens = model?.maxInputTokens || 16384;
     const [tokens, setTokens] = useAtom(tokensAtom);
 
     useEffect(() => {
