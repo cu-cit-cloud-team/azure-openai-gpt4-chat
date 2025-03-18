@@ -44,8 +44,7 @@ export async function POST(req: Request) {
 
   // extract the query params
   const urlParams = new URL(req.url).searchParams;
-  console.log('URL Params:', urlParams.toString());
-  console.log(urlParams.get('model'));
+
   // set to defaults if not provided
   const systemMessage =
     urlParams.get('systemMessage') || defaults.systemMessage;
@@ -111,22 +110,6 @@ export async function POST(req: Request) {
     {
       user,
     }
-  );
-
-  console.log(
-    model === 'gpt-35-turbo' && AZURE_OPENAI_GPT35_DEPLOYMENT
-      ? AZURE_OPENAI_GPT35_DEPLOYMENT
-      : model === 'gpt-4' && AZURE_OPENAI_GPT4_DEPLOYMENT
-        ? AZURE_OPENAI_GPT4_DEPLOYMENT
-        : model === 'gpt-4-turbo' && AZURE_OPENAI_MODEL_DEPLOYMENT
-          ? AZURE_OPENAI_MODEL_DEPLOYMENT
-          : model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
-            ? AZURE_OPENAI_GPT4O_DEPLOYMENT
-            : model === 'gpt-4o-mini' && AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
-              ? AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
-              : model === 'gpt-45-preview' && AZURE_OPENAI_GPT45_DEPLOYMENT
-                ? AZURE_OPENAI_GPT45_DEPLOYMENT
-                : AZURE_OPENAI_GPT4O_DEPLOYMENT
   );
 
   // send the request and store the response
