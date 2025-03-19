@@ -7,8 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { memo, useEffect } from 'react';
 
-import { parametersAtom } from '@/app/components/Parameters';
-import { userMetaAtom } from '@/app/components/UserAvatar';
+import { parametersAtom, userMetaAtom } from '@/app/page';
 
 import { modelStringFromName } from '@/app/utils/models';
 
@@ -33,7 +32,7 @@ export const ChatMeta = memo(
     messageCreatedAt,
     model,
     stop,
-    totalMessages
+    totalMessages,
   }: ChatMetaProps) => {
     const lastUpdatedStringAtom = atom('');
     const modelAtom = atom(model);

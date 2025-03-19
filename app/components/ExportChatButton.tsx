@@ -5,7 +5,7 @@ import { memo, useCallback, useMemo } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-import { systemMessageAtom } from '@/app/components/SystemMessage';
+import { systemMessageAtom } from '@/app/page';
 
 interface ExportChatButtonProps {
   buttonText?: string;

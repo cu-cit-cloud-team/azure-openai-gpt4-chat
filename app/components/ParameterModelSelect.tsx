@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import { memo, useCallback } from 'react';
 
-import { parametersAtom } from '@/app/components/Parameters';
+import { parametersAtom } from '@/app/page';
 
 import { models } from '@/app/utils/models';
 

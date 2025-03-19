@@ -3,17 +3,13 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSetAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import { nanoid } from 'nanoid';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useMemo } from 'react';
 
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
-const currentTheme = getEditorTheme('dark');
-
-export const editorThemeAtom = atomWithStorage('editorTheme', currentTheme);
-export const themeAtom = atomWithStorage('theme', 'dark');
+import { editorThemeAtom } from '@/app/page';
 
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();

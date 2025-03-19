@@ -4,7 +4,7 @@ import { memo, useCallback } from 'react';
 
 import { getItem, setItem } from '@/app/utils/localStorage';
 
-import { parametersAtom } from '@/app/components/Parameters';
+import { parametersAtom } from '@/app/page';
 
 interface ParameterSliderProps {
   paramName: string;
@@ -20,7 +20,7 @@ export const ParameterSlider = memo(
     displayName = null,
     min = 0,
     max = 1,
-    step = 0.1
+    step = 0.1,
   }: ParameterSliderProps) => {
     const [parameters, setParameters] = useAtom(parametersAtom);
 

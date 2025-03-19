@@ -22,7 +22,7 @@ import { ReloadMessage } from '@/app/components/ReloadMessage';
 
 // import { markdownToText } from '@/app/utils/markdownToText';
 
-import { editorThemeAtom } from '@/app/components/ThemeChanger';
+import { editorThemeAtom } from '@/app/page';
 
 interface ChatBubbleProps {
   index?: number;

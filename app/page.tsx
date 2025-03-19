@@ -3,6 +3,7 @@
 import { useChat } from 'ai/react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtomValue } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -12,9 +13,38 @@ import { Messages } from '@/app/components/Messages';
 
 import { database } from '@/app/database/database.config';
 
-import { parametersAtom } from '@/app/components/Parameters';
-import { systemMessageAtom } from '@/app/components/SystemMessage';
-import { userMetaAtom } from '@/app/components/UserAvatar';
+import { getEditorTheme } from '@/app/utils/themes';
+
+export const editorThemeAtom = atomWithStorage(
+  'editorTheme',
+  getEditorTheme('dark')
+);
+export const themeAtom = atomWithStorage('theme', 'dark');
+
+export const systemMessageAtom = atomWithStorage(
+  'systemMessage',
+  'You are a helpful AI assistant.'
+);
+
+export const systemMessageMaxTokens = 4096;
+
+export const parametersAtom = atomWithStorage('parameters', {
+  model: 'gpt-4o',
+  temperature: '1',
+  top_p: '1',
+  frequency_penalty: '0',
+  presence_penalty: '0',
+});
+
+export const tokensAtom = atomWithStorage('tokens', {
+  input: 0,
+  maximum: 16384,
+  remaining: 16384,
+  systemMessage: 0,
+  systemMessageRemaining: systemMessageMaxTokens,
+});
+
+export const userMetaAtom = atomWithStorage('userMeta', {});
 
 export const App = () => {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);

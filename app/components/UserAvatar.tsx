@@ -5,10 +5,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 
-export const userMetaAtom = atomWithStorage('userMeta', {});
+import { userMetaAtom } from '@/app/page';
 
 export const UserAvatar = memo(() => {
   const emailAtom = atom('');

@@ -6,17 +6,13 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import { Suspense, memo, useCallback, useEffect, useMemo } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 
 import { database } from '@/app/database/database.config';
 
-export const systemMessageAtom = atomWithStorage(
-  'systemMessage',
-  'You are a helpful AI assistant.'
-);
+import { systemMessageAtom } from '@/app/page';
 
 interface SystemMessageProps {
   input?: string;

@@ -1,22 +1,11 @@
 import clsx from 'clsx';
 import { atom, useAtom, useAtomValue } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import { memo, useEffect, useMemo } from 'react';
 
 import { modelFromName } from '@/app/utils/models';
 import { getTokenCount } from '@/app/utils/tokens';
 
-import { parametersAtom } from '@/app/components/Parameters';
-
-const systemMessageMaxTokens = 4096;
-
-export const tokensAtom = atomWithStorage('tokens', {
-  input: 0,
-  maximum: 16384,
-  remaining: 16384,
-  systemMessage: 0,
-  systemMessageRemaining: systemMessageMaxTokens,
-});
+import { parametersAtom, systemMessageMaxTokens, tokensAtom } from '@/app/page';
 
 interface TokenCountProps {
   input?: string;

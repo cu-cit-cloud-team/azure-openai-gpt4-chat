@@ -50,14 +50,8 @@ export const Header = memo(
       });
     }, []);
 
-    const memoFaBars = useMemo(
-      () => <FontAwesomeIcon icon={faBars} />,
-      [faBars]
-    );
-    const memoFaRobot = useMemo(
-      () => <FontAwesomeIcon icon={faRobot} />,
-      [faRobot]
-    );
+    const memoFaBars = useMemo(() => <FontAwesomeIcon icon={faBars} />, []);
+    const memoFaRobot = useMemo(() => <FontAwesomeIcon icon={faRobot} />, []);
     const memoThemeChanger = useMemo(() => <ThemeChanger />, []);
 
     return (
