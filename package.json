@@ -35,7 +35,7 @@
     "@fortawesome/react-fontawesome": "0.2.2",
     "@langchain/community": "0.3.36",
     "@langchain/core": "0.3.42",
-    "@langchain/openai": "0.4.5",
+    "@langchain/openai": "0.4.7",
     "@million/lint": "1.0.14",
     "ai": "4.1.46",
     "babel-plugin-react-compiler": "19.0.0-beta-714736e-20250131",
