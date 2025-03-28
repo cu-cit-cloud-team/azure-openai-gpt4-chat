@@ -12,24 +12,6 @@ export interface Models {
 
 export const models: Models = [
   {
-    displayName: 'GPT-3.5 Turbo (0125)',
-    maxInputTokens: 16384,
-    maxOutputTokens: 4096,
-    name: 'gpt-35-turbo',
-  },
-  {
-    displayName: 'GPT-4 (1106)',
-    maxInputTokens: 128000,
-    maxOutputTokens: 4096,
-    name: 'gpt-4',
-  },
-  {
-    displayName: 'GPT-4 Turbo (2024-04-09)',
-    maxInputTokens: 128000,
-    maxOutputTokens: 4096,
-    name: 'gpt-4-turbo',
-  },
-  {
     default: true,
     displayName: 'GPT-4o (2024-11-20)',
     maxInputTokens: 128000,
