@@ -19,14 +19,14 @@ const {
 } = process.env;
 
 // make sure env vars are set
-if (
-  !AZURE_OPENAI_API_KEY ||
-  !AZURE_OPENAI_BASE_PATH ||
-  !AZURE_OPENAI_MODEL_DEPLOYMENT ||
-  !AZURE_OPENAI_API_VERSION
-) {
-  throw new Error('AZURE_OPENAI_API_KEY is missing from the environment.');
-}
+// if (
+//   !AZURE_OPENAI_API_KEY ||
+//   !AZURE_OPENAI_BASE_PATH ||
+//   !AZURE_OPENAI_MODEL_DEPLOYMENT ||
+//   !AZURE_OPENAI_API_VERSION
+// ) {
+//   throw new Error('AZURE_OPENAI_API_KEY is missing from the environment.');
+// }
 
 // tell next.js to use the edge runtime
 export const runtime = 'edge';
