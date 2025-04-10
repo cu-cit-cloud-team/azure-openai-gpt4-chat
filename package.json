@@ -40,7 +40,7 @@
     "ai": "4.1.46",
     "babel-plugin-react-compiler": "19.0.0-beta-714736e-20250131",
     "clsx": "2.1.1",
-    "daisyui": "5.0.17",
+    "daisyui": "5.0.18",
     "dayjs": "1.11.13",
     "dexie": "4.0.11",
     "dexie-react-hooks": "1.1.7",
