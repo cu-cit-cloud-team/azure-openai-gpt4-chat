@@ -5,9 +5,11 @@ import { smoothStream, streamText } from 'ai';
 const {
   AZURE_OPENAI_DEPLOYMENT_NAME,
   AZURE_OPENAI_API_KEY,
+  AZURE_OPENAI_API_VERSION,
   AZURE_OPENAI_GPT4O_DEPLOYMENT,
   AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT,
   AZURE_OPENAI_GPT45_DEPLOYMENT,
+  AZURE_OPENAI_GPT41_DEPLOYMENT,
 } = process.env;
 
 // make sure env vars are set
@@ -83,35 +85,65 @@ export async function POST(req: Request) {
     chatMessages = [systemPrompt, ...messages];
   }
 
+  const useWebSearch = model.includes('gpt-4o') && model.includes('web-search');
+  const useResponsesApi = model.includes('gpt-4o') || model.includes('gpt-41');
+
   // create azure client
   const azure = createAzure({
     resourceName: AZURE_OPENAI_DEPLOYMENT_NAME,
     apiKey: AZURE_OPENAI_API_KEY,
+    apiVersion: AZURE_OPENAI_API_VERSION,
   });
 
   // instantiate azure openai model
-  const openai = azure(
-    model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
-      ? AZURE_OPENAI_GPT4O_DEPLOYMENT
-      : model === 'gpt-4o-mini' && AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
-        ? AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
-        : model === 'gpt-45-preview' && AZURE_OPENAI_GPT45_DEPLOYMENT
-          ? AZURE_OPENAI_GPT45_DEPLOYMENT
-          : AZURE_OPENAI_GPT4O_DEPLOYMENT,
-    {
-      user,
-    }
-  );
+  const azureModel =
+    useWebSearch || useResponsesApi
+      ? azure.responses(
+          model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
+            ? AZURE_OPENAI_GPT4O_DEPLOYMENT
+            : model === 'gpt-4o-mini' && AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
+              ? AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
+              : model === 'gpt-41' && AZURE_OPENAI_GPT41_DEPLOYMENT
+                ? AZURE_OPENAI_GPT41_DEPLOYMENT
+                : AZURE_OPENAI_GPT4O_DEPLOYMENT,
+          {
+            user,
+          }
+        )
+      : azure(
+          model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
+            ? AZURE_OPENAI_GPT4O_DEPLOYMENT
+            : model === 'gpt-4o-mini' && AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
+              ? AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
+              : model === 'gpt-45-preview' && AZURE_OPENAI_GPT45_DEPLOYMENT
+                ? AZURE_OPENAI_GPT45_DEPLOYMENT
+                : AZURE_OPENAI_GPT4O_DEPLOYMENT,
+          {
+            user,
+          }
+        );
 
   // send the request and store the response
   const response = streamText({
-    model: openai,
+    model: azureModel,
     messages: chatMessages,
     temperature,
     topP: top_p,
     frequencyPenalty: frequency_penalty,
     presencePenalty: presence_penalty,
     maxTokens: max_tokens,
+    toolCallStreaming: true,
+    // tools: useWebSearch
+    //   ? {
+    //       web_search_preview: azure.tools.webSearchPreview({
+    //         // searchContextSize: 'high',
+    //       }),
+    //     }
+    //   : undefined,
+    // // Force web search tool:
+    // toolChoice: useWebSearch
+    //   ? { type: 'tool', toolName: 'web_search_preview' }
+    //   : undefined,
     experimental_transform: smoothStream(),
   });
 
