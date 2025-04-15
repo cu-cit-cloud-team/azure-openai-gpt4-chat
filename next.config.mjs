@@ -19,17 +19,9 @@ const nextConfig = {
       'rehype-sanitize',
       'rehype-stringify',
     ],
-    turbo: {
-      resolveExtensions: [
-        '.mdx',
-        '.tsx',
-        '.ts',
-        '.jsx',
-        '.js',
-        '.mjs',
-        '.json',
-      ],
-    },
+  },
+  turbopack: {
+    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
   typescript: {
     ignoreBuildErrors: true,
