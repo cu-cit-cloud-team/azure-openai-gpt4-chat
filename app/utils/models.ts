@@ -38,20 +38,20 @@ export const models: Models = [
   // },
   {
     displayName: 'GPT-4.1 (2025-04-14)',
-    maxInputTokens: 1000000,
-    maxOutputTokens: 16384,
+    maxInputTokens: 1047576,
+    maxOutputTokens: 32768,
     name: 'gpt-41',
   },
   {
     displayName: 'GPT-4.1 Mini (2025-04-14)',
-    maxInputTokens: 1000000,
-    maxOutputTokens: 16384,
+    maxInputTokens: 1047576,
+    maxOutputTokens: 32768,
     name: 'gpt-41-mini',
   },
   {
     displayName: 'GPT-4.1 Nano (2025-04-14)',
-    maxInputTokens: 1000000,
-    maxOutputTokens: 16384,
+    maxInputTokens: 1047576,
+    maxOutputTokens: 32768,
     name: 'gpt-41-nano',
   },
 ];
