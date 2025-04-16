@@ -8,8 +8,9 @@ const {
   AZURE_OPENAI_API_VERSION,
   AZURE_OPENAI_GPT4O_DEPLOYMENT,
   AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT,
-  AZURE_OPENAI_GPT45_DEPLOYMENT,
   AZURE_OPENAI_GPT41_DEPLOYMENT,
+  AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
+  AZURE_OPENAI_GPT41_NANO_DEPLOYMENT,
 } = process.env;
 
 // make sure env vars are set
@@ -111,13 +112,11 @@ export async function POST(req: Request) {
           }
         )
       : azure(
-          model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
-            ? AZURE_OPENAI_GPT4O_DEPLOYMENT
-            : model === 'gpt-4o-mini' && AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
-              ? AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
-              : model === 'gpt-45-preview' && AZURE_OPENAI_GPT45_DEPLOYMENT
-                ? AZURE_OPENAI_GPT45_DEPLOYMENT
-                : AZURE_OPENAI_GPT4O_DEPLOYMENT,
+          model === 'got-41-mini' && AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
+            ? AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
+            : model === 'got-41-nano' && AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
+              ? AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
+              : AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
           {
             user,
           }
