@@ -112,9 +112,9 @@ export async function POST(req: Request) {
           }
         )
       : azure(
-          model === 'got-41-mini' && AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
+          model === 'gpt-41-mini' && AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
             ? AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
-            : model === 'got-41-nano' && AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
+            : model === 'gpt-41-nano' && AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
               ? AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
               : AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
           {
