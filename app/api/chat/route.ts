@@ -87,7 +87,7 @@ export async function POST(req: Request) {
   }
 
   const useWebSearch = model.includes('gpt-4o') && model.includes('web-search');
-  const useResponsesApi = model.includes('gpt-4o') || model.includes('gpt-41');
+  const useResponsesApi = model.includes('gpt-4o') || model === 'gpt-41';
 
   // create azure client
   const azure = createAzure({
@@ -123,28 +123,34 @@ export async function POST(req: Request) {
         );
 
   // send the request and store the response
-  const response = streamText({
-    model: azureModel,
-    messages: chatMessages,
-    temperature,
-    topP: top_p,
-    frequencyPenalty: frequency_penalty,
-    presencePenalty: presence_penalty,
-    maxTokens: max_tokens,
-    toolCallStreaming: true,
-    // tools: useWebSearch
-    //   ? {
-    //       web_search_preview: azure.tools.webSearchPreview({
-    //         // searchContextSize: 'high',
-    //       }),
-    //     }
-    //   : undefined,
-    // // Force web search tool:
-    // toolChoice: useWebSearch
-    //   ? { type: 'tool', toolName: 'web_search_preview' }
-    //   : undefined,
-    experimental_transform: smoothStream(),
-  });
+  const response = useWebSearch
+    ? streamText({
+        model: azureModel,
+        messages: chatMessages,
+        temperature,
+        topP: top_p,
+        frequencyPenalty: frequency_penalty,
+        presencePenalty: presence_penalty,
+        maxTokens: max_tokens,
+        toolCallStreaming: true,
+        tools: {
+          web_search_preview: azure.tools.webSearchPreview({
+            searchContextSize: 'high',
+          }),
+        },
+        toolChoice: { type: 'tool', toolName: 'web_search_preview' },
+        experimental_transform: smoothStream(),
+      })
+    : streamText({
+        model: azureModel,
+        messages: chatMessages,
+        temperature,
+        topP: top_p,
+        frequencyPenalty: frequency_penalty,
+        presencePenalty: presence_penalty,
+        maxTokens: max_tokens,
+        experimental_transform: smoothStream(),
+      });
 
   // convert the response into a friendly text-stream and return to client
   return response.toDataStreamResponse();
