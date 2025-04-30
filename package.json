@@ -1,5 +1,5 @@
 {
-  "name": "azure-openai-gpt4-chat",
+  "name": "aoai-gpt-chat-demo",
   "version": "0.44.0",
   "description": "A Next.js chat app that uses Azure OpenAI GPT models to generate responses",
   "private": true,
