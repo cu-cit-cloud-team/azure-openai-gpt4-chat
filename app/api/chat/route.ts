@@ -86,7 +86,7 @@ export async function POST(req: Request) {
     chatMessages = [systemPrompt, ...messages];
   }
 
-  const useWebSearch = model.includes('gpt-4o') && model.includes('web-search');
+  const useWebSearch = false; // model.includes('gpt-4o') && model.includes('web-search');
   const useResponsesApi = model.includes('gpt-4o') || model === 'gpt-41';
 
   // create azure client
