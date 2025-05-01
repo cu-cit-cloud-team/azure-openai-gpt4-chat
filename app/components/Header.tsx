@@ -102,7 +102,7 @@ export const Header = memo(
             target="_blank"
             rel="noreferrer noopener"
           >
-            Cloud Team GPT Chat v{pkg.version}
+            TeamGPT Demo v{pkg.version}
           </a>
           <UpdateCheck />
         </div>
