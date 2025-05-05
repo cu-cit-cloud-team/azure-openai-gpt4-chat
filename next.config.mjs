@@ -1,5 +1,3 @@
-import MillionLint from '@million/lint';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -28,6 +26,4 @@ const nextConfig = {
   },
 };
 
-export default process.env.MILLION_LINT === 'true'
-  ? MillionLint.next({ rsc: true })(nextConfig)
-  : nextConfig;
+export default nextConfig;
