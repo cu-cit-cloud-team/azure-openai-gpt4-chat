@@ -12,7 +12,6 @@
     "build": "next build",
     "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "dev": "next dev -p 3001",
-    "dev:million": "MILLION_LINT=true next dev -p 3002",
     "lint": "next lint",
     "start": "next start",
     "version": "npm run changelog"
@@ -36,7 +35,6 @@
     "@langchain/community": "0.3.42",
     "@langchain/core": "0.3.51",
     "@langchain/openai": "0.5.10",
-    "@million/lint": "1.0.14",
     "ai": "4.1.46",
     "babel-plugin-react-compiler": "19.1.0-rc.1",
     "clsx": "2.1.1",
