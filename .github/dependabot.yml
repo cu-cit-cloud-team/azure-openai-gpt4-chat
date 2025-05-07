@@ -16,10 +16,6 @@ updates:
     ignore:
       - dependency-name: "ai"
         versions: ["4.x"]
-      - dependency-name: "next"
-        versions: ["15.3.x"]
-      - dependency-name: "eslint-config-next"
-        versions: ["15.3.x"]
     groups:
       react:
         patterns:
