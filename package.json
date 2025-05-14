@@ -45,7 +45,7 @@
     "gpt-tokenizer": "2.9.0",
     "he": "1.2.0",
     "jotai": "2.12.4",
-    "langchain": "0.3.24",
+    "langchain": "0.3.25",
     "markdown-to-txt": "2.0.1",
     "nanoid": "5.1.5",
     "next": "15.3.2",
