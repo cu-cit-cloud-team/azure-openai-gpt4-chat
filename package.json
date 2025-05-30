@@ -83,7 +83,7 @@
     "cssnano": "7.0.7",
     "cz-git": "1.11.1",
     "eslint": "9.27.0",
-    "eslint-config-next": "15.3.2",
+    "eslint-config-next": "15.3.3",
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "postcss": "8.5.4",
