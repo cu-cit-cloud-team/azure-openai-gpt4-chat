@@ -65,7 +65,7 @@
     "remark-parse": "11.0.0",
     "remark-rehype": "11.1.2",
     "unified": "11.0.5",
-    "zod": "3.25.57"
+    "zod": "3.25.61"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
