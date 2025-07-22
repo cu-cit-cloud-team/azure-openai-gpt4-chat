@@ -5,8 +5,8 @@ import './globals.css';
 import { Providers } from '@/app/providers';
 
 export const metadata = {
-  title: 'Cloud Team GPT Chat',
-  description: 'Powered by Azure OpenAI GPT-3.5 and GPT-4 models',
+  title: 'GPT Chat Demo',
+  description: 'Powered by Azure OpenAI GPT models',
 };
 
 export default function RootLayout({
