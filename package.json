@@ -39,7 +39,7 @@
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "clsx": "2.1.1",
     "daisyui": "5.1.0",
-    "dayjs": "1.11.15",
+    "dayjs": "1.11.18",
     "dexie": "4.2.0",
     "dexie-react-hooks": "4.2.0",
     "gpt-tokenizer": "3.0.1",
