@@ -70,7 +70,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
     "@tailwindcss/forms": "0.5.10",
-    "@tailwindcss/postcss": "4.1.13",
+    "@tailwindcss/postcss": "4.1.14",
     "@tailwindcss/typography": "0.5.19",
     "@types/node": "24.6.1",
     "@types/react": "19.1.16",
@@ -92,7 +92,7 @@
     "prettier-plugin-tailwindcss": "0.6.14",
     "stylelint": "16.24.0",
     "stylelint-config-standard": "39.0.0",
-    "tailwindcss": "4.1.13",
+    "tailwindcss": "4.1.14",
     "typescript": "5.9.3"
   },
   "resolutions": {
