@@ -74,7 +74,7 @@
     "@tailwindcss/typography": "0.5.19",
     "@types/node": "24.7.2",
     "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.1",
+    "@types/react-dom": "19.2.2",
     "@types/react-syntax-highlighter": "15.5.13",
     "autoprefixer": "10.4.21",
     "conventional-changelog": "7.1.1",
