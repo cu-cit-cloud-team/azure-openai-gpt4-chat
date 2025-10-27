@@ -27,7 +27,7 @@
   "homepage": "https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat",
   "license": "MIT",
   "dependencies": {
-    "@ai-sdk/azure": "2.0.54",
+    "@ai-sdk/azure": "2.0.55",
     "@fortawesome/fontawesome-svg-core": "7.1.0",
     "@fortawesome/free-brands-svg-icons": "7.1.0",
     "@fortawesome/free-solid-svg-icons": "7.1.0",
