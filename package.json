@@ -44,7 +44,7 @@
     "dexie-react-hooks": "4.2.0",
     "gpt-tokenizer": "3.2.0",
     "he": "1.2.0",
-    "jotai": "2.15.0",
+    "jotai": "2.15.1",
     "langchain": "1.0.2",
     "markdown-to-txt": "2.0.1",
     "nanoid": "5.1.6",
