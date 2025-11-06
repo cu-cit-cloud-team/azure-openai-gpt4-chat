@@ -35,7 +35,7 @@
     "@langchain/community": "1.0.0",
     "@langchain/core": "1.0.2",
     "@langchain/openai": "1.0.0",
-    "ai": "5.0.87",
+    "ai": "5.0.88",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "clsx": "2.1.1",
     "daisyui": "5.4.4",
