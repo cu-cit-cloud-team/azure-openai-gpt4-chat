@@ -76,7 +76,7 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@types/react-syntax-highlighter": "15.5.13",
-    "autoprefixer": "10.4.21",
+    "autoprefixer": "10.4.22",
     "conventional-changelog": "7.1.1",
     "conventional-changelog-cli": "5.0.0",
     "conventional-changelog-conventionalcommits": "9.1.0",
