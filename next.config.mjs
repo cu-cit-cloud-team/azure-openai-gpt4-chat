@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    reactCompiler: true,
     optimizePackageImports: [
       'daisyui',
       'dexie',
@@ -18,6 +17,17 @@ const nextConfig = {
       'rehype-stringify',
     ],
   },
+  transpilePackages: [
+    'react-markdown',
+    'remark-gfm',
+    'remark-math',
+    'remark-parse',
+    'remark-rehype',
+    'rehype-katex',
+    'rehype-sanitize',
+    'rehype-stringify',
+    'unified',
+  ],
   turbopack: {
     resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },

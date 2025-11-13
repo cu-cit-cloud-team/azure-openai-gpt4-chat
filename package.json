@@ -12,6 +12,7 @@
     "build": "next build",
     "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "dev": "next dev -p 3001",
+    "dev:webpack": "next dev -p 3001 --webpack",
     "lint": "next lint",
     "start": "next start",
     "version": "npm run changelog"
@@ -28,6 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "@ai-sdk/azure": "2.0.67",
+    "@ai-sdk/react": "2.0.93",
     "@fortawesome/fontawesome-svg-core": "7.1.0",
     "@fortawesome/free-brands-svg-icons": "7.1.0",
     "@fortawesome/free-solid-svg-icons": "7.1.0",
@@ -36,9 +38,9 @@
     "@langchain/core": "1.0.4",
     "@langchain/openai": "1.1.0",
     "ai": "5.0.93",
-    "babel-plugin-react-compiler": "19.1.0-rc.3",
+    "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
-    "daisyui": "5.5.2",
+    "daisyui": "5.5.3",
     "dayjs": "1.11.19",
     "dexie": "4.2.1",
     "dexie-react-hooks": "4.2.0",
@@ -52,7 +54,7 @@
     "next-themes": "0.4.6",
     "openai": "6.8.1",
     "react": "19.2.0",
-    "react-compiler-runtime": "19.1.0-rc.3",
+    "react-compiler-runtime": "1.0.0",
     "react-dom": "19.2.0",
     "react-error-boundary": "6.0.0",
     "react-markdown": "10.1.0",
@@ -65,7 +67,7 @@
     "remark-parse": "11.0.0",
     "remark-rehype": "11.1.2",
     "unified": "11.0.5",
-    "zod": "4.1.12"
+    "zod": "3.25.76"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.5",
@@ -96,12 +98,16 @@
     "typescript": "5.9.3"
   },
   "resolutions": {
-    "brace-expansion": "1.1.12",
-    "esbuild": "0.25.5",
+    "lodash": "4.17.21",
+    "brace-expansion": "4.0.1",
+    "esbuild": "0.27.0",
     "prismjs": "1.30.0"
   },
   "peerDependencies": {
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "brace-expansion": "4.0.1",
+    "esbuild": "0.27.0",
+    "prismjs": "1.30.0"
   },
   "browserslist": {
     "production": [

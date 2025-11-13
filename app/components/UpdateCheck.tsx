@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { atom, useAtom } from 'jotai';
-import { useEffect } from 'react';
+// Replace per-render atom with local component state to prevent infinite loops
+import { useEffect, useState } from 'react';
 
 import pkg from '../../package.json';
 
@@ -15,9 +15,8 @@ dayjs.tz.setDefault('America/New_York');
 const DEPLOY_INTERVAL = 10; // minutes
 
 export const UpdateCheck = () => {
-  const updateAvailableAtom = atom(false);
-
-  const [updateAvailable, setUpdateAvailable] = useAtom(updateAvailableAtom);
+  // Local state instead of Jotai atom defined in component (atoms should be static)
+  const [updateAvailable, setUpdateAvailable] = useState(false);
 
   useEffect(() => {
     const getLatestVersion = async (
@@ -47,15 +46,16 @@ export const UpdateCheck = () => {
       );
     };
 
-    // check for updates every hour
-    const updateHandle = setInterval(getLatestVersion(), 1000 * 60 * 60);
-
     // check for updates on load
     getLatestVersion();
 
+    // check for updates every hour
+    const updateHandle = setInterval(getLatestVersion, 1000 * 60 * 60);
+
     // clear update check interval on unmount
     return () => clearInterval(updateHandle);
-  }, [setUpdateAvailable]);
+    // setUpdateAvailable is stable from useState; no need in deps array
+  }, []);
 
   const clickHandler = () => {
     window.location.reload();

@@ -4,8 +4,9 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { atom, useAtom, useAtomValue } from 'jotai';
-import { memo, useEffect } from 'react';
+// Replace dynamic per-render atoms with local component state to prevent loops
+import { useAtomValue } from 'jotai';
+import { memo, useEffect, useState } from 'react';
 
 import { parametersAtom, userMetaAtom } from '@/app/page';
 
@@ -34,16 +35,10 @@ export const ChatMeta = memo(
     stop,
     totalMessages,
   }: ChatMetaProps) => {
-    const lastUpdatedStringAtom = atom('');
-    const modelAtom = atom(model);
-
     const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
-
-    const [lastUpdatedString, setLastUpdatedString] = useAtom(
-      lastUpdatedStringAtom
-    );
-    const [modelInfo, setModelInfo] = useAtom(modelAtom);
+    const [lastUpdatedString, setLastUpdatedString] = useState('');
+    const [modelInfo, setModelInfo] = useState(model);
 
     useEffect(() => {
       if (!modelInfo || model === undefined) {
@@ -51,11 +46,11 @@ export const ChatMeta = memo(
       } else {
         setModelInfo(modelStringFromName(model));
       }
-    }, [model, modelInfo, parameters.model, setModelInfo]);
+    }, [model, modelInfo, parameters.model]);
 
     useEffect(() => {
       setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());
-    }, [messageCreatedAt, setLastUpdatedString]);
+    }, [messageCreatedAt]);
 
     useEffect(() => {
       const updateString = () => {
@@ -66,7 +61,7 @@ export const ChatMeta = memo(
       updateString();
 
       return () => clearInterval(clockInterval);
-    }, [messageCreatedAt, setLastUpdatedString]);
+    }, [messageCreatedAt]);
 
     return (
       <>

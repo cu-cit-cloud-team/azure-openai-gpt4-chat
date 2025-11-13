@@ -4,7 +4,6 @@ import {
   SystemMessage,
 } from '@langchain/core/messages';
 import { AzureChatOpenAI } from '@langchain/openai';
-import { LangChainAdapter } from 'ai';
 
 // destructure env vars we need
 const {
@@ -133,6 +132,29 @@ export async function POST(req: Request) {
   // get the stream of messages
   const stream = await chatModel.stream(chatMessages);
 
-  // return messages stream
-  return LangChainAdapter.toDataStreamResponse(stream);
+  // Convert LangChain stream to AI SDK stream format
+  // In AI SDK v5, we need to manually handle the LangChain stream
+  const encoder = new TextEncoder();
+  const readableStream = new ReadableStream({
+    async start(controller) {
+      try {
+        for await (const chunk of stream) {
+          const text = chunk.content;
+          if (typeof text === 'string') {
+            controller.enqueue(encoder.encode(`0:${JSON.stringify(text)}\n`));
+          }
+        }
+        controller.close();
+      } catch (error) {
+        controller.error(error);
+      }
+    },
+  });
+
+  return new Response(readableStream, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'X-Vercel-AI-Data-Stream': 'v1',
+    },
+  });
 }

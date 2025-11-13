@@ -4,19 +4,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
-import { atom, useAtom } from 'jotai';
-import { memo, useCallback, useEffect, useMemo } from 'react';
+// Replace dynamic atoms (created on each render) with local state to avoid render loops
+import { useAtom } from 'jotai';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { userMetaAtom } from '@/app/page';
 
 export const UserAvatar = memo(() => {
-  const emailAtom = atom('');
-  const nameAtom = atom('');
-  const hasDataAtom = atom(false);
-
-  const [email, setEmail] = useAtom(emailAtom);
-  const [name, setName] = useAtom(nameAtom);
-  const [hasData, setHasData] = useAtom(hasDataAtom);
+  // Local component state instead of per-render atoms
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [hasData, setHasData] = useState(false);
 
   const [userMeta, setUserMeta] = useAtom(userMetaAtom);
 
@@ -55,9 +53,8 @@ export const UserAvatar = memo(() => {
 
           setUserMeta(meta);
         })
-        // biome-ignore lint/correctness/noUnusedVariables: used for debugging
-        .catch((error) => {
-          // console.error(error);
+        .catch(() => {
+          // Silently ignore auth fetch errors (local dev / unauthenticated)
         });
     };
     getUserMeta();
@@ -83,7 +80,7 @@ export const UserAvatar = memo(() => {
     if (userMeta?.email && userMeta?.name) {
       setHasData(true);
     }
-  }, [setEmail, setHasData, setName, userMeta]);
+  }, [userMeta]);
 
   const formatName = useCallback((name) => {
     if (!name) {
@@ -112,8 +109,13 @@ export const UserAvatar = memo(() => {
     <>
       <span className="hidden mr-2 text-sm lg:flex">{email}</span>
       <div className="dropdown dropdown-end bg-base-300">
-        {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
-        <label tabIndex={0} className="avatar avatar-placeholder">
+        {/* label without control is intentional for avatar trigger */}
+        <button
+          type="button"
+          tabIndex={0}
+          aria-label="User menu"
+          className="avatar avatar-placeholder"
+        >
           <div
             className={clsx(
               'rounded-full bg-primary text-primary-content cursor-pointer',
@@ -125,7 +127,7 @@ export const UserAvatar = memo(() => {
           >
             {icon}
           </div>
-        </label>
+        </button>
         {hasData ? (
           <ul
             tabIndex={0}

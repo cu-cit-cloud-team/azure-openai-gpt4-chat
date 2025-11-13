@@ -5,11 +5,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
-import { atom, useAtom } from 'jotai';
-import { Suspense, memo, useCallback, useEffect, useMemo } from 'react';
+// Replace dynamic local atoms with useState to avoid infinite re-renders
+import { useAtom } from 'jotai';
+import {
+  memo,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
-
 import { database } from '@/app/database/database.config';
 
 import { systemMessageAtom } from '@/app/page';
@@ -24,22 +31,15 @@ interface SystemMessageProps {
 }
 
 export const SystemMessage = memo(
-  ({ input, systemMessageRef }: SystemMessageProps) => {
-    const localSystemMessageAtom = atom('');
-    const originalSystemMessageAtom = atom('');
-
+  ({ systemMessageRef }: SystemMessageProps) => {
     const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
-    const [localSystemMessage, setLocalSystemMessage] = useAtom(
-      localSystemMessageAtom
-    );
-    const [originalSystemMessage, setOriginalSystemMessage] = useAtom(
-      originalSystemMessageAtom
-    );
+    const [localSystemMessage, setLocalSystemMessage] = useState('');
+    const [originalSystemMessage, setOriginalSystemMessage] = useState('');
 
     useEffect(() => {
       setOriginalSystemMessage(systemMessage);
       setLocalSystemMessage(systemMessage);
-    }, [setLocalSystemMessage, setOriginalSystemMessage, systemMessage]);
+    }, [systemMessage]);
 
     const cancelClickHandler = useCallback(() => {
       setSystemMessage(originalSystemMessage);
@@ -60,12 +60,7 @@ export const SystemMessage = memo(
           setLocalSystemMessage(originalSystemMessage);
         }
       }
-    }, [
-      localSystemMessage,
-      originalSystemMessage,
-      setLocalSystemMessage,
-      setSystemMessage,
-    ]);
+    }, [localSystemMessage, originalSystemMessage, setSystemMessage]);
 
     const saveClickHandler = useCallback(async () => {
       if (localSystemMessage !== originalSystemMessage) {
@@ -84,12 +79,7 @@ export const SystemMessage = memo(
           }
         }
       }
-    }, [
-      localSystemMessage,
-      originalSystemMessage,
-      setLocalSystemMessage,
-      setSystemMessage,
-    ]);
+    }, [localSystemMessage, originalSystemMessage, setSystemMessage]);
 
     const handleSystemMessageChange = (e) => {
       setLocalSystemMessage(e.target.value);
@@ -112,8 +102,8 @@ export const SystemMessage = memo(
 
     return (
       <>
+        {/* Re-enabled TokenCount after stateless refactor */}
         <TokenCount
-          input={input}
           systemMessage={localSystemMessage}
           display={'systemMessage'}
         />

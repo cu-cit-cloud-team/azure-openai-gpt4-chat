@@ -145,13 +145,7 @@ export const ChatBubble = memo(
             remarkPlugins={remarkPlugins}
             components={{
               pre: Pre,
-              code(props) {
-                const {
-                  children,
-                  className = 'code-pre',
-                  node,
-                  ...rest
-                } = props;
+              code({ children, className, ...rest }) {
                 const match = /language-(\w+)/.exec(className || '');
                 return match ? (
                   <SyntaxHighlighter

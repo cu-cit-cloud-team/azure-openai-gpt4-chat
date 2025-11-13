@@ -1,8 +1,8 @@
 'use client';
 
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -13,7 +13,9 @@ import { Messages } from '@/app/components/Messages';
 
 import { database } from '@/app/database/database.config';
 
+import { modelFromName } from '@/app/utils/models';
 import { getEditorTheme } from '@/app/utils/themes';
+import { getTokenCount } from '@/app/utils/tokens';
 
 export const editorThemeAtom = atomWithStorage(
   'editorTheme',
@@ -114,6 +116,32 @@ export const App = () => {
     onError: handleChatError,
     onFinish: addMessage,
   });
+
+  // Derive token counts (stateless TokenCount reads these)
+  const [tokens, setTokens] = useAtom(tokensAtom);
+  useEffect(() => {
+    const model = modelFromName(parameters.model);
+    const maxTokens = model?.maxInputTokens || 16384;
+    const inputCount = input ? getTokenCount(input) : 0;
+    const systemMessageCount = systemMessage ? getTokenCount(systemMessage) : 0;
+    const remaining = maxTokens - (inputCount + systemMessageCount);
+    const systemRemaining = systemMessageMaxTokens - systemMessageCount;
+    const shouldUpdate =
+      tokens.input !== inputCount ||
+      tokens.maximum !== maxTokens ||
+      tokens.remaining !== remaining ||
+      tokens.systemMessage !== systemMessageCount ||
+      tokens.systemMessageRemaining !== systemRemaining;
+    if (shouldUpdate) {
+      setTokens({
+        input: inputCount,
+        maximum: maxTokens,
+        remaining,
+        systemMessage: systemMessageCount,
+        systemMessageRemaining: systemRemaining,
+      });
+    }
+  }, [input, systemMessage, parameters.model, tokens, setTokens]);
 
   const handleInputChangeCb = useCallback(
     (event) => {

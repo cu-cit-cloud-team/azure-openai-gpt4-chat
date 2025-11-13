@@ -1,11 +1,10 @@
+// Stateless TokenCount: derives and displays counts without mutating global atoms
 import clsx from 'clsx';
-import { atom, useAtom, useAtomValue } from 'jotai';
-import { memo, useEffect, useMemo } from 'react';
-
+import { useAtomValue } from 'jotai';
+import { memo, useMemo } from 'react';
+import { parametersAtom, systemMessageMaxTokens, tokensAtom } from '@/app/page';
 import { modelFromName } from '@/app/utils/models';
 import { getTokenCount } from '@/app/utils/tokens';
-
-import { parametersAtom, systemMessageMaxTokens, tokensAtom } from '@/app/page';
 
 interface TokenCountProps {
   input?: string;
@@ -15,74 +14,22 @@ interface TokenCountProps {
 
 export const TokenCount = memo(
   ({ input = '', systemMessage, display = 'input' }: TokenCountProps) => {
-    const inputTokensAtom = atom(0);
-    const systemMessageTokensAtom = atom(0);
-    const remainingTokensAtom = atom(16384);
-    const remainingSystemTokensAtom = atom(systemMessageMaxTokens);
-
-    const [inputTokens, setInputTokens] = useAtom(inputTokensAtom);
-    const [systemMessageTokens, setSystemMessageTokens] = useAtom(
-      systemMessageTokensAtom
-    );
-    const [remainingTokens, setRemainingTokens] = useAtom(remainingTokensAtom);
-    const [remainingSystemTokens, setRemainingSystemTokens] = useAtom(
-      remainingSystemTokensAtom
-    );
     const parameters = useAtomValue(parametersAtom);
+    const tokens = useAtomValue(tokensAtom); // Display precomputed values from App
     const model = modelFromName(parameters.model);
     const maxTokens = model?.maxInputTokens || 16384;
-    const [tokens, setTokens] = useAtom(tokensAtom);
 
-    useEffect(() => {
-      setTokens({
-        input: inputTokens,
-        maximum: maxTokens,
-        remaining: remainingTokens,
-        systemMessage: systemMessageTokens,
-        systemMessageRemaining: remainingSystemTokens,
-      });
-    }, [
-      inputTokens,
-      maxTokens,
-      remainingSystemTokens,
-      remainingTokens,
-      setTokens,
-      systemMessageTokens,
-    ]);
-
-    const updateSystemMessageCount = useMemo(() => {
-      if (!systemMessage) {
-        return 0;
-      }
-      return getTokenCount(systemMessage);
-    }, [systemMessage]);
-
-    const updateInputCount = useMemo(() => {
-      if (!input) {
-        return 0;
-      }
-      return getTokenCount(input);
-    }, [input]);
-
-    // update token counts
-    useEffect(() => {
-      setSystemMessageTokens(updateSystemMessageCount);
-      setInputTokens(updateInputCount);
-      setRemainingTokens(
-        maxTokens - (updateSystemMessageCount + updateInputCount)
-      );
-      setRemainingSystemTokens(
-        systemMessageMaxTokens - updateSystemMessageCount
-      );
-    }, [
-      maxTokens,
-      setInputTokens,
-      setRemainingSystemTokens,
-      setRemainingTokens,
-      setSystemMessageTokens,
-      updateInputCount,
-      updateSystemMessageCount,
-    ]);
+    // Local derived counts for display fallback if tokensAtom not yet populated
+    const systemMessageCount = useMemo(
+      () => (systemMessage ? getTokenCount(systemMessage) : 0),
+      [systemMessage]
+    );
+    const inputCount = useMemo(
+      () => (input ? getTokenCount(input) : 0),
+      [input]
+    );
+    const remainingFallback = maxTokens - (systemMessageCount + inputCount);
+    const systemRemainingFallback = systemMessageMaxTokens - systemMessageCount;
 
     return (
       <>
@@ -94,14 +41,17 @@ export const TokenCount = memo(
           key={`${display}-token-count`}
         >
           <strong>
-            {tokens[display]}{' '}
+            {tokens[display] ??
+              (display === 'systemMessage'
+                ? systemMessageCount
+                : inputCount)}{' '}
             <span className="font-normal">
-              Token{tokens.input === 1 ? '' : 's '}
+              Token{(tokens.input ?? inputCount) === 1 ? '' : 's '}
             </span>{' '}
             /{' '}
             {display === 'systemMessage'
-              ? tokens.systemMessageRemaining
-              : tokens.remaining}{' '}
+              ? (tokens.systemMessageRemaining ?? systemRemainingFallback)
+              : (tokens.remaining ?? remainingFallback)}{' '}
             <span className="font-normal">Remaining</span>
           </strong>
         </div>
