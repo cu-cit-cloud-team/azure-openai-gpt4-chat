@@ -1,5 +1,12 @@
 import { createAzure } from '@ai-sdk/azure';
-import { smoothStream, streamText, convertToModelMessages, generateId, UIMessage, type LanguageModelUsage } from 'ai';
+import {
+  convertToModelMessages,
+  generateId,
+  type LanguageModelUsage,
+  smoothStream,
+  streamText,
+  type UIMessage,
+} from 'ai';
 
 // Custom message type with usage metadata
 type MyMetadata = {
@@ -18,6 +25,9 @@ const {
   AZURE_OPENAI_GPT41_DEPLOYMENT,
   AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
   AZURE_OPENAI_GPT41_NANO_DEPLOYMENT,
+  AZURE_OPENAI_GPT5_DEPLOYMENT,
+  AZURE_OPENAI_GPT5_MINI_DEPLOYMENT,
+  AZURE_OPENAI_GPT5_NANO_DEPLOYMENT,
 } = process.env;
 
 // make sure env vars are set
@@ -117,7 +127,13 @@ export async function POST(req: Request) {
             ? AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
             : model === 'gpt-41-nano' && AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
               ? AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
-              : AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
+              : model === 'gpt-5' && AZURE_OPENAI_GPT5_DEPLOYMENT
+                ? AZURE_OPENAI_GPT5_DEPLOYMENT
+                : model === 'gpt-5-mini' && AZURE_OPENAI_GPT5_MINI_DEPLOYMENT
+                  ? AZURE_OPENAI_GPT5_MINI_DEPLOYMENT
+                  : model === 'gpt-5-nano' && AZURE_OPENAI_GPT5_NANO_DEPLOYMENT
+                    ? AZURE_OPENAI_GPT5_NANO_DEPLOYMENT
+                    : AZURE_OPENAI_GPT41_DEPLOYMENT,
           {
             user,
           }

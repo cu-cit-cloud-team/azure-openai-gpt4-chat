@@ -61,7 +61,7 @@ export const Messages = memo(
                     messageContent={extractTextFromV5Message(m)}
                     messageId={m.id}
                     model={m.model}
-                    reload={regenerate}
+                    regenerate={regenerate}
                     stop={stop}
                     totalMessages={messages.length - 1}
                   />

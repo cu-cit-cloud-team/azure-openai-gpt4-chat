@@ -32,7 +32,7 @@ interface ChatBubbleProps {
   messageCreatedAt?: string | Date;
   messageId?: string;
   model?: string;
-  reload?(...args: unknown[]): unknown;
+  regenerate?(...args: unknown[]): unknown;
   stop?(...args: unknown[]): unknown;
   totalMessages?: number;
 }
@@ -57,7 +57,7 @@ export const ChatBubble = memo(
     messageCreatedAt,
     messageId,
     model,
-    reload,
+    regenerate,
     stop,
     totalMessages,
   }: ChatBubbleProps) => {
@@ -134,39 +134,53 @@ export const ChatBubble = memo(
               {index === totalMessages ? (
                 <ReloadMessage
                   isUser={isUser}
-                  reload={reload}
+                  regenerate={regenerate}
                   messageId={messageId}
                 />
               ) : null}
             </>
           )}
-          <Markdown
-            rehypePlugins={rehypePlugins}
-            remarkPlugins={remarkPlugins}
-            components={{
-              pre: Pre,
-              code({ children, className, ...rest }) {
-                const match = /language-(\w+)/.exec(className || '');
-                return match ? (
-                  <SyntaxHighlighter
-                    {...rest}
-                    style={editorTheme}
-                    language={match[1]}
-                    PreTag="div"
-                    showLineNumbers={true}
-                  >
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code {...rest} className={className}>
-                    {children}
-                  </code>
-                );
-              },
-            }}
-          >
-            {messageContent.replace(/\n/g, '  \n')}
-          </Markdown>
+          {!isUser &&
+          isLoading &&
+          index === totalMessages &&
+          (!messageContent || messageContent.trim() === '') ? (
+            <div className="flex items-center gap-2 py-2">
+              <FontAwesomeIcon
+                icon={faSpinner}
+                spinPulse
+                className="text-base-content opacity-60"
+              />
+              <span className="text-sm opacity-60">Thinking...</span>
+            </div>
+          ) : (
+            <Markdown
+              rehypePlugins={rehypePlugins}
+              remarkPlugins={remarkPlugins}
+              components={{
+                pre: Pre,
+                code({ children, className, ...rest }) {
+                  const match = /language-(\w+)/.exec(className || '');
+                  return match ? (
+                    <SyntaxHighlighter
+                      {...rest}
+                      style={editorTheme}
+                      language={match[1]}
+                      PreTag="div"
+                      showLineNumbers={true}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code {...rest} className={className}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+            >
+              {messageContent?.replace(/\n/g, '  \n') || ''}
+            </Markdown>
+          )}
         </div>
         <div
           className={clsx('chat-footer', {

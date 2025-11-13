@@ -54,6 +54,8 @@ export const tokensAtom = atomWithStorage('tokens', {
 
 export const userMetaAtom = atomWithStorage('userMeta', {});
 
+export const isLoadingAtom = atomWithStorage('isLoading', false);
+
 export const App = () => {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -74,7 +76,7 @@ export const App = () => {
       // @ts-expect-error - Converting from Dexie schema to AI SDK types
       convertV4MessageToV5(msg, index)
     ) as MyUIMessage[];
-  }, [database.messages]);
+  }, []);
 
   const handleChatError = useCallback((error) => {
     console.error(error);
@@ -98,34 +100,32 @@ export const App = () => {
     () => (userMeta?.email ? btoa(userMeta?.email) : undefined),
     [userMeta]
   );
-
   const [input, setInput] = useState('');
-  const {
-    messages,
-    isLoading,
-    sendMessage,
-    regenerate,
-    abort: stop,
-  } = useChat({
-    initialMessages: savedMessages,
-    transport: new DefaultChatTransport({
-      api: '/api/chat',
-      prepareSendMessagesRequest: ({ messages }) => {
-        return {
-          body: {
-            messages,
-            systemMessage,
-            parameters,
-            id: userId,
-          },
-        };
+  const { messages, setMessages, sendMessage, regenerate, stop, status } =
+    useChat({
+      initialMessages: savedMessages || [],
+      transport: new DefaultChatTransport({
+        api: '/api/chat',
+        prepareSendMessagesRequest: ({ messages }) => {
+          return {
+            body: {
+              messages,
+              systemMessage,
+              parameters,
+              id: userId,
+            },
+          };
+        },
+      }),
+      onError: handleChatError,
+      onFinish: ({ message }) => {
+        addMessage(message);
       },
-    }),
-    onError: handleChatError,
-    onFinish: ({ message }) => {
-      addMessage(message);
-    },
-  });
+    });
+
+  const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
+
+  setIsLoading(status === 'streaming' || status === 'submitted');
 
   // Derive token counts (stateless TokenCount reads these)
   const [tokens, setTokens] = useAtom(tokensAtom);
@@ -160,7 +160,9 @@ export const App = () => {
   const handleSubmitCb = useCallback(
     (event) => {
       event.preventDefault();
-      if (!input.trim()) return;
+      if (!input.trim()) {
+        return;
+      }
       sendMessage({ text: input });
       setInput('');
     },
@@ -177,14 +179,29 @@ export const App = () => {
 
   const memoizedMessages = useMemo(() => messages, [messages]);
 
-  // update indexedDB when messages changes
+  // Load saved messages into chat when they're available
   useEffect(() => {
-    if (savedMessages && savedMessages?.length !== messages?.length) {
-      if (messages[messages.length - 1]?.role === 'user' || !isLoading) {
-        addMessage(messages[messages.length - 1]);
+    if (savedMessages && savedMessages.length > 0 && messages.length === 0) {
+      setMessages(savedMessages);
+    }
+  }, [savedMessages, messages.length, setMessages]);
+
+  // Save new messages to indexedDB when messages change
+  // Track saved message count to avoid re-saving on load
+  const savedMessageCountRef = useRef(0);
+  useEffect(() => {
+    if (messages.length > savedMessageCountRef.current) {
+      const lastMessage = messages[messages.length - 1];
+      // Save user messages immediately, assistant messages after loading completes
+      if (
+        lastMessage.role === 'user' ||
+        (lastMessage.role === 'assistant' && !isLoading)
+      ) {
+        addMessage(lastMessage);
+        savedMessageCountRef.current = messages.length;
       }
     }
-  }, [addMessage, messages, savedMessages, isLoading]);
+  }, [addMessage, messages, isLoading]);
 
   // subscribe to storage change events so multiple tabs stay in sync
   useEffect(() => {
@@ -269,31 +286,29 @@ export const App = () => {
   ErrorFallback.displayName = 'ErrorFallback';
 
   return (
-    <>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Header
-          input={input}
-          isLoading={isLoading}
-          systemMessageRef={systemMessageRef}
-        />
-        <Messages
-          isLoading={isLoading}
-          messages={memoizedMessages}
-          regenerate={reloadCb}
-          stop={stopCb}
-          textAreaRef={textAreaRef}
-        />
-        <Footer
-          formRef={formRef}
-          onInputChange={handleInputChangeCb}
-          onSubmit={handleSubmitCb}
-          input={input}
-          isLoading={isLoading}
-          systemMessageRef={systemMessageRef}
-          textAreaRef={textAreaRef}
-        />
-      </ErrorBoundary>
-    </>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <Header
+        input={input}
+        isLoading={isLoading}
+        systemMessageRef={systemMessageRef}
+      />
+      <Messages
+        isLoading={isLoading}
+        messages={memoizedMessages}
+        regenerate={reloadCb}
+        stop={stopCb}
+        textAreaRef={textAreaRef}
+      />
+      <Footer
+        formRef={formRef}
+        onInputChange={handleInputChangeCb}
+        onSubmit={handleSubmitCb}
+        input={input}
+        isLoading={isLoading}
+        systemMessageRef={systemMessageRef}
+        textAreaRef={textAreaRef}
+      />
+    </ErrorBoundary>
   );
 };
 

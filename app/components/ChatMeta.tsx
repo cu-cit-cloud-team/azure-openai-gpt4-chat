@@ -64,45 +64,44 @@ export const ChatMeta = memo(
     }, [messageCreatedAt]);
 
     return (
-      <>
-        <div
-          className={clsx('cursor-default text-xs', {
-            'tooltip-primary tooltip-right': isUser,
-            'tooltip-secondary tooltip-left': !isUser,
-            'tooltip': !isLoading || index !== totalMessages,
-          })}
-          data-tip={
-            dayjs(messageCreatedAt).isToday()
-              ? dayjs(messageCreatedAt).format('hh:mm a')
-              : dayjs(messageCreatedAt).format('ddd MMM DD YYYY [at] h:mm a')
-          }
-        >
-          {!isUser && index === totalMessages && isLoading ? (
-            <>
-              <div
-                className="cursor-pointer tooltip tooltip-secondary tooltip-left"
-                data-tip={'Stop loading response'}
-                onClick={stop}
-                onKeyDown={stop}
-              >
-                <FontAwesomeIcon icon={faStop} className="mr-2" />
-              </div>
-              <FontAwesomeIcon icon={faSpinner} spinPulse className="mr-2" />
-            </>
-          ) : null}
-          {isUser ? `${userMeta?.name ?? 'User'}` : `${modelInfo}`}
-          {isUser || index !== totalMessages ? (
-            <time>
-              <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
-            </time>
-          ) : null}
-          {index === totalMessages && !isLoading && !isUser ? (
-            <time>
-              <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
-            </time>
-          ) : null}
-        </div>
-      </>
+      <div
+        className={clsx('cursor-default text-xs', {
+          'tooltip-primary tooltip-right': isUser,
+          'tooltip-secondary tooltip-left': !isUser,
+          'tooltip': !isLoading || index !== totalMessages,
+        })}
+        data-tip={
+          dayjs(messageCreatedAt).isToday()
+            ? dayjs(messageCreatedAt).format('hh:mm a')
+            : dayjs(messageCreatedAt).format('ddd MMM DD YYYY [at] h:mm a')
+        }
+      >
+        {!isUser && index === totalMessages && isLoading ? (
+          <>
+            <button
+              type="button"
+              className="cursor-pointer tooltip tooltip-secondary tooltip-left"
+              data-tip={'Stop loading response'}
+              onClick={stop}
+              onKeyDown={stop}
+            >
+              <FontAwesomeIcon icon={faStop} className="mr-2" />
+            </button>
+            <FontAwesomeIcon icon={faSpinner} spinPulse className="mr-2" />
+          </>
+        ) : null}
+        {isUser ? `${userMeta?.name ?? 'User'}` : `${modelInfo}`}
+        {isUser || index !== totalMessages ? (
+          <time>
+            <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
+          </time>
+        ) : null}
+        {index === totalMessages && !isLoading && !isUser ? (
+          <time>
+            <span className="opacity-60">&nbsp;{lastUpdatedString}</span>
+          </time>
+        ) : null}
+      </div>
     );
   }
 );

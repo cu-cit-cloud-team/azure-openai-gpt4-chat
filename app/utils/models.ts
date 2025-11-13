@@ -54,6 +54,24 @@ export const models: Models = [
     maxOutputTokens: 32768,
     name: 'gpt-41-nano',
   },
+  {
+    displayName: 'GPT-5 (2025-08-07)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5',
+  },
+  {
+    displayName: 'GPT-5 Mini (2025-08-07)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5-mini',
+  },
+  {
+    displayName: 'GPT-5 Nano (2025-08-07)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5-nano',
+  },
 ];
 
 export const modelStringFromName = (name: string): string =>
