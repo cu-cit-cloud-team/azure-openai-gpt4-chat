@@ -11,8 +11,8 @@
     "biome": "biome check ./app",
     "build": "next build",
     "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "dev": "next dev -p 3001",
-    "dev:webpack": "next dev -p 3001 --webpack",
+    "dev": "next dev -p 3001 --webpack",
+    "dev:turbo": "next dev -p 3001",
     "lint": "next lint",
     "start": "next start",
     "version": "npm run changelog"
@@ -38,6 +38,7 @@
     "@langchain/core": "1.0.4",
     "@langchain/openai": "1.1.0",
     "ai": "5.0.93",
+    "ai-legacy": "npm:ai@^4.3.19",
     "babel-plugin-react-compiler": "1.0.0",
     "clsx": "2.1.1",
     "daisyui": "5.5.3",
@@ -48,6 +49,7 @@
     "he": "1.2.0",
     "jotai": "2.15.1",
     "langchain": "1.0.4",
+    "lodash": "4.17.21",
     "markdown-to-txt": "2.0.1",
     "nanoid": "5.1.6",
     "next": "16.0.3",
@@ -104,9 +106,9 @@
     "prismjs": "1.30.0"
   },
   "peerDependencies": {
-    "lodash": "4.17.21",
     "brace-expansion": "4.0.1",
     "esbuild": "0.27.0",
+    "lodash": "4.17.21",
     "prismjs": "1.30.0"
   },
   "browserslist": {

@@ -1,20 +1,24 @@
-import { memo, useEffect, useRef } from 'react';
 import type React from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 import { ChatBubble } from '@/app/components/ChatBubble';
+import {
+  extractTextFromV5Message,
+  type MyUIMessage,
+} from '@/app/utils/conversion';
 
 const MemoizedChatBubble = memo(ChatBubble);
 
 interface MessagesProps {
   isLoading: boolean;
-  messages: Array<Record<string, unknown>>;
-  reload(...args: unknown[]): unknown;
+  messages: MyUIMessage[];
+  regenerate(...args: unknown[]): unknown;
   stop(...args: unknown[]): unknown;
   textAreaRef: React.RefObject<HTMLTextAreaElement>;
 }
 
 export const Messages = memo(
-  ({ isLoading, messages, reload, stop, textAreaRef }): MessagesProps => {
+  ({ isLoading, messages, regenerate, stop, textAreaRef }): MessagesProps => {
     const messagesRef = useRef(null);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
@@ -54,10 +58,10 @@ export const Messages = memo(
                     isLoading={isLoading}
                     isUser={m.role === 'user'}
                     messageCreatedAt={m.createdAt}
-                    messageContent={m.content}
+                    messageContent={extractTextFromV5Message(m)}
                     messageId={m.id}
                     model={m.model}
-                    reload={reload}
+                    reload={regenerate}
                     stop={stop}
                     totalMessages={messages.length - 1}
                   />

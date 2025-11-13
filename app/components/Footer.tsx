@@ -9,8 +9,8 @@ interface FooterProps {
     | {
         current?: object;
       };
-  handleInputChange(...args: unknown[]): unknown;
-  handleSubmit(...args: unknown[]): unknown;
+  onInputChange: (value: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
   input: string;
   isLoading: boolean;
   systemMessageRef?: (...args: unknown[]) =>
@@ -28,8 +28,8 @@ interface FooterProps {
 export const Footer = memo(
   ({
     formRef,
-    handleInputChange,
-    handleSubmit,
+    onInputChange,
+    onSubmit,
     input,
     isLoading,
     systemMessageRef,
@@ -43,7 +43,7 @@ export const Footer = memo(
 
     return (
       <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
-        <form ref={formRef} onSubmit={handleSubmit} className="w-full">
+        <form ref={formRef} onSubmit={onSubmit} className="w-full">
           <TokenCount
             input={input}
             systemMessage={systemMessageRef?.current?.value || ''}
@@ -61,14 +61,14 @@ export const Footer = memo(
             placeholder={
               isLoading ? 'Loading response...' : 'Type a message...'
             }
-            onChange={handleInputChange}
+            onChange={(e) => onInputChange(e.target.value)}
             ref={textAreaRef}
             value={input}
           />
           <button
             type="button"
             className="mb-2 btn-block btn btn-xs btn-primary lg:hidden"
-            onClick={handleSubmit}
+            onClick={(e) => onSubmit(e as unknown as React.FormEvent)}
           >
             send message
           </button>

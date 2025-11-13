@@ -25,6 +25,11 @@ database.version(3).stores({
   messages: '&id, role, content, createdAt, model',
 });
 
+// Add parts array support for AI SDK v5 (keeping content for backward compatibility)
+database.version(4).stores({
+  messages: '&id, role, content, createdAt, model, parts',
+});
+
 export const messagesTable = database.table('messages');
 
 export default database;

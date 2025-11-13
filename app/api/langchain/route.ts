@@ -5,6 +5,11 @@ import {
 } from '@langchain/core/messages';
 import { AzureChatOpenAI } from '@langchain/openai';
 
+import {
+  extractTextFromV5Message,
+  type MyUIMessage,
+} from '@/app/utils/conversion';
+
 // destructure env vars we need
 const {
   AZURE_OPENAI_BASE_PATH,
@@ -122,10 +127,14 @@ export async function POST(req: Request) {
   // add user and assistant messages to chatMessages array with LangChain helpers
   for (const message of messages) {
     if (message.role === 'user') {
-      chatMessages.push(new HumanMessage(message.content));
+      chatMessages.push(
+        new HumanMessage(extractTextFromV5Message(message as MyUIMessage))
+      );
     }
     if (message.role === 'assistant') {
-      chatMessages.push(new AIMessage(message.content));
+      chatMessages.push(
+        new AIMessage(extractTextFromV5Message(message as MyUIMessage))
+      );
     }
   }
 

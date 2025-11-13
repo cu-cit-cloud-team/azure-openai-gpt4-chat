@@ -1,10 +1,11 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport } from 'ai';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtom, useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { Footer } from '@/app/components/Footer';
@@ -13,6 +14,11 @@ import { Messages } from '@/app/components/Messages';
 
 import { database } from '@/app/database/database.config';
 
+import {
+  convertV4MessageToV5,
+  convertV5MessageToV4,
+  type MyUIMessage,
+} from '@/app/utils/conversion';
 import { modelFromName } from '@/app/utils/models';
 import { getEditorTheme } from '@/app/utils/themes';
 import { getTokenCount } from '@/app/utils/tokens';
@@ -59,10 +65,15 @@ export const App = () => {
 
   const savedMessages = useLiveQuery(async () => {
     const messages = await database.messages.toArray();
-    return messages.sort(
+    const sorted = messages.sort(
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
+    // Convert v4 messages from database to v5 format
+    return sorted.map((msg, index) =>
+      // @ts-expect-error - Converting from Dexie schema to AI SDK types
+      convertV4MessageToV5(msg, index)
+    ) as MyUIMessage[];
   }, [database.messages]);
 
   const handleChatError = useCallback((error) => {
@@ -72,28 +83,15 @@ export const App = () => {
 
   const addMessage = useCallback(
     async (message) => {
+      // Convert v5 message to v4 format for database storage
+      const v4Message = convertV5MessageToV4(message as MyUIMessage);
       await database.messages.put({
-        ...message,
+        ...v4Message,
         model: parameters.model,
+        createdAt: message.createdAt || new Date().toISOString(),
       });
     },
     [parameters.model]
-  );
-
-  const apiUrl = useMemo(
-    () =>
-      `/api/chat?systemMessage=${encodeURIComponent(
-        systemMessage
-      )}&temperature=${encodeURIComponent(
-        parameters.temperature
-      )}&top_p=${encodeURIComponent(
-        parameters.top_p
-      )}&frequency_penalty=${encodeURIComponent(
-        parameters.frequency_penalty
-      )}&presence_penalty=${encodeURIComponent(
-        parameters.presence_penalty
-      )}&model=${encodeURIComponent(parameters.model)}`,
-    [parameters, systemMessage]
   );
 
   const userId = useMemo(
@@ -101,20 +99,32 @@ export const App = () => {
     [userMeta]
   );
 
+  const [input, setInput] = useState('');
   const {
-    handleInputChange,
-    handleSubmit,
-    input,
-    isLoading,
     messages,
-    reload,
-    stop,
+    isLoading,
+    sendMessage,
+    regenerate,
+    abort: stop,
   } = useChat({
-    api: apiUrl,
-    id: userId,
     initialMessages: savedMessages,
+    transport: new DefaultChatTransport({
+      api: '/api/chat',
+      prepareSendMessagesRequest: ({ messages }) => {
+        return {
+          body: {
+            messages,
+            systemMessage,
+            parameters,
+            id: userId,
+          },
+        };
+      },
+    }),
     onError: handleChatError,
-    onFinish: addMessage,
+    onFinish: ({ message }) => {
+      addMessage(message);
+    },
   });
 
   // Derive token counts (stateless TokenCount reads these)
@@ -143,23 +153,23 @@ export const App = () => {
     }
   }, [input, systemMessage, parameters.model, tokens, setTokens]);
 
-  const handleInputChangeCb = useCallback(
-    (event) => {
-      handleInputChange(event);
-    },
-    [handleInputChange]
-  );
+  const handleInputChangeCb = useCallback((value: string) => {
+    setInput(value);
+  }, []);
 
   const handleSubmitCb = useCallback(
     (event) => {
-      handleSubmit(event);
+      event.preventDefault();
+      if (!input.trim()) return;
+      sendMessage({ text: input });
+      setInput('');
     },
-    [handleSubmit]
+    [input, sendMessage]
   );
 
   const reloadCb = useCallback(() => {
-    reload();
-  }, [reload]);
+    regenerate();
+  }, [regenerate]);
 
   const stopCb = useCallback(() => {
     stop();
@@ -269,14 +279,14 @@ export const App = () => {
         <Messages
           isLoading={isLoading}
           messages={memoizedMessages}
-          reload={reloadCb}
+          regenerate={reloadCb}
           stop={stopCb}
           textAreaRef={textAreaRef}
         />
         <Footer
           formRef={formRef}
-          handleInputChange={handleInputChangeCb}
-          handleSubmit={handleSubmitCb}
+          onInputChange={handleInputChangeCb}
+          onSubmit={handleSubmitCb}
           input={input}
           isLoading={isLoading}
           systemMessageRef={systemMessageRef}

@@ -1,5 +1,12 @@
 import { createAzure } from '@ai-sdk/azure';
-import { smoothStream, streamText } from 'ai';
+import { smoothStream, streamText, convertToModelMessages, generateId, UIMessage, type LanguageModelUsage } from 'ai';
+
+// Custom message type with usage metadata
+type MyMetadata = {
+  totalUsage?: LanguageModelUsage;
+};
+
+export type MyUIMessage = UIMessage<unknown, MyMetadata>;
 
 // destructure env vars we need
 const {
@@ -39,52 +46,46 @@ const defaults = {
 
 // main route handler
 export async function POST(req: Request) {
-  // extract chat messages from the body of the request
-  const { messages } = await req.json();
+  // New v5 body contract: messages (UIMessage[]), systemMessage, parameters
+  const {
+    messages,
+    systemMessage: systemMessageRaw,
+    parameters: parameterOverrides,
+    id: chatId,
+  } = await req.json();
 
-  // extract the query params
-  const urlParams = new URL(req.url).searchParams;
-
-  // set to defaults if not provided
-  const systemMessage =
-    urlParams.get('systemMessage') || defaults.systemMessage;
-  const temperature =
-    Number(urlParams.get('temperature')) === 0
-      ? 0
-      : Number(urlParams.get('temperature')) || defaults.temperature;
-  const top_p =
-    Number(urlParams.get('top_p')) === 0
-      ? 0
-      : Number(urlParams.get('top_p')) || defaults.top_p;
-  const frequency_penalty =
-    Number(urlParams.get('frequency_penalty')) === 0
-      ? 0
-      : Number(urlParams.get('frequency_penalty')) ||
-        defaults.frequency_penalty;
-  const presence_penalty =
-    Number(urlParams.get('presence_penalty')) === 0
-      ? 0
-      : Number(urlParams.get('presence_penalty')) || defaults.presence_penalty;
-  const model = urlParams.get('model') || defaults.model;
-  const user = urlParams.get('user') || defaults.user;
+  const systemMessage = systemMessageRaw || defaults.systemMessage;
+  const temperature = parameterOverrides?.temperature
+    ? Number(parameterOverrides.temperature)
+    : defaults.temperature;
+  const top_p = parameterOverrides?.top_p
+    ? Number(parameterOverrides.top_p)
+    : defaults.top_p;
+  const frequency_penalty = parameterOverrides?.frequency_penalty
+    ? Number(parameterOverrides.frequency_penalty)
+    : defaults.frequency_penalty;
+  const presence_penalty = parameterOverrides?.presence_penalty
+    ? Number(parameterOverrides.presence_penalty)
+    : defaults.presence_penalty;
+  const model = parameterOverrides?.model || defaults.model;
+  const user = defaults.user; // could be enhanced with auth context
   const max_tokens = model === 'gpt-35-turbo' ? 2048 : defaults.max_tokens;
 
-  // set up system prompt
+  // v5 UIMessage system prompt part
   const systemPrompt = {
-    content: systemMessage,
+    id: `system-${generateId()}`,
     role: 'system',
+    parts: [
+      {
+        type: 'text',
+        text: systemMessage,
+      },
+    ],
   };
 
-  // put messages into temp variable
-  let chatMessages = [...messages];
-
-  // helper function to check if system prompt is already in messages
-  const hasSystemPrompt = messages.some((message) => message.role === 'system');
-
-  // add system prompt to messages if not already there
-  if (!hasSystemPrompt) {
-    chatMessages = [systemPrompt, ...messages];
-  }
+  // ensure system prompt included once
+  const hasSystemPrompt = messages.some((m) => m.role === 'system');
+  const uiMessages = hasSystemPrompt ? messages : [systemPrompt, ...messages];
 
   const useWebSearch = false; // model.includes('gpt-4o') && model.includes('web-search');
   const useResponsesApi = model.includes('gpt-4o') || model === 'gpt-41';
@@ -126,7 +127,7 @@ export async function POST(req: Request) {
   const response = useWebSearch
     ? streamText({
         model: azureModel,
-        messages: chatMessages,
+        messages: convertToModelMessages(uiMessages),
         temperature,
         topP: top_p,
         frequencyPenalty: frequency_penalty,
@@ -143,7 +144,7 @@ export async function POST(req: Request) {
       })
     : streamText({
         model: azureModel,
-        messages: chatMessages,
+        messages: convertToModelMessages(uiMessages),
         temperature,
         topP: top_p,
         frequencyPenalty: frequency_penalty,
@@ -152,6 +153,22 @@ export async function POST(req: Request) {
         experimental_transform: smoothStream(),
       });
 
-  // convert the response into a friendly text-stream and return to client
-  return response.toDataStreamResponse();
+  // v5 streaming response with usage metadata
+  return response.toUIMessageStreamResponse({
+    originalMessages: uiMessages,
+    generateMessageId: () => generateId(),
+    messageMetadata: ({ part }) => {
+      // Attach usage information when generation finishes
+      if (part.type === 'finish') {
+        return { totalUsage: part.totalUsage };
+      }
+    },
+    onError: (error) => {
+      // sanitize error forwarded to client
+      return {
+        message: 'An error occurred processing your request.',
+        errorCode: 'STREAM_ERROR',
+      };
+    },
+  });
 }

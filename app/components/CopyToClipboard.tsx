@@ -1,9 +1,8 @@
 import { faCheck, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
-import { atom, useAtom, useAtomValue } from 'jotai';
 import { nanoid } from 'nanoid';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 interface CopyToClipboardProps {
   isUser: boolean;
@@ -14,16 +13,12 @@ export const CopyToClipboard = memo(({
   isUser,
   textToCopy
 }: CopyToClipboardProps) => {
-  const inputIdKey = nanoid();
-  const buttonIdKey = nanoid();
+  // Use useMemo for stable IDs that don't change on re-render
+  const inputId = useMemo(() => nanoid(), []);
+  const buttonId = useMemo(() => nanoid(), []);
 
-  const isCopiedAtom = atom(false);
-  const inputIdAtom = atom(inputIdKey);
-  const buttonIdAtom = atom(buttonIdKey);
-
-  const [isCopied, setIsCopied] = useAtom(isCopiedAtom);
-  const inputId = useAtomValue(inputIdAtom);
-  const buttonId = useAtomValue(buttonIdAtom);
+  // Replace atoms with useState to avoid creating atoms per render
+  const [isCopied, setIsCopied] = useState(false);
 
   const copyClickHandler = useCallback(async () => {
     const copyTextToClipboard = async (text) => {
@@ -44,7 +39,7 @@ export const CopyToClipboard = memo(({
       .catch((error) => {
         console.log(error);
       });
-  }, [setIsCopied, textToCopy]);
+  }, [textToCopy]);
 
   return (
     <div

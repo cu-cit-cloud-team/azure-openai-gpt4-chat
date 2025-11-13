@@ -9,14 +9,10 @@ import { database } from '@/app/database/database.config';
 interface ReloadMessageProps {
   isUser: boolean;
   messageId: string;
-  reload(...args: unknown[]): unknown;
+  regenerate(...args: unknown[]): unknown;
 }
 
-export const ReloadMessage = memo(({
-  isUser,
-  messageId,
-  reload
-}: ReloadMessageProps) => {
+export const ReloadMessage = memo(({ isUser, messageId, regenerate }: ReloadMessageProps) => {
   const reloadMessage = useCallback(async () => {
     const deleteFromDb = async () => {
       await database.messages.where('id').equals(messageId).delete();
@@ -27,9 +23,9 @@ export const ReloadMessage = memo(({
       )
     ) {
       await deleteFromDb();
-      reload();
+      regenerate();
     }
-  }, [messageId, reload]);
+  }, [messageId, regenerate]);
 
   return !isUser ? (
     <div
