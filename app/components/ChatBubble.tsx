@@ -148,7 +148,7 @@ export const ChatBubble = memo(
               <FontAwesomeIcon
                 icon={faSpinner}
                 spinPulse
-                className="text-base-content opacity-60"
+                className="text-secondary-content opacity-60"
               />
               <span className="text-sm opacity-60">Thinking...</span>
             </div>

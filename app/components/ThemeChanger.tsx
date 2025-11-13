@@ -92,7 +92,7 @@ export const ThemeChanger = () => {
       </div>
       <div
         tabIndex={0}
-        className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-[28rem] max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13"
+        className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-112 max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13"
       >
         <ul
           className="menu"
