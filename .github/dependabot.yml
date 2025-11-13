@@ -14,12 +14,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     ignore:
-      - dependency-name: "ai"
-        versions: ["4.x"]
-      - dependency-name: "next"
-        versions: ["15.4.x"]
-      - dependency-name: "eslint-config-next"
-        versions: ["15.4.x"]
+      - dependency-name: "ai-legacy"
     groups:
       react:
         patterns:
