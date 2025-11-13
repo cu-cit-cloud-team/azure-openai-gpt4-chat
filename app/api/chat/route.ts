@@ -28,6 +28,11 @@ const {
   AZURE_OPENAI_GPT5_DEPLOYMENT,
   AZURE_OPENAI_GPT5_MINI_DEPLOYMENT,
   AZURE_OPENAI_GPT5_NANO_DEPLOYMENT,
+  AZURE_OPENAI_O1_DEPLOYMENT,
+  AZURE_OPENAI_O1_MINI_DEPLOYMENT,
+  AZURE_OPENAI_O3_DEPLOYMENT,
+  AZURE_OPENAI_O3_MINI_DEPLOYMENT,
+  AZURE_OPENAI_O4_MINI_DEPLOYMENT,
 } = process.env;
 
 // make sure env vars are set
@@ -50,7 +55,7 @@ const defaults = {
   frequency_penalty: 0, // -2.0 to 2.0
   presence_penalty: 0, // -2.0 to 2.0
   max_tokens: 1024,
-  model: 'gpt-4o', // currently gpt-4o, gpt-4-turbo, gpt-4, or gpt-35-turbo for aoai
+  model: 'gpt-41', // currently gpt-4o, gpt-4-turbo, gpt-4, or gpt-35-turbo for aoai
   user: 'Cloud Team GPT Chat User',
 };
 
@@ -61,7 +66,6 @@ export async function POST(req: Request) {
     messages,
     systemMessage: systemMessageRaw,
     parameters: parameterOverrides,
-    id: chatId,
   } = await req.json();
 
   const systemMessage = systemMessageRaw || defaults.systemMessage;
@@ -133,7 +137,19 @@ export async function POST(req: Request) {
                   ? AZURE_OPENAI_GPT5_MINI_DEPLOYMENT
                   : model === 'gpt-5-nano' && AZURE_OPENAI_GPT5_NANO_DEPLOYMENT
                     ? AZURE_OPENAI_GPT5_NANO_DEPLOYMENT
-                    : AZURE_OPENAI_GPT41_DEPLOYMENT,
+                    : model === 'o1' && AZURE_OPENAI_O1_DEPLOYMENT
+                      ? AZURE_OPENAI_O1_DEPLOYMENT
+                      : model === 'o1-mini' && AZURE_OPENAI_O1_MINI_DEPLOYMENT
+                        ? AZURE_OPENAI_O1_MINI_DEPLOYMENT
+                        : model === 'o3' && AZURE_OPENAI_O3_DEPLOYMENT
+                          ? AZURE_OPENAI_O3_DEPLOYMENT
+                          : model === 'o3-mini' &&
+                              AZURE_OPENAI_O3_MINI_DEPLOYMENT
+                            ? AZURE_OPENAI_O3_MINI_DEPLOYMENT
+                            : model === 'o4-mini' &&
+                                AZURE_OPENAI_O4_MINI_DEPLOYMENT
+                              ? AZURE_OPENAI_O4_MINI_DEPLOYMENT
+                              : AZURE_OPENAI_GPT41_DEPLOYMENT,
           {
             user,
           }
@@ -179,7 +195,7 @@ export async function POST(req: Request) {
         return { totalUsage: part.totalUsage };
       }
     },
-    onError: (error) => {
+    onError: (_error) => {
       // sanitize error forwarded to client
       return {
         message: 'An error occurred processing your request.',
