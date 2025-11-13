@@ -118,7 +118,7 @@ export const ChatBubble = memo(
           </div>
         </div>
         <div
-          className={clsx('prose relative chat-bubble', {
+          className={clsx('relative chat-bubble', {
             'chat-bubble-primary': isUser,
             'chat-bubble-secondary bot': !isUser,
           })}

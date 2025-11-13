@@ -32,17 +32,17 @@ export const UserAvatar = memo(() => {
       })
         .then(async (resp) => {
           const response = await resp.json();
-          const email = response?.data[0]?.user_claims.find(
+          const email = response[0]?.user_claims.find(
             (item) => item.typ === 'preferred_username'
           ).val;
 
-          const name = response?.data[0]?.user_claims.find(
+          const name = response[0]?.user_claims.find(
             (item) => item.typ === 'name'
           ).val;
 
-          const user_id = response?.data[0]?.user_id;
+          const user_id = response[0]?.user_id;
 
-          const expires_on = response?.data[0]?.expires_on;
+          const expires_on = response[0]?.expires_on;
 
           const meta = {
             email,
@@ -109,9 +109,8 @@ export const UserAvatar = memo(() => {
     <>
       <span className="hidden mr-2 text-sm lg:flex">{email}</span>
       <div className="dropdown dropdown-end bg-base-300">
-        {/* label without control is intentional for avatar trigger */}
-        <button
-          type="button"
+        {/** biome-ignore lint/a11y/noLabelWithoutControl: label without control is intentional for avatar trigger */}
+        <label
           tabIndex={0}
           aria-label="User menu"
           className="avatar avatar-placeholder"
@@ -127,7 +126,7 @@ export const UserAvatar = memo(() => {
           >
             {icon}
           </div>
-        </button>
+        </label>
         {hasData ? (
           <ul
             tabIndex={0}
