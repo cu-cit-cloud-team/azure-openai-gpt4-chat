@@ -101,10 +101,11 @@ export const App = () => {
     [userMeta]
   );
   const [input, setInput] = useState('');
-  const { messages, setMessages, sendMessage, regenerate, stop, status } =
-    useChat({
-      initialMessages: savedMessages || [],
-      transport: new DefaultChatTransport({
+
+  // Create transport that updates when parameters change
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
         api: '/api/chat',
         prepareSendMessagesRequest: ({ messages }) => {
           return {
@@ -117,6 +118,14 @@ export const App = () => {
           };
         },
       }),
+    [parameters, systemMessage, userId]
+  );
+
+  const { messages, setMessages, sendMessage, regenerate, stop, status } =
+    useChat({
+      id: `${userId}-chat-${parameters.model}-${parameters.temperature}-${parameters.top_p}-${parameters.frequency_penalty}-${parameters.presence_penalty}`,
+      initialMessages: savedMessages || [],
+      transport,
       onError: handleChatError,
       onFinish: ({ message }) => {
         addMessage(message);
@@ -168,14 +177,6 @@ export const App = () => {
     },
     [input, sendMessage]
   );
-
-  const reloadCb = useCallback(() => {
-    regenerate();
-  }, [regenerate]);
-
-  const stopCb = useCallback(() => {
-    stop();
-  }, [stop]);
 
   const memoizedMessages = useMemo(() => messages, [messages]);
 
@@ -295,8 +296,8 @@ export const App = () => {
       <Messages
         isLoading={isLoading}
         messages={memoizedMessages}
-        regenerate={reloadCb}
-        stop={stopCb}
+        regenerate={regenerate}
+        stop={stop}
         textAreaRef={textAreaRef}
       />
       <Footer

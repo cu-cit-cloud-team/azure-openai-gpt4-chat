@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { memo, useCallback } from 'react';
 
 import { parametersAtom } from '@/app/page';
-
+import { getItem, setItem } from '@/app/utils/localStorage';
 import { models } from '@/app/utils/models';
 
 export const ParameterModelSelect = memo(() => {
@@ -15,6 +15,12 @@ export const ParameterModelSelect = memo(() => {
           `Are you sure you want to switch the model to ${event.target.value}?`
         )
       ) {
+        // Persist to localStorage first with correct spread order
+        setItem('parameters', {
+          ...getItem('parameters'),
+          model: event.target.value,
+        });
+        // Update Jotai atom with correct spread order
         setParameters({ ...parameters, model: event.target.value });
         window.location.reload();
       } else {
