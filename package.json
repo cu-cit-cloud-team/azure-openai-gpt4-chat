@@ -120,7 +120,7 @@
     "preset": "conventionalcommits"
   },
   "volta": {
-    "node": "22.17.1",
-    "npm": "10.9.3"
+    "node": "24.11.1",
+    "npm": "11.6.2"
   }
 }
