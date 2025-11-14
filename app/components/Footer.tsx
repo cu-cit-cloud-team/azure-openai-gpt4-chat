@@ -13,6 +13,7 @@ interface FooterProps {
   onSubmit: (e: React.FormEvent) => void;
   input: string;
   isLoading: boolean;
+  model: string;
   systemMessageRef?: (...args: unknown[]) =>
     | unknown
     | {
@@ -32,6 +33,7 @@ export const Footer = memo(
     onSubmit,
     input,
     isLoading,
+    model,
     systemMessageRef,
     textAreaRef,
   }: FooterProps) => {
@@ -44,11 +46,22 @@ export const Footer = memo(
     return (
       <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
         <form ref={formRef} onSubmit={onSubmit} className="w-full">
-          <TokenCount
-            input={input}
-            systemMessage={systemMessageRef?.current?.value || ''}
-            display={'input'}
-          />
+          {/* Model and Token Count Container */}
+          <div className="flex justify-between items-center mb-1 max-w-6xl mx-auto">
+            {/* Left-aligned model name */}
+            <div className="text-xs text-base-content opacity-50 uppercase text-left">
+              <strong>Model:</strong>{' '}
+              <span className="font-normal">{model}</span>
+            </div>
+            {/* Right-aligned token count */}
+            <div className="text-right">
+              <TokenCount
+                input={input}
+                systemMessage={systemMessageRef?.current?.value || ''}
+                display={'input'}
+              />
+            </div>
+          </div>
           <textarea
             autoFocus={true}
             className={clsx(

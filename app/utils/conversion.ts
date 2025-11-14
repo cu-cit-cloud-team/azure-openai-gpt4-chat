@@ -216,7 +216,13 @@ export function convertV4MessageToV5(
     ? convertPartsArray(msg.parts)
     : buildPartsFromTopLevelFields(msg);
 
-  return { ...base, parts };
+  // Preserve custom fields like model and createdAt from database
+  return {
+    ...base,
+    parts,
+    ...(msg.model && { model: msg.model }),
+    ...(msg.createdAt && { createdAt: msg.createdAt }),
+  };
 }
 
 // V5 to V4 conversion

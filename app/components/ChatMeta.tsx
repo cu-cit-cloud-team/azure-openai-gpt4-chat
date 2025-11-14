@@ -38,15 +38,11 @@ export const ChatMeta = memo(
     const parameters = useAtomValue(parametersAtom);
     const userMeta = useAtomValue(userMetaAtom);
     const [lastUpdatedString, setLastUpdatedString] = useState('');
-    const [modelInfo, setModelInfo] = useState(model);
 
-    useEffect(() => {
-      if (!modelInfo || model === undefined) {
-        setModelInfo(modelStringFromName(parameters.model));
-      } else {
-        setModelInfo(modelStringFromName(model));
-      }
-    }, [model, modelInfo, parameters.model]);
+    // Use the message's stored model if available, otherwise fall back to current parameters.model
+    const modelInfo = model
+      ? modelStringFromName(model)
+      : modelStringFromName(parameters.model);
 
     useEffect(() => {
       setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());

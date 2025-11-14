@@ -32,30 +32,28 @@ export const TokenCount = memo(
     const systemRemainingFallback = systemMessageMaxTokens - systemMessageCount;
 
     return (
-      <>
-        <div
-          className={clsx('text-xs text-base-content opacity-50 uppercase', {
-            '-mb-3': display === 'systemMessage',
-            'mb-1': display !== 'systemMessage',
-          })}
-          key={`${display}-token-count`}
-        >
-          <strong>
-            {tokens[display] ??
-              (display === 'systemMessage'
-                ? systemMessageCount
-                : inputCount)}{' '}
-            <span className="font-normal">
-              Token{(tokens.input ?? inputCount) === 1 ? '' : 's '}
-            </span>{' '}
-            /{' '}
-            {display === 'systemMessage'
-              ? (tokens.systemMessageRemaining ?? systemRemainingFallback)
-              : (tokens.remaining ?? remainingFallback)}{' '}
-            <span className="font-normal">Remaining</span>
-          </strong>
-        </div>
-      </>
+      <div
+        className={clsx('text-xs text-base-content opacity-50 uppercase', {
+          '-mb-3': display === 'systemMessage',
+          'mb-1': display !== 'systemMessage',
+        })}
+        key={`${display}-token-count`}
+      >
+        <strong>
+          {tokens[display] ??
+            (display === 'systemMessage'
+              ? systemMessageCount
+              : inputCount)}{' '}
+          <span className="font-normal">
+            Token{(tokens.input ?? inputCount) === 1 ? '' : 's '}
+          </span>{' '}
+          /{' '}
+          {display === 'systemMessage'
+            ? (tokens.systemMessageRemaining ?? systemRemainingFallback)
+            : (tokens.remaining ?? remainingFallback)}{' '}
+          <span className="font-normal">Remaining</span>
+        </strong>
+      </div>
     );
   }
 );

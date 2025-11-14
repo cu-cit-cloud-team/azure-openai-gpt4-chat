@@ -12,13 +12,21 @@ const MemoizedChatBubble = memo(ChatBubble);
 interface MessagesProps {
   isLoading: boolean;
   messages: MyUIMessage[];
+  messageModels: Map<string, string>;
   regenerate(...args: unknown[]): unknown;
   stop(...args: unknown[]): unknown;
   textAreaRef: React.RefObject<HTMLTextAreaElement>;
 }
 
 export const Messages = memo(
-  ({ isLoading, messages, regenerate, stop, textAreaRef }): MessagesProps => {
+  ({
+    isLoading,
+    messages,
+    messageModels,
+    regenerate,
+    stop,
+    textAreaRef,
+  }): MessagesProps => {
     const messagesRef = useRef(null);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
@@ -60,7 +68,7 @@ export const Messages = memo(
                     messageCreatedAt={m.createdAt}
                     messageContent={extractTextFromV5Message(m)}
                     messageId={m.id}
-                    model={m.model}
+                    model={messageModels.get(m.id) || m.model}
                     regenerate={regenerate}
                     stop={stop}
                     totalMessages={messages.length - 1}

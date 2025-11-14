@@ -61,6 +61,11 @@ export const App = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
+  // Track model per message ID
+  const messageModelsRef = useRef<Map<string, string>>(new Map());
+  // Track which message IDs have been saved to avoid re-saving on load
+  const savedMessageIdsRef = useRef<Set<string>>(new Set());
+
   const parameters = useAtomValue(parametersAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
@@ -71,11 +76,16 @@ export const App = () => {
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-    // Convert v4 messages from database to v5 format
-    return sorted.map((msg, index) =>
-      // @ts-expect-error - Converting from Dexie schema to AI SDK types
-      convertV4MessageToV5(msg, index)
-    ) as MyUIMessage[];
+    // Convert v4 messages from database to v5 format and populate model map
+    return sorted.map((msg, index) => {
+      const convertedMsg = convertV4MessageToV5(msg, index) as MyUIMessage;
+      // Store the model in our ref map
+      if (msg.model && convertedMsg.id) {
+        messageModelsRef.current.set(convertedMsg.id, msg.model);
+        savedMessageIdsRef.current.add(convertedMsg.id);
+      }
+      return convertedMsg;
+    });
   }, []);
 
   const handleChatError = useCallback((error) => {
@@ -89,7 +99,7 @@ export const App = () => {
       const v4Message = convertV5MessageToV4(message as MyUIMessage);
       await database.messages.put({
         ...v4Message,
-        model: parameters.model,
+        model: message.model || parameters.model,
         createdAt: message.createdAt || new Date().toISOString(),
       });
     },
@@ -128,7 +138,9 @@ export const App = () => {
       transport,
       onError: handleChatError,
       onFinish: ({ message }) => {
-        addMessage(message);
+        const messageWithModel = { ...message, model: parameters.model };
+        messageModelsRef.current.set(message.id, parameters.model);
+        addMessage(messageWithModel);
       },
     });
 
@@ -190,15 +202,21 @@ export const App = () => {
   // Save new messages to indexedDB when messages change
   // Track saved message count to avoid re-saving on load
   const savedMessageCountRef = useRef(0);
+
   useEffect(() => {
     if (messages.length > savedMessageCountRef.current) {
       const lastMessage = messages[messages.length - 1];
+      // Only save if this is a genuinely new message, not one loaded from DB
+      const isNewMessage = !savedMessageIdsRef.current.has(lastMessage.id);
+
       // Save user messages immediately, assistant messages after loading completes
       if (
-        lastMessage.role === 'user' ||
-        (lastMessage.role === 'assistant' && !isLoading)
+        isNewMessage &&
+        (lastMessage.role === 'user' ||
+          (lastMessage.role === 'assistant' && !isLoading))
       ) {
         addMessage(lastMessage);
+        savedMessageIdsRef.current.add(lastMessage.id);
         savedMessageCountRef.current = messages.length;
       }
     }
@@ -296,6 +314,7 @@ export const App = () => {
       <Messages
         isLoading={isLoading}
         messages={memoizedMessages}
+        messageModels={messageModelsRef.current}
         regenerate={regenerate}
         stop={stop}
         textAreaRef={textAreaRef}
@@ -306,6 +325,7 @@ export const App = () => {
         onSubmit={handleSubmitCb}
         input={input}
         isLoading={isLoading}
+        model={parameters.model}
         systemMessageRef={systemMessageRef}
         textAreaRef={textAreaRef}
       />
