@@ -54,7 +54,7 @@ const defaults = {
   top_p: 1, // 0.0 to 1.0
   frequency_penalty: 0, // -2.0 to 2.0
   presence_penalty: 0, // -2.0 to 2.0
-  max_tokens: 1024,
+  max_tokens: 4096,
   model: 'gpt-41', // currently gpt-4o, gpt-4-turbo, gpt-4, or gpt-35-turbo for aoai
   user: 'Cloud Team GPT Chat User',
 };
@@ -102,7 +102,11 @@ export async function POST(req: Request) {
   const uiMessages = hasSystemPrompt ? messages : [systemPrompt, ...messages];
 
   const useWebSearch = false; // model.includes('gpt-4o') && model.includes('web-search');
-  const useResponsesApi = model.includes('gpt-4o') || model === 'gpt-41';
+  const useResponsesApi =
+    model.includes('gpt-4o') ||
+    model === 'gpt-41' ||
+    model.includes('gpt-5') ||
+    model.startsWith('o');
 
   // create azure client
   const azure = createAzure({
@@ -111,26 +115,17 @@ export async function POST(req: Request) {
     apiVersion: AZURE_OPENAI_API_VERSION,
   });
 
-  // instantiate azure openai model
-  const azureModel =
-    useWebSearch || useResponsesApi
-      ? azure.responses(
-          model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
+  const llm =
+    model === 'gpt-41-mini' && AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
+      ? AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
+      : model === 'gpt-41' && AZURE_OPENAI_GPT41_DEPLOYMENT
+        ? AZURE_OPENAI_GPT41_DEPLOYMENT
+        : model === 'gpt-41-nano' && AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
+          ? AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
+          : model === 'gpt-4o' && AZURE_OPENAI_GPT4O_DEPLOYMENT
             ? AZURE_OPENAI_GPT4O_DEPLOYMENT
             : model === 'gpt-4o-mini' && AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
               ? AZURE_OPENAI_GPT4O_MINI_DEPLOYMENT
-              : model === 'gpt-41' && AZURE_OPENAI_GPT41_DEPLOYMENT
-                ? AZURE_OPENAI_GPT41_DEPLOYMENT
-                : AZURE_OPENAI_GPT4O_DEPLOYMENT,
-          {
-            user,
-          }
-        )
-      : azure(
-          model === 'gpt-41-mini' && AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
-            ? AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
-            : model === 'gpt-41-nano' && AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
-              ? AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
               : model === 'gpt-5' && AZURE_OPENAI_GPT5_DEPLOYMENT
                 ? AZURE_OPENAI_GPT5_DEPLOYMENT
                 : model === 'gpt-5-mini' && AZURE_OPENAI_GPT5_MINI_DEPLOYMENT
@@ -149,15 +144,21 @@ export async function POST(req: Request) {
                             : model === 'o4-mini' &&
                                 AZURE_OPENAI_O4_MINI_DEPLOYMENT
                               ? AZURE_OPENAI_O4_MINI_DEPLOYMENT
-                              : AZURE_OPENAI_GPT41_DEPLOYMENT,
-          {
-            user,
-          }
-        );
+                              : AZURE_OPENAI_GPT41_DEPLOYMENT;
 
-  // send the request and store the response
-  const response = useWebSearch
-    ? streamText({
+  // instantiate azure openai model
+  const azureModel =
+    useWebSearch || useResponsesApi
+      ? azure.responses(llm, {
+          user,
+        })
+      : azure(llm, {
+          user,
+        });
+
+  // set up streaming options
+  const streamTextOptions = useWebSearch
+    ? {
         model: azureModel,
         messages: convertToModelMessages(uiMessages),
         temperature,
@@ -173,8 +174,8 @@ export async function POST(req: Request) {
         },
         toolChoice: { type: 'tool', toolName: 'web_search_preview' },
         experimental_transform: smoothStream(),
-      })
-    : streamText({
+      }
+    : {
         model: azureModel,
         messages: convertToModelMessages(uiMessages),
         temperature,
@@ -183,7 +184,17 @@ export async function POST(req: Request) {
         presencePenalty: presence_penalty,
         maxTokens: max_tokens,
         experimental_transform: smoothStream(),
-      });
+      };
+
+  if (!model.startsWith('gpt-4')) {
+    delete streamTextOptions.frequencyPenalty;
+    delete streamTextOptions.presencePenalty;
+    delete streamTextOptions.temperature;
+    delete streamTextOptions.topP;
+  }
+
+  // send the request and store the response
+  const response = streamText(streamTextOptions);
 
   // v5 streaming response with usage metadata
   return response.toUIMessageStreamResponse({
