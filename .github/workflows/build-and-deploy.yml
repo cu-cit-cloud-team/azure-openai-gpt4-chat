@@ -87,7 +87,7 @@ jobs:
       - name: ⬆️ Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         shell: bash
-        run: npm install --force
+        run: npm install --legacy-peer-deps
 
       - name: 🛠️ Build app
         shell: bash
