@@ -28,7 +28,7 @@ export const ReloadMessage = memo(
       }
     }, [messageId, regenerate]);
 
-    return !isUser ? (
+    return (
       <div
         className={clsx('reload-container float-right mr-10 tooltip', {
           'tooltip-right tooltip-primary': isUser,
@@ -48,7 +48,7 @@ export const ReloadMessage = memo(
           <FontAwesomeIcon icon={faArrowRotateForward} />
         </button>
       </div>
-    ) : null;
+    );
   }
 );
 
