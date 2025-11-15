@@ -15,12 +15,7 @@ import { useClearMessages } from '@/app/hooks/useClearMessages';
 import { systemMessageAtom } from '@/app/page';
 
 interface SystemMessageProps {
-  input?: string;
-  systemMessageRef?: (...args: unknown[]) =>
-    | unknown
-    | {
-        current?: object;
-      };
+  systemMessageRef?: React.RefObject<HTMLTextAreaElement>;
   setMessages: (messages: UIMessage[]) => void;
 }
 
