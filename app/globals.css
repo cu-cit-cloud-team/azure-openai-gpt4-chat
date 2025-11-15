@@ -65,6 +65,25 @@ div.chat-bubble > .reload-container {
   color: var(--color-secondary-content);
 }
 
+/* Inline code styling for proper contrast across all themes */
+.chat-bubble.prose code:not(pre code) {
+  background-color: var(--color-base-300);
+  color: var(--color-base-content);
+  padding: 0.125rem 0.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875em;
+}
+
+.chat-bubble.chat-bubble-primary.prose code:not(pre code) {
+  background-color: color-mix(in srgb, var(--color-primary-content) 75%, transparent);
+  color: var(--color-primary);
+}
+
+.chat-bubble.chat-bubble-secondary.prose code:not(pre code) {
+  background-color: color-mix(in srgb, var(--color-secondary-content) 75%, transparent);
+  color: var(--color-secondary);
+}
+
 .chat-bubble ul,
 .chat-bubble ol {
   margin-top: calc(var(--spacing) * 4);
