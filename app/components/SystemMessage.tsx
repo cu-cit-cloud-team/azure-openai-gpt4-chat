@@ -5,16 +5,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
-// Replace dynamic local atoms with useState to avoid infinite re-renders
 import { useAtom } from 'jotai';
-import {
-  memo,
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 import { database } from '@/app/database/database.config';
@@ -85,21 +77,6 @@ export const SystemMessage = memo(
       setLocalSystemMessage(e.target.value);
     };
 
-    const MemoizedFontAwesomeRectangleXIcon = useMemo(
-      () => <FontAwesomeIcon icon={faRectangleXmark} />,
-      []
-    );
-
-    const MemoizedFontAwesomeRotateIcon = useMemo(
-      () => <FontAwesomeIcon icon={faRotateLeft} />,
-      []
-    );
-
-    const MemoizedFontAwesomeSaveIcon = useMemo(
-      () => <FontAwesomeIcon icon={faFloppyDisk} />,
-      []
-    );
-
     return (
       <>
         {/* Re-enabled TokenCount after stateless refactor */}
@@ -119,9 +96,7 @@ export const SystemMessage = memo(
             type="button"
             onClick={cancelClickHandler}
           >
-            <Suspense fallback={<span>Loading...</span>}>
-              {MemoizedFontAwesomeRectangleXIcon}
-            </Suspense>
+            <FontAwesomeIcon icon={faRectangleXmark} />
             <span className="hidden lg:flex">Close</span>
           </button>
           <button
@@ -135,7 +110,7 @@ export const SystemMessage = memo(
             type="button"
             onClick={resetClickHandler}
           >
-            {MemoizedFontAwesomeRotateIcon}
+            <FontAwesomeIcon icon={faRotateLeft} />
             <span className="hidden lg:flex grow text-center">Reset</span>
           </button>
           <button
@@ -149,7 +124,7 @@ export const SystemMessage = memo(
             }
             onClick={saveClickHandler}
           >
-            {MemoizedFontAwesomeSaveIcon}
+            <FontAwesomeIcon icon={faFloppyDisk} />
             <span className="hidden lg:flex">Save</span>
           </button>
         </div>
