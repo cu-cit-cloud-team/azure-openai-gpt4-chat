@@ -12,7 +12,6 @@ import { getEditorTheme, themes } from '@/app/utils/themes';
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
-  const dropdownRef = useRef<HTMLDetailsElement>(null);
   const themeListRef = useRef<HTMLUListElement>(null);
 
   const memoizedPaletteIcon = useMemo(
@@ -21,29 +20,6 @@ export const ThemeChanger = () => {
   );
 
   // console.log(theme);
-
-  useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      if (
-        (event.target as Element)
-          .closest('button')
-          ?.classList?.contains('button-theme')
-      ) {
-        return;
-      }
-
-      // Close dropdown if clicking outside
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        dropdownRef.current.removeAttribute('open');
-      }
-    };
-
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -90,12 +66,8 @@ export const ThemeChanger = () => {
   }, [updateSelected]);
 
   return (
-    <details
-      ref={dropdownRef}
-      title="Change Theme"
-      className="-m-1 dropdown dropdown-end"
-    >
-      <summary className="btn btn-sm btn-ghost w-fit list-none">
+    <div title="Change Theme" className="-m-1 dropdown dropdown-end">
+      <div tabIndex={0} role="button" className="btn btn-sm btn-ghost w-fit">
         {memoizedPaletteIcon} Theme
         <svg
           width="12px"
@@ -106,8 +78,11 @@ export const ThemeChanger = () => {
         >
           <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" />
         </svg>
-      </summary>
-      <div className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-112 max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13">
+      </div>
+      <div
+        tabIndex={0}
+        className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-112 max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13"
+      >
         <ul
           ref={themeListRef}
           className="menu"
@@ -149,7 +124,7 @@ export const ThemeChanger = () => {
           ))}
         </ul>
       </div>
-    </details>
+    </div>
   );
 };
 
