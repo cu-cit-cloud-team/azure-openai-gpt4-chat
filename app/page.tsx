@@ -281,7 +281,6 @@ export const App = () => {
   );
 
   // Load saved messages into chat when they're available
-  // Load saved messages into chat when they're available
   // Model tracking is now handled inside useMessagePersistence hook
   useEffect(() => {
     if (savedMessages) {
