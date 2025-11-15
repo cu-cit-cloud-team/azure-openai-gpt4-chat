@@ -40,7 +40,7 @@ export const SystemMessage = memo(
     }, [originalSystemMessage, setSystemMessage]);
 
     const resetClickHandler = useCallback(() => {
-      if (localSystemMessage !== originalSystemMessage) {
+      if (localSystemMessage.trim() !== originalSystemMessage.trim()) {
         if (confirm('Are you sure you want to reset your unsaved changes?')) {
           setSystemMessage(originalSystemMessage);
           setLocalSystemMessage(originalSystemMessage);
@@ -49,7 +49,7 @@ export const SystemMessage = memo(
     }, [localSystemMessage, originalSystemMessage, setSystemMessage]);
 
     const saveClickHandler = useCallback(async () => {
-      if (localSystemMessage !== originalSystemMessage) {
+      if (localSystemMessage.trim() !== originalSystemMessage.trim()) {
         if (
           confirm(
             'Are you sure you want to change the system message?\n\nNOTE: This will also clear your chat history and reload the app.'
@@ -98,7 +98,7 @@ export const SystemMessage = memo(
               'btn btn-sm lg:btn-md join-item btn-error grow text-center',
               {
                 'btn-disabled':
-                  localSystemMessage?.trim() === originalSystemMessage?.trim(),
+                  localSystemMessage.trim() === originalSystemMessage.trim(),
               }
             )}
             type="button"
@@ -111,7 +111,7 @@ export const SystemMessage = memo(
             className="btn btn-sm lg:btn-md join-item btn-success"
             type="button"
             disabled={
-              localSystemMessage?.trim() === originalSystemMessage?.trim()
+              localSystemMessage.trim() === originalSystemMessage.trim()
             }
             onClick={saveClickHandler}
           >
