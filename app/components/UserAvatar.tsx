@@ -18,6 +18,7 @@ export const UserAvatar = memo(() => {
 
   const [userMeta, setUserMeta] = useAtom(userMetaAtom);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: this is intended to run only once to fetch user metadata
   useEffect(() => {
     if (userMeta?.email && userMeta?.name) {
       return;
