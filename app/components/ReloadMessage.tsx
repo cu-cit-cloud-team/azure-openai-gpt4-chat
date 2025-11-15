@@ -9,11 +9,12 @@ import { database } from '@/app/database/database.config';
 interface ReloadMessageProps {
   isUser: boolean;
   messageId: string;
+  isLoading?: boolean;
   regenerate(...args: unknown[]): unknown;
 }
 
 export const ReloadMessage = memo(
-  ({ isUser, messageId, regenerate }: ReloadMessageProps) => {
+  ({ isUser, messageId, isLoading, regenerate }: ReloadMessageProps) => {
     const buttonKey = useMemo(() => nanoid(), []);
 
     const reloadMessage = useCallback(async () => {
@@ -34,7 +35,8 @@ export const ReloadMessage = memo(
       }
     }, [messageId, regenerate, isUser]);
 
-    return (
+    // Hide regenerate button while loading
+    return isLoading ? null : (
       <div
         className={clsx('reload-container tooltip', {
           'tooltip-right tooltip-primary float-left ml-10': isUser,

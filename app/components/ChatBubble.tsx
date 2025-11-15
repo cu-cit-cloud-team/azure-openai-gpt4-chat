@@ -165,6 +165,7 @@ export const ChatBubble = memo(
               {index === totalMessages ? (
                 <ReloadMessage
                   isUser={isUser}
+                  isLoading={isLoading}
                   regenerate={regenerate}
                   messageId={messageId}
                 />
