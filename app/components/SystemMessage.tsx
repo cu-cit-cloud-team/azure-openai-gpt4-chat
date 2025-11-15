@@ -18,10 +18,16 @@ interface SystemMessageProps {
   input: string;
   systemMessageRef?: React.RefObject<HTMLTextAreaElement>;
   setMessages: (messages: UIMessage[]) => void;
+  onCloseMenu?: () => void;
 }
 
 export const SystemMessage = memo(
-  ({ input, systemMessageRef, setMessages }: SystemMessageProps) => {
+  ({
+    input,
+    systemMessageRef,
+    setMessages,
+    onCloseMenu,
+  }: SystemMessageProps) => {
     const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
     const [localSystemMessage, setLocalSystemMessage] = useState('');
     const [originalSystemMessage, setOriginalSystemMessage] = useState('');
@@ -46,8 +52,14 @@ export const SystemMessage = memo(
           setSystemMessage(originalSystemMessage);
           setLocalSystemMessage(originalSystemMessage);
         }
+        onCloseMenu?.();
       }
-    }, [localSystemMessage, originalSystemMessage, setSystemMessage]);
+    }, [
+      localSystemMessage,
+      originalSystemMessage,
+      setSystemMessage,
+      onCloseMenu,
+    ]);
 
     const saveClickHandler = useCallback(async () => {
       if (localSystemMessage.trim() !== originalSystemMessage.trim()) {
@@ -60,12 +72,14 @@ export const SystemMessage = memo(
           setSystemMessage(localSystemMessage);
           await clearMessages();
         }
+        onCloseMenu?.();
       }
     }, [
       localSystemMessage,
       originalSystemMessage,
       setSystemMessage,
       clearMessages,
+      onCloseMenu,
     ]);
 
     const handleSystemMessageChange = (e) => {

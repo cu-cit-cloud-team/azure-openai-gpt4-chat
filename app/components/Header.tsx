@@ -116,6 +116,7 @@ export const Header = memo(
                     input={input}
                     systemMessageRef={systemMessageRef}
                     setMessages={setMessages}
+                    onCloseMenu={closeMenus}
                   />
                 </li>
               </ul>
@@ -130,6 +131,7 @@ export const Header = memo(
               ref={(el) => {
                 menuDetailsRef.current[1] = el;
               }}
+              onCloseMenu={closeMenus}
             />
           </li>
           <li>

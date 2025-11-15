@@ -5,8 +5,12 @@ import { forwardRef, memo } from 'react';
 import { ParameterModelSelect } from '@/app/components/ParameterModelSelect';
 import { ParameterSlider } from '@/app/components/ParameterSlider';
 
+interface ParametersProps {
+  onCloseMenu?: () => void;
+}
+
 export const Parameters = memo(
-  forwardRef<HTMLDetailsElement>((_props, ref) => {
+  forwardRef<HTMLDetailsElement, ParametersProps>(({ onCloseMenu }, ref) => {
     return (
       <details ref={ref}>
         <summary>
@@ -15,7 +19,7 @@ export const Parameters = memo(
         </summary>
         <ul className="bg-base-200">
           <li className="text-xs">
-            <ParameterModelSelect />
+            <ParameterModelSelect onCloseMenu={onCloseMenu} />
           </li>
           <li className="text-xs">
             <ParameterSlider
