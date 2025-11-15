@@ -12,13 +12,50 @@ export interface Attachment {
 const MAX_FILES_PER_MESSAGE = 3;
 const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25MB
 const ALLOWED_TYPES = [
-  'image/png',
-  'image/jpeg',
-  'image/webp',
-  'text/plain',
-  'text/markdown',
-  'application/pdf',
+  'application/json', // read as text (.json)
+  'application/pdf', // (.pdf)
+  'application/typescript', // read as text (.ts)
+  'application/x-sh', // read as text (.sh)
+  'application/xml', // read as text (.xml)
+  'application/yaml', // read as text (.yaml, .yml)
+  'image/jpeg', // (.jpeg, .jpg)
+  'image/png', // (.png)
+  'image/webp', // (.webp)
+  'text/css', // read as text (.css)
+  'text/csv', // read as text (.csv, .tsv, .txt)
+  'text/html', // read as text (.html, .htm)
+  'text/javascript', // read as text (.js)
+  'text/markdown', // read as text (.md)
+  'text/plain', // read as text (.txt)
+  'text/x-csv', // read as text (.csv, .tsv, .txt)
+  'text/x-golang', // read as text (.go)
+  'text/x-java', // read as text (.java)
+  'text/x-php', // read as text (.php)
+  'text/x-python', // read as text (.py)
+  'text/x-ruby', // read as text (.rb)
+  'text/x-script.python', // read as text (.py)
 ];
+
+const TEXT_TYPES = new Set([
+  'application/json',
+  'application/typescript',
+  'application/x-sh',
+  'application/xml',
+  'application/yaml',
+  'text/css',
+  'text/csv',
+  'text/html',
+  'text/javascript',
+  'text/markdown',
+  'text/plain',
+  'text/x-csv',
+  'text/x-golang',
+  'text/x-java',
+  'text/x-php',
+  'text/x-python',
+  'text/x-ruby',
+  'text/x-script.python',
+]);
 
 export function useFileUpload() {
   const [attachments, setAttachments] = useState<Attachment[]>([]);
@@ -52,8 +89,7 @@ export function useFileUpload() {
           return;
         }
 
-        const isTextFile =
-          file.type === 'text/plain' || file.type === 'text/markdown';
+        const isTextFile = TEXT_TYPES.has(file.type);
         const reader = new FileReader();
         reader.onload = () => {
           const result = reader.result;
