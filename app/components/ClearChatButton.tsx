@@ -4,7 +4,7 @@ import type { UIMessage } from 'ai';
 import clsx from 'clsx';
 import { memo, useCallback } from 'react';
 
-import { database } from '@/app/database/database.config';
+import { useClearMessages } from '@/app/hooks/useClearMessages';
 
 interface ClearChatButtonProps {
   buttonText?: string;
@@ -18,18 +18,10 @@ export const ClearChatButton = memo(
     isLoading,
     setMessages,
   }: ClearChatButtonProps) => {
+    const clearMessages = useClearMessages(setMessages);
+
     const clearHistory = useCallback(
       async (doConfirm = true) => {
-        const clearMessages = async () => {
-          try {
-            await database.messages.clear();
-            // Dexie's useLiveQuery will update, but we also clear immediately for instant feedback
-            setMessages([]);
-          } catch (error) {
-            console.error(error);
-          }
-        };
-
         if (!doConfirm) {
           await clearMessages();
         } else if (
@@ -38,7 +30,7 @@ export const ClearChatButton = memo(
           await clearMessages();
         }
       },
-      [setMessages]
+      [clearMessages]
     );
 
     return (

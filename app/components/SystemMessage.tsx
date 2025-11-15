@@ -10,7 +10,7 @@ import { useAtom } from 'jotai';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
-import { database } from '@/app/database/database.config';
+import { useClearMessages } from '@/app/hooks/useClearMessages';
 
 import { systemMessageAtom } from '@/app/page';
 
@@ -30,6 +30,7 @@ export const SystemMessage = memo(
     const [localSystemMessage, setLocalSystemMessage] = useState('');
     const [originalSystemMessage, setOriginalSystemMessage] = useState('');
     const dropdownRef = useRef<HTMLDetailsElement>(null);
+    const clearMessages = useClearMessages(setMessages);
 
     useEffect(() => {
       setOriginalSystemMessage(systemMessage);
@@ -61,20 +62,14 @@ export const SystemMessage = memo(
         ) {
           setLocalSystemMessage(localSystemMessage);
           setSystemMessage(localSystemMessage);
-          try {
-            await database.messages.clear();
-            // Dexie's useLiveQuery will update, but we also clear immediately for instant feedback
-            setMessages([]);
-          } catch (error) {
-            console.error(error);
-          }
+          await clearMessages();
         }
       }
     }, [
       localSystemMessage,
       originalSystemMessage,
       setSystemMessage,
-      setMessages,
+      clearMessages,
     ]);
 
     const handleSystemMessageChange = (e) => {
