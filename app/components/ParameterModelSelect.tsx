@@ -7,10 +7,11 @@ import { models } from '@/app/utils/models';
 
 interface ParameterModelSelectProps {
   onCloseMenu?: () => void;
+  focusTextarea: () => void;
 }
 
 export const ParameterModelSelect = memo(
-  ({ onCloseMenu }: ParameterModelSelectProps = {}) => {
+  ({ onCloseMenu, focusTextarea }: ParameterModelSelectProps) => {
     const [parameters, setParameters] = useAtom(parametersAtom);
 
     const modelChangeHandler = useCallback(
@@ -32,10 +33,10 @@ export const ParameterModelSelect = memo(
           event.target.value = parameters.model;
         }
         onCloseMenu?.();
+        focusTextarea();
       },
-      [parameters, setParameters, onCloseMenu]
+      [parameters, setParameters, onCloseMenu, focusTextarea]
     );
-
     return (
       <>
         <span className="px-0 text-sm font-normal text-left">model:</span>

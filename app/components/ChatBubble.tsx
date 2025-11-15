@@ -51,6 +51,7 @@ interface ChatBubbleProps {
     textContent?: string;
     name?: string;
   }) => void;
+  focusTextarea: () => void;
 }
 
 const Pre = ({ children }: { children: { props: { children: string } } }) => {
@@ -82,6 +83,7 @@ export const ChatBubble = memo(
     stop,
     totalMessages,
     onFileClick,
+    focusTextarea,
   }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
     const copyToClipBoardKey = useMemo(() => nanoid(), []);
@@ -155,7 +157,11 @@ export const ChatBubble = memo(
                 isUser={isUser}
                 textToCopy={markdownToTxt(messageContent)}
               />
-              <DeleteMessage isUser={isUser} messageId={messageId} />
+              <DeleteMessage
+                isUser={isUser}
+                messageId={messageId}
+                focusTextarea={focusTextarea}
+              />
               {index === totalMessages ? (
                 <ReloadMessage
                   isUser={isUser}

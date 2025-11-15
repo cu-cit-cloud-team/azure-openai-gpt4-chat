@@ -9,18 +9,20 @@ import { database } from '@/app/database/database.config';
 interface DeleteMessageProps {
   isUser: boolean;
   messageId: string;
+  focusTextarea: () => void;
 }
 
 export const DeleteMessage = memo(
-  ({ isUser, messageId }: DeleteMessageProps) => {
+  ({ isUser, messageId, focusTextarea }: DeleteMessageProps) => {
     const buttonId = useMemo(() => nanoid(), []);
 
     const deleteMessage = useCallback(async () => {
       if (confirm('Are you sure you want to delete this message?')) {
         await database.messages.where('id').equals(messageId).delete();
         // Dexie's useLiveQuery in page.tsx will automatically re-query and update messages
+        focusTextarea();
       }
-    }, [messageId]);
+    }, [messageId, focusTextarea]);
 
     return (
       <div

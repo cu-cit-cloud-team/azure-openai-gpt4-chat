@@ -3,7 +3,6 @@ import type React from 'react';
 import { memo, useEffect, useRef } from 'react';
 
 import { ChatBubble } from '@/app/components/ChatBubble';
-import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
 
 // Footer height offset for scroll padding calculation
 const FOOTER_OFFSET = 110;
@@ -26,14 +25,15 @@ interface MessagesProps {
 
 export const Messages = memo(
   ({
-    isLoading,
     messages,
+    isLoading,
     messageModels,
     regenerate,
     stop,
     textAreaRef,
     onFileClick,
-  }: MessagesProps): JSX.Element => {
+    focusTextarea,
+  }: MessagesProps) => {
     const messagesRef = useRef(null);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
@@ -66,23 +66,42 @@ export const Messages = memo(
           className="flex flex-col w-full h-full max-w-6xl min-h-screen mx-auto pt-36 pb-28"
           ref={messagesRef}
         >
-          {messages.length > 0
-            ? messages.map((m, idx) => {
+          {messages && messages.length > 0
+            ? messages.map((message, index) => {
+                const messageText =
+                  message.parts
+                    ?.filter((part) => part.type === 'text')
+                    .map((part) => (part as { text: string }).text)
+                    .join('') || '';
+                const messageFiles =
+                  message.parts
+                    ?.filter((part) => part.type === 'file')
+                    .map(
+                      (part) =>
+                        part as {
+                          type: string;
+                          mediaType: string;
+                          url: string;
+                          name?: string;
+                        }
+                    ) || [];
+
                 return (
                   <ChatBubble
-                    key={m.id}
-                    index={idx}
+                    key={message.id}
+                    index={index}
                     isLoading={isLoading}
-                    isUser={m.role === 'user'}
-                    messageCreatedAt={m.createdAt}
-                    messageContent={getMessageText(m)}
-                    messageFiles={getMessageFiles(m)}
-                    messageId={m.id}
-                    model={messageModels.get(m.id) || m.model}
+                    isUser={message.role === 'user'}
+                    messageContent={messageText}
+                    messageFiles={messageFiles}
+                    messageCreatedAt={message.createdAt}
+                    messageId={message.id}
+                    model={messageModels?.[message.id] || 'gpt-4o'}
                     regenerate={regenerate}
                     stop={stop}
                     totalMessages={messages.length - 1}
                     onFileClick={onFileClick}
+                    focusTextarea={focusTextarea}
                   />
                 );
               })

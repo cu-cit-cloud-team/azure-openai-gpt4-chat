@@ -30,6 +30,7 @@ interface HeaderProps {
   chatError?: string | null;
   onClearError?: () => void;
   setMessages: (messages: UIMessage[]) => void;
+  focusTextarea: () => void;
 }
 
 export const Header = memo(
@@ -40,6 +41,7 @@ export const Header = memo(
     chatError,
     onClearError,
     setMessages,
+    focusTextarea,
   }: HeaderProps) => {
     const menuDetailsRef = useRef<(HTMLDetailsElement | null)[]>([]);
 
@@ -117,6 +119,7 @@ export const Header = memo(
                     systemMessageRef={systemMessageRef}
                     setMessages={setMessages}
                     onCloseMenu={closeMenus}
+                    focusTextarea={focusTextarea}
                   />
                 </li>
               </ul>
@@ -132,6 +135,7 @@ export const Header = memo(
                 menuDetailsRef.current[1] = el;
               }}
               onCloseMenu={closeMenus}
+              focusTextarea={focusTextarea}
             />
           </li>
           <li>
@@ -139,17 +143,25 @@ export const Header = memo(
               buttonText="Clear"
               isLoading={isLoading}
               setMessages={setMessages}
+              focusTextarea={focusTextarea}
             />
           </li>
           <li>
             <ExportChatButton buttonText="Export" isLoading={isLoading} />
           </li>
           <li>
-            <ThemeChanger onOpen={closeMenus} />
+            <ThemeChanger onOpen={closeMenus} focusTextarea={focusTextarea} />
           </li>
         </>
       ),
-      [input, isLoading, systemMessageRef, setMessages, closeMenus]
+      [
+        input,
+        isLoading,
+        systemMessageRef,
+        setMessages,
+        closeMenus,
+        focusTextarea,
+      ]
     );
 
     return (

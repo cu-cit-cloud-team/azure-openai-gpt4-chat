@@ -14,6 +14,7 @@ import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
 import { database } from '@/app/database/database.config';
 import { useFileUpload } from '@/app/hooks/useFileUpload';
+import { useFocusTextarea } from '@/app/hooks/useFocusTextarea';
 import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
 import { getLanguageFromFilename } from '@/app/utils/fileHelpers';
 import { modelFromName } from '@/app/utils/models';
@@ -74,6 +75,8 @@ export const App = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const focusTextarea = useFocusTextarea(textAreaRef, systemMessageRef);
+
   const parameters = useAtomValue(parametersAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
@@ -113,10 +116,28 @@ export const App = () => {
   const {
     attachments,
     attachmentError,
-    handleFileSelect,
-    handleRemoveAttachment,
+    handleFileSelect: handleFileSelectBase,
+    handleRemoveAttachment: handleRemoveAttachmentBase,
     clearAttachments,
   } = useFileUpload();
+
+  const handleFileSelect = useCallback(
+    (files: FileList | null) => {
+      handleFileSelectBase(files);
+      if (files && files.length > 0) {
+        focusTextarea();
+      }
+    },
+    [handleFileSelectBase, focusTextarea]
+  );
+
+  const handleRemoveAttachment = useCallback(
+    (id: string) => {
+      handleRemoveAttachmentBase(id);
+      focusTextarea();
+    },
+    [handleRemoveAttachmentBase, focusTextarea]
+  );
 
   // Create transport that updates when parameters change
   const transport = useMemo(
@@ -348,6 +369,7 @@ export const App = () => {
         chatError={chatError}
         onClearError={() => setChatError(null)}
         setMessages={setMessages}
+        focusTextarea={focusTextarea}
       />
       <Messages
         isLoading={isLoading}
@@ -357,6 +379,7 @@ export const App = () => {
         stop={stop}
         textAreaRef={textAreaRef}
         onFileClick={handleFileClickCb}
+        focusTextarea={focusTextarea}
       />
       <Footer
         formRef={formRef}

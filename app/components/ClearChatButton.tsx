@@ -10,6 +10,7 @@ interface ClearChatButtonProps {
   buttonText?: string;
   isLoading: boolean;
   setMessages: (messages: UIMessage[]) => void;
+  focusTextarea: () => void;
 }
 
 export const ClearChatButton = memo(
@@ -17,6 +18,7 @@ export const ClearChatButton = memo(
     buttonText = 'Clear Chat',
     isLoading,
     setMessages,
+    focusTextarea,
   }: ClearChatButtonProps) => {
     const clearMessages = useClearMessages(setMessages);
 
@@ -24,13 +26,15 @@ export const ClearChatButton = memo(
       async (doConfirm = true) => {
         if (!doConfirm) {
           await clearMessages();
+          focusTextarea();
         } else if (
           confirm('Are you sure you want to clear the chat history?')
         ) {
           await clearMessages();
+          focusTextarea();
         }
       },
-      [clearMessages]
+      [clearMessages, focusTextarea]
     );
 
     return (

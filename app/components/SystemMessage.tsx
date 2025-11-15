@@ -19,6 +19,7 @@ interface SystemMessageProps {
   systemMessageRef?: React.RefObject<HTMLTextAreaElement>;
   setMessages: (messages: UIMessage[]) => void;
   onCloseMenu?: () => void;
+  focusTextarea: () => void;
 }
 
 export const SystemMessage = memo(
@@ -27,6 +28,7 @@ export const SystemMessage = memo(
     systemMessageRef,
     setMessages,
     onCloseMenu,
+    focusTextarea,
   }: SystemMessageProps) => {
     const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
     const [localSystemMessage, setLocalSystemMessage] = useState('');
@@ -73,6 +75,7 @@ export const SystemMessage = memo(
           await clearMessages();
         }
         onCloseMenu?.();
+        focusTextarea();
       }
     }, [
       localSystemMessage,
@@ -80,6 +83,7 @@ export const SystemMessage = memo(
       setSystemMessage,
       clearMessages,
       onCloseMenu,
+      focusTextarea,
     ]);
 
     const handleSystemMessageChange = (e) => {

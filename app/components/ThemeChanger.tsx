@@ -11,9 +11,10 @@ import { getEditorTheme, themes } from '@/app/utils/themes';
 
 interface ThemeChangerProps {
   onOpen?: () => void;
+  focusTextarea: () => void;
 }
 
-export const ThemeChanger = ({ onOpen }: ThemeChangerProps = {}) => {
+export const ThemeChanger = ({ onOpen, focusTextarea }: ThemeChangerProps) => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
   const themeListRef = useRef<HTMLUListElement>(null);
@@ -30,8 +31,9 @@ export const ThemeChanger = ({ onOpen }: ThemeChangerProps = {}) => {
       const button = e.currentTarget;
       setTheme(button.dataset.set_theme as string);
       setEditorTheme(getEditorTheme(button.dataset.set_theme as string));
+      focusTextarea();
     },
-    [setEditorTheme, setTheme]
+    [setEditorTheme, setTheme, focusTextarea]
   );
 
   const updateSelected = useCallback(() => {
