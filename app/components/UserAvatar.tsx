@@ -58,7 +58,7 @@ export const UserAvatar = memo(() => {
         });
     };
     getUserMeta();
-  }, [userMeta, setUserMeta]);
+  }, [setUserMeta]);
 
   useEffect(() => {
     if (!userMeta) {
