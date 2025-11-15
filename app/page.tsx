@@ -214,6 +214,9 @@ export const App = () => {
     setInput(value);
   }, []);
 
+  const imageModalRef = useRef<HTMLDialogElement>(null);
+  const textModalRef = useRef<HTMLDialogElement>(null);
+
   const handleFileClickCb = useCallback(
     (file: {
       type: string;
@@ -227,20 +230,14 @@ export const App = () => {
           url: file.url || '',
           filename: file.name || 'image',
         });
-        const modal = document.getElementById(
-          'app-image-modal'
-        ) as HTMLDialogElement;
-        modal?.showModal();
+        imageModalRef.current?.showModal();
       } else if (file.textContent) {
         setModalTextFile({
           content: file.textContent,
           filename: file.name || 'file.txt',
           mediaType: file.mediaType,
         });
-        const modal = document.getElementById(
-          'app-text-modal'
-        ) as HTMLDialogElement;
-        modal?.showModal();
+        textModalRef.current?.showModal();
       }
     },
     []

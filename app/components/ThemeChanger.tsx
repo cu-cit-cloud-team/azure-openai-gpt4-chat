@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSetAtom } from 'jotai';
 import { useTheme } from 'next-themes';
 import type React from 'react';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { editorThemeAtom } from '@/app/page';
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
+  const dropdownRef = useRef<HTMLDetailsElement>(null);
+  const themeListRef = useRef<HTMLUListElement>(null);
 
   const memoizedPaletteIcon = useMemo(
     () => <FontAwesomeIcon icon={faPalette} />,
@@ -22,7 +24,6 @@ export const ThemeChanger = () => {
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      const details = [...document.querySelectorAll('details.dropdown')];
       if (
         (event.target as Element)
           .closest('button')
@@ -30,14 +31,13 @@ export const ThemeChanger = () => {
       ) {
         return;
       }
-      if (!details.some((el) => el.contains(event.target as Node))) {
-        for (const el of details) {
-          el.removeAttribute('open');
-        }
-      } else {
-        for (const el of details) {
-          !el.contains(event.target as Node) ? el.removeAttribute('open') : '';
-        }
+
+      // Close dropdown if clicking outside
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        dropdownRef.current.removeAttribute('open');
       }
     };
 
@@ -55,13 +55,22 @@ export const ThemeChanger = () => {
   );
 
   const updateSelected = useCallback(() => {
-    const selectedSVGs = document.querySelectorAll('svg.themeSelected');
+    if (!themeListRef.current) {
+      return;
+    }
+
+    // Find all theme selection checkmarks within our theme list
+    const selectedSVGs =
+      themeListRef.current.querySelectorAll('svg.themeSelected');
     for (const svg of selectedSVGs) {
       svg.classList.add('hidden');
     }
-    const buttons = document.querySelectorAll('button');
+
+    const buttons = themeListRef.current.querySelectorAll(
+      'button[data-set_theme]'
+    );
     for (const button of buttons) {
-      if (button.dataset.set_theme === theme) {
+      if ((button as HTMLButtonElement).dataset.set_theme === theme) {
         const svg = button.querySelector('svg');
         if (svg) {
           svg.classList.remove('hidden');
@@ -81,9 +90,12 @@ export const ThemeChanger = () => {
   }, [updateSelected]);
 
   return (
-    <div title="Change Theme" className="-m-1 dropdown dropdown-end">
-      {/* biome-ignore lint/a11y/useSemanticElements: DaisyUI dropdown pattern requires div with role=button */}
-      <div tabIndex={0} role="button" className="btn btn-sm btn-ghost w-fit">
+    <details
+      ref={dropdownRef}
+      title="Change Theme"
+      className="-m-1 dropdown dropdown-end"
+    >
+      <summary className="btn btn-sm btn-ghost w-fit list-none">
         {memoizedPaletteIcon} Theme
         <svg
           width="12px"
@@ -94,12 +106,10 @@ export const ThemeChanger = () => {
         >
           <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" />
         </svg>
-      </div>
-      <div
-        tabIndex={0}
-        className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-112 max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13"
-      >
+      </summary>
+      <div className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-112 max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13">
         <ul
+          ref={themeListRef}
           className="menu"
           style={{
             marginInlineStart: 'initial',
@@ -139,7 +149,7 @@ export const ThemeChanger = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </details>
   );
 };
 

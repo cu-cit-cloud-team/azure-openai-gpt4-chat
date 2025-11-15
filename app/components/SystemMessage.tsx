@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { UIMessage } from 'ai';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { TokenCount } from '@/app/components/TokenCount';
 import { database } from '@/app/database/database.config';
@@ -29,6 +29,7 @@ export const SystemMessage = memo(
     const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
     const [localSystemMessage, setLocalSystemMessage] = useState('');
     const [originalSystemMessage, setOriginalSystemMessage] = useState('');
+    const dropdownRef = useRef<HTMLDetailsElement>(null);
 
     useEffect(() => {
       setOriginalSystemMessage(systemMessage);
@@ -37,13 +38,8 @@ export const SystemMessage = memo(
 
     const cancelClickHandler = useCallback(() => {
       setSystemMessage(originalSystemMessage);
-      const systemMessageMenu = document.querySelectorAll(
-        'details.system-message-dropdown'
-      );
-      for (const menu of systemMessageMenu) {
-        if (menu) {
-          menu.removeAttribute('open');
-        }
+      if (dropdownRef.current) {
+        dropdownRef.current.removeAttribute('open');
       }
     }, [originalSystemMessage, setSystemMessage]);
 
@@ -74,7 +70,12 @@ export const SystemMessage = memo(
           }
         }
       }
-    }, [localSystemMessage, originalSystemMessage, setSystemMessage]);
+    }, [
+      localSystemMessage,
+      originalSystemMessage,
+      setSystemMessage,
+      setMessages,
+    ]);
 
     const handleSystemMessageChange = (e) => {
       setLocalSystemMessage(e.target.value);

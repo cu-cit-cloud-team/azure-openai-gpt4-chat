@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { UIMessage } from 'ai';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 
 import { ClearChatButton } from '@/app/components/ClearChatButton';
 import { ExportChatButton } from '@/app/components/ExportChatButton';
@@ -41,19 +41,25 @@ export const Header = memo(
     onClearError,
     setMessages,
   }: HeaderProps) => {
+    const menuDetailsRef = useRef<(HTMLDetailsElement | null)[]>([]);
+
+    const closeMenus = useCallback(() => {
+      for (const el of menuDetailsRef.current) {
+        if (el) {
+          el.removeAttribute('open');
+        }
+      }
+    }, []);
+
     useEffect(() => {
       const handleClick = (event: MouseEvent) => {
-        const details = [...document.querySelectorAll('.menu details')];
-        if (!details.some((el) => el.contains(event.target as Node))) {
-          for (const el of details) {
-            el.removeAttribute('open');
-          }
-        } else {
-          for (const el of details) {
-            !el.contains(event.target as Node)
-              ? el.removeAttribute('open')
-              : '';
-          }
+        const target = event.target as Node;
+        const clickedInside = menuDetailsRef.current.some((el) =>
+          el?.contains(target)
+        );
+
+        if (!clickedInside) {
+          closeMenus();
         }
       };
 
@@ -61,13 +67,16 @@ export const Header = memo(
       return () => {
         document.removeEventListener('click', handleClick);
       };
-    }, []);
+    }, [closeMenus]);
 
     const renderMenuItems = useCallback(
       (isMobile = false) => (
         <>
           <li>
             <details
+              ref={(el) => {
+                menuDetailsRef.current[0] = el;
+              }}
               className={clsx('system-message-dropdown', {
                 'pointer-events-none opacity-50': isLoading,
               })}
