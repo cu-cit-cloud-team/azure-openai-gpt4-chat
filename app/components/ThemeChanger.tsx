@@ -9,7 +9,11 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { editorThemeAtom } from '@/app/page';
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
-export const ThemeChanger = () => {
+interface ThemeChangerProps {
+  onOpen?: () => void;
+}
+
+export const ThemeChanger = ({ onOpen }: ThemeChangerProps = {}) => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
   const themeListRef = useRef<HTMLUListElement>(null);
@@ -67,7 +71,12 @@ export const ThemeChanger = () => {
 
   return (
     <div title="Change Theme" className="-m-1 dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-sm btn-ghost w-fit">
+      <div
+        tabIndex={0}
+        role="button"
+        className="btn btn-sm btn-ghost w-fit"
+        onClick={onOpen}
+      >
         {memoizedPaletteIcon} Theme
         <svg
           width="12px"

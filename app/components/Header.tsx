@@ -63,9 +63,34 @@ export const Header = memo(
         }
       };
 
+      const handleToggle = (event: Event) => {
+        const target = event.target as HTMLDetailsElement;
+        // If this dropdown is being opened, close all others
+        if (target.open) {
+          for (const el of menuDetailsRef.current) {
+            if (el && el !== target) {
+              el.removeAttribute('open');
+            }
+          }
+        }
+      };
+
       document.addEventListener('click', handleClick);
+
+      // Add toggle listeners to all details dropdowns
+      for (const el of menuDetailsRef.current) {
+        if (el) {
+          el.addEventListener('toggle', handleToggle);
+        }
+      }
+
       return () => {
         document.removeEventListener('click', handleClick);
+        for (const el of menuDetailsRef.current) {
+          if (el) {
+            el.removeEventListener('toggle', handleToggle);
+          }
+        }
       };
     }, [closeMenus]);
 
@@ -118,11 +143,11 @@ export const Header = memo(
             <ExportChatButton buttonText="Export" isLoading={isLoading} />
           </li>
           <li>
-            <ThemeChanger />
+            <ThemeChanger onOpen={closeMenus} />
           </li>
         </>
       ),
-      [input, isLoading, systemMessageRef, setMessages]
+      [input, isLoading, systemMessageRef, setMessages, closeMenus]
     );
 
     return (
