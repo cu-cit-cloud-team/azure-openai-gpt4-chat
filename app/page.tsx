@@ -391,66 +391,60 @@ export const App = () => {
         systemMessageRef={systemMessageRef}
         textAreaRef={textAreaRef}
       />
-      <dialog id="app-image-modal" className="modal">
-        <div className="modal-box max-w-5xl w-auto">
-          {modalImageUrl && (
-            <>
-              <form method="dialog">
-                {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
-                </button>
-              </form>
-              <h3 className="font-bold text-lg mb-4">
-                {modalImageUrl.filename}
-              </h3>
-              {/** biome-ignore lint/performance/noImgElement: intentional */}
-              <img
-                src={modalImageUrl.url}
-                alt="Attachment"
-                className="w-full h-auto max-h-[80vh] object-contain rounded"
-              />
-            </>
-          )}
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button type="submit">close</button>
-        </form>
-      </dialog>
-      <dialog id="app-text-modal" className="modal">
-        <div className="modal-box max-w-5xl w-full">
-          {modalTextFile && (
-            <>
-              <form method="dialog">
-                {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
-                </button>
-              </form>
-              <h3 className="font-bold text-lg mb-4">
-                {modalTextFile.filename}
-              </h3>
-              <div className="overflow-auto max-h-[70vh]">
-                <SyntaxHighlighter
-                  style={editorTheme}
-                  language={getLanguageFromFilename(modalTextFile.filename)}
-                  PreTag="div"
-                  showLineNumbers={true}
-                  customStyle={{
-                    margin: 0,
-                    borderRadius: '0.5rem',
-                  }}
-                >
-                  {modalTextFile.content}
-                </SyntaxHighlighter>
-              </div>
-            </>
-          )}
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button type="submit">close</button>
-        </form>
-      </dialog>
+      {/* Image modal */}
+      {modalImageUrl && (
+        <dialog ref={imageModalRef} className="modal">
+          <div className="modal-box max-w-5xl w-auto">
+            <form method="dialog">
+              {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg mb-4">{modalImageUrl.filename}</h3>
+            {/** biome-ignore lint/performance/noImgElement: intentional */}
+            <img
+              src={modalImageUrl.url}
+              alt="Attachment"
+              className="w-full h-auto max-h-[80vh] object-contain rounded"
+            />
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button type="submit">close</button>
+          </form>
+        </dialog>
+      )}
+      {/* Text file modal */}
+      {modalTextFile && (
+        <dialog ref={textModalRef} className="modal">
+          <div className="modal-box max-w-5xl w-full">
+            <form method="dialog">
+              {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg mb-4">{modalTextFile.filename}</h3>
+            <div className="overflow-auto max-h-[70vh]">
+              <SyntaxHighlighter
+                style={editorTheme}
+                language={getLanguageFromFilename(modalTextFile.filename)}
+                PreTag="div"
+                showLineNumbers={true}
+                customStyle={{
+                  margin: 0,
+                  borderRadius: '0.5rem',
+                }}
+              >
+                {modalTextFile.content}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button type="submit">close</button>
+          </form>
+        </dialog>
+      )}
     </ErrorBoundary>
   );
 };
