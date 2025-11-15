@@ -88,7 +88,7 @@ export const App = () => {
     return sorted as StoredMessage[];
   }, []);
 
-  const handleChatError = useCallback((error) => {
+  const handleChatError = useCallback((error: Error | { message?: string }) => {
     console.error(error);
     setChatError(error?.message || 'An error occurred. Please try again.');
   }, []);
