@@ -15,12 +15,13 @@ import { useClearMessages } from '@/app/hooks/useClearMessages';
 import { systemMessageAtom } from '@/app/page';
 
 interface SystemMessageProps {
+  input: string;
   systemMessageRef?: React.RefObject<HTMLTextAreaElement>;
   setMessages: (messages: UIMessage[]) => void;
 }
 
 export const SystemMessage = memo(
-  ({ systemMessageRef, setMessages }: SystemMessageProps) => {
+  ({ input, systemMessageRef, setMessages }: SystemMessageProps) => {
     const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
     const [localSystemMessage, setLocalSystemMessage] = useState('');
     const [originalSystemMessage, setOriginalSystemMessage] = useState('');
@@ -75,8 +76,10 @@ export const SystemMessage = memo(
       <>
         {/* Re-enabled TokenCount after stateless refactor */}
         <TokenCount
+          input={input}
           systemMessage={localSystemMessage}
           display={'systemMessage'}
+          useLocalCalculation={true}
         />
         <textarea
           className="h-48 m-2 whitespace-pre-line w-52 lg:w-96"

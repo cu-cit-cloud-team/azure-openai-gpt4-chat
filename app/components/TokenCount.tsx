@@ -10,10 +10,16 @@ interface TokenCountProps {
   input?: string;
   systemMessage: string;
   display?: 'input' | 'systemMessage';
+  useLocalCalculation?: boolean;
 }
 
 export const TokenCount = memo(
-  ({ input = '', systemMessage, display = 'input' }: TokenCountProps) => {
+  ({
+    input = '',
+    systemMessage,
+    display = 'input',
+    useLocalCalculation = false,
+  }: TokenCountProps) => {
     const parameters = useAtomValue(parametersAtom);
     const tokens = useAtomValue(tokensAtom); // Display precomputed values from App
     const model = modelFromName(parameters.model);
@@ -40,17 +46,25 @@ export const TokenCount = memo(
         key={`${display}-token-count`}
       >
         <strong>
-          {tokens[display] ??
-            (display === 'systemMessage'
+          {useLocalCalculation
+            ? display === 'systemMessage'
               ? systemMessageCount
-              : inputCount)}{' '}
+              : inputCount
+            : (tokens[display] ??
+              (display === 'systemMessage'
+                ? systemMessageCount
+                : inputCount))}{' '}
           <span className="font-normal">
             Token{(tokens.input ?? inputCount) === 1 ? '' : 's '}
           </span>{' '}
           /{' '}
-          {display === 'systemMessage'
-            ? (tokens.systemMessageRemaining ?? systemRemainingFallback)
-            : (tokens.remaining ?? remainingFallback)}{' '}
+          {useLocalCalculation
+            ? display === 'systemMessage'
+              ? systemRemainingFallback
+              : remainingFallback
+            : display === 'systemMessage'
+              ? (tokens.systemMessageRemaining ?? systemRemainingFallback)
+              : (tokens.remaining ?? remainingFallback)}{' '}
           <span className="font-normal">Remaining</span>
         </strong>
       </div>
