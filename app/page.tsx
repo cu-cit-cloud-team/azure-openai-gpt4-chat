@@ -15,6 +15,7 @@ import { Messages } from '@/app/components/Messages';
 import { database } from '@/app/database/database.config';
 import { useFileUpload } from '@/app/hooks/useFileUpload';
 import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
+import { getLanguageFromFilename } from '@/app/utils/fileHelpers';
 import { modelFromName } from '@/app/utils/models';
 import { getEditorTheme } from '@/app/utils/themes';
 import { getTokenCount } from '@/app/utils/tokens';
@@ -25,33 +26,6 @@ import { getTokenCount } from '@/app/utils/tokens';
 type StoredMessage = UIMessage & {
   model: string;
   createdAt: string;
-};
-
-/**
- * Get syntax highlighting language from filename extension
- */
-const getLanguageFromFilename = (filename: string): string => {
-  const ext = filename.split('.').pop()?.toLowerCase();
-  const langMap: Record<string, string> = {
-    js: 'javascript',
-    jsx: 'javascript',
-    ts: 'typescript',
-    tsx: 'typescript',
-    py: 'python',
-    rb: 'ruby',
-    java: 'java',
-    go: 'go',
-    php: 'php',
-    html: 'html',
-    css: 'css',
-    json: 'json',
-    md: 'markdown',
-    sh: 'bash',
-    yaml: 'yaml',
-    yml: 'yaml',
-    xml: 'xml',
-  };
-  return langMap[ext || ''] || 'text';
 };
 
 type FilePart = {
