@@ -57,7 +57,10 @@ const Pre = ({ children }: { children: { props: { children: string } } }) => {
   const preKey = useMemo(() => nanoid(), []);
   return (
     <pre className="code-pre">
-      <CopyToClipboard key={preKey} textToCopy={children.props.children} />
+      <CopyToClipboard
+        key={preKey}
+        textToCopy={children.props.children || ''}
+      />
       {children}
     </pre>
   );
@@ -192,7 +195,7 @@ export const ChatBubble = memo(
                   },
                 }}
               >
-                {messageContent?.replace(/\n/g, '  \n') || ''}
+                {(messageContent || '').replace(/\n/g, '  \n')}
               </Markdown>
               {messageFiles && messageFiles.length > 0 && (
                 <div className="flex flex-wrap items-center gap-2 mt-3">
