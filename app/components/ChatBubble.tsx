@@ -199,7 +199,7 @@ export const ChatBubble = memo(
                   {messageFiles.map((file) => (
                     <div
                       key={`${file.url}-${file.name ?? ''}`}
-                      className="flex items-center gap-2 px-2 py-1 text-xs border rounded bg-base-100 border-base-300"
+                      className="flex items-center gap-2 px-2 py-1 text-xs border rounded bg-base-200 text-base-content border-base-300"
                     >
                       {file.mediaType.startsWith('image/') ? (
                         <button
