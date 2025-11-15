@@ -2,7 +2,7 @@ import { faArrowRotateForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import { database } from '@/app/database/database.config';
 
@@ -14,6 +14,8 @@ interface ReloadMessageProps {
 
 export const ReloadMessage = memo(
   ({ isUser, messageId, regenerate }: ReloadMessageProps) => {
+    const buttonKey = useMemo(() => nanoid(), []);
+
     const reloadMessage = useCallback(async () => {
       const deleteFromDb = async () => {
         await database.messages.where('id').equals(messageId).delete();
@@ -37,7 +39,7 @@ export const ReloadMessage = memo(
         data-tip={'Regenerate response'}
       >
         <button
-          key={nanoid()}
+          key={buttonKey}
           onClick={reloadMessage}
           type="button"
           className={clsx('w-6 h-6 p-0 m-0 mr-0 btn btn-xs', {
