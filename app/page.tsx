@@ -4,7 +4,7 @@ import { useChat } from '@ai-sdk/react';
 import type { UIMessage } from 'ai';
 import { DefaultChatTransport } from 'ai';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -184,31 +184,29 @@ export const App = () => {
       currentModel: parameters.model,
     });
 
-  // Derive token counts (stateless TokenCount reads these)
-  const [tokens, setTokens] = useAtom(tokensAtom);
-  useEffect(() => {
+  // Derive token counts with useMemo - automatically recalculates only when dependencies change
+  const derivedTokens = useMemo(() => {
     const model = modelFromName(parameters.model);
     const maxTokens = model?.maxInputTokens || 16384;
     const inputCount = input ? getTokenCount(input) : 0;
     const systemMessageCount = systemMessage ? getTokenCount(systemMessage) : 0;
     const remaining = maxTokens - (inputCount + systemMessageCount);
     const systemRemaining = systemMessageMaxTokens - systemMessageCount;
-    const shouldUpdate =
-      tokens.input !== inputCount ||
-      tokens.maximum !== maxTokens ||
-      tokens.remaining !== remaining ||
-      tokens.systemMessage !== systemMessageCount ||
-      tokens.systemMessageRemaining !== systemRemaining;
-    if (shouldUpdate) {
-      setTokens({
-        input: inputCount,
-        maximum: maxTokens,
-        remaining,
-        systemMessage: systemMessageCount,
-        systemMessageRemaining: systemRemaining,
-      });
-    }
-  }, [input, systemMessage, parameters.model, tokens, setTokens]);
+
+    return {
+      input: inputCount,
+      maximum: maxTokens,
+      remaining,
+      systemMessage: systemMessageCount,
+      systemMessageRemaining: systemRemaining,
+    };
+  }, [input, systemMessage, parameters.model]);
+
+  // Sync derived tokens to atom for persistence and cross-component access
+  const setTokens = useSetAtom(tokensAtom);
+  useEffect(() => {
+    setTokens(derivedTokens);
+  }, [derivedTokens, setTokens]);
 
   const handleInputChangeCb = useCallback((value: string) => {
     setInput(value);
