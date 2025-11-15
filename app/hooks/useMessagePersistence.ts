@@ -6,12 +6,14 @@ interface UseMessagePersistenceProps {
   messages: UIMessage[];
   isLoading: boolean;
   currentModel: string;
+  savedMessages?: UIMessage[];
 }
 
 export function useMessagePersistence({
   messages,
   isLoading,
   currentModel,
+  savedMessages,
 }: UseMessagePersistenceProps) {
   // Track model per message ID
   const messageModelsRef = useRef<Map<string, string>>(new Map());
@@ -19,6 +21,19 @@ export function useMessagePersistence({
   const savedMessageIdsRef = useRef<Set<string>>(new Set());
   // Track saved message count to avoid re-saving on load
   const savedMessageCountRef = useRef(0);
+
+  // Track models for messages loaded from DB
+  useEffect(() => {
+    if (savedMessages) {
+      savedMessages.forEach((msg) => {
+        const msgWithModel = msg as UIMessage & { model?: string };
+        if (msgWithModel.model && msg.id) {
+          messageModelsRef.current.set(msg.id, msgWithModel.model);
+          savedMessageIdsRef.current.add(msg.id);
+        }
+      });
+    }
+  }, [savedMessages]);
 
   const addMessage = useCallback(
     async (message: UIMessage) => {
@@ -58,6 +73,5 @@ export function useMessagePersistence({
   return {
     addMessage,
     messageModelsRef,
-    savedMessageIdsRef,
   };
 }

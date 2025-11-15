@@ -176,13 +176,13 @@ export const App = () => {
     setIsLoading(status === 'streaming' || status === 'submitted');
   }, [status, setIsLoading]);
 
-  // Message persistence
-  const { addMessage, messageModelsRef, savedMessageIdsRef } =
-    useMessagePersistence({
-      messages,
-      isLoading,
-      currentModel: parameters.model,
-    });
+  // Message persistence - hook now handles tracking models from DB
+  const { addMessage, messageModelsRef } = useMessagePersistence({
+    messages,
+    isLoading,
+    currentModel: parameters.model,
+    savedMessages,
+  });
 
   // Derive token counts with useMemo - automatically recalculates only when dependencies change
   const derivedTokens = useMemo(() => {
@@ -297,22 +297,12 @@ export const App = () => {
   );
 
   // Load saved messages into chat when they're available
-  //biome-ignore lint/correctness/useExhaustiveDependencies: refs are stable
+  // Load saved messages into chat when they're available
+  // Model tracking is now handled inside useMessagePersistence hook
   useEffect(() => {
     if (savedMessages) {
-      // Track models for saved messages
-      savedMessages.forEach((msg) => {
-        const msgWithModel = msg as UIMessage & { model?: string };
-        if (msgWithModel.model && msg.id) {
-          messageModelsRef.current.set(msg.id, msgWithModel.model);
-          savedMessageIdsRef.current.add(msg.id);
-        }
-      });
-
-      // Always sync messages with saved messages from DB (works for both empty and populated arrays)
       setMessages(savedMessages);
     }
-    // Refs are stable and don't need to be in deps
   }, [savedMessages, setMessages]);
 
   // subscribe to storage change events so multiple tabs stay in sync
