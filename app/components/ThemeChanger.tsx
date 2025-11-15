@@ -3,13 +3,11 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSetAtom } from 'jotai';
-import { nanoid } from 'nanoid';
 import { useTheme } from 'next-themes';
+import type React from 'react';
 import { useCallback, useEffect, useMemo } from 'react';
-
-import { getEditorTheme, themes } from '@/app/utils/themes';
-
 import { editorThemeAtom } from '@/app/page';
+import { getEditorTheme, themes } from '@/app/utils/themes';
 
 export const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
@@ -23,25 +21,32 @@ export const ThemeChanger = () => {
   // console.log(theme);
 
   useEffect(() => {
-    const details = [...document.querySelectorAll('details.dropdown')];
-    document.addEventListener('click', (event) => {
-      if (event.target.closest('button')?.classList?.contains('button-theme')) {
+    const handleClick = (event: MouseEvent) => {
+      const details = [...document.querySelectorAll('details.dropdown')];
+      if (
+        (event.target as Element)
+          .closest('button')
+          ?.classList?.contains('button-theme')
+      ) {
         return;
       }
-      if (!details.some((el) => el.contains(event.target))) {
+      if (!details.some((el) => el.contains(event.target as Node))) {
         for (const el of details) {
           el.removeAttribute('open');
         }
       } else {
         for (const el of details) {
-          !el.contains(event.target) ? el.removeAttribute('open') : '';
+          !el.contains(event.target as Node) ? el.removeAttribute('open') : '';
         }
       }
-    });
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
   }, []);
 
   const handleClick = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       const button = e.currentTarget;
       setTheme(button.dataset.set_theme as string);
       setEditorTheme(getEditorTheme(button.dataset.set_theme as string));
@@ -77,7 +82,7 @@ export const ThemeChanger = () => {
 
   return (
     <div title="Change Theme" className="-m-1 dropdown dropdown-end">
-      {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+      {/* biome-ignore lint/a11y/useSemanticElements: DaisyUI dropdown pattern requires div with role=button */}
       <div tabIndex={0} role="button" className="btn btn-sm btn-ghost w-fit">
         {memoizedPaletteIcon} Theme
         <svg
@@ -102,7 +107,7 @@ export const ThemeChanger = () => {
           }}
         >
           {themes.map((theme) => (
-            <li key={nanoid()}>
+            <li key={theme}>
               <button
                 className="px-2 gap-3"
                 data-set_theme={theme}
