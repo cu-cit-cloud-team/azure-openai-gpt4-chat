@@ -108,44 +108,26 @@ export async function POST(req: Request) {
     apiVersion: AZURE_OPENAI_API_VERSION,
   });
 
-  const llm =
-    model === 'gpt-41-mini' && AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
-      ? AZURE_OPENAI_GPT41_MINI_DEPLOYMENT
-      : model === 'gpt-41' && AZURE_OPENAI_GPT41_DEPLOYMENT
-        ? AZURE_OPENAI_GPT41_DEPLOYMENT
-        : model === 'gpt-41-nano' && AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
-          ? AZURE_OPENAI_GPT41_NANO_DEPLOYMENT
-          : model === 'gpt-5' && AZURE_OPENAI_GPT5_DEPLOYMENT
-            ? AZURE_OPENAI_GPT5_DEPLOYMENT
-            : model === 'gpt-5-mini' && AZURE_OPENAI_GPT5_MINI_DEPLOYMENT
-              ? AZURE_OPENAI_GPT5_MINI_DEPLOYMENT
-              : model === 'gpt-5-nano' && AZURE_OPENAI_GPT5_NANO_DEPLOYMENT
-                ? AZURE_OPENAI_GPT5_NANO_DEPLOYMENT
-                : model === 'gpt-5-chat' && AZURE_OPENAI_GPT5_CHAT_DEPLOYMENT
-                  ? AZURE_OPENAI_GPT5_CHAT_DEPLOYMENT
-                  : model === 'gpt-5-codex' &&
-                      AZURE_OPENAI_GPT5_CODEX_DEPLOYMENT
-                    ? AZURE_OPENAI_GPT5_CODEX_DEPLOYMENT
-                    : model === 'gpt-5.1' && AZURE_OPENAI_GPT51_DEPLOYMENT
-                      ? AZURE_OPENAI_GPT51_DEPLOYMENT
-                      : model === 'gpt-5.1-chat' &&
-                          AZURE_OPENAI_GPT51_CHAT_DEPLOYMENT
-                        ? AZURE_OPENAI_GPT51_CHAT_DEPLOYMENT
-                        : model === 'gpt-5.1-codex' &&
-                            AZURE_OPENAI_GPT51_CODEX_DEPLOYMENT
-                          ? AZURE_OPENAI_GPT51_CODEX_DEPLOYMENT
-                          : model === 'gpt-5.1-codex-mini' &&
-                              AZURE_OPENAI_GPT51_CODEX_MINI_DEPLOYMENT
-                            ? AZURE_OPENAI_GPT51_CODEX_MINI_DEPLOYMENT
-                            : model === 'o3' && AZURE_OPENAI_O3_DEPLOYMENT
-                              ? AZURE_OPENAI_O3_DEPLOYMENT
-                              : model === 'o3-mini' &&
-                                  AZURE_OPENAI_O3_MINI_DEPLOYMENT
-                                ? AZURE_OPENAI_O3_MINI_DEPLOYMENT
-                                : model === 'o4-mini' &&
-                                    AZURE_OPENAI_O4_MINI_DEPLOYMENT
-                                  ? AZURE_OPENAI_O4_MINI_DEPLOYMENT
-                                  : AZURE_OPENAI_GPT5_DEPLOYMENT;
+  // Map model names to their deployment environment variables
+  const modelDeploymentMap: Record<string, string | undefined> = {
+    'gpt-41-mini': AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
+    'gpt-41': AZURE_OPENAI_GPT41_DEPLOYMENT,
+    'gpt-41-nano': AZURE_OPENAI_GPT41_NANO_DEPLOYMENT,
+    'gpt-5': AZURE_OPENAI_GPT5_DEPLOYMENT,
+    'gpt-5-mini': AZURE_OPENAI_GPT5_MINI_DEPLOYMENT,
+    'gpt-5-nano': AZURE_OPENAI_GPT5_NANO_DEPLOYMENT,
+    'gpt-5-chat': AZURE_OPENAI_GPT5_CHAT_DEPLOYMENT,
+    'gpt-5-codex': AZURE_OPENAI_GPT5_CODEX_DEPLOYMENT,
+    'gpt-5.1': AZURE_OPENAI_GPT51_DEPLOYMENT,
+    'gpt-5.1-chat': AZURE_OPENAI_GPT51_CHAT_DEPLOYMENT,
+    'gpt-5.1-codex': AZURE_OPENAI_GPT51_CODEX_DEPLOYMENT,
+    'gpt-5.1-codex-mini': AZURE_OPENAI_GPT51_CODEX_MINI_DEPLOYMENT,
+    'o3': AZURE_OPENAI_O3_DEPLOYMENT,
+    'o3-mini': AZURE_OPENAI_O3_MINI_DEPLOYMENT,
+    'o4-mini': AZURE_OPENAI_O4_MINI_DEPLOYMENT,
+  };
+
+  const llm = modelDeploymentMap[model] || AZURE_OPENAI_GPT5_DEPLOYMENT;
 
   // instantiate azure openai model
   const azureModel =
