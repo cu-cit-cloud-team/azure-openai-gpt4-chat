@@ -22,7 +22,7 @@ export const ParameterModelSelect = memo(() => {
         });
         // Update Jotai atom with correct spread order
         setParameters({ ...parameters, model: event.target.value });
-        window.location.reload();
+        // Keep existing messages - new model will be used for future responses
       } else {
         event.target.value = parameters.model;
       }

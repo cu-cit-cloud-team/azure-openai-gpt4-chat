@@ -4,6 +4,7 @@ import {
   faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { UIMessage } from 'ai';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import { memo, useCallback, useEffect, useState } from 'react';
@@ -20,10 +21,11 @@ interface SystemMessageProps {
     | {
         current?: object;
       };
+  setMessages: (messages: UIMessage[]) => void;
 }
 
 export const SystemMessage = memo(
-  ({ systemMessageRef }: SystemMessageProps) => {
+  ({ systemMessageRef, setMessages }: SystemMessageProps) => {
     const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
     const [localSystemMessage, setLocalSystemMessage] = useState('');
     const [originalSystemMessage, setOriginalSystemMessage] = useState('');
@@ -65,7 +67,8 @@ export const SystemMessage = memo(
           setSystemMessage(localSystemMessage);
           try {
             await database.messages.clear();
-            window.location.reload();
+            // Dexie's useLiveQuery will update, but we also clear immediately for instant feedback
+            setMessages([]);
           } catch (error) {
             console.error(error);
           }

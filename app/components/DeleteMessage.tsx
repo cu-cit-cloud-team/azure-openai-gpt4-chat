@@ -16,12 +16,9 @@ export const DeleteMessage = memo(
     const buttonId = useMemo(() => nanoid(), []);
 
     const deleteMessage = useCallback(async () => {
-      const deleteFromDb = async () => {
-        await database.messages.where('id').equals(messageId).delete();
-      };
       if (confirm('Are you sure you want to delete this message?')) {
-        await deleteFromDb();
-        window.location.reload();
+        await database.messages.where('id').equals(messageId).delete();
+        // Dexie's useLiveQuery in page.tsx will automatically re-query and update messages
       }
     }, [messageId]);
 

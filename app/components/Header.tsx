@@ -1,5 +1,6 @@
 import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { UIMessage } from 'ai';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import { memo, useCallback, useEffect } from 'react';
@@ -28,6 +29,7 @@ interface HeaderProps {
   systemMessageRef: React.RefObject<HTMLTextAreaElement>;
   chatError?: string | null;
   onClearError?: () => void;
+  setMessages: (messages: UIMessage[]) => void;
 }
 
 export const Header = memo(
@@ -37,6 +39,7 @@ export const Header = memo(
     systemMessageRef,
     chatError,
     onClearError,
+    setMessages,
   }: HeaderProps) => {
     useEffect(() => {
       const handleClick = (event: MouseEvent) => {
@@ -78,6 +81,7 @@ export const Header = memo(
                   <SystemMessage
                     input={input}
                     systemMessageRef={systemMessageRef}
+                    setMessages={setMessages}
                   />
                 </li>
               </ul>
@@ -91,7 +95,11 @@ export const Header = memo(
             <Parameters />
           </li>
           <li>
-            <ClearChatButton buttonText="Clear" isLoading={isLoading} />
+            <ClearChatButton
+              buttonText="Clear"
+              isLoading={isLoading}
+              setMessages={setMessages}
+            />
           </li>
           <li>
             <ExportChatButton buttonText="Export" isLoading={isLoading} />
@@ -101,7 +109,7 @@ export const Header = memo(
           </li>
         </>
       ),
-      [input, isLoading, systemMessageRef]
+      [input, isLoading, systemMessageRef, setMessages]
     );
 
     return (

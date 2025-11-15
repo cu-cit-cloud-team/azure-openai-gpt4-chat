@@ -313,12 +313,14 @@ export const App = () => {
           savedMessageIdsRef.current.add(msg.id);
         }
       }
-      if (messages.length === 0) {
-        setMessages(savedMessages);
-      }
+      // Always sync messages with saved messages from DB
+      setMessages(savedMessages);
+    } else if (savedMessages && savedMessages.length === 0) {
+      // Clear messages if DB is empty
+      setMessages([]);
     }
     // Refs are stable and don't need to be in deps
-  }, [savedMessages, messages.length, setMessages]);
+  }, [savedMessages, setMessages]);
 
   // subscribe to storage change events so multiple tabs stay in sync
   useEffect(() => {
@@ -379,6 +381,7 @@ export const App = () => {
         systemMessageRef={systemMessageRef}
         chatError={chatError}
         onClearError={() => setChatError(null)}
+        setMessages={setMessages}
       />
       <Messages
         isLoading={isLoading}

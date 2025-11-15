@@ -32,9 +32,9 @@ export const ReloadMessage = memo(
 
     return (
       <div
-        className={clsx('reload-container float-right mr-10 tooltip', {
-          'tooltip-right tooltip-primary': isUser,
-          'tooltip-left tooltip-secondary': !isUser,
+        className={clsx('reload-container tooltip', {
+          'tooltip-right tooltip-primary float-left ml-10': isUser,
+          'tooltip-left tooltip-secondary float-right mr-10': !isUser,
         })}
         data-tip={'Regenerate response'}
       >
