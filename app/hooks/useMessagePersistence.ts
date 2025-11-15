@@ -2,17 +2,23 @@ import type { UIMessage } from 'ai';
 import { useCallback, useEffect, useRef } from 'react';
 import { database } from '@/app/database/database.config';
 
+/**
+ * Extended UIMessage type with additional metadata we store
+ */
+type StoredMessage = UIMessage & {
+  model: string;
+  createdAt: string;
+};
+
 interface UseMessagePersistenceProps {
   messages: UIMessage[];
   isLoading: boolean;
-  currentModel: string;
-  savedMessages?: UIMessage[];
+  savedMessages?: StoredMessage[];
 }
 
 export function useMessagePersistence({
   messages,
   isLoading,
-  currentModel,
   savedMessages,
 }: UseMessagePersistenceProps) {
   // Track model per message ID
@@ -26,29 +32,23 @@ export function useMessagePersistence({
   useEffect(() => {
     if (savedMessages) {
       savedMessages.forEach((msg) => {
-        const msgWithModel = msg as UIMessage & { model?: string };
-        if (msgWithModel.model && msg.id) {
-          messageModelsRef.current.set(msg.id, msgWithModel.model);
+        if (msg.model && msg.id) {
+          messageModelsRef.current.set(msg.id, msg.model);
           savedMessageIdsRef.current.add(msg.id);
         }
       });
     }
   }, [savedMessages]);
 
-  const addMessage = useCallback(
-    async (message: UIMessage) => {
-      await database.messages.put({
-        id: message.id,
-        role: message.role,
-        parts: message.parts,
-        model: (message as { model?: string }).model || currentModel,
-        createdAt:
-          (message as { createdAt?: string }).createdAt ||
-          new Date().toISOString(),
-      });
-    },
-    [currentModel]
-  );
+  const addMessage = useCallback(async (message: StoredMessage) => {
+    await database.messages.put({
+      id: message.id,
+      role: message.role,
+      parts: message.parts,
+      model: message.model,
+      createdAt: message.createdAt,
+    });
+  }, []);
 
   // Save new messages to indexedDB when messages change
   useEffect(() => {

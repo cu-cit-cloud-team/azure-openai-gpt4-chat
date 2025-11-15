@@ -20,6 +20,14 @@ import { getEditorTheme } from '@/app/utils/themes';
 import { getTokenCount } from '@/app/utils/tokens';
 
 /**
+ * Extended UIMessage type with additional metadata we store
+ */
+type StoredMessage = UIMessage & {
+  model: string;
+  createdAt: string;
+};
+
+/**
  * Get syntax highlighting language from filename extension
  */
 const getLanguageFromFilename = (filename: string): string => {
@@ -103,7 +111,7 @@ export const App = () => {
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-    return sorted.map((msg) => msg as UIMessage);
+    return sorted as StoredMessage[];
   }, []);
 
   const handleChatError = useCallback((error) => {
@@ -162,10 +170,11 @@ export const App = () => {
       transport,
       onError: handleChatError,
       onFinish: ({ message }) => {
-        const messageWithModel = {
+        const messageWithModel: StoredMessage = {
           ...message,
           model: parameters.model,
-        } as UIMessage;
+          createdAt: new Date().toISOString(),
+        };
         addMessage(messageWithModel);
       },
     });
@@ -180,7 +189,6 @@ export const App = () => {
   const { addMessage, messageModelsRef } = useMessagePersistence({
     messages,
     isLoading,
-    currentModel: parameters.model,
     savedMessages,
   });
 
@@ -244,7 +252,7 @@ export const App = () => {
   const handleKeyDownCb = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (event.key === 'Enter' && !event.shiftKey) {
-        const value = (event.target as HTMLTextAreaElement).value;
+        const value = event.currentTarget.value;
         if (value.trim().length) {
           event.preventDefault();
           if (formRef.current) {
@@ -280,12 +288,13 @@ export const App = () => {
           });
         } else {
           // Images and PDFs as file parts
-          parts.push({
+          const filePart: FilePart = {
             type: 'file',
             mediaType: att.type,
             url: att.url,
             name: att.name,
-          } as FilePart);
+          };
+          parts.push(filePart);
         }
       });
 
