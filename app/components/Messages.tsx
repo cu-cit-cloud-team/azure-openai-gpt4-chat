@@ -5,6 +5,9 @@ import { memo, useEffect, useRef } from 'react';
 import { ChatBubble } from '@/app/components/ChatBubble';
 import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
 
+// Footer height offset for scroll padding calculation
+const FOOTER_OFFSET = 110;
+
 interface MessagesProps {
   isLoading: boolean;
   messages: UIMessage[];
@@ -45,7 +48,7 @@ export const Messages = memo(
     useEffect(() => {
       const observer = new ResizeObserver((entries) => {
         const { height } = entries[0].contentRect;
-        messagesRef.current.style.paddingBottom = `${height + 110}px`;
+        messagesRef.current.style.paddingBottom = `${height + FOOTER_OFFSET}px`;
         window.scrollTo({
           left: 0,
           top: document.body.scrollHeight,
