@@ -186,7 +186,7 @@ export const Header = memo(
               target="_blank"
               rel="noreferrer noopener"
             >
-              Cloud Team GPT Chat v{pkg.version}
+              Cloud Team Chat v{pkg.version}
             </a>
             <UpdateCheck />
           </div>

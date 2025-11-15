@@ -49,7 +49,7 @@ const defaults = {
   presence_penalty: 0, // -2.0 to 2.0
   max_tokens: 4096,
   model: 'gpt-41', // currently gpt-4o, gpt-4-turbo, gpt-4, or gpt-35-turbo for aoai
-  user: 'Cloud Team GPT Chat User',
+  user: 'Cloud Team Chat User',
 };
 
 // main route handler
