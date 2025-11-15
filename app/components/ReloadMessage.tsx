@@ -20,15 +20,19 @@ export const ReloadMessage = memo(
       const deleteFromDb = async () => {
         await database.messages.where('id').equals(messageId).delete();
       };
-      if (
-        confirm(
-          'Are you sure you want to regenerate this response? Doing so will remove the current response from the chat history.'
-        )
-      ) {
-        await deleteFromDb();
+
+      const confirmMessage = isUser
+        ? 'Are you sure you want to regenerate from this message? This will resend your message and generate a new response.'
+        : 'Are you sure you want to regenerate this response? Doing so will remove the current response from the chat history.';
+
+      if (confirm(confirmMessage)) {
+        // Only delete assistant messages from DB; user messages should be kept
+        if (!isUser) {
+          await deleteFromDb();
+        }
         regenerate();
       }
-    }, [messageId, regenerate]);
+    }, [messageId, regenerate, isUser]);
 
     return (
       <div
