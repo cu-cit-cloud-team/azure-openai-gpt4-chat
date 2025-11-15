@@ -1,5 +1,6 @@
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { memo, useCallback } from 'react';
 
 import { database } from '@/app/database/database.config';
@@ -10,10 +11,7 @@ interface ClearChatButtonProps {
 }
 
 export const ClearChatButton = memo(
-  ({
-    buttonText = 'Clear Chat',
-    isLoading
-  }: ClearChatButtonProps) => {
+  ({ buttonText = 'Clear Chat', isLoading }: ClearChatButtonProps) => {
     const clearHistory = useCallback(async (doConfirm = true) => {
       const clearMessages = async () => {
         try {
@@ -37,8 +35,9 @@ export const ClearChatButton = memo(
         <button
           type="button"
           onClick={clearHistory}
-          disabled={isLoading}
-          className={isLoading ? 'btn-disabled' : ''}
+          className={clsx({
+            'pointer-events-none opacity-50': isLoading,
+          })}
         >
           <FontAwesomeIcon icon={faEraser} />
           {buttonText}

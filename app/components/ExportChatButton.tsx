@@ -1,5 +1,6 @@
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import { memo, useCallback, useMemo } from 'react';
 
@@ -75,8 +76,9 @@ export const ExportChatButton = memo(
         <button
           type="button"
           onClick={exportHandler}
-          disabled={isLoading}
-          className={isLoading ? 'btn-disabled' : ''}
+          className={clsx({
+            'pointer-events-none opacity-50': isLoading,
+          })}
         >
           {memoizedIcon} {buttonText}
         </button>

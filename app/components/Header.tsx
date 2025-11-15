@@ -1,6 +1,8 @@
 import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import { lazy, memo, Suspense, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 import { ClearChatButton } from '@/app/components/ClearChatButton';
 import { ExportChatButton } from '@/app/components/ExportChatButton';
@@ -17,13 +19,6 @@ const ThemeChanger = dynamic(
 );
 
 const UserAvatar = dynamic(() => import('@/app/components/UserAvatar.tsx'));
-
-// Lazy load FontAwesomeIcon
-const FontAwesomeIcon = lazy(() =>
-  import('@fortawesome/react-fontawesome').then((module) => ({
-    default: module.FontAwesomeIcon,
-  }))
-);
 
 import pkg from '@/package.json';
 
@@ -44,23 +39,70 @@ export const Header = memo(
     onClearError,
   }: HeaderProps) => {
     useEffect(() => {
-      const details = [...document.querySelectorAll('.menu details')];
-      document.addEventListener('click', (event) => {
-        if (!details.some((el) => el.contains(event.target))) {
+      const handleClick = (event: MouseEvent) => {
+        const details = [...document.querySelectorAll('.menu details')];
+        if (!details.some((el) => el.contains(event.target as Node))) {
           for (const el of details) {
             el.removeAttribute('open');
           }
         } else {
           for (const el of details) {
-            !el.contains(event.target) ? el.removeAttribute('open') : '';
+            !el.contains(event.target as Node)
+              ? el.removeAttribute('open')
+              : '';
           }
         }
-      });
+      };
+
+      document.addEventListener('click', handleClick);
+      return () => {
+        document.removeEventListener('click', handleClick);
+      };
     }, []);
 
-    const memoFaBars = useMemo(() => <FontAwesomeIcon icon={faBars} />, []);
-    const memoFaRobot = useMemo(() => <FontAwesomeIcon icon={faRobot} />, []);
-    const memoThemeChanger = useMemo(() => <ThemeChanger />, []);
+    const renderMenuItems = useCallback(
+      (isMobile = false) => (
+        <>
+          <li>
+            <details
+              className={clsx('system-message-dropdown', {
+                'pointer-events-none opacity-50': isLoading,
+              })}
+            >
+              <summary className={isMobile ? 'whitespace-nowrap' : undefined}>
+                <FontAwesomeIcon icon={faRobot} />
+                System
+              </summary>
+              <ul className="bg-base-200">
+                <li>
+                  <SystemMessage
+                    input={input}
+                    systemMessageRef={systemMessageRef}
+                  />
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li
+            className={clsx({
+              'pointer-events-none opacity-50': isLoading,
+            })}
+          >
+            <Parameters />
+          </li>
+          <li>
+            <ClearChatButton buttonText="Clear" isLoading={isLoading} />
+          </li>
+          <li>
+            <ExportChatButton buttonText="Export" isLoading={isLoading} />
+          </li>
+          <li>
+            <ThemeChanger />
+          </li>
+        </>
+      ),
+      [input, isLoading, systemMessageRef]
+    );
 
     return (
       <>
@@ -69,42 +111,13 @@ export const Header = memo(
             <div className="dropdown">
               {/* biome-ignore lint/a11y/noLabelWithoutControl: daisyUI pattern */}
               <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                <Suspense fallback={<div>Loading...</div>}>
-                  {memoFaBars}
-                </Suspense>
+                <FontAwesomeIcon icon={faBars} />
               </label>
               <ul
                 tabIndex={0}
                 className="p-2 w-52 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-200 rounded-box"
               >
-                <li>
-                  <details className="system-message-dropdown">
-                    <summary className="whitespace-nowrap">
-                      <Suspense fallback={<div>Loading...</div>}>
-                        {memoFaRobot}
-                      </Suspense>
-                      System
-                    </summary>
-                    <ul className="bg-base-200">
-                      <li>
-                        <SystemMessage
-                          input={input}
-                          systemMessageRef={systemMessageRef}
-                        />
-                      </li>
-                    </ul>
-                  </details>
-                </li>
-                <li>
-                  <Parameters />
-                </li>
-                <li>
-                  <ClearChatButton buttonText="Clear" isLoading={isLoading} />
-                </li>
-                <li>
-                  <ExportChatButton buttonText="Export" isLoading={isLoading} />
-                </li>
-                <li>{memoThemeChanger}</li>
+                {renderMenuItems(true)}
               </ul>
             </div>
             <a
@@ -118,36 +131,7 @@ export const Header = memo(
             <UpdateCheck />
           </div>
           <div className="hidden navbar-center lg:flex">
-            <ul className="menu menu-horizontal">
-              <li>
-                <details className="system-message-dropdown">
-                  <summary>
-                    <Suspense fallback={<div>Loading...</div>}>
-                      {memoFaRobot}
-                    </Suspense>
-                    System
-                  </summary>
-                  <ul className="bg-base-200">
-                    <li>
-                      <SystemMessage
-                        input={input}
-                        systemMessageRef={systemMessageRef}
-                      />
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <Parameters />
-              </li>
-              <li>
-                <ClearChatButton buttonText="Clear" isLoading={isLoading} />
-              </li>
-              <li>
-                <ExportChatButton buttonText="Export" isLoading={isLoading} />
-              </li>
-              <li>{memoThemeChanger}</li>
-            </ul>
+            <ul className="menu menu-horizontal">{renderMenuItems()}</ul>
           </div>
           <div className="navbar-end">
             <UserAvatar />
