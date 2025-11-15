@@ -142,9 +142,8 @@ export const Footer = memo(
             </div>
           )}
           <button
-            type="button"
+            type="submit"
             className="mb-2 btn-block btn btn-xs btn-primary lg:hidden"
-            onClick={(e) => onSubmit(e as unknown as React.FormEvent)}
           >
             send message
           </button>
