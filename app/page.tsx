@@ -299,20 +299,18 @@ export const App = () => {
   // Load saved messages into chat when they're available
   //biome-ignore lint/correctness/useExhaustiveDependencies: refs are stable
   useEffect(() => {
-    if (savedMessages && savedMessages.length > 0) {
+    if (savedMessages) {
       // Track models for saved messages
-      for (const msg of savedMessages) {
+      savedMessages.forEach((msg) => {
         const msgWithModel = msg as UIMessage & { model?: string };
         if (msgWithModel.model && msg.id) {
           messageModelsRef.current.set(msg.id, msgWithModel.model);
           savedMessageIdsRef.current.add(msg.id);
         }
-      }
-      // Always sync messages with saved messages from DB
+      });
+
+      // Always sync messages with saved messages from DB (works for both empty and populated arrays)
       setMessages(savedMessages);
-    } else if (savedMessages && savedMessages.length === 0) {
-      // Clear messages if DB is empty
-      setMessages([]);
     }
     // Refs are stable and don't need to be in deps
   }, [savedMessages, setMessages]);
