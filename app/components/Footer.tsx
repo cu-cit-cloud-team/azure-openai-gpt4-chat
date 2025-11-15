@@ -49,6 +49,16 @@ export const Footer = memo(
       }
     }, [isLoading, textAreaRef, systemMessageRef]);
 
+    // Auto-resize textarea based on content
+    // biome-ignore lint/correctness/useExhaustiveDependencies: necessary dependencies are included
+    useEffect(() => {
+      const textarea = textAreaRef?.current;
+      if (textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 300)}px`;
+      }
+    }, [input, textAreaRef]);
+
     return (
       <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
         <form ref={formRef} onSubmit={onSubmit} className="w-full">
@@ -88,7 +98,7 @@ export const Footer = memo(
             <textarea
               autoFocus={true}
               className={clsx(
-                'bg-base-100 w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl min-h-14 h-14 lg:text-base lg:h-20 lg:min-h-20 max-h-75',
+                'bg-base-100 w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl resize-none',
                 {
                   'skeleton': isLoading,
                 }
@@ -101,6 +111,7 @@ export const Footer = memo(
               onKeyDown={onKeyDown}
               ref={textAreaRef}
               value={input}
+              rows={2}
             />
           </div>
           {attachments.length > 0 && (
