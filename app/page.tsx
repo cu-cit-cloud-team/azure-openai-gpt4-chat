@@ -189,6 +189,7 @@ export const App = () => {
   const { addMessage, messageModelsRef } = useMessagePersistence({
     messages,
     isLoading,
+    currentModel: parameters.model,
     savedMessages,
   });
 

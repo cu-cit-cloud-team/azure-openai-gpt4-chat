@@ -13,12 +13,14 @@ type StoredMessage = UIMessage & {
 interface UseMessagePersistenceProps {
   messages: UIMessage[];
   isLoading: boolean;
+  currentModel: string;
   savedMessages?: StoredMessage[];
 }
 
 export function useMessagePersistence({
   messages,
   isLoading,
+  currentModel,
   savedMessages,
 }: UseMessagePersistenceProps) {
   // Track model per message ID
@@ -63,12 +65,18 @@ export function useMessagePersistence({
         (lastMessage.role === 'user' ||
           (lastMessage.role === 'assistant' && !isLoading))
       ) {
-        addMessage(lastMessage);
+        // Create StoredMessage with model and createdAt
+        const storedMessage: StoredMessage = {
+          ...lastMessage,
+          model: currentModel,
+          createdAt: new Date().toISOString(),
+        };
+        addMessage(storedMessage);
         savedMessageIdsRef.current.add(lastMessage.id);
         savedMessageCountRef.current = messages.length;
       }
     }
-  }, [addMessage, messages, isLoading]);
+  }, [addMessage, messages, isLoading, currentModel]);
 
   return {
     addMessage,
