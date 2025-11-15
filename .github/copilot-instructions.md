@@ -1,185 +1,91 @@
 # Azure OpenAI GPT-4 Chat - AI Agent Instructions
 
-## Architecture Overview
+## Architecture
 
-This is a **Next.js 16 App Router** application providing a ChatGPT-like streaming interface powered by **Azure OpenAI Services**. The app uses **AI SDK v5** (`ai` package) with a hybrid v4/v5 message format strategy that is being migrated to pure v5. The app uses DaisyUI and Tailwind CSS for theming, and Jotai for state management.
+Next.js 16 App Router with Azure OpenAI streaming chat. Tech stack: AI SDK v5, React 19 + React Compiler, Jotai state, Dexie (IndexedDB), DaisyUI/Tailwind.
 
-### Critical Design Decisions
+### Key Design Decisions
 
-- **AI SDK v5 Migration In Progress**: Currently maintains v4 compatibility for IndexedDB via conversion functions in `app/utils/conversion.ts`. **MIGRATION GOAL**: Remove all v4 legacy code and conversion utilities, migrate to pure v5 message format throughout
-- **Client-Side State**: Chat history persists in **Dexie (IndexedDB)**, not server-side. Each message stores its model name for context
-- **Edge Runtime**: API route (`app/api/chat/route.ts`) runs on Vercel Edge Runtime for optimal streaming performance
-- **Jotai for State**: Global atoms (in `app/page.tsx`) manage system message, parameters, tokens, themes - all synced to localStorage with `atomWithStorage`
-- **Message ID Tracking**: `messageModelsRef` and `savedMessageIdsRef` prevent duplicate saves when loading from IndexedDB
-- **Authentication**: Handled externally by Azure App Service - user context available in app but auth flow managed at platform level
+- **AI SDK v5 (Pure)**: Messages use v5 `parts` array format. IndexedDB stores: `id`, `role`, `parts`, `createdAt`, `model`
+- **Client-Side Storage**: All chat history in IndexedDB. `useMessagePersistence` hook prevents duplicate saves via `savedMessageIdsRef`
+- **Edge Runtime**: API route uses `smoothStream()` for gradual token release
+- **State**: Jotai atoms in `app/page.tsx` sync to localStorage. `tokensAtom` is derived (don't update manually)
+- **React Compiler**: Enabled - use `memo()` only at component boundaries
+- **File Uploads**: 3 files max, 25MB each. Text files → text parts with `[File: name]` prefix. Images/PDFs → file parts with base64 url
 
-## Available MCP Servers
+## MCP Servers
 
-It's important to always use the latest best practices and standards when developing features.
+Use the following MCP servers for current documentation and best practices:
 
-Use the tools available from the following MCP servers as needed:
+- **context7**: Multi-library documentation server. Use for DaisyUI, Tailwind CSS, Jotai, Dexie, React, Next.js, etc.
+  - Start by resolving library name to get the Context7-compatible library ID
+  - Then fetch docs for specific topics or general usage
+- **next-devtools**: Next.js and Edge Runtime assistance
 
-- **ai-sdk-5-migration**: Assists in migrating from AI SDK v4 to v5 message formats
-- **context7**: General-purpose MCP endpoint for various coding documentation and examples
-  - use this when you need current documentation for DaisyUI, Tailwind CSS, Jotai, Dexie, etc.
-  - start by searching for the library or framework name
-- **next-devtools** : Helps with Next.js App Router and Edge Runtime questions
+## Patterns
 
-## Project-Specific Patterns
-
-### Component Structure
-
-- **Always use functional components with React 19** - no class components
-- **Add JSDoc or inline comments** explaining business logic
-- **Use `memo()` for performance** - see `Messages.tsx`, `ChatBubble.tsx`
-- **Display names required**: Set `ComponentName.displayName = 'ComponentName'` for debugging
-
-### Message Format Migration (Critical - In Progress!)
-
-**CURRENT STATE**: Hybrid v4/v5 with conversion utilities for backward compatibility:
+### Messages (AI SDK v5)
 
 ```typescript
-// Loading from DB (v4) → App (v5)
-import { convertV4MessageToV5 } from "@/app/utils/conversion";
-const v5Message = convertV4MessageToV5(dbMessage, index);
+type StoredMessage = UIMessage & { model: string; createdAt: string };
 
-// Saving to DB: App (v5) → DB (v4)
-import { convertV5MessageToV4 } from "@/app/utils/conversion";
-const v4Message = convertV5MessageToV4(uiMessage);
+// Text part
+{ type: "text", text: "Hello!" }
+
+// File part (image/PDF)
+{ type: "file", mediaType: "image/png", url: "data:...", name: "image.png" }
+
+// Text file (stored as text with prefix)
+{ type: "text", text: "[File: code.ts]\nconst x = 1;" }
 ```
 
-**MIGRATION TARGET**: Remove conversion layer entirely:
+**Helpers** (`app/utils/messageHelpers.ts`): `getMessageText()`, `getMessageFiles()`
 
-- Migrate IndexedDB schema to store v5 `parts` array natively
-- Remove `app/utils/conversion.ts` and `ai-legacy` dependency
-- Update all message handling to use pure v5 format (`UIMessage` with `parts`)
-- Provide migration path for existing user data in IndexedDB
+### Models
 
-### State Management with Jotai
+Models in `app/utils/models.ts`. Add new ones:
 
-Global atoms defined in `app/page.tsx`:
+1. Add to `models` array with token limits
+2. Add env var to `.env.local.example`
+3. Map in `route.ts` `modelDeploymentMap`
 
-- `parametersAtom` - model, temperature, top_p, penalties (synced to localStorage)
-- `systemMessageAtom` - system prompt for chat session
-- `tokensAtom` - live token counts for input/system message
-- `themeAtom` / `editorThemeAtom` - UI theming (daisyUI themes)
+Current: GPT-4.1 (41, 41-mini, 41-nano), GPT-5 (5, 5-mini, 5-nano, 5-chat, 5-codex), GPT-5.1 (5.1, 5.1-chat, 5.1-codex, 5.1-codex-mini), o-series (o3, o3-mini, o4-mini)
+
+### Streaming
 
 ```typescript
-import { useAtom, useAtomValue } from "jotai";
-import { parametersAtom } from "@/app/page";
-
-// Read-only
-const params = useAtomValue(parametersAtom);
-
-// Read/write
-const [params, setParams] = useAtom(parametersAtom);
-```
-
-### Azure OpenAI Model Configuration
-
-Models defined in `app/utils/models.ts` with token limits. Environment variables map model names to Azure deployment names:
-
-```typescript
-// .env.local
-AZURE_OPENAI_GPT5_DEPLOYMENT="your-azure-deployment-name"
-
-// route.ts selects deployment based on model parameter
-const llm = model === 'gpt-5' ? AZURE_OPENAI_GPT5_DEPLOYMENT : /* fallback */;
-```
-
-Add new models: Update `models` array in `models.ts` + add env var + extend conditional in `route.ts`.
-
-### Streaming Chat Pattern
-
-API route uses `streamText()` from AI SDK with `smoothStream()` transform:
-
-```typescript
+// API route pattern
 const response = streamText({
   model: azureModel,
   messages: convertToModelMessages(uiMessages),
-  experimental_transform: smoothStream(), // Gradual token release
+  experimental_transform: smoothStream(),
 });
 
 return response.toUIMessageStreamResponse({
-  messageMetadata: ({ part }) => {
-    if (part.type === "finish") {
-      return { totalUsage: part.totalUsage }; // Attach usage stats
-    }
-  },
+  originalMessages: uiMessages,
+  generateMessageId: () => generateId(),
+  messageMetadata: ({ part }) =>
+    part.type === "finish" ? { totalUsage: part.totalUsage } : undefined,
 });
 ```
 
-Frontend `useChat` auto-updates when messages stream in.
+Frontend uses `useChat` with `DefaultChatTransport` for dynamic parameter injection.
 
-## Developer Workflows
-
-### Local Development
-
-```bash
-npm install
-cp .env.local.example .env.local  # Fill in Azure OpenAI credentials
-npm run dev        # Webpack mode on port 3001
-npm run dev:turbo  # Turbopack mode (faster, experimental)
-```
-
-**DevContainer**: Fully configured in `.devcontainer/` - dependencies auto-install on container creation.
-
-### Environment Variables (Required)
-
-- `AZURE_OPENAI_BASE_PATH` - Azure OpenAI endpoint URL
-- `AZURE_OPENAI_API_KEY` - Service API key
-- `AZURE_OPENAI_API_VERSION` - API version (e.g., "preview")
-- `AZURE_OPENAI_<MODEL>_DEPLOYMENT` - Deployment name for each model (see `.env.local.example`)
-
-### Build & Deploy
-
-- **Build**: `npm run build` (Next.js outputs to `.next/`)
-- **Lint**: `npm run lint` (ESLint), `npm run biome` (Biome linter)
-- **CI/CD**: GitHub Actions workflow `.github/workflows/build-and-deploy.yml` builds and deploys to Azure App Service on push to `main`
-
-### Versioning
-
-- Uses **Conventional Changelog**: `npm run changelog` auto-generates `CHANGELOG.md` from git commits
-- Commit format: `feat:`, `fix:`, `chore:`, etc. (Conventional Commits spec)
-
-## Key Integration Points
-
-### LangChain Route (Experimental)
-
-`app/api/langchain/route.ts` is an **example implementation** showing LangChain.js integration. Not currently used in production but maintained for reference. Do not remove without explicit instruction.
-
-### Azure OpenAI Web Search
-
-Commented-out code in `app/api/chat/route.ts` for web search functionality exists but **is not currently supported** by AI SDK for Azure OpenAI. Feature is on hold pending upstream SDK support.
+## Key Integrations
 
 ### IndexedDB (Dexie)
 
-Schema in `app/database/database.config.ts`:
+- Schema v5: `messages` table with `&id, role, parts, createdAt, model`
+- `useMessagePersistence` hook saves messages, tracks via `messageModelsRef`, prevents duplicates with `savedMessageIdsRef`
 
-- **Version 4 (current)**: `messages` table with `id`, `role`, `content`, `createdAt`, `model`, `parts`
-- Schema migrations handle upgrades (e.g., v2 added `model` column, v4 added `parts`)
+### Markdown & Themes
 
-### Token Counting
+- `react-markdown` with `remark-gfm`, `remark-math`, `rehype-katex`, `react-syntax-highlighter`
+- daisyUI themes in `app/utils/themes.ts`, persisted via `themeAtom`/`editorThemeAtom`
 
-`app/utils/tokens.ts` uses `gpt-tokenizer` library. Token counts update reactively in `useEffect` when input/system message changes.
+## Important Notes
 
-### Markdown Rendering
-
-Chat responses render markdown with `react-markdown` + plugins:
-
-- `remark-gfm` - GitHub Flavored Markdown (tables, strikethrough)
-- `remark-math` / `rehype-katex` - LaTeX math rendering
-- `react-syntax-highlighter` - Code block syntax highlighting
-
-### Theme System
-
-Built on **daisyUI** themes (Tailwind CSS). Available themes defined in `app/utils/themes.ts`. Toggle via `ThemeChanger.tsx` component, persisted to localStorage via `themeAtom`.
-
-## Common Gotchas
-
-1. **TypeScript Build Errors Ignored**: `next.config.mjs` sets `ignoreBuildErrors: true` - fix types proactively, don't rely on this
-2. **Edge Runtime Limits**: API route can't use Node.js APIs (fs, path, etc.) - only Web APIs
-3. **Message Model Tracking**: `messageModelsRef` in `app/page.tsx` stores model-per-message because it's not automatically persisted
-4. **Storage Events**: Multi-tab sync via `storage` event listener in `useEffect` - changes in one tab update others
-5. **Turbopack vs Webpack**: Default dev uses `--webpack` flag for stability. Remove for Turbopack (faster but experimental)
-6. **AI SDK Migration**: When modifying message handling, consider the v5 migration plan - avoid deepening v4 dependencies, prefer patterns that align with pure v5 format
+- **Edge Runtime**: No Node.js APIs (fs, path) - Web APIs only
+- **tokensAtom**: Auto-derived via useMemo - don't update manually
+- **React Compiler**: Avoid manual optimizations - use `memo()` at component boundaries only
+- **TypeScript errors**: Build ignores them (`next.config.mjs`) - fix proactively
