@@ -1,3 +1,20 @@
+## 0.47.0 (2025-11-15)
+
+* refactor: attempt to fix a couple things ([b2ef8c4](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b2ef8c4))
+* refactor: show current model above textbox; better model handling in chatmeta ([d9f91fb](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/d9f91fb))
+* refactor(api/chat): improve conidtionals ([d250597](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/d250597))
+* refactor(api/chat): remove gpt-4o and o1 series models ([8feeff8](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/8feeff8))
+* refactor(ReloadMessage): allow regeneration from last user message ([4509014](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/4509014))
+* feat: add gpt-5.1 models ([3e37aad](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/3e37aad))
+* chore(deps): bump @ai-sdk/azure from 2.0.67 to 2.0.68 (#2053) ([b405a6c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b405a6c)), closes [#2053](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2053)
+* chore(deps): bump the langchain group with 3 updates (#2052) ([f7e86e0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/f7e86e0)), closes [#2052](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2052)
+* chore(deps): upgrade a few dependencies ([c4e0622](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/c4e0622))
+* chore(volta): bump node/npm versions ([09561ee](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/09561ee))
+* fix: model persistence ([2a0e39e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/2a0e39e))
+* ci(build-and-deploy): use `--legacy-peer-deps` with `npm install` (vs `--force`) ([74c28ba](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/74c28ba))
+
+
+
 ## 0.46.0 (2025-11-13)
 
 * chore: update example env vars ([523777e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/523777e))
