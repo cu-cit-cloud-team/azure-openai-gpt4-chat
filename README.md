@@ -2,108 +2,147 @@
 
 [![Build & Deploy](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml)
 
-ChatGPT-like streaming chat bot powered by Azure OpenAI and GPT-4
-
-NOTE: project and documentation in progress
+ChatGPT-like streaming chat interface powered by Azure OpenAI with support for GPT-4.1, GPT-5, GPT-5.1, and o-series models
 
 ## About
 
-This is a simple chat app that streams messages to and from an Azure OpenAI Services instance using a GPT-4 model deployment
+A modern Next.js 16 chat application featuring real-time streaming responses from Azure OpenAI Services. Built with the latest web technologies including React 19, AI SDK v5, and Edge Runtime for optimal performance.
+
+### Privacy-Focused Design
+
+All data stays in your browser - chat history, uploaded files, preferences, and settings are stored locally via IndexedDB and localStorage. The app connects directly to your own Azure OpenAI endpoint with no third-party data sharing.
+
+### Key Features
+
+- 💬 Real-time streaming chat with multiple GPT models (GPT-4.1, GPT-5, GPT-5.1, o3, o4)
+- 📎 File upload support (images, PDFs, text files)
+- 🔒 Privacy-first: all data stored client-side in your browser
+- 🎨 Multiple light/dark themes
+- 💾 Persistent chat history via IndexedDB
+- 🔢 Live token counting with model-aware limits
+- 📱 Responsive design
 
 ### Prerequisites
 
-- Node.js >= 20.x (with npm >= v10.x)
-- Azure Subscription
-  - Azure OpenAI access enabled
-  - Azure OpenAI Services deployed along with a GPT-4 model
-    - API key for deployed service
+- Node.js >= 22.x (npm >= 10.x recommended)
+- Azure Subscription with:
+  - Azure OpenAI Service access
+  - Deployed model(s) (GPT-4.1, GPT-5, GPT-5.1, or o-series)
+  - API key and endpoint
 
-### Running Locally
+## Getting Started
 
-1. Clone repo `git clone https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat.git`
-1. Enter directory `cd azure-openai-gpt4-chat`
-1. Copy `.env.local.example` to `.env.local` and fill in values
-1. If using locally installed Node.js:
-    1. Install dependencies `npm install`
-    1. Run project locally `npm run dev`
-1. If using devcontainer:
-    1. Open in devcontainer (dependencies automatically installed)
-    1. Run project `npm run dev`
-1. Visit `http://localhost:3001` in your browser
-1. `ctrl`+`c` to stop
+1. **Clone and install**
 
-### Features
+   ```bash
+   git clone https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat.git
+   cd azure-openai-gpt4-chat
+   npm install
+   ```
 
-- [x] Chat with an Azure OpenAI GPT-4 model
-- [x] Chat responses stream in real-time for a ChatGPT-like experience
-- [x] Uses `textarea` for input for multi-line support
-  - [x] Focus `textarea` on page load
-  - [x] `textarea` auto-resizes as you type
-  - [x] `enter` key to submit message
-  - [x] `shift`+`enter` for new line
-- [x] Loading indicator next to chat response until it's finished
-- [x] Formats code blocks and other markdown inside of chat messages nicely
-- [x] Current chat history is stored in browser's local storage
-- [x] View/edit system message for chat session (e.g. "You are a helpful AI assistant")
-- [x] View/edit chat session parameters (e.g. temperature, top p, etc)
-- [x] Live token count (used/remaining) displayed for message and system message
-- [x] Change Azure OpenAI model (GPT-4, GPT-3.5, etc)
-- [x] Download current chat history as JSON
-- [x] Clear current chat history
-  - [x] Keyboard shortcut (`cmd`+`esc`) when `textarea` has focus
-- [x] Copy full messages and responses to clipboard
-  - [x] Copy individual code snippets (within responses) to clipboard
-- [x] Delete individual messages and responses from chat history
-- [x] Stop response that's currently streaming in (useful for long responses that aren't necessary)
-- [x] Regenerate last response
-- [x] Hosted via Azure App Service
-  - [x] Built/deployed with GitHub Actions
-  - [x] Azure App Service App locked down via AD to just our team
-  - [x] Tries to identify user from login session and personalize chat session
-- [x] Uses relative time for chat message timestamps
-  - [x] Relative time has tooltip with full timestamp
-  - [x] Tooltip shows time for same day and full date/time if older than "today"
-- [x] Theme changer with several light and dark themes
-  - [x] Defaults to `light` or `dark` based on system preference
-- [x] Responsive layout
-- [x] devcontainer for local development
+2. **Configure environment**
 
-### Roadmap
+   ```bash
+   cp .env.local.example .env.local
+   # Edit .env.local with your Azure OpenAI credentials
+   ```
 
-#### Planned
+3. **Run development server**
 
-- no new features currently under development
+   ```bash
+   npm run dev
+   # Visit http://localhost:3001
+   ```
 
-#### Potential
+**Using DevContainer:** Open in VS Code with Dev Containers extension - dependencies install automatically.
 
-- [ ] Import chat session from JSON
-- [ ] Multiple chat sessions
-  - [ ] Sidebar with scrollable and filterable list of chat sessions
-  - [ ] Stateful via local storage
-  - [ ] Delete individual chat sessions
-  - [ ] Export individual chat sessions to JSON
-  - [ ] Import chat sessions from JSON
+## Configuration
 
-### Uses
+Required environment variables (see `.env.local.example`):
 
-- [React](https://react.dev/)
-  - JavaScript framework
-- [Next.js](https://nextjs.org/docs)
-  - React framework
-- [Vercel AI SDK](https://sdk.vercel.ai/docs)
-  - JS Library for AI-powered UIs
-- [LangChain.js](https://github.com/langchain-ai/langchainjs)
-  - JS Library for interacting with LLMs (e.g. GPT-4)
-- [Tailwind CSS](https://tailwindcss.com/)
-  - CSS framework
-- [daisyUI](https://daisyui.com/)
-  - Component library for Tailwind CSS
-- [Azure OpenAI Service](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
-  - API and model deployments (GPT-4 and GPT-3.5)
-- [Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/)
-  - Application hosting and user authentication
-- [GitHub Actions/Workflows](https://docs.github.com/en/actions)
-  - Build/publish to Azure App Service
-  - Build notifications
-  - Create GH Release
-  - Dependency updates
+- `AZURE_OPENAI_BASE_PATH` - Your Azure OpenAI endpoint
+- `AZURE_OPENAI_API_KEY` - API key for authentication
+- `AZURE_OPENAI_API_VERSION` - API version (e.g., "preview")
+- `AZURE_OPENAI_<MODEL>_DEPLOYMENT` - Deployment name for each model you want to use
+
+Supported models: GPT-4.1, GPT-5, GPT-5.1, o3, o3-mini, o4-mini (and their variants)
+
+## Features
+
+### Chat Interface
+
+- Real-time streaming responses with smooth token delivery
+- Multi-line input with auto-resize textarea
+- Markdown rendering with syntax highlighting for code blocks
+- LaTeX math equation support
+- Copy messages and code snippets to clipboard
+
+### File Support
+
+- Attach images (PNG, JPEG, WEBP), PDFs, and text files
+- Up to 3 files per message, 25MB each
+- Inline preview for images and syntax highlighting for code files
+
+### Customization
+
+- Multiple theme options (light/dark variants)
+- Custom system prompts
+- Model selection with automatic token limit adjustment
+- Adjustable model parameters (temperature, top_p, penalties) for models that support them
+
+### Message Management
+
+- Delete individual messages
+- Regenerate last response
+- Stop ongoing responses
+- Export chat history to JSON
+- Clear all messages
+
+### Privacy & Data
+
+- All chat history stored locally in your browser (IndexedDB)
+- File attachments stored client-side only (IndexedDB)
+- User preferences persisted in localStorage
+- Direct connection to your Azure OpenAI endpoint
+- No third-party data sharing or external logging
+
+## Development
+
+```bash
+npm run dev          # Start dev server (webpack)
+npm run dev:turbo    # Start dev server (turbopack - experimental)
+npm run build        # Production build
+npm run lint         # Run ESLint
+npm run biome        # Run Biome linter
+```
+
+The project uses:
+
+- **React Compiler** for automatic optimizations
+- **Conventional Commits** for changelog generation
+- **GitHub Actions** for CI/CD to Azure App Service
+
+## Built With
+
+### Frontend
+
+- [Next.js 16](https://nextjs.org/) - React framework with App Router
+- [React 19](https://react.dev/) - UI library with React Compiler
+- [Vercel AI SDK v5](https://sdk.vercel.ai/) - AI streaming primitives
+- [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS
+- [daisyUI](https://daisyui.com/) - Component library
+
+### State & Data
+
+- [Jotai](https://jotai.org/) - Atomic state management
+- [Dexie](https://dexie.org/) - IndexedDB wrapper for chat persistence
+
+### Markdown & Syntax
+
+- [react-markdown](https://github.com/remarkjs/react-markdown) - Markdown rendering
+- [react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) - Code highlighting
+
+### Backend & Hosting
+
+- [Azure OpenAI Service](https://azure.microsoft.com/en-us/products/ai-services/openai-service) - Model deployments
+- [Azure App Service](https://azure.microsoft.com/en-us/products/app-service/) - Hosting & authentication
