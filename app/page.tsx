@@ -116,7 +116,10 @@ export const App = () => {
     [userMeta]
   );
   const [input, setInput] = useState('');
-  const [modalImageUrl, setModalImageUrl] = useState<string>('');
+  const [modalImageUrl, setModalImageUrl] = useState<{
+    url: string;
+    filename: string;
+  } | null>(null);
   const [modalTextFile, setModalTextFile] = useState<{
     content: string;
     filename: string;
@@ -218,7 +221,10 @@ export const App = () => {
       name?: string;
     }) => {
       if (file.mediaType.startsWith('image/')) {
-        setModalImageUrl(file.url || '');
+        setModalImageUrl({
+          url: file.url || '',
+          filename: file.name || 'image',
+        });
         const modal = document.getElementById(
           'app-image-modal'
         ) as HTMLDialogElement;
@@ -407,9 +413,12 @@ export const App = () => {
                   ✕
                 </button>
               </form>
+              <h3 className="font-bold text-lg mb-4">
+                {modalImageUrl.filename}
+              </h3>
               {/** biome-ignore lint/performance/noImgElement: intentional */}
               <img
-                src={modalImageUrl}
+                src={modalImageUrl.url}
                 alt="Attachment"
                 className="w-full h-auto max-h-[80vh] object-contain rounded"
               />
