@@ -6,17 +6,11 @@ import { themes } from '@/app/utils/themes';
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <Provider>
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="dark"
-          themes={themes}
-        >
-          {children}
-        </ThemeProvider>
-      </Provider>
-    </>
+    <Provider>
+      <ThemeProvider attribute="data-theme" defaultTheme="dark" themes={themes}>
+        {children}
+      </ThemeProvider>
+    </Provider>
   );
 };
 

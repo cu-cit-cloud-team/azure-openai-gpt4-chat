@@ -172,7 +172,9 @@ export const App = () => {
 
   const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
 
-  setIsLoading(status === 'streaming' || status === 'submitted');
+  useEffect(() => {
+    setIsLoading(status === 'streaming' || status === 'submitted');
+  }, [status, setIsLoading]);
 
   // Message persistence
   const { addMessage, messageModelsRef, savedMessageIdsRef } =

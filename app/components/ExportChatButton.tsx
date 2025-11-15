@@ -43,13 +43,12 @@ export const ExportChatButton = memo(
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
           );
           sortedMessages = sortedMessages.map((message) => {
-            return (
-              Object.keys(message)
-                .sort()
-                /* biome-ignore lint/suspicious/noAssignInExpressions: <explanation> */
-                // biome-ignore lint/style/noCommaOperator: <explanation>
-                .reduce((res, key) => ((res[key] = message[key]), res), {})
-            );
+            const sortedKeys = Object.keys(message).sort();
+            const sortedMessage = {};
+            for (const key of sortedKeys) {
+              sortedMessage[key] = message[key];
+            }
+            return sortedMessage;
           });
           // console.log(systemMessage);
           sortedMessages.unshift({
