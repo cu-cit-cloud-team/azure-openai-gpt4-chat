@@ -45,16 +45,15 @@ export const ChatMeta = memo(
       : modelStringFromName(parameters.model);
 
     useEffect(() => {
-      setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());
-    }, [messageCreatedAt]);
-
-    useEffect(() => {
       const updateString = () => {
         setLastUpdatedString(dayjs(dayjs(messageCreatedAt)).from());
       };
-      const clockInterval = setInterval(updateString, 10000);
 
+      // Set initial value
       updateString();
+
+      // Update every 10 seconds
+      const clockInterval = setInterval(updateString, 10000);
 
       return () => clearInterval(clockInterval);
     }, [messageCreatedAt]);
