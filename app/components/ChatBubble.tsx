@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import markdownToTxt from 'markdown-to-txt';
 import { nanoid } from 'nanoid';
-import { memo, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeKatex from 'rehype-katex';
@@ -89,6 +89,15 @@ export const ChatBubble = memo(
     const rehypePlugins = useMemo(() => [rehypeKatex, rehypeSanitize], []);
 
     const remarkPlugins = useMemo(() => [remarkGfm, remarkMath], []);
+
+    const handleFileKeyDown = useCallback(
+      (event: React.KeyboardEvent, file: (typeof messageFiles)[0]) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          onFileClick(file);
+        }
+      },
+      [onFileClick]
+    );
 
     const chatBubbleUserIcon = useMemo(() => {
       return isUser ? (
@@ -209,11 +218,7 @@ export const ChatBubble = memo(
                           type="button"
                           className="cursor-pointer"
                           onClick={() => onFileClick(file)}
-                          onKeyDown={(event) => {
-                            if (event.key === 'Enter' || event.key === ' ') {
-                              onFileClick(file);
-                            }
-                          }}
+                          onKeyDown={(event) => handleFileKeyDown(event, file)}
                         >
                           <figure className="w-12 h-12 overflow-hidden rounded">
                             <div
@@ -227,11 +232,7 @@ export const ChatBubble = memo(
                           type="button"
                           className="cursor-pointer flex items-center gap-2"
                           onClick={() => onFileClick(file)}
-                          onKeyDown={(event) => {
-                            if (event.key === 'Enter' || event.key === ' ') {
-                              onFileClick(file);
-                            }
-                          }}
+                          onKeyDown={(event) => handleFileKeyDown(event, file)}
                         >
                           <FontAwesomeIcon
                             icon={faFile}
