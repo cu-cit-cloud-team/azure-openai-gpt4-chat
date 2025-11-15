@@ -12,9 +12,18 @@ import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
 import { database } from '@/app/database/database.config';
+import { useFileUpload } from '@/app/hooks/useFileUpload';
+import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
 import { modelFromName } from '@/app/utils/models';
 import { getEditorTheme } from '@/app/utils/themes';
 import { getTokenCount } from '@/app/utils/tokens';
+
+type FilePart = {
+  type: 'file';
+  mediaType: string;
+  url: string;
+  name: string;
+};
 
 export const editorThemeAtom = atomWithStorage(
   'editorTheme',
@@ -55,11 +64,6 @@ export const App = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Track model per message ID
-  const messageModelsRef = useRef<Map<string, string>>(new Map());
-  // Track which message IDs have been saved to avoid re-saving on load
-  const savedMessageIdsRef = useRef<Set<string>>(new Set());
-
   const parameters = useAtomValue(parametersAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
@@ -70,50 +74,30 @@ export const App = () => {
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-    // Store model in ref map for each message
-    return sorted.map((msg) => {
-      if (msg.model && msg.id) {
-        messageModelsRef.current.set(msg.id, msg.model);
-        savedMessageIdsRef.current.add(msg.id);
-      }
-      return msg as UIMessage;
-    });
+    return sorted.map((msg) => msg as UIMessage);
   }, []);
 
   const handleChatError = useCallback((error) => {
     console.error(error);
-    // throw error;
+    setChatError(error?.message || 'An error occurred. Please try again.');
   }, []);
-
-  const addMessage = useCallback(
-    async (message) => {
-      await database.messages.put({
-        id: message.id,
-        role: message.role,
-        parts: message.parts,
-        model: message.model || parameters.model,
-        createdAt: message.createdAt || new Date().toISOString(),
-      });
-    },
-    [parameters.model]
-  );
 
   const userId = useMemo(
     () => (userMeta?.email ? btoa(userMeta?.email) : undefined),
     [userMeta]
   );
   const [input, setInput] = useState('');
-  const [attachments, setAttachments] = useState<
-    {
-      id: string;
-      name: string;
-      size: number;
-      type: string;
-      url: string;
-      textContent?: string;
-    }[]
-  >([]);
-  const [attachmentError, setAttachmentError] = useState<string | null>(null);
+  const [modalImageUrl, setModalImageUrl] = useState<string>('');
+  const [chatError, setChatError] = useState<string | null>(null);
+
+  // File upload management
+  const {
+    attachments,
+    attachmentError,
+    handleFileSelect,
+    handleRemoveAttachment,
+    clearAttachments,
+  } = useFileUpload();
 
   // Create transport that updates when parameters change
   const transport = useMemo(
@@ -141,8 +125,10 @@ export const App = () => {
       transport,
       onError: handleChatError,
       onFinish: ({ message }) => {
-        const messageWithModel = { ...message, model: parameters.model };
-        messageModelsRef.current.set(message.id, parameters.model);
+        const messageWithModel = {
+          ...message,
+          model: parameters.model,
+        } as UIMessage;
         addMessage(messageWithModel);
       },
     });
@@ -150,6 +136,14 @@ export const App = () => {
   const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
 
   setIsLoading(status === 'streaming' || status === 'submitted');
+
+  // Message persistence
+  const { addMessage, messageModelsRef, savedMessageIdsRef } =
+    useMessagePersistence({
+      messages,
+      isLoading,
+      currentModel: parameters.model,
+    });
 
   // Derive token counts (stateless TokenCount reads these)
   const [tokens, setTokens] = useAtom(tokensAtom);
@@ -181,82 +175,34 @@ export const App = () => {
     setInput(value);
   }, []);
 
-  const handleFileSelectCb = useCallback(
-    (files: FileList | null) => {
-      if (!files || files.length === 0) {
-        return;
-      }
+  const handleImageClickCb = useCallback((imageUrl: string) => {
+    setModalImageUrl(imageUrl);
+    const modal = document.getElementById(
+      'app-image-modal'
+    ) as HTMLDialogElement | null;
+    if (modal) {
+      modal.showModal();
+    }
+  }, []);
 
-      const MAX_FILES_PER_MESSAGE = 3;
-      const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25MB
-      const ALLOWED_TYPES = [
-        'image/png',
-        'image/jpeg',
-        'image/webp',
-        'text/plain',
-        'text/markdown',
-        'application/pdf',
-      ];
-
-      const currentCount = attachments.length;
-      const remainingSlots = MAX_FILES_PER_MESSAGE - currentCount;
-
-      if (remainingSlots <= 0) {
-        setAttachmentError('You can attach up to 3 files per message.');
-        return;
-      }
-
-      const filesArray = Array.from(files).slice(0, remainingSlots);
-      let error: string | null = null;
-
-      filesArray.forEach((file) => {
-        if (!ALLOWED_TYPES.includes(file.type)) {
-          error =
-            'Unsupported file type. Allowed: PNG, JPEG, WEBP, TXT, MD, PDF.';
-          return;
-        }
-        if (file.size > MAX_FILE_SIZE_BYTES) {
-          error = 'File too large. Max size is 25 MB per file.';
-          return;
-        }
-
-        const isTextFile =
-          file.type === 'text/plain' || file.type === 'text/markdown';
-        const reader = new FileReader();
-        reader.onload = () => {
-          const result = reader.result;
-          if (typeof result === 'string') {
-            setAttachments((prev) => [
-              ...prev,
-              {
-                id: `${Date.now()}-${file.name}-${Math.random().toString(36).slice(2)}`,
-                name: file.name,
-                size: file.size,
-                type: file.type,
-                url: isTextFile ? '' : result,
-                textContent: isTextFile ? result : undefined,
-              },
-            ]);
+  const handleKeyDownCb = useCallback(
+    (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        const value = (event.target as HTMLTextAreaElement).value;
+        if (value.trim().length) {
+          event.preventDefault();
+          if (formRef.current) {
+            formRef.current.dispatchEvent(
+              new Event('submit', { cancelable: true, bubbles: true })
+            );
           }
-        };
-        if (isTextFile) {
-          reader.readAsText(file);
         } else {
-          reader.readAsDataURL(file);
+          event.preventDefault();
         }
-      });
-
-      setAttachmentError(error);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
       }
     },
-    [attachments]
+    []
   );
-
-  const handleRemoveAttachmentCb = useCallback((id: string) => {
-    setAttachments((prev) => prev.filter((att) => att.id !== id));
-  }, []);
 
   const handleSubmitCb = useCallback(
     (event) => {
@@ -283,65 +229,52 @@ export const App = () => {
             mediaType: att.type,
             url: att.url,
             name: att.name,
-          } as never);
+          } as FilePart);
         }
       });
 
       sendMessage({ parts });
       setInput('');
-      setAttachments([]);
-      setAttachmentError(null);
+      clearAttachments();
     },
-    [attachments, input, sendMessage]
+    [attachments, input, sendMessage, clearAttachments]
   );
 
-  const memoizedMessages = useMemo(() => messages, [messages]);
-
   // Load saved messages into chat when they're available
+  //biome-ignore lint/correctness/useExhaustiveDependencies: refs are stable
   useEffect(() => {
-    if (savedMessages && savedMessages.length > 0 && messages.length === 0) {
-      setMessages(savedMessages);
-    }
-  }, [savedMessages, messages.length, setMessages]);
-
-  // Save new messages to indexedDB when messages change
-  // Track saved message count to avoid re-saving on load
-  const savedMessageCountRef = useRef(0);
-
-  useEffect(() => {
-    if (messages.length > savedMessageCountRef.current) {
-      const lastMessage = messages[messages.length - 1];
-      // Only save if this is a genuinely new message, not one loaded from DB
-      const isNewMessage = !savedMessageIdsRef.current.has(lastMessage.id);
-
-      // Save user messages immediately, assistant messages after loading completes
-      if (
-        isNewMessage &&
-        (lastMessage.role === 'user' ||
-          (lastMessage.role === 'assistant' && !isLoading))
-      ) {
-        addMessage(lastMessage);
-        savedMessageIdsRef.current.add(lastMessage.id);
-        savedMessageCountRef.current = messages.length;
+    if (savedMessages && savedMessages.length > 0) {
+      // Track models for saved messages
+      for (const msg of savedMessages) {
+        const msgWithModel = msg as UIMessage & { model?: string };
+        if (msgWithModel.model && msg.id) {
+          messageModelsRef.current.set(msg.id, msgWithModel.model);
+          savedMessageIdsRef.current.add(msg.id);
+        }
+      }
+      if (messages.length === 0) {
+        setMessages(savedMessages);
       }
     }
-  }, [addMessage, messages, isLoading]);
+    // Refs are stable and don't need to be in deps
+  }, [savedMessages, messages.length, setMessages]);
 
   // subscribe to storage change events so multiple tabs stay in sync
   useEffect(() => {
-    const handleStorageChanges = (e) => {
+    const handleStorageChanges = (e: StorageEvent) => {
+      // Only reload atom values when storage actually changes in another tab
+      // Don't dispatch new storage events to avoid infinite loops
       const keysToHandle = [
         'editorTheme',
         'parameters',
-        'remainingTokens',
         'systemMessage',
         'theme',
         'tokens',
         'userMeta',
       ];
-      const { key } = e;
-      if (key && keysToHandle.includes(key)) {
-        window.dispatchEvent(new Event('storage'));
+      if (e.key && keysToHandle.includes(e.key)) {
+        // The atoms will automatically sync from localStorage
+        // No need to dispatch additional events
       }
     };
 
@@ -351,38 +284,6 @@ export const App = () => {
       window.removeEventListener('storage', handleStorageChanges);
     };
   }, []);
-
-  const textareaElement = textAreaRef.current;
-
-  useEffect(() => {
-    const listener = (event: KeyboardEvent) => {
-      // if (event.key === 'Enter' && event.shiftKey) {
-      //   console.log('new line');
-      // }
-      if (event.key === 'Enter' && !event.shiftKey) {
-        if (event.target.value.trim().length) {
-          event.preventDefault();
-          if (formRef.current) {
-            formRef.current.dispatchEvent(
-              new Event('submit', { cancelable: true, bubbles: true })
-            );
-          }
-        } else {
-          event.preventDefault();
-          return false;
-        }
-      }
-    };
-    if (textareaElement) {
-      textareaElement.addEventListener('keydown', listener);
-    }
-
-    return () => {
-      if (textareaElement) {
-        textareaElement.removeEventListener('keydown', listener);
-      }
-    };
-  }, [textareaElement]);
 
   const ErrorFallback = memo(({ error, resetErrorBoundary }) => {
     return (
@@ -415,22 +316,26 @@ export const App = () => {
         input={input}
         isLoading={isLoading}
         systemMessageRef={systemMessageRef}
+        chatError={chatError}
+        onClearError={() => setChatError(null)}
       />
       <Messages
         isLoading={isLoading}
-        messages={memoizedMessages}
+        messages={messages}
         messageModels={messageModelsRef.current}
         regenerate={regenerate}
         stop={stop}
         textAreaRef={textAreaRef}
+        onImageClick={handleImageClickCb}
       />
       <Footer
         formRef={formRef}
         fileInputRef={fileInputRef}
         onInputChange={handleInputChangeCb}
-        onFileSelect={handleFileSelectCb}
-        onRemoveAttachment={handleRemoveAttachmentCb}
+        onFileSelect={handleFileSelect}
+        onRemoveAttachment={handleRemoveAttachment}
         onSubmit={handleSubmitCb}
+        onKeyDown={handleKeyDownCb}
         input={input}
         attachments={attachments}
         attachmentError={attachmentError}
@@ -439,6 +344,29 @@ export const App = () => {
         systemMessageRef={systemMessageRef}
         textAreaRef={textAreaRef}
       />
+      <dialog id="app-image-modal" className="modal">
+        <div className="modal-box max-w-5xl w-auto">
+          {modalImageUrl && (
+            <>
+              <form method="dialog">
+                {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              {/** biome-ignore lint/performance/noImgElement: intentional */}
+              <img
+                src={modalImageUrl}
+                alt="Attachment"
+                className="w-full h-auto max-h-[80vh] object-contain rounded"
+              />
+            </>
+          )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button type="submit">close</button>
+        </form>
+      </dialog>
     </ErrorBoundary>
   );
 };

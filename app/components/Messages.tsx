@@ -11,9 +11,10 @@ interface MessagesProps {
   isLoading: boolean;
   messages: UIMessage[];
   messageModels: Map<string, string>;
-  regenerate(...args: unknown[]): unknown;
-  stop(...args: unknown[]): unknown;
+  regenerate: (messageId: string) => void;
+  stop: () => void;
   textAreaRef: React.RefObject<HTMLTextAreaElement>;
+  onImageClick: (imageUrl: string) => void;
 }
 
 export const Messages = memo(
@@ -24,6 +25,7 @@ export const Messages = memo(
     regenerate,
     stop,
     textAreaRef,
+    onImageClick,
   }): MessagesProps => {
     const messagesRef = useRef(null);
 
@@ -71,6 +73,7 @@ export const Messages = memo(
                     regenerate={regenerate}
                     stop={stop}
                     totalMessages={messages.length - 1}
+                    onImageClick={onImageClick}
                   />
                 );
               })

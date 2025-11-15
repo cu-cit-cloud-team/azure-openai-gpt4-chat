@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import markdownToTxt from 'markdown-to-txt';
 import { nanoid } from 'nanoid';
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeKatex from 'rehype-katex';
@@ -44,12 +44,13 @@ interface ChatBubbleProps {
   messageCreatedAt?: string | Date;
   messageId?: string;
   model?: string;
-  regenerate?(...args: unknown[]): unknown;
-  stop?(...args: unknown[]): unknown;
+  regenerate?: (messageId: string) => void;
+  stop?: () => void;
   totalMessages?: number;
+  onImageClick: (imageUrl: string) => void;
 }
 
-const Pre = ({ children }) => {
+const Pre = ({ children }: { children: { props: { children: string } } }) => {
   return (
     <pre className="code-pre">
       <CopyToClipboard key={nanoid()} textToCopy={children.props.children} />
@@ -73,10 +74,10 @@ export const ChatBubble = memo(
     regenerate,
     stop,
     totalMessages,
+    onImageClick,
   }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
     const copyToClipBoardKey = nanoid();
-    const [modalImageUrl, setModalImageUrl] = useState<string>('');
 
     const rehypePlugins = useMemo(
       () => [rehypeKatex, rehypeSanitize, rehypeStringify],
@@ -113,16 +114,6 @@ export const ChatBubble = memo(
         />
       );
     }, [index, isLoading, isUser, totalMessages]);
-
-    const handleImageClick = (imageUrl: string) => {
-      const modal = document.getElementById(
-        'image-modal'
-      ) as HTMLDialogElement | null;
-      if (modal) {
-        setModalImageUrl(imageUrl);
-        modal.showModal();
-      }
-    };
 
     return (
       <div
@@ -216,10 +207,10 @@ export const ChatBubble = memo(
                         <button
                           type="button"
                           className="cursor-pointer"
-                          onClick={() => handleImageClick(file.url)}
+                          onClick={() => onImageClick(file.url)}
                           onKeyDown={(event) => {
                             if (event.key === 'Enter' || event.key === ' ') {
-                              handleImageClick(file.url);
+                              onImageClick(file.url);
                             }
                           }}
                         >
@@ -260,29 +251,6 @@ export const ChatBubble = memo(
             totalMessages={totalMessages}
           />
         </div>
-        <dialog id="image-modal" className="modal">
-          <div className="modal-box max-w-5xl w-auto">
-            {modalImageUrl && (
-              <>
-                <form method="dialog">
-                  {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                    ✕
-                  </button>
-                </form>
-                {/** biome-ignore lint/performance/noImgElement: intentional */}
-                <img
-                  src={modalImageUrl}
-                  alt="Attachment"
-                  className="w-full h-auto max-h-[80vh] object-contain rounded"
-                />
-              </>
-            )}
-          </div>
-          <form method="dialog" className="modal-backdrop">
-            <button type="submit">close</button>
-          </form>
-        </dialog>
       </div>
     );
   }

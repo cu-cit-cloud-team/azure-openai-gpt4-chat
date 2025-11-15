@@ -1,6 +1,6 @@
 import { faBars, faRobot } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
-import { Suspense, lazy, memo, useEffect, useMemo } from 'react';
+import { lazy, memo, Suspense, useEffect, useMemo } from 'react';
 
 import { ClearChatButton } from '@/app/components/ClearChatButton';
 import { ExportChatButton } from '@/app/components/ExportChatButton';
@@ -30,11 +30,19 @@ import pkg from '@/package.json';
 interface HeaderProps {
   input: string;
   isLoading: boolean;
-  systemMessageRef: object;
+  systemMessageRef: React.RefObject<HTMLTextAreaElement>;
+  chatError?: string | null;
+  onClearError?: () => void;
 }
 
 export const Header = memo(
-  ({ input, isLoading, systemMessageRef }: HeaderProps) => {
+  ({
+    input,
+    isLoading,
+    systemMessageRef,
+    chatError,
+    onClearError,
+  }: HeaderProps) => {
     useEffect(() => {
       const details = [...document.querySelectorAll('.menu details')];
       document.addEventListener('click', (event) => {
@@ -55,20 +63,65 @@ export const Header = memo(
     const memoThemeChanger = useMemo(() => <ThemeChanger />, []);
 
     return (
-      <div className="fixed top-0 z-50 navbar bg-base-300">
-        <div className="navbar-start">
-          <div className="dropdown">
-            {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <Suspense fallback={<div>Loading...</div>}>{memoFaBars}</Suspense>
-            </label>
-            <ul
-              tabIndex={0}
-              className="p-2 w-52 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-200 rounded-box"
+      <>
+        <div className="fixed top-0 z-50 navbar bg-base-300">
+          <div className="navbar-start">
+            <div className="dropdown">
+              {/* biome-ignore lint/a11y/noLabelWithoutControl: daisyUI pattern */}
+              <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                <Suspense fallback={<div>Loading...</div>}>
+                  {memoFaBars}
+                </Suspense>
+              </label>
+              <ul
+                tabIndex={0}
+                className="p-2 w-52 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-200 rounded-box"
+              >
+                <li>
+                  <details className="system-message-dropdown">
+                    <summary className="whitespace-nowrap">
+                      <Suspense fallback={<div>Loading...</div>}>
+                        {memoFaRobot}
+                      </Suspense>
+                      System
+                    </summary>
+                    <ul className="bg-base-200">
+                      <li>
+                        <SystemMessage
+                          input={input}
+                          systemMessageRef={systemMessageRef}
+                        />
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li>
+                  <Parameters />
+                </li>
+                <li>
+                  <ClearChatButton buttonText="Clear" isLoading={isLoading} />
+                </li>
+                <li>
+                  <ExportChatButton buttonText="Export" isLoading={isLoading} />
+                </li>
+                <li>{memoThemeChanger}</li>
+              </ul>
+            </div>
+            <a
+              className="text-sm leading-4 normal-case lg:text-xl"
+              href="https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat"
+              target="_blank"
+              rel="noreferrer noopener"
             >
+              Cloud Team GPT Chat v{pkg.version}
+            </a>
+            <UpdateCheck />
+          </div>
+          <div className="hidden navbar-center lg:flex">
+            <ul className="menu menu-horizontal">
               <li>
                 <details className="system-message-dropdown">
-                  <summary className="whitespace-nowrap">
+                  <summary>
                     <Suspense fallback={<div>Loading...</div>}>
                       {memoFaRobot}
                     </Suspense>
@@ -96,52 +149,25 @@ export const Header = memo(
               <li>{memoThemeChanger}</li>
             </ul>
           </div>
-          <a
-            className="text-sm leading-4 normal-case lg:text-xl"
-            href="https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Cloud Team GPT Chat v{pkg.version}
-          </a>
-          <UpdateCheck />
+          <div className="navbar-end">
+            <UserAvatar />
+          </div>
         </div>
-        <div className="hidden navbar-center lg:flex">
-          <ul className="menu menu-horizontal">
-            <li>
-              <details className="system-message-dropdown">
-                <summary>
-                  <Suspense fallback={<div>Loading...</div>}>
-                    {memoFaRobot}
-                  </Suspense>
-                  System
-                </summary>
-                <ul className="bg-base-200">
-                  <li>
-                    <SystemMessage
-                      input={input}
-                      systemMessageRef={systemMessageRef}
-                    />
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <Parameters />
-            </li>
-            <li>
-              <ClearChatButton buttonText="Clear" isLoading={isLoading} />
-            </li>
-            <li>
-              <ExportChatButton buttonText="Export" isLoading={isLoading} />
-            </li>
-            <li>{memoThemeChanger}</li>
-          </ul>
-        </div>
-        <div className="navbar-end">
-          <UserAvatar />
-        </div>
-      </div>
+        {chatError && (
+          <div className="fixed top-16 left-0 right-0 z-40 alert alert-error">
+            <span>{chatError}</span>
+            {onClearError && (
+              <button
+                type="button"
+                className="btn btn-sm btn-ghost"
+                onClick={onClearError}
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        )}
+      </>
     );
   }
 );

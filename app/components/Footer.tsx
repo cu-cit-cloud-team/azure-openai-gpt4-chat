@@ -4,31 +4,16 @@ import { memo, useEffect } from 'react';
 import { TokenCount } from '@/app/components/TokenCount';
 
 interface FooterProps {
-  formRef?: (...args: unknown[]) =>
-    | unknown
-    | {
-        current?: object;
-      };
+  formRef: React.RefObject<HTMLFormElement>;
   onInputChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   input: string;
   isLoading: boolean;
   model: string;
-  systemMessageRef?: (...args: unknown[]) =>
-    | unknown
-    | {
-        current?: object;
-      };
-  textAreaRef?: (...args: unknown[]) =>
-    | unknown
-    | {
-        current?: object;
-      };
-  fileInputRef?: (...args: unknown[]) =>
-    | unknown
-    | {
-        current?: object;
-      };
+  systemMessageRef: React.RefObject<HTMLTextAreaElement>;
+  textAreaRef: React.RefObject<HTMLTextAreaElement>;
+  fileInputRef: React.RefObject<HTMLInputElement>;
   onFileSelect: (files: FileList | null) => void;
   onRemoveAttachment: (id: string) => void;
   attachments: {
@@ -49,6 +34,7 @@ export const Footer = memo(
     onFileSelect,
     onRemoveAttachment,
     onSubmit,
+    onKeyDown,
     input,
     attachments,
     attachmentError,
@@ -92,9 +78,7 @@ export const Footer = memo(
               </label>
               <input
                 id="file-upload-input"
-                ref={
-                  fileInputRef as unknown as React.RefObject<HTMLInputElement>
-                }
+                ref={fileInputRef}
                 type="file"
                 className="hidden"
                 multiple
@@ -114,6 +98,7 @@ export const Footer = memo(
                 isLoading ? 'Loading response...' : 'Type a message...'
               }
               onChange={(e) => onInputChange(e.target.value)}
+              onKeyDown={onKeyDown}
               ref={textAreaRef}
               value={input}
             />
