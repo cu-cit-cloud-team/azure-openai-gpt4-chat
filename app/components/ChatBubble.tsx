@@ -14,11 +14,8 @@ import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeKatex from 'rehype-katex';
 import rehypeSanitize from 'rehype-sanitize';
-import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
 
 import { ChatMeta } from '@/app/components/ChatMeta';
 import { CopyToClipboard } from '@/app/components/CopyToClipboard';
@@ -57,9 +54,10 @@ interface ChatBubbleProps {
 }
 
 const Pre = ({ children }: { children: { props: { children: string } } }) => {
+  const preKey = useMemo(() => nanoid(), []);
   return (
     <pre className="code-pre">
-      <CopyToClipboard key={nanoid()} textToCopy={children.props.children} />
+      <CopyToClipboard key={preKey} textToCopy={children.props.children} />
       {children}
     </pre>
   );
@@ -83,17 +81,11 @@ export const ChatBubble = memo(
     onFileClick,
   }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
-    const copyToClipBoardKey = nanoid();
+    const copyToClipBoardKey = useMemo(() => nanoid(), []);
 
-    const rehypePlugins = useMemo(
-      () => [rehypeKatex, rehypeSanitize, rehypeStringify],
-      []
-    );
+    const rehypePlugins = useMemo(() => [rehypeKatex, rehypeSanitize], []);
 
-    const remarkPlugins = useMemo(
-      () => [remarkGfm, remarkMath, remarkParse, remarkRehype],
-      []
-    );
+    const remarkPlugins = useMemo(() => [remarkGfm, remarkMath], []);
 
     const chatBubbleUserIcon = useMemo(() => {
       return isUser ? (
