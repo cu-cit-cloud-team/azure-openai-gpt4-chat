@@ -113,10 +113,7 @@ export const SystemMessage = memo(
             <span className="hidden lg:flex grow text-center">Reset</span>
           </button>
           <button
-            className={clsx('btn btn-sm lg:btn-md join-item btn-success', {
-              'btn-disabled':
-                localSystemMessage?.trim() === originalSystemMessage?.trim(),
-            })}
+            className="btn btn-sm lg:btn-md join-item btn-success"
             type="button"
             disabled={
               localSystemMessage?.trim() === originalSystemMessage?.trim()
