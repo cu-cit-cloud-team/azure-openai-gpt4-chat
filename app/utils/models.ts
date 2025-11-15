@@ -11,25 +11,12 @@ export interface Models {
 }
 
 export const models: Models = [
-  {
-    default: true,
-    displayName: 'GPT-4o (2024-11-20)',
-    maxInputTokens: 128000,
-    maxOutputTokens: 16384,
-    name: 'gpt-4o',
-  },
   // {
   //   displayName: 'GPT-4o w/ Web Search (2024-11-20)',
   //   maxInputTokens: 128000,
   //   maxOutputTokens: 16384,
   //   name: 'gpt-4o-web-search',
   // },
-  {
-    displayName: 'GPT-4o Mini (2024-07-18)',
-    maxInputTokens: 128000,
-    maxOutputTokens: 16384,
-    name: 'gpt-4o-mini',
-  },
   // {
   //   displayName: 'GPT-4o Mini w/ Web Search (2024-07-18)',
   //   maxInputTokens: 128000,
@@ -59,6 +46,19 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5',
+    default: true,
+  },
+  {
+    displayName: 'GPT-5 Chat (2025-08-07)',
+    maxInputTokens: 128000,
+    maxOutputTokens: 16384,
+    name: 'gpt-5-chat',
+  },
+  {
+    displayName: 'GPT-5 Codex (2025-09-11)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5-codex',
   },
   {
     displayName: 'GPT-5 Mini (2025-08-07)',
@@ -73,16 +73,28 @@ export const models: Models = [
     name: 'gpt-5-nano',
   },
   {
-    displayName: 'o1 (2024-12-17)',
-    maxInputTokens: 200000,
-    maxOutputTokens: 100000,
-    name: 'o1',
+    displayName: 'GPT-5.1 (2025-11-13)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5.1',
   },
   {
-    displayName: 'o1 Mini (2024-09-12)',
-    maxInputTokens: 128000,
-    maxOutputTokens: 65536,
-    name: 'o1-mini',
+    displayName: 'GPT-5.1 Chat (2025-11-13)',
+    maxInputTokens: 111616,
+    maxOutputTokens: 16384,
+    name: 'gpt-5.1-chat',
+  },
+  {
+    displayName: 'GPT-5.1 Codex (2025-11-13)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5.1-codex',
+  },
+  {
+    displayName: 'GPT-5.1 Codex Mini (2025-11-13)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5.1-codex-mini',
   },
   {
     displayName: 'o3 (2025-04-16)',
