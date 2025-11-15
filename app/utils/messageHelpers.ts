@@ -25,6 +25,7 @@ export function getMessageFiles(message: UIMessage) {
     mediaType: string;
     url: string;
     name?: string;
+    textContent?: string;
   }> = [];
 
   // Get actual file parts (images, PDFs)
@@ -38,13 +39,14 @@ export function getMessageFiles(message: UIMessage) {
       });
     } else if (part.type === 'text' && part.text.startsWith('[File: ')) {
       // Extract text file attachments from text parts
-      const match = part.text.match(/^\[File: (.+?)\]/);
+      const match = part.text.match(/^\[File: (.+?)\]\n([\s\S]*)$/);
       if (match) {
         files.push({
           type: 'file',
           mediaType: match[1].endsWith('.md') ? 'text/markdown' : 'text/plain',
           url: '',
           name: match[1],
+          textContent: match[2],
         });
       }
     }

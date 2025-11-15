@@ -14,7 +14,13 @@ interface MessagesProps {
   regenerate: (messageId: string) => void;
   stop: () => void;
   textAreaRef: React.RefObject<HTMLTextAreaElement>;
-  onImageClick: (imageUrl: string) => void;
+  onFileClick: (file: {
+    type: string;
+    mediaType: string;
+    url?: string;
+    textContent?: string;
+    name?: string;
+  }) => void;
 }
 
 export const Messages = memo(
@@ -25,7 +31,7 @@ export const Messages = memo(
     regenerate,
     stop,
     textAreaRef,
-    onImageClick,
+    onFileClick,
   }): MessagesProps => {
     const messagesRef = useRef(null);
 
@@ -73,7 +79,7 @@ export const Messages = memo(
                     regenerate={regenerate}
                     stop={stop}
                     totalMessages={messages.length - 1}
-                    onImageClick={onImageClick}
+                    onFileClick={onFileClick}
                   />
                 );
               })

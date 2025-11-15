@@ -47,7 +47,13 @@ interface ChatBubbleProps {
   regenerate?: (messageId: string) => void;
   stop?: () => void;
   totalMessages?: number;
-  onImageClick: (imageUrl: string) => void;
+  onFileClick: (file: {
+    type: string;
+    mediaType: string;
+    url?: string;
+    textContent?: string;
+    name?: string;
+  }) => void;
 }
 
 const Pre = ({ children }: { children: { props: { children: string } } }) => {
@@ -74,7 +80,7 @@ export const ChatBubble = memo(
     regenerate,
     stop,
     totalMessages,
-    onImageClick,
+    onFileClick,
   }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
     const copyToClipBoardKey = nanoid();
@@ -207,10 +213,10 @@ export const ChatBubble = memo(
                         <button
                           type="button"
                           className="cursor-pointer"
-                          onClick={() => onImageClick(file.url)}
+                          onClick={() => onFileClick(file)}
                           onKeyDown={(event) => {
                             if (event.key === 'Enter' || event.key === ' ') {
-                              onImageClick(file.url);
+                              onFileClick(file);
                             }
                           }}
                         >
@@ -221,13 +227,35 @@ export const ChatBubble = memo(
                             />
                           </figure>
                         </button>
+                      ) : file.textContent ? (
+                        <button
+                          type="button"
+                          className="cursor-pointer flex items-center gap-2"
+                          onClick={() => onFileClick(file)}
+                          onKeyDown={(event) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                              onFileClick(file);
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faFile}
+                            className="text-base"
+                          />
+                          <span className="max-w-40 truncate" title={file.name}>
+                            {file.name || 'Attachment'}
+                          </span>
+                        </button>
                       ) : (
-                        <FontAwesomeIcon icon={faFile} className="text-base" />
-                      )}
-                      {!file.mediaType.startsWith('image/') && (
-                        <span className="max-w-40 truncate" title={file.name}>
-                          {file.name || 'Attachment'}
-                        </span>
+                        <>
+                          <FontAwesomeIcon
+                            icon={faFile}
+                            className="text-base"
+                          />
+                          <span className="max-w-40 truncate" title={file.name}>
+                            {file.name || 'Attachment'}
+                          </span>
+                        </>
                       )}
                     </div>
                   ))}

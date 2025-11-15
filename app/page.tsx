@@ -8,6 +8,7 @@ import { useAtom, useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
@@ -17,6 +18,33 @@ import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
 import { modelFromName } from '@/app/utils/models';
 import { getEditorTheme } from '@/app/utils/themes';
 import { getTokenCount } from '@/app/utils/tokens';
+
+/**
+ * Get syntax highlighting language from filename extension
+ */
+const getLanguageFromFilename = (filename: string): string => {
+  const ext = filename.split('.').pop()?.toLowerCase();
+  const langMap: Record<string, string> = {
+    js: 'javascript',
+    jsx: 'javascript',
+    ts: 'typescript',
+    tsx: 'typescript',
+    py: 'python',
+    rb: 'ruby',
+    java: 'java',
+    go: 'go',
+    php: 'php',
+    html: 'html',
+    css: 'css',
+    json: 'json',
+    md: 'markdown',
+    sh: 'bash',
+    yaml: 'yaml',
+    yml: 'yaml',
+    xml: 'xml',
+  };
+  return langMap[ext || ''] || 'text';
+};
 
 type FilePart = {
   type: 'file';
@@ -67,6 +95,7 @@ export const App = () => {
   const parameters = useAtomValue(parametersAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
+  const editorTheme = useAtomValue(editorThemeAtom);
 
   const savedMessages = useLiveQuery(async () => {
     const messages = await database.messages.toArray();
@@ -88,6 +117,11 @@ export const App = () => {
   );
   const [input, setInput] = useState('');
   const [modalImageUrl, setModalImageUrl] = useState<string>('');
+  const [modalTextFile, setModalTextFile] = useState<{
+    content: string;
+    filename: string;
+    mediaType: string;
+  } | null>(null);
   const [chatError, setChatError] = useState<string | null>(null);
 
   // File upload management
@@ -175,15 +209,34 @@ export const App = () => {
     setInput(value);
   }, []);
 
-  const handleImageClickCb = useCallback((imageUrl: string) => {
-    setModalImageUrl(imageUrl);
-    const modal = document.getElementById(
-      'app-image-modal'
-    ) as HTMLDialogElement | null;
-    if (modal) {
-      modal.showModal();
-    }
-  }, []);
+  const handleFileClickCb = useCallback(
+    (file: {
+      type: string;
+      mediaType: string;
+      url?: string;
+      textContent?: string;
+      name?: string;
+    }) => {
+      if (file.mediaType.startsWith('image/')) {
+        setModalImageUrl(file.url || '');
+        const modal = document.getElementById(
+          'app-image-modal'
+        ) as HTMLDialogElement;
+        modal?.showModal();
+      } else if (file.textContent) {
+        setModalTextFile({
+          content: file.textContent,
+          filename: file.name || 'file.txt',
+          mediaType: file.mediaType,
+        });
+        const modal = document.getElementById(
+          'app-text-modal'
+        ) as HTMLDialogElement;
+        modal?.showModal();
+      }
+    },
+    []
+  );
 
   const handleKeyDownCb = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -326,7 +379,7 @@ export const App = () => {
         regenerate={regenerate}
         stop={stop}
         textAreaRef={textAreaRef}
-        onImageClick={handleImageClickCb}
+        onFileClick={handleFileClickCb}
       />
       <Footer
         formRef={formRef}
@@ -360,6 +413,40 @@ export const App = () => {
                 alt="Attachment"
                 className="w-full h-auto max-h-[80vh] object-contain rounded"
               />
+            </>
+          )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button type="submit">close</button>
+        </form>
+      </dialog>
+      <dialog id="app-text-modal" className="modal">
+        <div className="modal-box max-w-5xl w-full">
+          {modalTextFile && (
+            <>
+              <form method="dialog">
+                {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              <h3 className="font-bold text-lg mb-4">
+                {modalTextFile.filename}
+              </h3>
+              <div className="overflow-auto max-h-[70vh]">
+                <SyntaxHighlighter
+                  style={editorTheme}
+                  language={getLanguageFromFilename(modalTextFile.filename)}
+                  PreTag="div"
+                  showLineNumbers={true}
+                  customStyle={{
+                    margin: 0,
+                    borderRadius: '0.5rem',
+                  }}
+                >
+                  {modalTextFile.content}
+                </SyntaxHighlighter>
+              </div>
             </>
           )}
         </div>
