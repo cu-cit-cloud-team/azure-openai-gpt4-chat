@@ -1,17 +1,15 @@
+import type { UIMessage } from 'ai';
 import type React from 'react';
 import { memo, useEffect, useRef } from 'react';
 
 import { ChatBubble } from '@/app/components/ChatBubble';
-import {
-  extractTextFromV5Message,
-  type MyUIMessage,
-} from '@/app/utils/conversion';
+import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
 
 const MemoizedChatBubble = memo(ChatBubble);
 
 interface MessagesProps {
   isLoading: boolean;
-  messages: MyUIMessage[];
+  messages: UIMessage[];
   messageModels: Map<string, string>;
   regenerate(...args: unknown[]): unknown;
   stop(...args: unknown[]): unknown;
@@ -66,7 +64,8 @@ export const Messages = memo(
                     isLoading={isLoading}
                     isUser={m.role === 'user'}
                     messageCreatedAt={m.createdAt}
-                    messageContent={extractTextFromV5Message(m)}
+                    messageContent={getMessageText(m)}
+                    messageFiles={getMessageFiles(m)}
                     messageId={m.id}
                     model={messageModels.get(m.id) || m.model}
                     regenerate={regenerate}

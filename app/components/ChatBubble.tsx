@@ -1,10 +1,15 @@
-import { faRobot, faSpinner, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFile,
+  faRobot,
+  faSpinner,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import markdownToTxt from 'markdown-to-txt';
 import { nanoid } from 'nanoid';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import Markdown from 'react-markdown';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeKatex from 'rehype-katex';
@@ -29,6 +34,13 @@ interface ChatBubbleProps {
   isLoading?: boolean;
   isUser?: boolean;
   messageContent?: string;
+  messageFiles?: {
+    type: string;
+    mediaType: string;
+    url: string;
+    name?: string;
+    size?: number;
+  }[];
   messageCreatedAt?: string | Date;
   messageId?: string;
   model?: string;
@@ -54,6 +66,7 @@ export const ChatBubble = memo(
     isLoading,
     isUser,
     messageContent,
+    messageFiles,
     messageCreatedAt,
     messageId,
     model,
@@ -63,6 +76,7 @@ export const ChatBubble = memo(
   }: ChatBubbleProps) => {
     const editorTheme = useAtomValue(editorThemeAtom);
     const copyToClipBoardKey = nanoid();
+    const [modalImageUrl, setModalImageUrl] = useState<string>('');
 
     const rehypePlugins = useMemo(
       () => [rehypeKatex, rehypeSanitize, rehypeStringify],
@@ -99,6 +113,16 @@ export const ChatBubble = memo(
         />
       );
     }, [index, isLoading, isUser, totalMessages]);
+
+    const handleImageClick = (imageUrl: string) => {
+      const modal = document.getElementById(
+        'image-modal'
+      ) as HTMLDialogElement | null;
+      if (modal) {
+        setModalImageUrl(imageUrl);
+        modal.showModal();
+      }
+    };
 
     return (
       <div
@@ -153,33 +177,72 @@ export const ChatBubble = memo(
               <span className="text-sm opacity-60">Thinking...</span>
             </div>
           ) : (
-            <Markdown
-              rehypePlugins={rehypePlugins}
-              remarkPlugins={remarkPlugins}
-              components={{
-                pre: Pre,
-                code({ children, className, ...rest }) {
-                  const match = /language-(\w+)/.exec(className || '');
-                  return match ? (
-                    <SyntaxHighlighter
-                      {...rest}
-                      style={editorTheme}
-                      language={match[1]}
-                      PreTag="div"
-                      showLineNumbers={true}
+            <>
+              <Markdown
+                rehypePlugins={rehypePlugins}
+                remarkPlugins={remarkPlugins}
+                components={{
+                  pre: Pre,
+                  code({ children, className, ...rest }) {
+                    const match = /language-(\w+)/.exec(className || '');
+                    return match ? (
+                      <SyntaxHighlighter
+                        {...rest}
+                        style={editorTheme}
+                        language={match[1]}
+                        PreTag="div"
+                        showLineNumbers={true}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
+                    ) : (
+                      <code {...rest} className={className}>
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              >
+                {messageContent?.replace(/\n/g, '  \n') || ''}
+              </Markdown>
+              {messageFiles && messageFiles.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 mt-3">
+                  {messageFiles.map((file) => (
+                    <div
+                      key={`${file.url}-${file.name ?? ''}`}
+                      className="flex items-center gap-2 px-2 py-1 text-xs border rounded bg-base-100 border-base-300"
                     >
-                      {String(children).replace(/\n$/, '')}
-                    </SyntaxHighlighter>
-                  ) : (
-                    <code {...rest} className={className}>
-                      {children}
-                    </code>
-                  );
-                },
-              }}
-            >
-              {messageContent?.replace(/\n/g, '  \n') || ''}
-            </Markdown>
+                      {file.mediaType.startsWith('image/') ? (
+                        <button
+                          type="button"
+                          className="cursor-pointer"
+                          onClick={() => handleImageClick(file.url)}
+                          onKeyDown={(event) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                              handleImageClick(file.url);
+                            }
+                          }}
+                        >
+                          <figure className="w-12 h-12 overflow-hidden rounded">
+                            <div
+                              className="w-full h-full bg-cover bg-center"
+                              style={{ backgroundImage: `url(${file.url})` }}
+                            />
+                          </figure>
+                        </button>
+                      ) : (
+                        <FontAwesomeIcon icon={faFile} className="text-base" />
+                      )}
+                      {!file.mediaType.startsWith('image/') && (
+                        <span className="max-w-40 truncate" title={file.name}>
+                          {file.name || 'Attachment'}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
         <div
@@ -197,6 +260,29 @@ export const ChatBubble = memo(
             totalMessages={totalMessages}
           />
         </div>
+        <dialog id="image-modal" className="modal">
+          <div className="modal-box max-w-5xl w-auto">
+            {modalImageUrl && (
+              <>
+                <form method="dialog">
+                  {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    ✕
+                  </button>
+                </form>
+                {/** biome-ignore lint/performance/noImgElement: intentional */}
+                <img
+                  src={modalImageUrl}
+                  alt="Attachment"
+                  className="w-full h-auto max-h-[80vh] object-contain rounded"
+                />
+              </>
+            )}
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button type="submit">close</button>
+          </form>
+        </dialog>
       </div>
     );
   }

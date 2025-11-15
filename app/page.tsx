@@ -1,24 +1,17 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
+import type { UIMessage } from 'ai';
 import { DefaultChatTransport } from 'ai';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtom, useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
-
 import { database } from '@/app/database/database.config';
-
-import {
-  convertV4MessageToV5,
-  convertV5MessageToV4,
-  type MyUIMessage,
-} from '@/app/utils/conversion';
 import { modelFromName } from '@/app/utils/models';
 import { getEditorTheme } from '@/app/utils/themes';
 import { getTokenCount } from '@/app/utils/tokens';
@@ -60,6 +53,7 @@ export const App = () => {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Track model per message ID
   const messageModelsRef = useRef<Map<string, string>>(new Map());
@@ -76,15 +70,13 @@ export const App = () => {
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-    // Convert v4 messages from database to v5 format and populate model map
-    return sorted.map((msg, index) => {
-      const convertedMsg = convertV4MessageToV5(msg, index) as MyUIMessage;
-      // Store the model in our ref map
-      if (msg.model && convertedMsg.id) {
-        messageModelsRef.current.set(convertedMsg.id, msg.model);
-        savedMessageIdsRef.current.add(convertedMsg.id);
+    // Store model in ref map for each message
+    return sorted.map((msg) => {
+      if (msg.model && msg.id) {
+        messageModelsRef.current.set(msg.id, msg.model);
+        savedMessageIdsRef.current.add(msg.id);
       }
-      return convertedMsg;
+      return msg as UIMessage;
     });
   }, []);
 
@@ -95,10 +87,10 @@ export const App = () => {
 
   const addMessage = useCallback(
     async (message) => {
-      // Convert v5 message to v4 format for database storage
-      const v4Message = convertV5MessageToV4(message as MyUIMessage);
       await database.messages.put({
-        ...v4Message,
+        id: message.id,
+        role: message.role,
+        parts: message.parts,
         model: message.model || parameters.model,
         createdAt: message.createdAt || new Date().toISOString(),
       });
@@ -111,6 +103,17 @@ export const App = () => {
     [userMeta]
   );
   const [input, setInput] = useState('');
+  const [attachments, setAttachments] = useState<
+    {
+      id: string;
+      name: string;
+      size: number;
+      type: string;
+      url: string;
+      textContent?: string;
+    }[]
+  >([]);
+  const [attachmentError, setAttachmentError] = useState<string | null>(null);
 
   // Create transport that updates when parameters change
   const transport = useMemo(
@@ -178,16 +181,118 @@ export const App = () => {
     setInput(value);
   }, []);
 
+  const handleFileSelectCb = useCallback(
+    (files: FileList | null) => {
+      if (!files || files.length === 0) {
+        return;
+      }
+
+      const MAX_FILES_PER_MESSAGE = 3;
+      const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25MB
+      const ALLOWED_TYPES = [
+        'image/png',
+        'image/jpeg',
+        'image/webp',
+        'text/plain',
+        'text/markdown',
+        'application/pdf',
+      ];
+
+      const currentCount = attachments.length;
+      const remainingSlots = MAX_FILES_PER_MESSAGE - currentCount;
+
+      if (remainingSlots <= 0) {
+        setAttachmentError('You can attach up to 3 files per message.');
+        return;
+      }
+
+      const filesArray = Array.from(files).slice(0, remainingSlots);
+      let error: string | null = null;
+
+      filesArray.forEach((file) => {
+        if (!ALLOWED_TYPES.includes(file.type)) {
+          error =
+            'Unsupported file type. Allowed: PNG, JPEG, WEBP, TXT, MD, PDF.';
+          return;
+        }
+        if (file.size > MAX_FILE_SIZE_BYTES) {
+          error = 'File too large. Max size is 25 MB per file.';
+          return;
+        }
+
+        const isTextFile =
+          file.type === 'text/plain' || file.type === 'text/markdown';
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result;
+          if (typeof result === 'string') {
+            setAttachments((prev) => [
+              ...prev,
+              {
+                id: `${Date.now()}-${file.name}-${Math.random().toString(36).slice(2)}`,
+                name: file.name,
+                size: file.size,
+                type: file.type,
+                url: isTextFile ? '' : result,
+                textContent: isTextFile ? result : undefined,
+              },
+            ]);
+          }
+        };
+        if (isTextFile) {
+          reader.readAsText(file);
+        } else {
+          reader.readAsDataURL(file);
+        }
+      });
+
+      setAttachmentError(error);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    },
+    [attachments]
+  );
+
+  const handleRemoveAttachmentCb = useCallback((id: string) => {
+    setAttachments((prev) => prev.filter((att) => att.id !== id));
+  }, []);
+
   const handleSubmitCb = useCallback(
     (event) => {
       event.preventDefault();
-      if (!input.trim()) {
+      if (!input.trim() && attachments.length === 0) {
         return;
       }
-      sendMessage({ text: input });
+      const parts: UIMessage['parts'] = [];
+      if (input.trim()) {
+        parts.push({ type: 'text', text: input.trim() });
+      }
+
+      attachments.forEach((att) => {
+        if (att.textContent) {
+          // Text files as text parts with filename prefix
+          parts.push({
+            type: 'text',
+            text: `[File: ${att.name}]\n${att.textContent}`,
+          });
+        } else {
+          // Images and PDFs as file parts
+          parts.push({
+            type: 'file',
+            mediaType: att.type,
+            url: att.url,
+            name: att.name,
+          } as never);
+        }
+      });
+
+      sendMessage({ parts });
       setInput('');
+      setAttachments([]);
+      setAttachmentError(null);
     },
-    [input, sendMessage]
+    [attachments, input, sendMessage]
   );
 
   const memoizedMessages = useMemo(() => messages, [messages]);
@@ -321,9 +426,14 @@ export const App = () => {
       />
       <Footer
         formRef={formRef}
+        fileInputRef={fileInputRef}
         onInputChange={handleInputChangeCb}
+        onFileSelect={handleFileSelectCb}
+        onRemoveAttachment={handleRemoveAttachmentCb}
         onSubmit={handleSubmitCb}
         input={input}
+        attachments={attachments}
+        attachmentError={attachmentError}
         isLoading={isLoading}
         model={parameters.model}
         systemMessageRef={systemMessageRef}

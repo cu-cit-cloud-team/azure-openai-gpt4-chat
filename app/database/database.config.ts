@@ -30,6 +30,17 @@ database.version(4).stores({
   messages: '&id, role, content, createdAt, model, parts',
 });
 
+// Migrate to pure AI SDK v5 format - remove v4 fields, clear old data
+database
+  .version(5)
+  .stores({
+    messages: '&id, role, parts, createdAt, model',
+  })
+  .upgrade((tx) => {
+    // Clear all existing messages to start fresh with v5 format
+    return tx.messages.clear();
+  });
+
 export const messagesTable = database.table('messages');
 
 export default database;

@@ -24,14 +24,34 @@ interface FooterProps {
     | {
         current?: object;
       };
+  fileInputRef?: (...args: unknown[]) =>
+    | unknown
+    | {
+        current?: object;
+      };
+  onFileSelect: (files: FileList | null) => void;
+  onRemoveAttachment: (id: string) => void;
+  attachments: {
+    id: string;
+    name: string;
+    size: number;
+    type: string;
+    url: string;
+  }[];
+  attachmentError: string | null;
 }
 
 export const Footer = memo(
   ({
     formRef,
+    fileInputRef,
     onInputChange,
+    onFileSelect,
+    onRemoveAttachment,
     onSubmit,
     input,
+    attachments,
+    attachmentError,
     isLoading,
     model,
     systemMessageRef,
@@ -49,7 +69,7 @@ export const Footer = memo(
           {/* Model and Token Count Container */}
           <div className="flex justify-between items-center mb-1 max-w-6xl mx-auto">
             {/* Left-aligned model name */}
-            <div className="text-xs text-base-content opacity-50 uppercase text-left">
+            <div className="text-xs text-base-content opacity-50 uppercase text-left ml-11">
               <strong>Model:</strong>{' '}
               <span className="font-normal">{model}</span>
             </div>
@@ -62,22 +82,80 @@ export const Footer = memo(
               />
             </div>
           </div>
-          <textarea
-            autoFocus={true}
-            className={clsx(
-              'bg-base-100 w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl min-h-14 h-14 lg:text-base lg:h-20 lg:min-h-20 max-h-75',
-              {
-                'skeleton': isLoading,
+          <div className="flex items-end justify-center max-w-6xl mx-auto gap-2">
+            <div className="pb-1">
+              <label
+                className="btn btn-sm btn-ghost"
+                htmlFor="file-upload-input"
+              >
+                📎
+              </label>
+              <input
+                id="file-upload-input"
+                ref={
+                  fileInputRef as unknown as React.RefObject<HTMLInputElement>
+                }
+                type="file"
+                className="hidden"
+                multiple
+                onChange={(e) => onFileSelect(e.target.files)}
+              />
+            </div>
+            <textarea
+              autoFocus={true}
+              className={clsx(
+                'bg-base-100 w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl min-h-14 h-14 lg:text-base lg:h-20 lg:min-h-20 max-h-75',
+                {
+                  'skeleton': isLoading,
+                }
+              )}
+              disabled={isLoading}
+              placeholder={
+                isLoading ? 'Loading response...' : 'Type a message...'
               }
-            )}
-            disabled={isLoading}
-            placeholder={
-              isLoading ? 'Loading response...' : 'Type a message...'
-            }
-            onChange={(e) => onInputChange(e.target.value)}
-            ref={textAreaRef}
-            value={input}
-          />
+              onChange={(e) => onInputChange(e.target.value)}
+              ref={textAreaRef}
+              value={input}
+            />
+          </div>
+          {attachments.length > 0 && (
+            <div className="flex flex-wrap items-center justify-start max-w-5xl mx-auto mt-2 gap-2 ">
+              {attachments.map((att) => (
+                <div
+                  key={att.id}
+                  className="flex items-center gap-2 px-2 py-1 text-xs border rounded bg-base-100 border-base-300"
+                >
+                  {att.type.startsWith('image/') ? (
+                    <figure className="w-12 h-12 overflow-hidden rounded">
+                      <div
+                        className="w-full h-full bg-cover bg-center"
+                        style={{ backgroundImage: `url(${att.url})` }}
+                      />
+                    </figure>
+                  ) : (
+                    <span className="text-lg">📄</span>
+                  )}
+                  {!att.type.startsWith('image/') && (
+                    <span className="max-w-40 truncate" title={att.name}>
+                      {att.name}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    className="btn btn-xs btn-ghost"
+                    onClick={() => onRemoveAttachment(att.id)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          {attachmentError && (
+            <div className="max-w-6xl mx-auto mt-1 text-xs text-error text-left">
+              {attachmentError}
+            </div>
+          )}
           <button
             type="button"
             className="mb-2 btn-block btn btn-xs btn-primary lg:hidden"
