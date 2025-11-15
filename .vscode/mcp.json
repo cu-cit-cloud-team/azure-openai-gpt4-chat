@@ -6,6 +6,10 @@
     },
     "ai-sdk-5-migration": {
       "url": "https://ai-sdk-5-migration-mcp-server.vercel.app/api/mcp"
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
     }
   }
 }
