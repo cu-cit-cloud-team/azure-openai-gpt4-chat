@@ -20,7 +20,7 @@ import remarkMath from 'remark-math';
 import { ChatMeta } from '@/app/components/ChatMeta';
 import { CopyToClipboard } from '@/app/components/CopyToClipboard';
 import { DeleteMessage } from '@/app/components/DeleteMessage';
-import { ReloadMessage } from '@/app/components/ReloadMessage';
+import { RegenerateResponse } from '@/app/components/RegenerateResponse';
 
 // import { markdownToText } from '@/app/utils/markdownToText';
 
@@ -163,7 +163,7 @@ export const ChatBubble = memo(
                 focusTextarea={focusTextarea}
               />
               {index === totalMessages ? (
-                <ReloadMessage
+                <RegenerateResponse
                   isUser={isUser}
                   isLoading={isLoading}
                   regenerate={regenerate}

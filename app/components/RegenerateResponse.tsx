@@ -6,18 +6,18 @@ import { memo, useCallback, useMemo } from 'react';
 
 import { database } from '@/app/database/database.config';
 
-interface ReloadMessageProps {
+interface RegenerateResponseProps {
   isUser: boolean;
   messageId: string;
   isLoading?: boolean;
   regenerate(...args: unknown[]): unknown;
 }
 
-export const ReloadMessage = memo(
-  ({ isUser, messageId, isLoading, regenerate }: ReloadMessageProps) => {
+export const RegenerateResponse = memo(
+  ({ isUser, messageId, isLoading, regenerate }: RegenerateResponseProps) => {
     const buttonKey = useMemo(() => nanoid(), []);
 
-    const reloadMessage = useCallback(async () => {
+    const regenerateResponse = useCallback(async () => {
       const deleteFromDb = async () => {
         await database.messages.where('id').equals(messageId).delete();
       };
@@ -46,7 +46,7 @@ export const ReloadMessage = memo(
       >
         <button
           key={buttonKey}
-          onClick={reloadMessage}
+          onClick={regenerateResponse}
           type="button"
           className={clsx('w-6 h-6 p-0 m-0 mr-0 btn btn-xs', {
             'btn-primary text-primary-content': isUser,
@@ -60,6 +60,6 @@ export const ReloadMessage = memo(
   }
 );
 
-ReloadMessage.displayName = 'ReloadMessage';
+RegenerateResponse.displayName = 'RegenerateResponse';
 
-export default ReloadMessage;
+export default RegenerateResponse;
