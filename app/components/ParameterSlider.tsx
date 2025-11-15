@@ -1,10 +1,7 @@
 import { useAtom } from 'jotai';
-import { nanoid } from 'nanoid';
-import { memo, useCallback } from 'react';
-
-import { getItem, setItem } from '@/app/utils/localStorage';
-
+import { memo } from 'react';
 import { parametersAtom } from '@/app/page';
+import { getItem, setItem } from '@/app/utils/localStorage';
 
 interface ParameterSliderProps {
   paramName: string;
@@ -68,8 +65,8 @@ export const ParameterSlider = memo(
           }}
         />
         <div className="flex justify-between w-full px-2 text-xs !menu:hover">
-          {Array.from({ length: max / step + 1 }, (_, i) => i).map(() => (
-            <span className="text-xs" key={nanoid()}>
+          {Array.from({ length: max / step + 1 }, (_, i) => i).map((index) => (
+            <span className="text-xs" key={index}>
               |
             </span>
           ))}
