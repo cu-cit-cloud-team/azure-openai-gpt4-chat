@@ -101,7 +101,11 @@ export const Header = memo(
               'pointer-events-none opacity-50': isLoading,
             })}
           >
-            <Parameters />
+            <Parameters
+              ref={(el) => {
+                menuDetailsRef.current[1] = el;
+              }}
+            />
           </li>
           <li>
             <ClearChatButton
