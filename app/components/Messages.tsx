@@ -5,8 +5,6 @@ import { memo, useEffect, useRef } from 'react';
 import { ChatBubble } from '@/app/components/ChatBubble';
 import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
 
-const MemoizedChatBubble = memo(ChatBubble);
-
 interface MessagesProps {
   isLoading: boolean;
   messages: UIMessage[];
@@ -32,7 +30,7 @@ export const Messages = memo(
     stop,
     textAreaRef,
     onFileClick,
-  }): MessagesProps => {
+  }: MessagesProps): JSX.Element => {
     const messagesRef = useRef(null);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: scroll to bottom fix
@@ -55,6 +53,8 @@ export const Messages = memo(
         });
       });
       observer.observe(textAreaRef?.current);
+
+      return () => observer.disconnect();
     }, [textAreaRef]);
 
     return (
@@ -66,7 +66,7 @@ export const Messages = memo(
           {messages.length > 0
             ? messages.map((m, idx) => {
                 return (
-                  <MemoizedChatBubble
+                  <ChatBubble
                     key={m.id}
                     index={idx}
                     isLoading={isLoading}
