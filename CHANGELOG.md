@@ -1,3 +1,12 @@
+## 1.0.0-beta.1 (2025-11-16)
+
+* ci(create-release): support pre-releases ([e6c330d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e6c330d))
+* style: ReloadMessage -> RegenerateResponse ([486ba58](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/486ba58))
+* style: update app name ([2253a5b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/2253a5b))
+* refactor(ChatBubble/ReloadMessage): hide button while loading ([12c7baa](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/12c7baa))
+
+
+
 ## 1.0.0-beta.0 (2025-11-15)
 
 * docs(copilot-instructions): add ai-generated content ([21da72e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/21da72e))
