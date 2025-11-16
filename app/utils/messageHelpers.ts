@@ -17,6 +17,39 @@ export function getMessageText(message: UIMessage): string {
 }
 
 /**
+ * Infer media type from filename extension
+ */
+function getMediaTypeFromFilename(filename: string): string {
+  const ext = filename.split('.').pop()?.toLowerCase();
+  const mediaTypeMap: Record<string, string> = {
+    json: 'application/json',
+    pdf: 'application/pdf',
+    ts: 'application/typescript',
+    sh: 'application/x-sh',
+    xml: 'application/xml',
+    yaml: 'application/yaml',
+    yml: 'application/yaml',
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png',
+    webp: 'image/webp',
+    css: 'text/css',
+    csv: 'text/csv',
+    html: 'text/html',
+    htm: 'text/html',
+    js: 'text/javascript',
+    md: 'text/markdown',
+    txt: 'text/plain',
+    go: 'text/x-golang',
+    java: 'text/x-java',
+    php: 'text/x-php',
+    py: 'text/x-python',
+    rb: 'text/x-ruby',
+  };
+  return mediaTypeMap[ext || ''] || 'text/plain';
+}
+
+/**
  * Extract all file parts from a v5 message, including text files stored as text parts
  */
 export function getMessageFiles(message: UIMessage) {
@@ -41,11 +74,12 @@ export function getMessageFiles(message: UIMessage) {
       // Extract text file attachments from text parts
       const match = part.text.match(/^\[File: (.+?)\]\n([\s\S]*)$/);
       if (match) {
+        const filename = match[1];
         files.push({
           type: 'file',
-          mediaType: match[1].endsWith('.md') ? 'text/markdown' : 'text/plain',
+          mediaType: getMediaTypeFromFilename(filename),
           url: '',
-          name: match[1],
+          name: filename,
           textContent: match[2],
         });
       }

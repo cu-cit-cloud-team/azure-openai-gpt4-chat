@@ -3,6 +3,7 @@ import type React from 'react';
 import { memo, useEffect, useRef } from 'react';
 
 import { ChatBubble } from '@/app/components/ChatBubble';
+import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
 
 // Footer height offset for scroll padding calculation
 const FOOTER_OFFSET = 110;
@@ -68,23 +69,8 @@ export const Messages = memo(
         >
           {messages && messages.length > 0
             ? messages.map((message, index) => {
-                const messageText =
-                  message.parts
-                    ?.filter((part) => part.type === 'text')
-                    .map((part) => (part as { text: string }).text)
-                    .join('') || '';
-                const messageFiles =
-                  message.parts
-                    ?.filter((part) => part.type === 'file')
-                    .map(
-                      (part) =>
-                        part as {
-                          type: string;
-                          mediaType: string;
-                          url: string;
-                          name?: string;
-                        }
-                    ) || [];
+                const messageText = getMessageText(message);
+                const messageFiles = getMessageFiles(message);
 
                 return (
                   <ChatBubble
