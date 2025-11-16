@@ -46,7 +46,8 @@ export const SystemMessage = memo(
       if (dropdownRef.current) {
         dropdownRef.current.removeAttribute('open');
       }
-    }, [originalSystemMessage, setSystemMessage]);
+      onCloseMenu?.();
+    }, [originalSystemMessage, setSystemMessage, onCloseMenu]);
 
     const resetClickHandler = useCallback(() => {
       if (localSystemMessage.trim() !== originalSystemMessage.trim()) {
