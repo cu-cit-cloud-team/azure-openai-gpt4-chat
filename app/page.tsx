@@ -232,18 +232,30 @@ export const App = () => {
           url: file.url || '',
           filename: file.name || 'image',
         });
-        imageModalRef.current?.showModal();
       } else if (file.textContent) {
         setModalTextFile({
           content: file.textContent,
           filename: file.name || 'file.txt',
           mediaType: file.mediaType,
         });
-        textModalRef.current?.showModal();
       }
     },
     []
   );
+
+  // Open image modal after it mounts to avoid first-click race condition
+  useEffect(() => {
+    if (modalImageUrl && imageModalRef.current && !imageModalRef.current.open) {
+      imageModalRef.current.showModal();
+    }
+  }, [modalImageUrl]);
+
+  // Open text file modal after it mounts
+  useEffect(() => {
+    if (modalTextFile && textModalRef.current && !textModalRef.current.open) {
+      textModalRef.current.showModal();
+    }
+  }, [modalTextFile]);
 
   const handleKeyDownCb = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -399,7 +411,11 @@ export const App = () => {
       />
       {/* Image modal */}
       {modalImageUrl && (
-        <dialog ref={imageModalRef} className="modal">
+        <dialog
+          ref={imageModalRef}
+          className="modal"
+          onClose={() => setModalImageUrl(null)}
+        >
           <div className="modal-box max-w-5xl w-auto">
             <form method="dialog">
               {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
@@ -422,7 +438,11 @@ export const App = () => {
       )}
       {/* Text file modal */}
       {modalTextFile && (
-        <dialog ref={textModalRef} className="modal">
+        <dialog
+          ref={textModalRef}
+          className="modal"
+          onClose={() => setModalTextFile(null)}
+        >
           <div className="modal-box max-w-5xl w-full">
             <form method="dialog">
               {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
