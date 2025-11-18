@@ -3,7 +3,9 @@ import type React from 'react';
 import { memo, useEffect, useRef } from 'react';
 
 import { ChatBubble } from '@/app/components/ChatBubble';
+
 import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
+import { defaultModel } from '@/app/utils/models';
 
 // Footer height offset for scroll padding calculation
 const FOOTER_OFFSET = 110;
@@ -82,7 +84,11 @@ export const Messages = memo(
                     messageFiles={messageFiles}
                     messageCreatedAt={message.createdAt}
                     messageId={message.id}
-                    model={messageModels?.[message.id] || 'gpt-4o'}
+                    model={
+                      messageModels?.[message.id] ||
+                      defaultModel?.name ||
+                      'gpt-5'
+                    }
                     regenerate={regenerate}
                     stop={stop}
                     totalMessages={messages.length - 1}
