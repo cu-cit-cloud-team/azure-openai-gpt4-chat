@@ -12,16 +12,16 @@ export interface Models {
 
 export const models: Models = [
   // {
-  //   displayName: 'GPT-4o w/ Web Search (2024-11-20)',
-  //   maxInputTokens: 128000,
-  //   maxOutputTokens: 16384,
-  //   name: 'gpt-4o-web-search',
+  //   displayName: 'GPT-5 w/ Web Search (2025-08-07)',
+  //   maxInputTokens: 272000,
+  //   maxOutputTokens: 128000,
+  //   name: 'gpt-5-web-search',
   // },
   // {
-  //   displayName: 'GPT-4o Mini w/ Web Search (2024-07-18)',
-  //   maxInputTokens: 128000,
-  //   maxOutputTokens: 16384,
-  //   name: 'gpt-4o-mini-web-search',
+  //   displayName: 'GPT-5 Mini w/ Web Search (2025-08-07)',
+  //   maxInputTokens: 272000,
+  //   maxOutputTokens: 128000,
+  //   name: 'gpt-5-mini-web-search',
   // },
   {
     displayName: 'GPT-4.1 (2025-04-14)',
@@ -116,11 +116,11 @@ export const models: Models = [
   },
 ];
 
+export const defaultModel = models.find((model) => model.default);
+
 export const modelStringFromName = (name: string): string =>
   models.find((model) => model.name === name)?.displayName ||
-  models.find((model) => model?.default)?.displayName ||
-  'GPT-4o (2024-11-20)';
+  defaultModel?.displayName;
 
 export const modelFromName = (name: string): Model | undefined =>
-  models.find((model) => model.name === name) ||
-  models.find((model) => model.default);
+  models.find((model) => model.name === name) || defaultModel;
