@@ -1,3 +1,22 @@
+## 1.0.0-beta.2 (2025-11-18)
+
+* refactor: fix attachment dbl click issue ([bab7ade](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/bab7ade))
+* refactor(api/chat): update defaults and clean up logic ([232ca84](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/232ca84))
+* refactor(App): update some defaults ([461ac82](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/461ac82))
+* refactor(App/ChatBubble): add preview support for PDFs from chat bubbles ([14223d8](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/14223d8))
+* refactor(env.local): update example env vars ([8c8ae8a](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/8c8ae8a))
+* refactor(Messages): update defaults ([3339000](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/3339000))
+* refactor(utils/models): add defaultModel export ([9842089](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/9842089))
+* chore(deps-dev): bump @biomejs/biome from 2.3.5 to 2.3.6 (#2057) ([a29b85f](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a29b85f)), closes [#2057](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2057)
+* chore(deps-dev): bump @types/react in the types group (#2054) ([7f77278](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7f77278)), closes [#2054](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2054)
+* chore(deps): bump @ai-sdk/azure from 2.0.69 to 2.0.70 (#2055) ([188dc6f](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/188dc6f)), closes [#2055](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2055)
+* chore(deps): bump openai from 6.9.0 to 6.9.1 (#2056) ([63e168e](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/63e168e)), closes [#2056](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2056)
+* fix: file attachment issue ([0a4b9c9](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/0a4b9c9))
+* fix(SystemMessage): close button click handler ([1cec5a3](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/1cec5a3))
+* ci(create-release): update regex ([7c765cd](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7c765cd))
+
+
+
 ## 1.0.0-beta.1 (2025-11-16)
 
 * ci(create-release): support pre-releases ([e6c330d](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e6c330d))
