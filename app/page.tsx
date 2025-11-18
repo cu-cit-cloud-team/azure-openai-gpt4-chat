@@ -9,15 +9,17 @@ import { atomWithStorage } from 'jotai/utils';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { Messages } from '@/app/components/Messages';
+
 import { database } from '@/app/database/database.config';
 import { useFileUpload } from '@/app/hooks/useFileUpload';
 import { useFocusTextarea } from '@/app/hooks/useFocusTextarea';
 import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
 import { getLanguageFromFilename } from '@/app/utils/fileHelpers';
-import { modelFromName } from '@/app/utils/models';
+import { defaultModel, modelFromName } from '@/app/utils/models';
 import { getEditorTheme } from '@/app/utils/themes';
 import { getTokenCount } from '@/app/utils/tokens';
 
@@ -50,17 +52,20 @@ export const systemMessageAtom = atomWithStorage(
 export const systemMessageMaxTokens = 4096;
 
 export const parametersAtom = atomWithStorage('parameters', {
-  model: 'gpt-4o',
+  model: defaultModel?.name || 'gpt-5',
   temperature: '1',
   top_p: '1',
   frequency_penalty: '0',
   presence_penalty: '0',
 });
 
+// get tokens for default model
+const tokensRemaining = defaultModel?.maxInputTokens || 272000;
+
 export const tokensAtom = atomWithStorage('tokens', {
   input: 0,
-  maximum: 16384,
-  remaining: 16384,
+  maximum: tokensRemaining,
+  remaining: tokensRemaining,
   systemMessage: 0,
   systemMessageRemaining: systemMessageMaxTokens,
 });
