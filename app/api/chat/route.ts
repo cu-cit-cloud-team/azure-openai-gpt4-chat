@@ -47,8 +47,8 @@ const defaults = {
   top_p: 1, // 0.0 to 1.0
   frequency_penalty: 0, // -2.0 to 2.0
   presence_penalty: 0, // -2.0 to 2.0
-  max_tokens: 4096,
-  model: 'gpt-41', // currently gpt-4o, gpt-4-turbo, gpt-4, or gpt-35-turbo for aoai
+  max_tokens: 16384,
+  model: 'gpt-5', // see utils/models.ts for available models
   user: 'Cloud Team Chat User',
 };
 
@@ -94,11 +94,10 @@ export async function POST(req: Request) {
   const hasSystemPrompt = messages.some((m) => m.role === 'system');
   const uiMessages = hasSystemPrompt ? messages : [systemPrompt, ...messages];
 
-  const useWebSearch = false; // model.includes('gpt-4o') && model.includes('web-search');
+  // determine if we need can use the responses API
   const useResponsesApi =
-    model.includes('gpt-4o') ||
-    model === 'gpt-41' ||
-    model.includes('gpt-5') ||
+    model.startsWith('gpt-41') ||
+    model.startsWith('gpt-5') ||
     model.startsWith('o');
 
   // create azure client
@@ -130,46 +129,27 @@ export async function POST(req: Request) {
   const llm = modelDeploymentMap[model] || AZURE_OPENAI_GPT5_DEPLOYMENT;
 
   // instantiate azure openai model
-  const azureModel =
-    useWebSearch || useResponsesApi
-      ? azure.responses(llm, {
-          user,
-        })
-      : azure(llm, {
-          user,
-        });
+  const azureModel = useResponsesApi
+    ? azure.responses(llm, {
+        user,
+      })
+    : azure(llm, {
+        user,
+      });
 
   // set up streaming options
-  const streamTextOptions = useWebSearch
-    ? {
-        model: azureModel,
-        messages: convertToModelMessages(uiMessages),
-        temperature,
-        topP: top_p,
-        frequencyPenalty: frequency_penalty,
-        presencePenalty: presence_penalty,
-        maxTokens: max_tokens,
-        toolCallStreaming: true,
-        tools: {
-          web_search_preview: azure.tools.webSearchPreview({
-            searchContextSize: 'high',
-          }),
-        },
-        toolChoice: { type: 'tool', toolName: 'web_search_preview' },
-        experimental_transform: smoothStream(),
-      }
-    : {
-        model: azureModel,
-        messages: convertToModelMessages(uiMessages),
-        temperature,
-        topP: top_p,
-        frequencyPenalty: frequency_penalty,
-        presencePenalty: presence_penalty,
-        maxTokens: max_tokens,
-        experimental_transform: smoothStream(),
-      };
+  const streamTextOptions = {
+    model: azureModel,
+    messages: convertToModelMessages(uiMessages),
+    temperature,
+    topP: top_p,
+    frequencyPenalty: frequency_penalty,
+    presencePenalty: presence_penalty,
+    maxTokens: max_tokens,
+    experimental_transform: smoothStream(),
+  };
 
-  if (!model.startsWith('gpt-4')) {
+  if (!model.startsWith('gpt-41')) {
     delete streamTextOptions.frequencyPenalty;
     delete streamTextOptions.presencePenalty;
     delete streamTextOptions.temperature;
@@ -189,11 +169,13 @@ export async function POST(req: Request) {
         return { totalUsage: part.totalUsage };
       }
     },
-    onError: (_error) => {
+    onError: (error) => {
       // sanitize error forwarded to client
       return {
         message: 'An error occurred processing your request.',
         errorCode: 'STREAM_ERROR',
+        errorType: error.name,
+        errorMessage: error.message,
       };
     },
   });
