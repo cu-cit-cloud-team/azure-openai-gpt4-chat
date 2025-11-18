@@ -115,6 +115,10 @@ export const App = () => {
     filename: string;
     mediaType: string;
   } | null>(null);
+  const [modalPdfFile, setModalPdfFile] = useState<{
+    url: string;
+    filename: string;
+  } | null>(null);
   const [chatError, setChatError] = useState<string | null>(null);
 
   // File upload management
@@ -223,6 +227,7 @@ export const App = () => {
 
   const imageModalRef = useRef<HTMLDialogElement>(null);
   const textModalRef = useRef<HTMLDialogElement>(null);
+  const pdfModalRef = useRef<HTMLDialogElement>(null);
 
   const handleFileClickCb = useCallback(
     (file: {
@@ -236,6 +241,11 @@ export const App = () => {
         setModalImageUrl({
           url: file.url || '',
           filename: file.name || 'image',
+        });
+      } else if (file.mediaType === 'application/pdf') {
+        setModalPdfFile({
+          url: file.url || '',
+          filename: file.name || 'document.pdf',
         });
       } else if (file.textContent) {
         setModalTextFile({
@@ -261,6 +271,13 @@ export const App = () => {
       textModalRef.current.showModal();
     }
   }, [modalTextFile]);
+
+  // Open PDF modal after it mounts
+  useEffect(() => {
+    if (modalPdfFile && pdfModalRef.current && !pdfModalRef.current.open) {
+      pdfModalRef.current.showModal();
+    }
+  }, [modalPdfFile]);
 
   const handleKeyDownCb = useCallback(
     (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -470,6 +487,32 @@ export const App = () => {
                 {modalTextFile.content}
               </SyntaxHighlighter>
             </div>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button type="submit">close</button>
+          </form>
+        </dialog>
+      )}
+      {/* PDF file modal */}
+      {modalPdfFile && (
+        <dialog
+          ref={pdfModalRef}
+          className="modal"
+          onClose={() => setModalPdfFile(null)}
+        >
+          <div className="modal-box max-w-5xl w-full h-[90vh]">
+            <form method="dialog">
+              {/** biome-ignore lint/a11y/useButtonType: daisyUI */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10">
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg mb-4">{modalPdfFile.filename}</h3>
+            <iframe
+              src={modalPdfFile.url}
+              title={modalPdfFile.filename}
+              className="w-full h-[calc(100%-3rem)] rounded border border-base-300"
+            />
           </div>
           <form method="dialog" className="modal-backdrop">
             <button type="submit">close</button>

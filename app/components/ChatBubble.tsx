@@ -234,6 +234,21 @@ export const ChatBubble = memo(
                             />
                           </figure>
                         </button>
+                      ) : file.mediaType === 'application/pdf' ? (
+                        <button
+                          type="button"
+                          className="cursor-pointer flex items-center gap-2"
+                          onClick={() => onFileClick(file)}
+                          onKeyDown={(event) => handleFileKeyDown(event, file)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faFile}
+                            className="text-base"
+                          />
+                          <span className="max-w-40 truncate" title={file.name}>
+                            {file.name || 'PDF Document'}
+                          </span>
+                        </button>
                       ) : file.textContent ? (
                         <button
                           type="button"
