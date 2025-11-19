@@ -79,9 +79,29 @@ Supported models: GPT-4.1, GPT-5, GPT-5.1, o3, o3-mini, o4-mini (and their varia
 
 ### File Support
 
-- Attach images (PNG, JPEG, WEBP), PDFs, and text files
-- Up to 3 files per message, 25MB each
-- Inline preview for images and syntax highlighting for code files
+- Attach images, PDFs, and text-based files
+  - PNG (.png)
+  - JPG (.jpg, .jpeg)
+  - WEBP (.webp)
+  - PDF (.pdf)
+  - Text (.txt, .csv, .tsv)
+  - Markdown (.md)
+  - HTML (.html, .htm)
+  - Yaml (.yaml, .yml)
+  - XML (.xml)
+  - JSON (.json, .jsonc)
+  - TypeScript (.ts, .tsx)
+  - JavaScript (.js, .jsx)
+  - CSS (.css)
+  - Sass (.sass, .scss)
+  - Shell (.sh)
+  - Golang (.go)
+  - Java (.java)
+  - PHP (.php)
+  - Ruby (.rb)
+  - Python (.py)
+- Up to 3 files per message (25MB each)
+- Inline preview for attached files
 
 ### Customization
 
