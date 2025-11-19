@@ -12,7 +12,7 @@ export interface Attachment {
 const MAX_FILES_PER_MESSAGE = 3;
 const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25MB
 const ALLOWED_TYPES = [
-  'application/json', // read as text (.json)
+  'application/json', // read as text (.json, .jsonc)
   'application/pdf', // (.pdf)
   'application/typescript', // read as text (.ts)
   'application/x-sh', // read as text (.sh)
@@ -22,6 +22,8 @@ const ALLOWED_TYPES = [
   'image/png', // (.png)
   'image/webp', // (.webp)
   'text/css', // read as text (.css)
+  'text/x-sass', // read as text (.sass)
+  'text/x-scss', // read as text (.scss)
   'text/csv', // read as text (.csv, .tsv, .txt)
   'text/html', // read as text (.html, .htm)
   'text/javascript', // read as text (.js)
