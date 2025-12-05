@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import { memo, useMemo } from 'react';
-import { parametersAtom, systemMessageMaxTokens, tokensAtom } from '@/app/page';
+import { modelAtom, systemMessageMaxTokens, tokensAtom } from '@/app/page';
 import { modelFromName } from '@/app/utils/models';
 import { getTokenCount } from '@/app/utils/tokens';
 
@@ -20,9 +20,9 @@ export const TokenCount = memo(
     display = 'input',
     useLocalCalculation = false,
   }: TokenCountProps) => {
-    const parameters = useAtomValue(parametersAtom);
+    const modelName = useAtomValue(modelAtom);
     const tokens = useAtomValue(tokensAtom); // Display precomputed values from App
-    const model = modelFromName(parameters.model);
+    const model = modelFromName(modelName);
     const maxTokens = model?.maxInputTokens || 16384;
 
     // Local derived counts for display fallback if tokensAtom not yet populated

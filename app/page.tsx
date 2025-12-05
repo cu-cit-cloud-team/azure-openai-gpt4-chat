@@ -51,9 +51,10 @@ export const systemMessageAtom = atomWithStorage(
 
 export const systemMessageMaxTokens = 4096;
 
-export const parametersAtom = atomWithStorage('parameters', {
-  model: defaultModel?.name || 'gpt-5',
-});
+export const modelAtom = atomWithStorage(
+  'model',
+  defaultModel?.name || 'gpt-5'
+);
 
 // get tokens for default model
 const tokensRemaining = defaultModel?.maxInputTokens || 272000;
@@ -78,7 +79,7 @@ export const App = () => {
 
   const focusTextarea = useFocusTextarea(textAreaRef, systemMessageRef);
 
-  const parameters = useAtomValue(parametersAtom);
+  const modelName = useAtomValue(modelAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
   const editorTheme = useAtomValue(editorThemeAtom);
@@ -154,25 +155,25 @@ export const App = () => {
             body: {
               messages,
               systemMessage,
-              parameters,
+              model: modelName,
               id: userId,
             },
           };
         },
       }),
-    [parameters, systemMessage, userId]
+    [modelName, systemMessage, userId]
   );
 
   const { messages, setMessages, sendMessage, regenerate, stop, status } =
     useChat({
-      id: `${userId}-chat-${parameters.model}`,
+      id: `${userId}-chat-${modelName}`,
       initialMessages: savedMessages || [],
       transport,
       onError: handleChatError,
       onFinish: ({ message }) => {
         const messageWithModel: StoredMessage = {
           ...message,
-          model: parameters.model,
+          model: modelName,
           createdAt: new Date().toISOString(),
         };
         addMessage(messageWithModel);
@@ -189,13 +190,13 @@ export const App = () => {
   const { addMessage, messageModelsRef } = useMessagePersistence({
     messages,
     isLoading,
-    currentModel: parameters.model,
+    currentModel: modelName,
     savedMessages,
   });
 
   // Derive token counts with useMemo - automatically recalculates only when dependencies change
   const derivedTokens = useMemo(() => {
-    const model = modelFromName(parameters.model);
+    const model = modelFromName(modelName);
     const maxTokens = model?.maxInputTokens || 16384;
     const inputCount = input ? getTokenCount(input) : 0;
     const systemMessageCount = systemMessage ? getTokenCount(systemMessage) : 0;
@@ -209,7 +210,7 @@ export const App = () => {
       systemMessage: systemMessageCount,
       systemMessageRemaining: systemRemaining,
     };
-  }, [input, systemMessage, parameters.model]);
+  }, [input, systemMessage, modelName]);
 
   // Sync derived tokens to atom for persistence and cross-component access
   const setTokens = useSetAtom(tokensAtom);
@@ -346,7 +347,7 @@ export const App = () => {
       // Don't dispatch new storage events to avoid infinite loops
       const keysToHandle = [
         'editorTheme',
-        'parameters',
+        'model',
         'systemMessage',
         'theme',
         'tokens',
@@ -423,7 +424,7 @@ export const App = () => {
         attachments={attachments}
         attachmentError={attachmentError}
         isLoading={isLoading}
-        model={parameters.model}
+        model={modelName}
         systemMessageRef={systemMessageRef}
         textAreaRef={textAreaRef}
       />

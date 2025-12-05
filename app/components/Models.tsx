@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAtom } from 'jotai';
 import type React from 'react';
 import { useCallback, useEffect, useRef } from 'react';
-import { parametersAtom } from '@/app/page';
-import { getItem, setItem } from '@/app/utils/localStorage';
+import { modelAtom } from '@/app/page';
+import { setItem } from '@/app/utils/localStorage';
 import { models } from '@/app/utils/models';
 
 interface ModelsProps {
@@ -15,7 +15,7 @@ interface ModelsProps {
 }
 
 export const Models = ({ onOpen, focusTextarea }: ModelsProps) => {
-  const [parameters, setParameters] = useAtom(parametersAtom);
+  const [model, setModel] = useAtom(modelAtom);
   const modelListRef = useRef<HTMLUListElement>(null);
 
   const handleClick = useCallback(
@@ -29,16 +29,13 @@ export const Models = ({ onOpen, focusTextarea }: ModelsProps) => {
         )
       ) {
         // Persist to localStorage first
-        setItem('parameters', {
-          ...getItem('parameters'),
-          model: selectedModel,
-        });
+        setItem('model', selectedModel);
         // Update Jotai atom
-        setParameters({ ...parameters, model: selectedModel });
+        setModel(selectedModel);
         focusTextarea();
       }
     },
-    [parameters, setParameters, focusTextarea]
+    [setModel, focusTextarea]
   );
 
   const updateSelected = useCallback(() => {
@@ -57,9 +54,7 @@ export const Models = ({ onOpen, focusTextarea }: ModelsProps) => {
       'button[data-set_model]'
     );
     for (const button of buttons) {
-      if (
-        (button as HTMLButtonElement).dataset.set_model === parameters.model
-      ) {
+      if ((button as HTMLButtonElement).dataset.set_model === model) {
         const svg = button.querySelector('svg');
         if (svg) {
           svg.classList.remove('hidden');
@@ -72,7 +67,7 @@ export const Models = ({ onOpen, focusTextarea }: ModelsProps) => {
         }
       }
     }
-  }, [parameters.model]);
+  }, [model]);
 
   useEffect(() => {
     updateSelected();

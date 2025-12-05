@@ -8,7 +8,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useAtomValue } from 'jotai';
 import { memo, useEffect, useState } from 'react';
 
-import { parametersAtom, userMetaAtom } from '@/app/page';
+import { modelAtom, userMetaAtom } from '@/app/page';
 
 import { modelStringFromName } from '@/app/utils/models';
 
@@ -35,14 +35,14 @@ export const ChatMeta = memo(
     stop,
     totalMessages,
   }: ChatMetaProps) => {
-    const parameters = useAtomValue(parametersAtom);
+    const modelName = useAtomValue(modelAtom);
     const userMeta = useAtomValue(userMetaAtom);
     const [lastUpdatedString, setLastUpdatedString] = useState('');
 
-    // Use the message's stored model if available, otherwise fall back to current parameters.model
+    // Use the message's stored model if available, otherwise fall back to current model
     const modelInfo = model
       ? modelStringFromName(model)
-      : modelStringFromName(parameters.model);
+      : modelStringFromName(modelName);
 
     useEffect(() => {
       const updateString = () => {

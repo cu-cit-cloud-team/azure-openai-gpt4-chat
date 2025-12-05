@@ -50,15 +50,15 @@ const defaults = {
 
 // main route handler
 export async function POST(req: Request) {
-  // New v5 body contract: messages (UIMessage[]), systemMessage, parameters
+  // New v5 body contract: messages (UIMessage[]), systemMessage, model
   const {
     messages,
     systemMessage: systemMessageRaw,
-    parameters: parameterOverrides,
+    model: modelName,
   } = await req.json();
 
   const systemMessage = systemMessageRaw || defaults.systemMessage;
-  const model = parameterOverrides?.model || defaults.model;
+  const model = modelName || defaults.model;
   const user = defaults.user; // could be enhanced with auth context
   const max_tokens = model === 'gpt-35-turbo' ? 2048 : defaults.max_tokens;
 
