@@ -1,3 +1,4 @@
+/* stylelint-disable-next-line import-notation */
 @import "tailwindcss";
 
 @plugin "daisyui" {

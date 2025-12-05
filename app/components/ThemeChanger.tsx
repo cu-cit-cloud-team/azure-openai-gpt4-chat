@@ -68,6 +68,8 @@ export const ThemeChanger = ({ onOpen, focusTextarea }: ThemeChangerProps) => {
 
   return (
     <div title="Change Theme" className="dropdown">
+      {/** biome-ignore lint/a11y/useSemanticElements: daisyui requires this html structure */}
+      {/** biome-ignore lint/a11y/useValidAnchor: daisyui requires this html structure */}
       <a tabIndex={0} role="button" onClick={onOpen}>
         <FontAwesomeIcon icon={faPalette} /> Theme
       </a>

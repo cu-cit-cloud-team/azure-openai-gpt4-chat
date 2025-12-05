@@ -75,6 +75,8 @@ export const Models = ({ onOpen, focusTextarea }: ModelsProps) => {
 
   return (
     <div title="Change Model" className="dropdown">
+      {/** biome-ignore lint/a11y/useSemanticElements: daisyui requires this html structure */}
+      {/** biome-ignore lint/a11y/useValidAnchor: daisyui requires this html structure */}
       <a tabIndex={0} role="button" onClick={onOpen}>
         <FontAwesomeIcon icon={faMicrochip} /> Model
       </a>
