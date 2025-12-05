@@ -1,3 +1,9 @@
+## 1.0.0-beta.4 (2025-12-05)
+
+* feat(Models): replace parameters dropdown with models dropdown ([0918a2c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/0918a2c))
+
+
+
 ## 1.0.0-beta.3 (2025-12-05)
 
 * chore(deps-dev): bump @biomejs/biome from 2.3.6 to 2.3.7 (#2066) ([96643da](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/96643da)), closes [#2066](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2066)
