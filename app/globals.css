@@ -49,6 +49,15 @@ div.chat-bubble > .reload-container {
   background-color: transparent;
 }
 
+/* Hide native details/summary disclosure triangle */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
 /* fix some display issue in bot chat bubbles in light mode */
 .chat-bubble.bot code,
 .chat-bubble.bot strong,

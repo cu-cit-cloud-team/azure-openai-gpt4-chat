@@ -7,7 +7,7 @@ import { memo, useCallback, useEffect, useRef } from 'react';
 
 import { ClearChatButton } from '@/app/components/ClearChatButton';
 import { ExportChatButton } from '@/app/components/ExportChatButton';
-import { Parameters } from '@/app/components/Parameters';
+import { Models } from '@/app/components/Models';
 import { SystemMessage } from '@/app/components/SystemMessage';
 import { UpdateCheck } from '@/app/components/UpdateCheck';
 
@@ -125,18 +125,8 @@ export const Header = memo(
               </ul>
             </details>
           </li>
-          <li
-            className={clsx({
-              'pointer-events-none opacity-50': isLoading,
-            })}
-          >
-            <Parameters
-              ref={(el) => {
-                menuDetailsRef.current[1] = el;
-              }}
-              onCloseMenu={closeMenus}
-              focusTextarea={focusTextarea}
-            />
+          <li>
+            <Models onOpen={closeMenus} focusTextarea={focusTextarea} />
           </li>
           <li>
             <ClearChatButton

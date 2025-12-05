@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSetAtom } from 'jotai';
 import { useTheme } from 'next-themes';
 import type React from 'react';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { editorThemeAtom } from '@/app/page';
 import { getEditorTheme, themes } from '@/app/utils/themes';
 
@@ -18,11 +18,6 @@ export const ThemeChanger = ({ onOpen, focusTextarea }: ThemeChangerProps) => {
   const { theme, setTheme } = useTheme();
   const setEditorTheme = useSetAtom(editorThemeAtom);
   const themeListRef = useRef<HTMLUListElement>(null);
-
-  const memoizedPaletteIcon = useMemo(
-    () => <FontAwesomeIcon icon={faPalette} />,
-    []
-  );
 
   // console.log(theme);
 
@@ -72,27 +67,13 @@ export const ThemeChanger = ({ onOpen, focusTextarea }: ThemeChangerProps) => {
   }, [updateSelected]);
 
   return (
-    <div title="Change Theme" className="-m-1 dropdown dropdown-end">
+    <div title="Change Theme" className="dropdown">
+      <a tabIndex={0} role="button" onClick={onOpen}>
+        <FontAwesomeIcon icon={faPalette} /> Theme
+      </a>
       <div
         tabIndex={0}
-        role="button"
-        className="btn btn-sm btn-ghost w-fit"
-        onClick={onOpen}
-      >
-        {memoizedPaletteIcon} Theme
-        <svg
-          width="12px"
-          height="12px"
-          className="hidden h-2 w-2 fill-current opacity-60 sm:inline-block"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 2048 2048"
-        >
-          <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" />
-        </svg>
-      </div>
-      <div
-        tabIndex={0}
-        className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-112 max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl outline-1 outline-black/5 mt-13"
+        className="dropdown-content bg-base-200 text-base-content rounded-box top-px h-112 max-h-[calc(100vh-10rem)] overflow-y-auto border border-white/5 shadow-2xl mt-12"
       >
         <ul
           ref={themeListRef}

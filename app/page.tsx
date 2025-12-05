@@ -53,10 +53,6 @@ export const systemMessageMaxTokens = 4096;
 
 export const parametersAtom = atomWithStorage('parameters', {
   model: defaultModel?.name || 'gpt-5',
-  temperature: '1',
-  top_p: '1',
-  frequency_penalty: '0',
-  presence_penalty: '0',
 });
 
 // get tokens for default model
@@ -169,7 +165,7 @@ export const App = () => {
 
   const { messages, setMessages, sendMessage, regenerate, stop, status } =
     useChat({
-      id: `${userId}-chat-${parameters.model}-${parameters.temperature}-${parameters.top_p}-${parameters.frequency_penalty}-${parameters.presence_penalty}`,
+      id: `${userId}-chat-${parameters.model}`,
       initialMessages: savedMessages || [],
       transport,
       onError: handleChatError,

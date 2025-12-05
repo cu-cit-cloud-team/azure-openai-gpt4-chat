@@ -43,10 +43,6 @@ export const runtime = 'edge';
 // set up defaults for chat config
 const defaults = {
   systemMessage: 'You are a helpful AI assistant.',
-  temperature: 1, // 0.0 to 2.0
-  top_p: 1, // 0.0 to 1.0
-  frequency_penalty: 0, // -2.0 to 2.0
-  presence_penalty: 0, // -2.0 to 2.0
   max_tokens: 16384,
   model: 'gpt-5', // see utils/models.ts for available models
   user: 'Cloud Team Chat User',
@@ -62,18 +58,6 @@ export async function POST(req: Request) {
   } = await req.json();
 
   const systemMessage = systemMessageRaw || defaults.systemMessage;
-  const temperature = parameterOverrides?.temperature
-    ? Number(parameterOverrides.temperature)
-    : defaults.temperature;
-  const top_p = parameterOverrides?.top_p
-    ? Number(parameterOverrides.top_p)
-    : defaults.top_p;
-  const frequency_penalty = parameterOverrides?.frequency_penalty
-    ? Number(parameterOverrides.frequency_penalty)
-    : defaults.frequency_penalty;
-  const presence_penalty = parameterOverrides?.presence_penalty
-    ? Number(parameterOverrides.presence_penalty)
-    : defaults.presence_penalty;
   const model = parameterOverrides?.model || defaults.model;
   const user = defaults.user; // could be enhanced with auth context
   const max_tokens = model === 'gpt-35-turbo' ? 2048 : defaults.max_tokens;
@@ -141,20 +125,9 @@ export async function POST(req: Request) {
   const streamTextOptions = {
     model: azureModel,
     messages: convertToModelMessages(uiMessages),
-    temperature,
-    topP: top_p,
-    frequencyPenalty: frequency_penalty,
-    presencePenalty: presence_penalty,
     maxTokens: max_tokens,
     experimental_transform: smoothStream(),
   };
-
-  if (!model.startsWith('gpt-41')) {
-    delete streamTextOptions.frequencyPenalty;
-    delete streamTextOptions.presencePenalty;
-    delete streamTextOptions.temperature;
-    delete streamTextOptions.topP;
-  }
 
   // send the request and store the response
   const response = streamText(streamTextOptions);
