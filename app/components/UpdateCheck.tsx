@@ -1,8 +1,7 @@
-import { faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { ArrowUpCircle } from 'lucide-react';
 // Replace per-render atom with local component state to prevent infinite loops
 import { useEffect, useState } from 'react';
 
@@ -69,7 +68,7 @@ export const UpdateCheck = () => {
       data-tip="Click here or manually reload for latest version"
     >
       <span className="px-2 text-sm indicator-item badge badge-accent">
-        <FontAwesomeIcon className="mr-1" icon={faCircleArrowUp} />
+        <ArrowUpCircle className="mr-1 size-4" />
         Update available
       </span>
     </button>

@@ -1,170 +1,203 @@
-import clsx from 'clsx';
-import { memo, useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { PlusIcon } from 'lucide-react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-import { TokenCount } from '@/app/components/TokenCount';
+import { modelAtom } from '@/app/page';
+import { setItem } from '@/app/utils/localStorage';
+import { models } from '@/app/utils/models';
+import {
+  PromptInput,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputBody,
+  PromptInputButton,
+  PromptInputFooter,
+  PromptInputHeader,
+  type PromptInputMessage,
+  PromptInputSelect,
+  PromptInputSelectContent,
+  PromptInputSelectItem,
+  PromptInputSelectTrigger,
+  PromptInputSelectValue,
+  PromptInputSubmit,
+  PromptInputTextarea,
+  PromptInputTools,
+  usePromptInputAttachments,
+} from '@/components/ai-elements/prompt-input';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface FooterProps {
-  formRef: React.RefObject<HTMLFormElement>;
-  onInputChange: (value: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  input: string;
+  onSubmit: (message: PromptInputMessage) => void;
   isLoading: boolean;
-  model: string;
+  focusTextarea: () => void;
   systemMessageRef: React.RefObject<HTMLTextAreaElement>;
-  textAreaRef: React.RefObject<HTMLTextAreaElement>;
-  fileInputRef: React.RefObject<HTMLInputElement>;
-  onFileSelect: (files: FileList | null) => void;
-  onRemoveAttachment: (id: string) => void;
-  attachments: {
-    id: string;
-    name: string;
-    size: number;
-    type: string;
-    url: string;
-  }[];
-  attachmentError: string | null;
 }
 
+// Component that accesses attachments context and monitors file changes
+const AttachmentButton = ({ onFilesAdded }: { onFilesAdded: () => void }) => {
+  const attachments = usePromptInputAttachments();
+  const prevFileCountRef = React.useRef(attachments.files.length);
+
+  // Detect when files are added
+  useEffect(() => {
+    const currentCount = attachments.files.length;
+    const prevCount = prevFileCountRef.current;
+
+    // If file count increased, files were added
+    if (currentCount > prevCount) {
+      onFilesAdded();
+    }
+
+    prevFileCountRef.current = currentCount;
+  }, [attachments.files.length, onFilesAdded]);
+
+  return (
+    <PromptInputButton onClick={attachments.openFileDialog}>
+      <PlusIcon className="size-4" />
+    </PromptInputButton>
+  );
+};
+
 export const Footer = memo(
-  ({
-    formRef,
-    fileInputRef,
-    onInputChange,
-    onFileSelect,
-    onRemoveAttachment,
-    onSubmit,
-    onKeyDown,
-    input,
-    attachments,
-    attachmentError,
-    isLoading,
-    model,
-    systemMessageRef,
-    textAreaRef,
-  }: FooterProps) => {
+  ({ onSubmit, isLoading, focusTextarea, systemMessageRef }: FooterProps) => {
+    const [model, setModel] = useAtom(modelAtom);
+    const [pendingModel, setPendingModel] = useState<string | null>(null);
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const isInitialMount = useRef(true);
+
+    const handleModelChange = useCallback(
+      (value: string) => {
+        // Skip the initial mount's onValueChange call
+        if (isInitialMount.current) {
+          isInitialMount.current = false;
+          return;
+        }
+
+        // Only show confirmation if the model is actually changing
+        if (value !== model) {
+          setPendingModel(value);
+          setShowConfirmDialog(true);
+        }
+      },
+      [model]
+    );
+
+    const confirmModelChange = useCallback(() => {
+      if (pendingModel) {
+        setItem('model', pendingModel);
+        setModel(pendingModel);
+        setShowConfirmDialog(false);
+        setPendingModel(null);
+        focusTextarea();
+      }
+    }, [pendingModel, setModel, focusTextarea]);
+
+    const cancelModelChange = useCallback(() => {
+      setShowConfirmDialog(false);
+      setPendingModel(null);
+    }, []);
+
+    const handleSubmit = useCallback(
+      (message: PromptInputMessage) => {
+        onSubmit(message);
+      },
+      [onSubmit]
+    );
+
     useEffect(() => {
       if (document?.activeElement !== systemMessageRef?.current && !isLoading) {
-        textAreaRef?.current?.focus();
+        // Focus handled by PromptInput internally
       }
-    }, [isLoading, textAreaRef, systemMessageRef]);
-
-    // Auto-resize textarea based on content
-    // biome-ignore lint/correctness/useExhaustiveDependencies: necessary dependencies are included
-    useEffect(() => {
-      const textarea = textAreaRef?.current;
-      if (textarea) {
-        textarea.style.height = 'auto';
-        textarea.style.height = `${Math.min(textarea.scrollHeight, 300)}px`;
-      }
-    }, [input, textAreaRef]);
+    }, [isLoading, systemMessageRef]);
 
     return (
-      <footer className="fixed bottom-0 z-40 w-full px-4 py-2 text-center lg:p-4 bg-base-300">
-        <form ref={formRef} onSubmit={onSubmit} className="w-full">
-          {/* Model and Token Count Container */}
-          <div className="flex justify-between items-center mb-1 max-w-6xl mx-auto">
-            {/* Left-aligned model name */}
-            <div className="text-xs text-base-content opacity-50 uppercase text-left ml-11">
-              <strong>Model:</strong>{' '}
-              <span className="font-normal">{model}</span>
-            </div>
-            {/* Right-aligned token count */}
-            <div className="text-right">
-              <TokenCount
-                input={input}
-                systemMessage={systemMessageRef?.current?.value || ''}
-                display={'input'}
-              />
-            </div>
-          </div>
-          <div className="flex items-end justify-center max-w-6xl mx-auto gap-2">
-            <div className="pb-1">
-              <label
-                className="btn btn-sm btn-ghost"
-                htmlFor="file-upload-input"
-              >
-                📎
-              </label>
-              <input
-                id="file-upload-input"
-                ref={fileInputRef}
-                type="file"
-                className="hidden"
-                multiple
-                onChange={(e) => onFileSelect(e.target.files)}
-              />
-            </div>
-            <textarea
-              autoFocus={true}
-              className={clsx(
-                'bg-base-100 w-full max-w-6xl p-2 overflow-x-hidden overflow-y-auto text-sm border border-gray-300 rounded shadow-xl resize-none',
-                {
-                  'skeleton': isLoading,
-                }
-              )}
-              disabled={isLoading}
-              placeholder={
-                isLoading ? 'Loading response...' : 'Type a message...'
-              }
-              onChange={(e) => onInputChange(e.target.value)}
-              onKeyDown={onKeyDown}
-              ref={textAreaRef}
-              value={input}
-              rows={2}
-            />
-          </div>
-          {attachments.length > 0 && (
-            <div className="flex flex-wrap items-center justify-start max-w-5xl mx-auto mt-2 gap-2 ">
-              {attachments.map((att) => (
-                <div
-                  key={att.id}
-                  className="flex items-center gap-2 px-2 py-1 text-xs border rounded bg-base-100 border-base-300"
-                >
-                  {att.type.startsWith('image/') ? (
-                    <figure className="w-12 h-12 overflow-hidden rounded">
-                      <div
-                        className="w-full h-full bg-cover bg-center"
-                        style={{ backgroundImage: `url(${att.url})` }}
-                      />
-                    </figure>
-                  ) : (
-                    <span className="text-lg">📄</span>
-                  )}
-                  {!att.type.startsWith('image/') && (
-                    <span className="max-w-40 truncate" title={att.name}>
-                      {att.name}
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    className="btn btn-xs btn-ghost"
-                    onClick={() => onRemoveAttachment(att.id)}
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          {attachmentError && (
-            <div className="max-w-6xl mx-auto mt-1 text-xs text-error text-left">
-              {attachmentError}
-            </div>
-          )}
-          <button
-            type="submit"
-            className="mb-2 btn-block btn btn-xs btn-primary lg:hidden"
+      <footer className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+        <div className="container max-w-4xl mx-auto px-4 py-3">
+          <PromptInput
+            accept="image/*,.pdf,.txt,.md,.json,.csv,.xml,.html,.css,.js,.ts,.tsx,.jsx,.py,.java,.cpp,.c,.h,.sh"
+            multiple
+            maxFiles={3}
+            maxFileSize={25 * 1024 * 1024}
+            onSubmit={handleSubmit}
+            onError={(error) => console.error(error.message)}
           >
-            send message
-          </button>
-          <br />
-          <small className="hidden text-xs bottom-8 lg:inline-block">
-            <kbd className="kbd">Enter</kbd> to send /
-            <kbd className="kbd">Shift</kbd>+<kbd className="kbd">Enter</kbd>{' '}
-            for new line
-          </small>
-        </form>
+            <PromptInputHeader>
+              <PromptInputAttachments>
+                {(attachment) => <PromptInputAttachment data={attachment} />}
+              </PromptInputAttachments>
+            </PromptInputHeader>
+
+            <PromptInputBody>
+              <PromptInputTextarea
+                placeholder={
+                  isLoading
+                    ? 'Loading response...'
+                    : 'What would you like to know?'
+                }
+                disabled={isLoading}
+              />
+            </PromptInputBody>
+
+            <PromptInputFooter>
+              <PromptInputTools>
+                <AttachmentButton onFilesAdded={focusTextarea} />
+
+                <PromptInputSelect
+                  value={model}
+                  onValueChange={handleModelChange}
+                >
+                  <PromptInputSelectTrigger>
+                    <PromptInputSelectValue placeholder="Select model" />
+                  </PromptInputSelectTrigger>
+                  <PromptInputSelectContent className="max-h-[300px]">
+                    {models.map((m) => (
+                      <PromptInputSelectItem key={m.name} value={m.name}>
+                        <span className="truncate">{m.displayName}</span>
+                      </PromptInputSelectItem>
+                    ))}
+                  </PromptInputSelectContent>
+                </PromptInputSelect>
+              </PromptInputTools>
+
+              <PromptInputSubmit
+                status={isLoading ? 'streaming' : undefined}
+                disabled={isLoading}
+              />
+            </PromptInputFooter>
+          </PromptInput>
+        </div>
+
+        <AlertDialog
+          open={showConfirmDialog}
+          onOpenChange={setShowConfirmDialog}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Switch Model?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to switch to {pendingModel}? This will
+                update your model selection.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={cancelModelChange}>
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={confirmModelChange}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </footer>
     );
   }

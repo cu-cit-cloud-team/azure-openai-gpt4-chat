@@ -2,7 +2,7 @@
 
 ## Architecture
 
-Next.js 16 App Router with Azure OpenAI streaming chat. Tech stack: AI SDK v5, React 19 + React Compiler, Jotai state, Dexie (IndexedDB), DaisyUI/Tailwind.
+Next.js 16 App Router with Azure OpenAI streaming chat. Tech stack: AI SDK v5, React 19 + React Compiler, Jotai state, Dexie (IndexedDB), shadcn/ui + Tailwind v4.
 
 ### Key Design Decisions
 
@@ -17,7 +17,7 @@ Next.js 16 App Router with Azure OpenAI streaming chat. Tech stack: AI SDK v5, R
 
 Use the following MCP servers for current documentation and best practices:
 
-- **context7**: Multi-library documentation server. Use for DaisyUI, Tailwind CSS, Jotai, Dexie, React, Next.js, etc.
+- **context7**: Multi-library documentation server. Use for shadcn/ui, Tailwind CSS, Jotai, Dexie, React, Next.js, etc.
   - Start by resolving library name to get the Context7-compatible library ID
   - Then fetch docs for specific topics or general usage
 - **next-devtools**: Next.js and Edge Runtime assistance
@@ -82,7 +82,7 @@ Frontend uses `useChat` with `DefaultChatTransport` for dynamic parameter inject
 ### Markdown & Themes
 
 - `react-markdown` with `remark-gfm`, `remark-math`, `rehype-katex`, `react-syntax-highlighter`
-- daisyUI themes in `app/utils/themes.ts`, persisted via `themeAtom`/`editorThemeAtom`
+- `next-themes` for dark/light mode with shadcn/ui theme variables in `globals.css`
 
 ## Important Notes
 

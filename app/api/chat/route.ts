@@ -122,9 +122,11 @@ export async function POST(req: Request) {
       });
 
   // set up streaming options
+  const convertedMessages = convertToModelMessages(uiMessages);
+
   const streamTextOptions = {
     model: azureModel,
-    messages: convertToModelMessages(uiMessages),
+    messages: convertedMessages,
     maxTokens: max_tokens,
     experimental_transform: smoothStream(),
   };
@@ -143,13 +145,10 @@ export async function POST(req: Request) {
       }
     },
     onError: (error) => {
-      // sanitize error forwarded to client
-      return {
-        message: 'An error occurred processing your request.',
-        errorCode: 'STREAM_ERROR',
-        errorType: error.name,
-        errorMessage: error.message,
-      };
+      // Log the full error server-side for debugging
+      console.error('Chat stream error:', error);
+      // Return a simple string message (errorText must be a string)
+      return 'An error occurred processing your request.';
     },
   });
 }
