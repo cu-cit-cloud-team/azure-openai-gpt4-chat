@@ -4,8 +4,12 @@
       "command": "npx",
       "args": ["-y", "next-devtools-mcp@latest"]
     },
-    "ai-sdk-5-migration": {
-      "url": "https://ai-sdk-5-migration-mcp-server.vercel.app/api/mcp"
+    "ai-elements": {
+      "url": "https://registry.ai-sdk.dev/api/mcp"
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
     },
     "context7": {
       "type": "http",

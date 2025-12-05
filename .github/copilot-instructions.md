@@ -21,6 +21,7 @@ Use the following MCP servers for current documentation and best practices:
   - Start by resolving library name to get the Context7-compatible library ID
   - Then fetch docs for specific topics or general usage
 - **next-devtools**: Next.js and Edge Runtime assistance
+- **ai-elements**: AI Elements documentation, code examples, and best practices
 
 ## Patterns
 
