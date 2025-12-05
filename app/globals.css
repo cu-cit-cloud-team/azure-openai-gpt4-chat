@@ -1,12 +1,50 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: --prefersdark --default dark, autumn, light, dark, abyss, acid, aqua, black, bumblebee, business, caramellatte, cmyk, coffee, corporate, cupcake, cyberpunk, dim, dracula, emerald, fantasy, forest, garden, halloween, lemonade, lofi, luxury, night, nord, pastel, retro, silk, sunset, synthwave, valentine, winter, wireframe;
-};
+  themes:
+    --prefersdark --default dark,
+    autumn,
+    light,
+    dark,
+    abyss,
+    acid,
+    aqua,
+    black,
+    bumblebee,
+    business,
+    caramellatte,
+    cmyk,
+    coffee,
+    corporate,
+    cupcake,
+    cyberpunk,
+    dim,
+    dracula,
+    emerald,
+    fantasy,
+    forest,
+    garden,
+    halloween,
+    lemonade,
+    lofi,
+    luxury,
+    night,
+    nord,
+    pastel,
+    retro,
+    silk,
+    sunset,
+    synthwave,
+    valentine,
+    winter,
+    wireframe;
+}
 
 @plugin "daisyui/theme" {
   name: cyberpunk;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
 }
 
 @plugin "daisyui/theme" {
@@ -20,7 +58,7 @@
 
 .chat-bubble.prose > p {
   margin-top: 0;
-  margin-bottom: calc(var(--spacing) * 5)
+  margin-bottom: calc(var(--spacing) * 5);
 }
 
 .chat-bubble.prose > p:last-of-type {
@@ -40,12 +78,13 @@ div.chat-bubble > .reload-container {
   padding-block: 0;
 }
 
-.code-pre>div:last-of-type {
+.code-pre > div:last-of-type {
   border-radius: var(--radius-lg);
   padding: calc(var(--spacing) * 1);
 }
 
-.menu ul > li div:hover, .menu ul > li span:hover {
+.menu ul > li div:hover,
+.menu ul > li span:hover {
   background-color: transparent;
 }
 
@@ -56,6 +95,13 @@ details > summary {
 
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+:is(
+  .menu :where(li > details > summary),
+  .menu :where(li > .menu-dropdown-toggle)
+)::after {
+  display: none !important;
 }
 
 /* fix some display issue in bot chat bubbles in light mode */
@@ -84,12 +130,20 @@ details > summary::-webkit-details-marker {
 }
 
 .chat-bubble.chat-bubble-primary.prose code:not(pre code) {
-  background-color: color-mix(in srgb, var(--color-primary-content) 75%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--color-primary-content) 75%,
+    transparent
+  );
   color: var(--color-primary);
 }
 
 .chat-bubble.chat-bubble-secondary.prose code:not(pre code) {
-  background-color: color-mix(in srgb, var(--color-secondary-content) 75%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--color-secondary-content) 75%,
+    transparent
+  );
   color: var(--color-secondary);
 }
 

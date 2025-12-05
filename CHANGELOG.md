@@ -1,3 +1,9 @@
+## 1.0.0-beta.5 (2025-12-05)
+
+* refactor: remove parameters object and store/use model instead ([31ee25b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/31ee25b))
+
+
+
 ## 1.0.0-beta.4 (2025-12-05)
 
 * feat(Models): replace parameters dropdown with models dropdown ([0918a2c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/0918a2c))
