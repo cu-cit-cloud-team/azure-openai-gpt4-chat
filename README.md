@@ -115,8 +115,16 @@ Supported models: GPT-4.1, GPT-5, GPT-5.1, o3, o3-mini, o4-mini (and their varia
 - Delete individual messages
 - Regenerate last response
 - Stop ongoing responses
-- Export chat history to JSON
+- Export chat history to JSON (includes attachments)
+- Import chat history from JSON (includes attachments; overwrites current chat when confirmed)
 - Clear all messages
+
+### Import / Export
+
+- **Location:** Header menu actions include Import (JSON upload) and Export (JSON download).
+- **Behavior:** Import will overwrite the current chat; when the chat is empty it auto-imports, otherwise a confirmation dialog is shown.
+- **Attachments:** File parts (images, PDFs, text files) are preserved inline in the JSON export and restored on import.
+- **System message:** The exported file includes the system prompt; importing restores it automatically.
 
 ### Privacy & Data
 
