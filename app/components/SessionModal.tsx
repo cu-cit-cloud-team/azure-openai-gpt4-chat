@@ -1,5 +1,5 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/app/components/ui/alert';
+import { Button } from '@/app/components/ui/button';
 
 export const SessionModal = () => {
   return (

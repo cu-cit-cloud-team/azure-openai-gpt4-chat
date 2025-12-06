@@ -1,26 +1,16 @@
 import { useAtomValue } from 'jotai';
 import { Download } from 'lucide-react';
 import { memo, useCallback, useState } from 'react';
-
-import { database } from '@/app/database/database.config';
-import { systemMessageAtom } from '@/app/page';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+import { ConfirmDialog } from '@/app/components/ConfirmDialog';
+import { Button } from '@/app/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/app/components/ui/tooltip';
+import { database } from '@/app/database/database.config';
+import { systemMessageAtom } from '@/app/utils/atoms';
 
 interface ExportChatButtonProps {
   isLoading: boolean;
@@ -31,7 +21,15 @@ export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
   const [showDialog, setShowDialog] = useState(false);
 
   const downloadFile = useCallback(
-    ({ data, fileName = 'chat-history.json', fileType = 'text/json' }) => {
+    ({
+      data,
+      fileName = 'chat-history.json',
+      fileType = 'text/json',
+    }: {
+      data: string;
+      fileName?: string;
+      fileType?: string;
+    }) => {
       const blob = new Blob([data], { type: fileType });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -55,18 +53,21 @@ export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       )
       .map((message) => {
-        const sortedKeys = Object.keys(message).sort();
-        const sortedMessage = {};
-        for (const key of sortedKeys) {
-          sortedMessage[key] = message[key];
-        }
-        return sortedMessage;
+        // Return message as-is without re-sorting keys
+        return message;
       });
-    sortedMessages.unshift({
-      role: 'system',
-      content: systemMessage,
-    });
-    return JSON.stringify(sortedMessages, null, 2);
+    // Add system message at the beginning for export
+    const messagesWithSystem = [
+      {
+        id: 'system',
+        role: 'system' as const,
+        parts: [{ type: 'text' as const, text: systemMessage }],
+        createdAt: new Date().toISOString(),
+        model: 'system',
+      },
+      ...sortedMessages,
+    ];
+    return JSON.stringify(messagesWithSystem, null, 2);
   }, [systemMessage]);
 
   const handleExportConfirm = useCallback(async () => {
@@ -97,22 +98,14 @@ export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
         </Tooltip>
       </TooltipProvider>
 
-      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Download Chat History?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will download your chat history as a JSON file.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleExportConfirm}>
-              Download
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDialog
+        open={showDialog}
+        onOpenChange={setShowDialog}
+        title="Download Chat History?"
+        description="This will download your chat history as a JSON file."
+        confirmText="Download"
+        onConfirm={handleExportConfirm}
+      />
     </>
   );
 });

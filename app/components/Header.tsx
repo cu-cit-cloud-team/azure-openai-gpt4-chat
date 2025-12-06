@@ -7,14 +7,14 @@ import { SystemMessage } from '@/app/components/SystemMessage';
 import { ThemeToggle } from '@/app/components/ThemeToggle';
 import { UpdateCheck } from '@/app/components/UpdateCheck';
 import { UserAvatar } from '@/app/components/UserAvatar';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/app/components/ui/alert';
+import { Button } from '@/app/components/ui/button';
 
 import pkg from '@/package.json';
 
 interface HeaderProps {
   isLoading: boolean;
-  systemMessageRef: React.RefObject<HTMLTextAreaElement>;
+  systemMessageRef: React.RefObject<HTMLTextAreaElement | null>;
   chatError?: string | null;
   onClearError?: () => void;
   setMessages: (messages: UIMessage[]) => void;
@@ -50,6 +50,7 @@ export const Header = memo(
             {/* Center section - Actions */}
             <div className="flex items-center gap-2 shrink-0">
               <SystemMessage
+                isLoading={isLoading}
                 systemMessageRef={systemMessageRef}
                 setMessages={setMessages}
                 focusTextarea={focusTextarea}

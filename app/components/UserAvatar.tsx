@@ -1,9 +1,7 @@
 import { useAtom } from 'jotai';
 import { LogOut, UserCircle } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-
-import { userMetaAtom } from '@/app/page';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/app/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +9,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/app/components/ui/dropdown-menu';
+import { userMetaAtom } from '@/app/utils/atoms';
 
 export const UserAvatar = memo(() => {
   const [email, setEmail] = useState('');
@@ -36,11 +35,12 @@ export const UserAvatar = memo(() => {
         .then(async (resp) => {
           const response = await resp.json();
           const email = response[0]?.user_claims.find(
-            (item) => item.typ === 'preferred_username'
+            (item: { typ: string; val: string }) =>
+              item.typ === 'preferred_username'
           ).val;
 
           const name = response[0]?.user_claims.find(
-            (item) => item.typ === 'name'
+            (item: { typ: string; val: string }) => item.typ === 'name'
           ).val;
 
           const user_id = response[0]?.user_id;

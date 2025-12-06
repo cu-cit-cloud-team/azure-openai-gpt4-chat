@@ -1,10 +1,6 @@
 import { useAtom } from 'jotai';
 import { PlusIcon } from 'lucide-react';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-
-import { modelAtom } from '@/app/page';
-import { setItem } from '@/app/utils/localStorage';
-import { models } from '@/app/utils/models';
 import {
   PromptInput,
   PromptInputAttachment,
@@ -23,23 +19,18 @@ import {
   PromptInputTextarea,
   PromptInputTools,
   usePromptInputAttachments,
-} from '@/components/ai-elements/prompt-input';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+} from '@/app/components/ai-elements/prompt-input';
+import { ConfirmDialog } from '@/app/components/ConfirmDialog';
+import { Alert, AlertDescription } from '@/app/components/ui/alert';
+import { modelAtom } from '@/app/utils/atoms';
+import { setItem } from '@/app/utils/localStorage';
+import { models } from '@/app/utils/models';
 
 interface FooterProps {
   onSubmit: (message: PromptInputMessage) => void;
   isLoading: boolean;
   focusTextarea: () => void;
-  systemMessageRef: React.RefObject<HTMLTextAreaElement>;
+  systemMessageRef: React.RefObject<HTMLTextAreaElement | null>;
 }
 
 // Component that accesses attachments context and monitors file changes
@@ -72,20 +63,22 @@ export const Footer = memo(
     const [model, setModel] = useAtom(modelAtom);
     const [pendingModel, setPendingModel] = useState<string | null>(null);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-    const isInitialMount = useRef(true);
+    const [fileError, setFileError] = useState<string | null>(null);
+    const hasInteractedRef = useRef(false);
 
     const handleModelChange = useCallback(
       (value: string) => {
-        // Skip the initial mount's onValueChange call
-        if (isInitialMount.current) {
-          isInitialMount.current = false;
-          return;
-        }
-
-        // Only show confirmation if the model is actually changing
+        // Only show confirmation if:
+        // 1. The model is actually changing
+        // 2. User has interacted (not the initial mount)
         if (value !== model) {
-          setPendingModel(value);
-          setShowConfirmDialog(true);
+          if (hasInteractedRef.current) {
+            setPendingModel(value);
+            setShowConfirmDialog(true);
+          } else {
+            // First interaction - just mark as interacted and update without confirm
+            hasInteractedRef.current = true;
+          }
         }
       },
       [model]
@@ -104,6 +97,12 @@ export const Footer = memo(
     const cancelModelChange = useCallback(() => {
       setShowConfirmDialog(false);
       setPendingModel(null);
+    }, []);
+
+    const handleFileError = useCallback((error: { message: string }) => {
+      setFileError(error.message);
+      // Auto-dismiss after 5 seconds
+      setTimeout(() => setFileError(null), 5000);
     }, []);
 
     const handleSubmit = useCallback(
@@ -128,7 +127,7 @@ export const Footer = memo(
             maxFiles={3}
             maxFileSize={25 * 1024 * 1024}
             onSubmit={handleSubmit}
-            onError={(error) => console.error(error.message)}
+            onError={handleFileError}
           >
             <PromptInputHeader>
               <PromptInputAttachments>
@@ -176,28 +175,23 @@ export const Footer = memo(
           </PromptInput>
         </div>
 
-        <AlertDialog
+        {fileError && (
+          <div className="fixed bottom-20 left-0 right-0 z-50 flex justify-center px-4">
+            <Alert variant="destructive" className="max-w-md">
+              <AlertDescription>{fileError}</AlertDescription>
+            </Alert>
+          </div>
+        )}
+
+        <ConfirmDialog
           open={showConfirmDialog}
           onOpenChange={setShowConfirmDialog}
-        >
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Switch Model?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to switch to {pendingModel}? This will
-                update your model selection.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel onClick={cancelModelChange}>
-                Cancel
-              </AlertDialogCancel>
-              <AlertDialogAction onClick={confirmModelChange}>
-                Continue
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+          title="Switch Model?"
+          description={`Are you sure you want to switch to ${pendingModel}? This will update your model selection.`}
+          confirmText="Continue"
+          onConfirm={confirmModelChange}
+          onCancel={cancelModelChange}
+        />
       </footer>
     );
   }

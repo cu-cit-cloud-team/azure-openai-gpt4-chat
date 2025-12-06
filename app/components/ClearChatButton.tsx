@@ -2,24 +2,15 @@ import type { UIMessage } from 'ai';
 import { Eraser } from 'lucide-react';
 import { memo, useCallback, useState } from 'react';
 
-import { useClearMessages } from '@/app/hooks/useClearMessages';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+import { ConfirmDialog } from '@/app/components/ConfirmDialog';
+import { Button } from '@/app/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/app/components/ui/tooltip';
+import { useClearMessages } from '@/app/hooks/useClearMessages';
 
 interface ClearChatButtonProps {
   isLoading: boolean;
@@ -60,23 +51,15 @@ export const ClearChatButton = memo(
           </Tooltip>
         </TooltipProvider>
 
-        <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Clear Chat History?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to clear the chat history? This action
-                cannot be undone.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleClearConfirm}>
-                Clear
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <ConfirmDialog
+          open={showDialog}
+          onOpenChange={setShowDialog}
+          title="Clear Chat History?"
+          description="Are you sure you want to clear the chat history? This action cannot be undone."
+          confirmText="Clear"
+          onConfirm={handleClearConfirm}
+          variant="destructive"
+        />
       </>
     );
   }

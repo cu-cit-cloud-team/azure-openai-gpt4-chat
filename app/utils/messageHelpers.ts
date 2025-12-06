@@ -76,15 +76,6 @@ export function getMessageFiles(message: UIMessage) {
         url: filePart.url,
         name: filePart.filename || filePart.name || 'file',
       });
-    } else if (part.type === 'image') {
-      // Handle image parts (AI SDK v5 format for images)
-      const imagePart = part as { image: string; experimental_url?: string };
-      files.push({
-        type: 'file', // Convert to 'file' type for display compatibility
-        mediaType: 'image/png', // Default, could be inferred from data URL
-        url: imagePart.image || imagePart.experimental_url || '',
-        name: 'image.png',
-      });
     } else if (part.type === 'text' && part.text.startsWith('[File: ')) {
       // Extract text file attachments from text parts
       const match = part.text.match(/^\[File: (.+?)\]\n([\s\S]*)$/);

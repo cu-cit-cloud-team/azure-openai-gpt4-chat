@@ -8,7 +8,6 @@ import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtom, useAtomValue } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import {
   Bot,
   Check,
@@ -21,13 +20,18 @@ import {
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Streamdown } from 'streamdown';
-
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { database } from '@/app/database/database.config';
 import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
+import {
+  isLoadingAtom,
+  modelAtom,
+  systemMessageAtom,
+  userMetaAtom,
+} from '@/app/utils/atoms';
 import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
-import { defaultModel, modelStringFromName } from '@/app/utils/models';
+import { modelStringFromName } from '@/app/utils/models';
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
@@ -36,28 +40,19 @@ import {
   Conversation,
   ConversationContent,
   ConversationScrollButton,
-} from '@/components/ai-elements/conversation';
+} from '@/app/components/ai-elements/conversation';
 import {
   Message,
   MessageAction,
   MessageActions,
   MessageContent,
   MessageResponse,
-} from '@/components/ai-elements/message';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+} from '@/app/components/ai-elements/message';
+import { ConfirmDialog } from '@/app/components/ConfirmDialog';
+import { Alert, AlertDescription } from '@/app/components/ui/alert';
+import { Avatar, AvatarFallback } from '@/app/components/ui/avatar';
+import { Button } from '@/app/components/ui/button';
+import { Dialog, DialogContent, DialogTitle } from '@/app/components/ui/dialog';
 
 /**
  * Extended UIMessage type with additional metadata we store
@@ -99,36 +94,7 @@ const TEXT_TYPES = new Set([
   'text/x-scss',
 ]);
 
-export const themeAtom = atomWithStorage('theme', 'dark');
-
-export const systemMessageAtom = atomWithStorage(
-  'systemMessage',
-  'You are a helpful AI assistant.'
-);
-
-export const systemMessageMaxTokens = 4096;
-
-export const modelAtom = atomWithStorage(
-  'model',
-  defaultModel?.name || 'gpt-5'
-);
-
-// get tokens for default model
-const tokensRemaining = defaultModel?.maxInputTokens || 272000;
-
-export const tokensAtom = atomWithStorage('tokens', {
-  input: 0,
-  maximum: tokensRemaining,
-  remaining: tokensRemaining,
-  systemMessage: 0,
-  systemMessageRemaining: systemMessageMaxTokens,
-});
-
-export const userMetaAtom = atomWithStorage('userMeta', {});
-
-export const isLoadingAtom = atomWithStorage('isLoading', false);
-
-export const App = () => {
+export default function App() {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
 
   const focusTextarea = useCallback(() => {
@@ -154,7 +120,7 @@ export const App = () => {
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-    return sorted as StoredMessage[];
+    return sorted;
   }, []);
 
   const handleChatError = useCallback((error: Error | { message?: string }) => {
@@ -205,7 +171,6 @@ export const App = () => {
 
   const { messages, setMessages, sendMessage, status } = useChat({
     id: `${userId}-chat`,
-    initialMessages: savedMessages || [],
     transport,
     onError: handleChatError,
     onFinish: ({ message }) => {
@@ -303,26 +268,63 @@ export const App = () => {
 
   const handleRegenerateResponse = useCallback(
     async (messageId: string) => {
-      // Find the message index
-      const messageIndex = messages.findIndex((m) => m.id === messageId);
-      if (messageIndex === -1) {
-        return;
+      try {
+        // Find the message index
+        const messageIndex = messages.findIndex((m) => m.id === messageId);
+        if (messageIndex === -1) {
+          return;
+        }
+
+        const message = messages[messageIndex];
+        const isUserMessage = message.role === 'user';
+
+        if (isUserMessage) {
+          // For user messages: remove it and everything after, then resend
+          const messagesToKeep = messages.slice(0, messageIndex);
+
+          // Delete this message and all messages after from database
+          const messageIdsToDelete = messages
+            .slice(messageIndex)
+            .map((m) => m.id);
+          await database.messages.bulkDelete(messageIdsToDelete);
+
+          // Update messages state to remove the user message and everything after
+          setMessages(messagesToKeep);
+
+          // Wait a tick to ensure state has updated, then resend the message
+          setTimeout(() => {
+            // Ensure parts exist and are in the correct format
+            if (message.parts && Array.isArray(message.parts)) {
+              // Resend the user message with its parts - this will create a new message with a new ID
+              sendMessage({ parts: message.parts });
+            }
+          }, 10);
+        } else {
+          // For assistant messages: delete it and everything after
+          const messagesToKeep = messages.slice(0, messageIndex);
+
+          // Delete this message and all after it from database
+          const messageIdsToDelete = messages
+            .slice(messageIndex)
+            .map((m) => m.id);
+          await database.messages.bulkDelete(messageIdsToDelete);
+
+          // Update messages state
+          setMessages(messagesToKeep);
+
+          // The chat will automatically continue from the last user message
+          // due to the useChat hook's behavior
+        }
+      } catch (error) {
+        console.error('Error regenerating response:', error);
+        setChatError(
+          error instanceof Error
+            ? error.message
+            : 'Failed to regenerate response'
+        );
       }
-
-      // Get all messages up to (but not including) this one
-      const messagesToKeep = messages.slice(0, messageIndex);
-
-      // Delete this message and all after it from database
-      const messageIdsToDelete = messages.slice(messageIndex).map((m) => m.id);
-      await database.messages.bulkDelete(messageIdsToDelete);
-
-      // Update messages state
-      setMessages(messagesToKeep);
-
-      // The chat will automatically continue from the last user message
-      // due to the useChat hook's behavior
     },
-    [messages, setMessages]
+    [messages, setMessages, sendMessage]
   );
 
   const handlePromptSubmit = useCallback(
@@ -373,24 +375,6 @@ export const App = () => {
         }
       }
 
-      console.log('Parts being sent:', parts.length, 'parts');
-      parts.forEach((part, i) => {
-        if (part.type === 'text') {
-          const textPart = part as { type: 'text'; text: string };
-          console.log(`Part ${i}: text (${textPart.text.slice(0, 50)}...)`);
-        } else if (part.type === 'file') {
-          const filePart = part as {
-            type: 'file';
-            url: string;
-            mediaType: string;
-          };
-          const dataInfo = filePart.url.startsWith('data:')
-            ? 'data URL'
-            : 'URL';
-          console.log(`Part ${i}: file (${filePart.mediaType}, ${dataInfo})`);
-        }
-      });
-
       if (parts.length > 0) {
         sendMessage({ parts });
       }
@@ -398,11 +382,13 @@ export const App = () => {
     [sendMessage]
   );
 
-  // Load saved messages into chat when they're available
+  // Load saved messages into chat when they're available (only on initial load)
   // Model tracking is now handled inside useMessagePersistence hook
+  const initialLoadRef = useRef(false);
   useEffect(() => {
-    if (savedMessages) {
+    if (savedMessages && !initialLoadRef.current) {
       setMessages(savedMessages);
+      initialLoadRef.current = true;
     }
   }, [savedMessages, setMessages]);
 
@@ -431,27 +417,35 @@ export const App = () => {
     };
   }, []);
 
-  const ErrorFallback = memo(({ error, resetErrorBoundary }) => {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-        <Alert variant="destructive" className="w-11/12 max-w-lg">
-          <AlertDescription className="space-y-4">
-            <h3 className="text-lg font-bold">Error</h3>
-            <p>{error?.message}</p>
-            <Button
-              variant="destructive"
-              onClick={() => {
-                resetErrorBoundary();
-                window.location.reload();
-              }}
-            >
-              Reload and try again
-            </Button>
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  });
+  const ErrorFallback = memo(
+    ({
+      error,
+      resetErrorBoundary,
+    }: {
+      error: Error;
+      resetErrorBoundary: () => void;
+    }) => {
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+          <Alert variant="destructive" className="w-11/12 max-w-lg">
+            <AlertDescription className="space-y-4">
+              <h3 className="text-lg font-bold">Error</h3>
+              <p>{error?.message}</p>
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  resetErrorBoundary();
+                  window.location.reload();
+                }}
+              >
+                Reload and try again
+              </Button>
+            </AlertDescription>
+          </Alert>
+        </div>
+      );
+    }
+  );
 
   ErrorFallback.displayName = 'ErrorFallback';
 
@@ -605,7 +599,7 @@ export const App = () => {
                             )}
                           </MessageAction>
 
-                          {!isUser && isLastMessage && (
+                          {isLastMessage && (
                             <MessageAction
                               tooltip="Regenerate response"
                               onClick={() =>
@@ -698,29 +692,17 @@ export const App = () => {
       </Dialog>
 
       {/* Delete message confirmation dialog */}
-      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete Message?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to delete this message? This action cannot
-              be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={cancelDeleteMessage}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDeleteMessage}>
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDialog
+        open={showDeleteDialog}
+        onOpenChange={setShowDeleteDialog}
+        title="Delete Message?"
+        description="Are you sure you want to delete this message? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={confirmDeleteMessage}
+        onCancel={cancelDeleteMessage}
+        variant="destructive"
+      />
     </ErrorBoundary>
   );
-};
-
-App.displayName = 'App';
-
-export default App;
+}

@@ -2,7 +2,11 @@
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import { memo, useMemo } from 'react';
-import { modelAtom, systemMessageMaxTokens, tokensAtom } from '@/app/page';
+import {
+  modelAtom,
+  systemMessageMaxTokens,
+  tokensAtom,
+} from '@/app/utils/atoms';
 import { modelFromName } from '@/app/utils/models';
 import { getTokenCount } from '@/app/utils/tokens';
 

@@ -54,27 +54,28 @@ export function useMessagePersistence({
 
   // Save new messages to indexedDB when messages change
   useEffect(() => {
-    if (messages.length > savedMessageCountRef.current) {
-      const lastMessage = messages[messages.length - 1];
-      // Only save if this is a genuinely new message, not one loaded from DB
-      const isNewMessage = !savedMessageIdsRef.current.has(lastMessage.id);
+    if (messages.length === 0) {
+      return;
+    }
 
-      // Save user messages immediately, assistant messages after loading completes
-      if (
-        isNewMessage &&
-        (lastMessage.role === 'user' ||
-          (lastMessage.role === 'assistant' && !isLoading))
-      ) {
-        // Create StoredMessage with model and createdAt
-        const storedMessage: StoredMessage = {
-          ...lastMessage,
-          model: currentModel,
-          createdAt: new Date().toISOString(),
-        };
-        addMessage(storedMessage);
-        savedMessageIdsRef.current.add(lastMessage.id);
-        savedMessageCountRef.current = messages.length;
-      }
+    const lastMessage = messages[messages.length - 1];
+    const isNewMessage = !savedMessageIdsRef.current.has(lastMessage.id);
+
+    // Save user messages immediately, assistant messages after loading completes
+    if (
+      isNewMessage &&
+      (lastMessage.role === 'user' ||
+        (lastMessage.role === 'assistant' && !isLoading))
+    ) {
+      // Create StoredMessage with model and createdAt
+      const storedMessage: StoredMessage = {
+        ...lastMessage,
+        model: currentModel,
+        createdAt: new Date().toISOString(),
+      };
+      addMessage(storedMessage);
+      savedMessageIdsRef.current.add(lastMessage.id);
+      savedMessageCountRef.current = messages.length;
     }
   }, [addMessage, messages, isLoading, currentModel]);
 

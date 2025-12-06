@@ -2,46 +2,38 @@ import type { UIMessage } from 'ai';
 import { useAtom } from 'jotai';
 import { Bot, RotateCcw, Save, X } from 'lucide-react';
 import { memo, useCallback, useEffect, useState } from 'react';
-
 // import { TokenCount } from '@/app/components/TokenCount';
-import { useClearMessages } from '@/app/hooks/useClearMessages';
-import { systemMessageAtom } from '@/app/page';
+import { ConfirmDialog } from '@/app/components/ConfirmDialog';
+import { Button } from '@/app/components/ui/button';
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/app/components/ui/popover';
+import { Textarea } from '@/app/components/ui/textarea';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/app/components/ui/tooltip';
+import { useClearMessages } from '@/app/hooks/useClearMessages';
+import { systemMessageAtom } from '@/app/utils/atoms';
 
 interface SystemMessageProps {
-  systemMessageRef?: React.RefObject<HTMLTextAreaElement>;
+  isLoading: boolean;
+  systemMessageRef?: React.RefObject<HTMLTextAreaElement | null>;
   setMessages: (messages: UIMessage[]) => void;
   focusTextarea: () => void;
 }
 
 export const SystemMessage = memo(
-  ({ systemMessageRef, setMessages, focusTextarea }: SystemMessageProps) => {
+  ({
+    isLoading,
+    systemMessageRef,
+    setMessages,
+    focusTextarea,
+  }: SystemMessageProps) => {
     const [systemMessage, setSystemMessage] = useAtom(systemMessageAtom);
     const [localSystemMessage, setLocalSystemMessage] = useState('');
     const [originalSystemMessage, setOriginalSystemMessage] = useState('');
@@ -87,34 +79,35 @@ export const SystemMessage = memo(
 
     return (
       <>
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Popover open={open} onOpenChange={setOpen}>
           <TooltipProvider>
             <Tooltip>
-              <DialogTrigger asChild>
+              <PopoverTrigger asChild>
                 <TooltipTrigger asChild>
                   <Button
                     variant="ghost"
                     size="icon"
+                    disabled={isLoading}
                     aria-label="System message"
                   >
                     <Bot className="size-5" />
                   </Button>
                 </TooltipTrigger>
-              </DialogTrigger>
+              </PopoverTrigger>
               <TooltipContent>
                 <p>System message</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <DialogContent className="sm:max-w-[600px]">
-            <DialogHeader>
-              <DialogTitle>System Message</DialogTitle>
-              <DialogDescription>
-                Configure the AI assistant's behavior and personality
-              </DialogDescription>
-            </DialogHeader>
+          <PopoverContent className="w-[500px] p-0" align="end">
+            <div className="space-y-4 p-4">
+              <div className="space-y-2">
+                <h4 className="font-medium leading-none">System Message</h4>
+                <p className="text-sm text-muted-foreground">
+                  Configure the AI assistant's behavior and personality
+                </p>
+              </div>
 
-            <div className="space-y-4 py-4">
               <Textarea
                 ref={systemMessageRef}
                 value={localSystemMessage}
@@ -129,73 +122,58 @@ export const SystemMessage = memo(
               display={'systemMessage'}
               useLocalCalculation={true}
             /> */}
-            </div>
 
-            <DialogFooter className="gap-2">
-              <Button variant="outline" onClick={handleClose}>
-                <X className="size-4 mr-2" />
-                Close
-              </Button>
-              <Button
-                variant="destructive"
-                onClick={handleReset}
-                disabled={
-                  localSystemMessage.trim() === originalSystemMessage.trim()
-                }
-              >
-                <RotateCcw className="size-4 mr-2" />
-                Reset
-              </Button>
-              <Button
-                onClick={handleSave}
-                disabled={
-                  localSystemMessage.trim() === originalSystemMessage.trim()
-                }
-              >
-                <Save className="size-4 mr-2" />
-                Save
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+              <div className="flex items-center justify-end gap-2">
+                <Button variant="outline" size="sm" onClick={handleClose}>
+                  <X className="size-4 mr-2" />
+                  Close
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={handleReset}
+                  disabled={
+                    localSystemMessage.trim() === originalSystemMessage.trim()
+                  }
+                >
+                  <RotateCcw className="size-4 mr-2" />
+                  Reset
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleSave}
+                  disabled={
+                    localSystemMessage.trim() === originalSystemMessage.trim()
+                  }
+                >
+                  <Save className="size-4 mr-2" />
+                  Save
+                </Button>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
 
         {/* Reset confirmation dialog */}
-        <AlertDialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Reset Changes?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to reset your unsaved changes?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={confirmReset}>
-                Reset
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <ConfirmDialog
+          open={showResetDialog}
+          onOpenChange={setShowResetDialog}
+          title="Reset Changes?"
+          description="Are you sure you want to reset your unsaved changes?"
+          confirmText="Reset"
+          onConfirm={confirmReset}
+          variant="destructive"
+        />
 
         {/* Save confirmation dialog */}
-        <AlertDialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Change System Message?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Are you sure you want to change the system message?
-                <br />
-                <br />
-                <strong>NOTE:</strong> This will also clear your chat history
-                and reload the app.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={confirmSave}>Save</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <ConfirmDialog
+          open={showSaveDialog}
+          onOpenChange={setShowSaveDialog}
+          title="Change System Message?"
+          description="Are you sure you want to change the system message?\n\nNOTE: This will also clear your chat history and reload the app."
+          confirmText="Save"
+          onConfirm={confirmSave}
+        />
       </>
     );
   }
