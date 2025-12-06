@@ -56,7 +56,7 @@ export const UpdateCheck = () => {
 
     const getLatestVersion = async (
       org = 'cu-cit-cloud-team',
-      repo = 'azure-openai-gpt4-chat'
+      repo = 'azure-openai-gpt-chat'
     ) => {
       try {
         const response = await fetch(

@@ -1,6 +1,6 @@
-# azure-openai-gpt4-chat
+# azure-openai-gpt-chat
 
-[![Build & Deploy](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/actions/workflows/build-and-deploy.yml)
+[![Build & Deploy](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/actions/workflows/build-and-deploy.yml)
 
 ChatGPT-like streaming chat interface powered by Azure OpenAI with support for GPT-4.1, GPT-5, GPT-5.1, and o-series models
 
@@ -35,8 +35,8 @@ All data stays in your browser - chat history, uploaded files, preferences, and 
 1. **Clone and install**
 
    ```bash
-   git clone https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat.git
-   cd azure-openai-gpt4-chat
+   git clone https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat.git
+   cd azure-openai-gpt-chat
    npm install
    ```
 
