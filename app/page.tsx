@@ -96,18 +96,23 @@ const TEXT_TYPES = new Set([
 
 export default function App() {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
+  // Ref for PromptInput textarea
+  const promptInputRef = useRef<HTMLTextAreaElement>(null);
 
   const focusTextarea = useCallback(() => {
     setTimeout(() => {
       // Don't steal focus from system message textarea
       if (document?.activeElement !== systemMessageRef.current) {
-        // Query for the PromptInput textarea
-        const textarea = document.querySelector(
-          'textarea[name="message"]'
-        ) as HTMLTextAreaElement | null;
-        textarea?.focus();
+        promptInputRef.current?.focus();
       }
     }, 0);
+  }, []);
+
+  // Focus PromptInput on mount (unless system message textarea is focused)
+  useEffect(() => {
+    if (document?.activeElement !== systemMessageRef.current) {
+      promptInputRef.current?.focus();
+    }
   }, []);
 
   const modelName = useAtomValue(modelAtom);
@@ -647,6 +652,7 @@ export default function App() {
         isLoading={isLoading}
         focusTextarea={focusTextarea}
         systemMessageRef={systemMessageRef}
+        promptInputRef={promptInputRef}
       />
 
       {/* Image modal - convert to shadcn Dialog */}

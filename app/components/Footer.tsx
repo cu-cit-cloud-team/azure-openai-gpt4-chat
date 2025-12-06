@@ -31,6 +31,7 @@ interface FooterProps {
   isLoading: boolean;
   focusTextarea: () => void;
   systemMessageRef: React.RefObject<HTMLTextAreaElement | null>;
+  promptInputRef: React.RefObject<HTMLTextAreaElement | null>;
 }
 
 // Component that accesses attachments context and monitors file changes
@@ -59,7 +60,13 @@ const AttachmentButton = ({ onFilesAdded }: { onFilesAdded: () => void }) => {
 };
 
 export const Footer = memo(
-  ({ onSubmit, isLoading, focusTextarea, systemMessageRef }: FooterProps) => {
+  ({
+    onSubmit,
+    isLoading,
+    focusTextarea,
+    systemMessageRef,
+    promptInputRef,
+  }: FooterProps) => {
     const [model, setModel] = useAtom(modelAtom);
     const [pendingModel, setPendingModel] = useState<string | null>(null);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -137,6 +144,7 @@ export const Footer = memo(
 
             <PromptInputBody>
               <PromptInputTextarea
+                ref={promptInputRef}
                 placeholder={
                   isLoading
                     ? 'Loading response...'
