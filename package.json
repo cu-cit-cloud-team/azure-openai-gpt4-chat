@@ -1,8 +1,9 @@
 {
-  "name": "azure-openai-gpt4-chat",
+  "name": "azure-openai-gpt-chat",
   "version": "1.0.0-beta.8",
   "description": "A Next.js chat app that uses Azure OpenAI GPT models to generate responses",
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">= 24.x",
     "npm": ">= 11.x"
@@ -13,19 +14,19 @@
     "changelog": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "dev": "next dev -p 3001 --webpack",
     "dev:turbo": "next dev -p 3001",
-    "lint": "next lint",
+    "lint": "eslint .",
     "start": "next start",
     "version": "npm run changelog"
   },
   "keywords": [],
   "repository": {
-    "url": "https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat"
+    "url": "https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat"
   },
   "author": {
     "name": "Michael Sprague",
     "email": "ms388@cornell.edu"
   },
-  "homepage": "https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat",
+  "homepage": "https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat",
   "license": "MIT",
   "dependencies": {
     "@ai-sdk/azure": "2.0.79",
@@ -93,7 +94,8 @@
     "stylelint-config-standard": "39.0.1",
     "tailwindcss": "4.1.17",
     "tw-animate-css": "1.4.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "zod-validation-error": "^5.0.0"
   },
   "browserslist": {
     "production": [
