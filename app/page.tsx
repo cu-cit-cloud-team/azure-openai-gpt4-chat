@@ -300,20 +300,34 @@ export default function App() {
             }
           }, 10);
         } else {
-          // For assistant messages: delete it and everything after
-          const messagesToKeep = messages.slice(0, messageIndex);
+          // For assistant messages: remove the assistant and resend the previous user message
+          let lastUserIndex = -1;
+          for (let i = messageIndex - 1; i >= 0; i -= 1) {
+            if (messages[i].role === 'user') {
+              lastUserIndex = i;
+              break;
+            }
+          }
 
-          // Delete this message and all after it from database
+          if (lastUserIndex === -1) {
+            return;
+          }
+
+          const messagesToKeep = messages.slice(0, lastUserIndex);
+          const userMessage = messages[lastUserIndex];
+
           const messageIdsToDelete = messages
-            .slice(messageIndex)
+            .slice(lastUserIndex)
             .map((m) => m.id);
           await database.messages.bulkDelete(messageIdsToDelete);
 
-          // Update messages state
           setMessages(messagesToKeep);
 
-          // The chat will automatically continue from the last user message
-          // due to the useChat hook's behavior
+          setTimeout(() => {
+            if (userMessage.parts && Array.isArray(userMessage.parts)) {
+              sendMessage({ parts: userMessage.parts });
+            }
+          }, 10);
         }
       } catch (error) {
         console.error('Error regenerating response:', error);
