@@ -1,3 +1,15 @@
+## 1.0.0-beta.6 (2025-12-06)
+
+* ci(dependabot): update config ([71530d0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/71530d0))
+* feat: shadcn/ui and ai-elements refactor ([de8157c](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/de8157c))
+* refactor: remove parameters object and store/use model instead ([31ee25b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/31ee25b))
+* refactor(WIP): add migration work in progress ([6d4d438](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6d4d438))
+* style: quiet some linter warnings ([6b1ee90](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6b1ee90))
+* chore: update copilot-instructions and mcp servers list ([bf96ca5](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/bf96ca5))
+* chore(release): prepare release v1.0.0-beta.5 ([6e11dd2](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6e11dd2))
+
+
+
 ## 1.0.0-beta.5 (2025-12-05)
 
 * refactor: remove parameters object and store/use model instead ([31ee25b](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/31ee25b))
