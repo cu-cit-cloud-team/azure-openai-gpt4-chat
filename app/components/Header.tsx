@@ -3,6 +3,7 @@ import { X } from 'lucide-react';
 import { memo } from 'react';
 import { ClearChatButton } from '@/app/components/ClearChatButton';
 import { ExportChatButton } from '@/app/components/ExportChatButton';
+import { ImportChatButton } from '@/app/components/ImportChatButton';
 import { SystemMessage } from '@/app/components/SystemMessage';
 import { ThemeToggle } from '@/app/components/ThemeToggle';
 import { UpdateCheck } from '@/app/components/UpdateCheck';
@@ -19,6 +20,7 @@ interface HeaderProps {
   onClearError?: () => void;
   setMessages: (messages: UIMessage[]) => void;
   focusTextarea: () => void;
+  messages: UIMessage[];
 }
 
 export const Header = memo(
@@ -29,6 +31,7 @@ export const Header = memo(
     onClearError,
     setMessages,
     focusTextarea,
+    messages,
   }: HeaderProps) => {
     return (
       <>
@@ -59,6 +62,12 @@ export const Header = memo(
                 isLoading={isLoading}
                 setMessages={setMessages}
                 focusTextarea={focusTextarea}
+              />
+              <ImportChatButton
+                isLoading={isLoading}
+                setMessages={setMessages}
+                focusTextarea={focusTextarea}
+                messages={messages}
               />
               <ExportChatButton isLoading={isLoading} />
               <ThemeToggle />

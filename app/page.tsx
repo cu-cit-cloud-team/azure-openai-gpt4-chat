@@ -477,6 +477,7 @@ export default function App() {
         onClearError={() => setChatError(null)}
         setMessages={setMessages}
         focusTextarea={focusTextarea}
+        messages={messages}
       />
 
       {/* Main Chat Container */}
