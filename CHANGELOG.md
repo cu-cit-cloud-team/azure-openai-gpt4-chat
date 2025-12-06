@@ -1,3 +1,18 @@
+## 1.0.0-beta.7 (2025-12-06)
+
+* build(next): update config ([e9012ea](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e9012ea))
+* fix: message regeneration logic ([b212364](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/b212364))
+* fix(UpdateCheck): add missing import ([7bf58b5](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/7bf58b5))
+* chore(deps): bump the ai group with 2 updates (#2109) ([027c8f0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/027c8f0)), closes [#2109](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/issues/2109)
+* chore(vscode): add words to cspell ignore list ([6108737](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6108737))
+* style: remove unused icons ([c9e7559](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/c9e7559))
+* docs(copilot-instructions): updates related to latest app changes ([32c12e6](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/32c12e6))
+* docs(MIGRATION_PLAN): remove file now that migration is complete ([695c2df](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/695c2df))
+* docs(README): updates for latest app changes ([f5542b6](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/f5542b6))
+* refactor(UpdateCheck): add exponential backoff to update check ([6280bb1](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6280bb1))
+
+
+
 ## 1.0.0-beta.6 (2025-12-06)
 
 * ci(dependabot): update config ([71530d0](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/71530d0))
