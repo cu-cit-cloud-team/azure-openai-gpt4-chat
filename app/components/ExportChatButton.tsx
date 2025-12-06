@@ -23,7 +23,7 @@ export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
   const downloadFile = useCallback(
     ({
       data,
-      fileName = 'chat-history.json',
+      fileName = `chat-history-${new Date().toISOString()}.json`,
       fileType = 'text/json',
     }: {
       data: string;
