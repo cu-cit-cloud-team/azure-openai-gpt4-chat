@@ -1,4 +1,4 @@
-# Azure OpenAI GPT-4 Chat - AI Agent Instructions
+# Azure OpenAI GPT Chat - AI Agent Instructions
 
 ## Architecture
 
@@ -13,15 +13,20 @@ Next.js 16 App Router powered by React 19 with the React Compiler. The UI relies
 
 ## Documentation & Tools
 
-- **context7 (primary)**: Resolve library IDs first, then fetch docs for React, Next.js, shadcn/ui, AI Elements, Tailwind, Dexie, etc. Always fall back here when other sources fail.
-- **next-devtools**: Only when needing runtime diagnostics, route info, or Edge Runtime guidance.
-- **ai-elements docs**: For AI Elements and Streamdown usage/examples when context7 lacks detail.
-- **Web search**: Use when documentation doesn’t cover a specific question.
+**MANDATORY:** Always fetch the latest docs before making decisions. Do not rely on internal/previous knowledge. Use these tools first on every task involving framework/library APIs:
+
+- **ai-elements:** Try here for AI Elements/Streamdown documentation and fall back on context7.
+- **shadcn:** For general documentation, component usage, variants, and styling patterns.
+- **next-devtools:** For Next.js documentation, runtime diagnostics, route info, Edge Runtime guidance when applicable to Next.js work.
+- **context7:** Resolve library IDs, then fetch current docs/examples for React, Next.js, shadcn/ui, AI Elements, Tailwind, Dexie, etc.
+- **Web search:** Use when you cannot find documentation that covers your question.
+
+Never assume prior knowledge is current — always re-query documentation before implementing or recommending changes.
 
 ## Best Practices for Generated Code
 
 - Follow modern TypeScript idioms (strict typing, `readonly`, `satisfies`, `as const`, etc.).
-- Prefer React 19 primitives, hooks, and the React Compiler defaults; avoid manual memoization unless there is a measurable impact.
+- Prefer React 19.x primitives, hooks, and the React Compiler defaults; avoid manual memoization unless there is a measurable impact.
 - Keep UI consistent with shadcn/ui + AI Elements design (use provided primitives, maintain accessibility, avoid inline styles in favor of Tailwind/utility classes).
 - Cite documentation sources when making significant architectural choices.
 - Mention any assumptions or missing info before generating code that might need follow-up.
