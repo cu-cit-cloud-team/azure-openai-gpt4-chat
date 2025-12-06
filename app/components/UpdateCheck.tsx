@@ -19,27 +19,26 @@ dayjs.tz.setDefault('America/New_York');
 
 export const UpdateCheck = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const timerRef = React.useRef<number | null>(null);
+  const intervalRef = React.useRef<number>(5 * 60 * 1000); // Start at 5 minutes
+  const MAX_INTERVAL = 60 * 60 * 1000; // 1 hour
 
   useEffect(() => {
+    let stopped = false;
+
     const compareVersions = (v1: string, v2: string): number => {
-      // Remove 'v' prefix if present
       const clean1 = v1.replace(/^v/, '');
       const clean2 = v2.replace(/^v/, '');
-
-      // Split into parts (handle beta, alpha, etc.)
       const parts1 = clean1
         .split(/[-.]/)
         .map((p) => (Number.isNaN(Number(p)) ? p : Number(p)));
       const parts2 = clean2
         .split(/[-.]/)
         .map((p) => (Number.isNaN(Number(p)) ? p : Number(p)));
-
-      // Compare each part
       const maxLength = Math.max(parts1.length, parts2.length);
       for (let i = 0; i < maxLength; i++) {
         const part1 = parts1[i] ?? 0;
         const part2 = parts2[i] ?? 0;
-
         if (typeof part1 === 'number' && typeof part2 === 'number') {
           if (part1 !== part2) {
             return part1 - part2;
@@ -60,60 +59,69 @@ export const UpdateCheck = () => {
       repo = 'azure-openai-gpt4-chat'
     ) => {
       try {
-        // Use /tags endpoint instead of /releases because /releases only returns
-        // tags that have GitHub Releases created, not all git tags
         const response = await fetch(
           `https://api.github.com/repos/${org}/${repo}/tags?per_page=100`
         );
-
         if (!response.ok) {
           console.error('Failed to fetch tags');
           setUpdateAvailable(false);
-          return;
+          return false;
         }
-
         const tags = await response.json();
-
         if (!Array.isArray(tags) || tags.length === 0) {
           setUpdateAvailable(false);
-          return;
+          return false;
         }
-
-        // Tags are returned in reverse chronological order by default
-        // Filter to only version tags (those starting with 'v' followed by a number)
-        const versionTags = tags.filter((t) => /^v\d+\.\d+\.\d+/.test(t.name));
-
+        const versionTags = tags.filter((t: { name: string }) =>
+          /^v\d+\.\d+\.\d+/.test(t.name)
+        );
         if (versionTags.length === 0) {
           setUpdateAvailable(false);
-          return;
+          return false;
         }
-
-        // Sort tags by version number (newest first)
-        const sortedTags = versionTags.sort((a, b) =>
-          compareVersions(b.name, a.name)
+        const sortedTags = versionTags.sort(
+          (a: { name: string }, b: { name: string }) =>
+            compareVersions(b.name, a.name)
         );
-
         const latestTag = sortedTags[0];
         const latestVersion = latestTag.name;
         const currentVersion = `v${pkg.version}`;
         const comparison = compareVersions(latestVersion, currentVersion);
         const isNewer = comparison > 0;
-
         setUpdateAvailable(isNewer);
+        return isNewer;
       } catch (error) {
         console.error('Error checking for updates:', error);
         setUpdateAvailable(false);
+        return false;
       }
     };
 
-    // Check for updates on load
+    const poll = async () => {
+      if (stopped) {
+        return;
+      }
+      const foundUpdate = await getLatestVersion();
+      if (foundUpdate) {
+        stopped = true;
+        return;
+      }
+      // Exponential backoff: double interval, cap at MAX_INTERVAL
+      intervalRef.current = Math.min(intervalRef.current * 2, MAX_INTERVAL);
+      timerRef.current = window.setTimeout(poll, intervalRef.current);
+    };
+
+    // Start polling at 5 minutes
+    timerRef.current = window.setTimeout(poll, intervalRef.current);
+    // Also check immediately on mount
     getLatestVersion();
 
-    // Check for updates every hour
-    const updateHandle = setInterval(getLatestVersion, 1000 * 60 * 60);
-
-    // Clear update check interval on unmount
-    return () => clearInterval(updateHandle);
+    return () => {
+      stopped = true;
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, []);
 
   const handleUpdate = () => {
@@ -125,11 +133,9 @@ export const UpdateCheck = () => {
         }
       });
     }
-
     // Clear localStorage and sessionStorage
     localStorage.clear();
     sessionStorage.clear();
-
     // Hard reload
     window.location.reload();
   };
