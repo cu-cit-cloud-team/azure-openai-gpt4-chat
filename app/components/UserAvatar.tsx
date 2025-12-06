@@ -1,17 +1,18 @@
-import {
-  faCircleUser,
-  faRightFromBracket,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import clsx from 'clsx';
-// Replace dynamic atoms (created on each render) with local state to avoid render loops
 import { useAtom } from 'jotai';
+import { LogOut, UserCircle } from 'lucide-react';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-
-import { userMetaAtom } from '@/app/page';
+import { Avatar, AvatarFallback } from '@/app/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/app/components/ui/dropdown-menu';
+import { userMetaAtom } from '@/app/utils/atoms';
 
 export const UserAvatar = memo(() => {
-  // Local component state instead of per-render atoms
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [hasData, setHasData] = useState(false);
@@ -34,11 +35,12 @@ export const UserAvatar = memo(() => {
         .then(async (resp) => {
           const response = await resp.json();
           const email = response[0]?.user_claims.find(
-            (item) => item.typ === 'preferred_username'
+            (item: { typ: string; val: string }) =>
+              item.typ === 'preferred_username'
           ).val;
 
           const name = response[0]?.user_claims.find(
-            (item) => item.typ === 'name'
+            (item: { typ: string; val: string }) => item.typ === 'name'
           ).val;
 
           const user_id = response[0]?.user_id;
@@ -83,66 +85,67 @@ export const UserAvatar = memo(() => {
     }
   }, [userMeta]);
 
-  const formatName = useCallback((name) => {
+  const formatName = useCallback((name: string) => {
     if (!name) {
-      return;
+      return '';
     }
 
-    let returnName = '';
-    returnName = name.split(' ')?.map((part) => part[0].toUpperCase());
-    if (returnName.length > 2) {
-      const firstInitial = returnName[0];
-      const lastInitial = returnName[returnName.length - 1];
-      returnName = `${firstInitial}${lastInitial}`;
+    const parts = name.split(' ').map((part) => part[0].toUpperCase());
+    if (parts.length > 2) {
+      return `${parts[0]}${parts[parts.length - 1]}`;
     }
-    return returnName;
+    return parts.join('');
   }, []);
 
-  const icon = useMemo(() => {
-    return hasData ? (
-      formatName(name)
-    ) : (
-      <FontAwesomeIcon size="2x" icon={faCircleUser} />
-    );
+  const initials = useMemo(() => {
+    return hasData ? formatName(name) : '';
   }, [formatName, hasData, name]);
 
+  if (!hasData) {
+    return (
+      <Avatar className="size-9">
+        <AvatarFallback className="bg-primary text-primary-foreground">
+          <UserCircle className="size-5" />
+        </AvatarFallback>
+      </Avatar>
+    );
+  }
+
   return (
-    <>
-      <span className="hidden mr-2 text-sm lg:flex">{email}</span>
-      <div className="dropdown dropdown-end bg-base-300">
-        {/** biome-ignore lint/a11y/noLabelWithoutControl: label without control is intentional for avatar trigger */}
-        <label
-          tabIndex={0}
-          aria-label="User menu"
-          className="avatar avatar-placeholder"
-        >
-          <div
-            className={clsx(
-              'rounded-full bg-primary text-primary-content cursor-pointer',
-              {
-                'p-2': hasData,
-                'p-1': !hasData,
-              }
-            )}
+    <div className="flex items-center gap-2">
+      <span className="hidden text-sm lg:block">{email}</span>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button
+            type="button"
+            className="focus:outline-none focus:ring-2 focus:ring-ring rounded-full"
           >
-            {icon}
-          </div>
-        </label>
-        {hasData ? (
-          <ul
-            tabIndex={0}
-            className="w-48 p-2 mt-3 shadow menu menu-sm dropdown-content z-1 bg-base-200 rounded-box"
-          >
-            <li>
-              <a href="/.auth/logout">
-                <FontAwesomeIcon icon={faRightFromBracket} fixedWidth />
-                Logout
-              </a>
-            </li>
-          </ul>
-        ) : null}
-      </div>
-    </>
+            <Avatar className="size-9 cursor-pointer">
+              <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuLabel>
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">{name}</p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <a href="/.auth/logout" className="cursor-pointer">
+              <LogOut className="size-4 mr-2" />
+              Logout
+            </a>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 });
 

@@ -1,22 +1,24 @@
+import { Alert, AlertDescription } from '@/app/components/ui/alert';
+import { Button } from '@/app/components/ui/button';
+
 export const SessionModal = () => {
   return (
-    <dialog className="modal modal-bottom sm:modal-middle sessionModal">
-      <div className="w-11/12 max-w-5xl modal-box bg-warning-content">
-        <h3 className="text-lg font-bold text-warning">Warning</h3>
-        <p className="py-4 text-warning">Your session has expired.</p>
-        <div className="modal-action">
-          <button
-            type="button"
-            className="btn text-warning-content btn-warning"
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+      <Alert variant="destructive" className="w-11/12 max-w-lg">
+        <AlertDescription className="space-y-4">
+          <h3 className="text-lg font-bold">Warning</h3>
+          <p>Your session has expired.</p>
+          <Button
+            variant="destructive"
             onClick={() => {
               window.location.reload();
             }}
           >
             Refresh your session
-          </button>
-        </div>
-      </div>
-    </dialog>
+          </Button>
+        </AlertDescription>
+      </Alert>
+    </div>
   );
 };
 

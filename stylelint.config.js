@@ -13,6 +13,8 @@ module.exports = {
           'plugin',
           'theme',
           'utility',
+          'source',
+          'custom-variant',
         ],
       },
     ],

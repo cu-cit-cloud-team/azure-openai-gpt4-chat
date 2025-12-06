@@ -1,14 +1,12 @@
 export interface Model {
-  default: boolean | undefined;
+  default?: boolean;
   displayName: string;
   maxInputTokens: number;
   maxOutputTokens: number;
   name: string;
 }
 
-export interface Models {
-  models: Model[];
-}
+export type Models = Model[];
 
 export const models: Models = [
   // {
@@ -46,7 +44,6 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5',
-    default: true,
   },
   {
     displayName: 'GPT-5 Chat (2025-08-07)',
@@ -77,6 +74,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1',
+    default: true,
   },
   {
     displayName: 'GPT-5.1 Chat (2025-11-13)',
@@ -116,11 +114,16 @@ export const models: Models = [
   },
 ];
 
+export const DEFAULT_MODEL_NAME = 'gpt-5.1';
+export const DEFAULT_MAX_INPUT_TOKENS = 272000;
+export const DEFAULT_MAX_OUTPUT_TOKENS = 128000;
+
 export const defaultModel = models.find((model) => model.default);
 
-export const modelStringFromName = (name: string): string =>
-  models.find((model) => model.name === name)?.displayName ||
-  defaultModel?.displayName;
+export const modelStringFromName = (name: string): string => {
+  const model = models.find((model) => model.name === name);
+  return model?.displayName || defaultModel?.displayName || 'Unknown Model';
+};
 
 export const modelFromName = (name: string): Model | undefined =>
   models.find((model) => model.name === name) || defaultModel;

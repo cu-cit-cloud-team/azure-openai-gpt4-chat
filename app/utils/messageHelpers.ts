@@ -64,11 +64,17 @@ export function getMessageFiles(message: UIMessage) {
   // Get actual file parts (images, PDFs)
   message.parts.forEach((part) => {
     if (part.type === 'file') {
+      const filePart = part as {
+        mediaType: string;
+        url: string;
+        name?: string;
+        filename?: string;
+      };
       files.push({
         type: part.type,
-        mediaType: (part as { mediaType: string }).mediaType,
-        url: (part as { url: string }).url,
-        name: (part as { name?: string }).name,
+        mediaType: filePart.mediaType,
+        url: filePart.url,
+        name: filePart.filename || filePart.name || 'file',
       });
     } else if (part.type === 'text' && part.text.startsWith('[File: ')) {
       // Extract text file attachments from text parts

@@ -1,54 +1,65 @@
-import { faEraser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { UIMessage } from 'ai';
-import clsx from 'clsx';
-import { memo, useCallback } from 'react';
+import { Eraser } from 'lucide-react';
+import { memo, useCallback, useState } from 'react';
 
+import { ConfirmDialog } from '@/app/components/ConfirmDialog';
+import { Button } from '@/app/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/app/components/ui/tooltip';
 import { useClearMessages } from '@/app/hooks/useClearMessages';
 
 interface ClearChatButtonProps {
-  buttonText?: string;
   isLoading: boolean;
   setMessages: (messages: UIMessage[]) => void;
   focusTextarea: () => void;
 }
 
 export const ClearChatButton = memo(
-  ({
-    buttonText = 'Clear Chat',
-    isLoading,
-    setMessages,
-    focusTextarea,
-  }: ClearChatButtonProps) => {
+  ({ isLoading, setMessages, focusTextarea }: ClearChatButtonProps) => {
     const clearMessages = useClearMessages(setMessages);
+    const [showDialog, setShowDialog] = useState(false);
 
-    const clearHistory = useCallback(
-      async (doConfirm = true) => {
-        if (!doConfirm) {
-          await clearMessages();
-          focusTextarea();
-        } else if (
-          confirm('Are you sure you want to clear the chat history?')
-        ) {
-          await clearMessages();
-          focusTextarea();
-        }
-      },
-      [clearMessages, focusTextarea]
-    );
+    const handleClearConfirm = useCallback(async () => {
+      await clearMessages();
+      setShowDialog(false);
+      focusTextarea();
+    }, [clearMessages, focusTextarea]);
 
     return (
       <>
-        <button
-          type="button"
-          onClick={clearHistory}
-          className={clsx({
-            'pointer-events-none opacity-50': isLoading,
-          })}
-        >
-          <FontAwesomeIcon icon={faEraser} />
-          {buttonText}
-        </button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowDialog(true)}
+                disabled={isLoading}
+                aria-label="Clear chat"
+              >
+                <Eraser className="size-5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Clear chat</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <ConfirmDialog
+          open={showDialog}
+          onOpenChange={setShowDialog}
+          title="Clear Chat History?"
+          description="Are you sure you want to clear the chat history? This action cannot be undone."
+          confirmText="Clear"
+          onConfirm={handleClearConfirm}
+          variant="destructive"
+        />
       </>
     );
   }

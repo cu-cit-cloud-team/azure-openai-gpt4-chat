@@ -2,7 +2,11 @@
 import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
 import { memo, useMemo } from 'react';
-import { modelAtom, systemMessageMaxTokens, tokensAtom } from '@/app/page';
+import {
+  modelAtom,
+  systemMessageMaxTokens,
+  tokensAtom,
+} from '@/app/utils/atoms';
 import { modelFromName } from '@/app/utils/models';
 import { getTokenCount } from '@/app/utils/tokens';
 
@@ -39,7 +43,7 @@ export const TokenCount = memo(
 
     return (
       <div
-        className={clsx('text-xs text-base-content opacity-50 uppercase', {
+        className={clsx('text-xs text-muted-foreground uppercase', {
           '-mb-3': display === 'systemMessage',
           'mb-1': display !== 'systemMessage',
         })}

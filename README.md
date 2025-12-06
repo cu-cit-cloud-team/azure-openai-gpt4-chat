@@ -150,7 +150,7 @@ The project uses:
 - [React 19](https://react.dev/) - UI library with React Compiler
 - [Vercel AI SDK v5](https://sdk.vercel.ai/) - AI streaming primitives
 - [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS
-- [daisyUI](https://daisyui.com/) - Component library
+- [shadcn/ui](https://ui.shadcn.com/) - Component library built on Radix UI
 
 ### State & Data
 

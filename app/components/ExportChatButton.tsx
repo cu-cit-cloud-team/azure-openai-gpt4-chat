@@ -1,90 +1,114 @@
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import clsx from 'clsx';
 import { useAtomValue } from 'jotai';
-import { memo, useCallback, useMemo } from 'react';
-
+import { Download } from 'lucide-react';
+import { memo, useCallback, useState } from 'react';
+import { ConfirmDialog } from '@/app/components/ConfirmDialog';
+import { Button } from '@/app/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/app/components/ui/tooltip';
 import { database } from '@/app/database/database.config';
-
-import { systemMessageAtom } from '@/app/page';
+import { systemMessageAtom } from '@/app/utils/atoms';
 
 interface ExportChatButtonProps {
-  buttonText?: string;
   isLoading: boolean;
 }
 
-export const ExportChatButton = memo(
-  ({ buttonText = 'Export Chat', isLoading }: ExportChatButtonProps) => {
-    const systemMessage = useAtomValue(systemMessageAtom);
-    const exportHandler = useCallback(
-      async (event) => {
-        const downloadFile = ({
-          data,
-          fileName = 'chat-history.json',
-          fileType = 'text/json',
-        }) => {
-          const blob = new Blob([data], { type: fileType });
-          const link = document.createElement('a');
-          link.href = window.URL.createObjectURL(blob);
-          link.download = fileName;
-          const clickEvent = new MouseEvent('click', {
-            view: window,
-            bubbles: true,
-            cancelable: true,
-          });
-          link.dispatchEvent(clickEvent);
-          link.remove();
-        };
+export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
+  const systemMessage = useAtomValue(systemMessageAtom);
+  const [showDialog, setShowDialog] = useState(false);
 
-        event.preventDefault();
-        const getMessages = async () => {
-          const messages = await database.messages.toArray();
-          let sortedMessages = messages.sort(
-            (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-          );
-          sortedMessages = sortedMessages.map((message) => {
-            const sortedKeys = Object.keys(message).sort();
-            const sortedMessage = {};
-            for (const key of sortedKeys) {
-              sortedMessage[key] = message[key];
-            }
-            return sortedMessage;
-          });
-          // console.log(systemMessage);
-          sortedMessages.unshift({
-            role: 'system',
-            content: systemMessage,
-          });
-          return JSON.stringify(sortedMessages, null, 2);
-        };
-        if (confirm('Are you sure you want to download the chat history?')) {
-          const data = await getMessages();
-          downloadFile({ data });
-        }
+  const downloadFile = useCallback(
+    ({
+      data,
+      fileName = 'chat-history.json',
+      fileType = 'text/json',
+    }: {
+      data: string;
+      fileName?: string;
+      fileType?: string;
+    }) => {
+      const blob = new Blob([data], { type: fileType });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      const clickEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: false,
+      });
+      link.dispatchEvent(clickEvent);
+      URL.revokeObjectURL(link.href);
+    },
+    []
+  );
+
+  const getMessages = useCallback(async () => {
+    const messages = await database.messages.toArray();
+    const sortedMessages = messages
+      .sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      )
+      .map((message) => {
+        // Return message as-is without re-sorting keys
+        return message;
+      });
+    // Add system message at the beginning for export
+    const messagesWithSystem = [
+      {
+        id: 'system',
+        role: 'system' as const,
+        parts: [{ type: 'text' as const, text: systemMessage }],
+        createdAt: new Date().toISOString(),
+        model: 'system',
       },
-      [systemMessage]
-    );
+      ...sortedMessages,
+    ];
+    return JSON.stringify(messagesWithSystem, null, 2);
+  }, [systemMessage]);
 
-    const memoizedIcon = useMemo(
-      () => <FontAwesomeIcon icon={faDownload} />,
-      []
-    );
+  const handleExportConfirm = useCallback(async () => {
+    const data = await getMessages();
+    downloadFile({ data });
+    setShowDialog(false);
+  }, [getMessages, downloadFile]);
 
-    return (
-      <>
-        <button
-          type="button"
-          onClick={exportHandler}
-          className={clsx({
-            'pointer-events-none opacity-50': isLoading,
-          })}
-        >
-          {memoizedIcon} {buttonText}
-        </button>
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowDialog(true)}
+              disabled={isLoading}
+              aria-label="Export chat"
+            >
+              <Download className="size-5" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Export chat</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
+      <ConfirmDialog
+        open={showDialog}
+        onOpenChange={setShowDialog}
+        title="Download Chat History?"
+        description="This will download your chat history as a JSON file."
+        confirmText="Download"
+        onConfirm={handleExportConfirm}
+      />
+    </>
+  );
+});
 
 ExportChatButton.displayName = 'ExportChatButton';
 
