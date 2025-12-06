@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { ArrowUpCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/app/components/ui/button';
 import {
@@ -19,8 +19,8 @@ dayjs.tz.setDefault('America/New_York');
 
 export const UpdateCheck = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
-  const timerRef = React.useRef<number | null>(null);
-  const intervalRef = React.useRef<number>(5 * 60 * 1000); // Start at 5 minutes
+  const timerRef = useRef<number | null>(null);
+  const intervalRef = useRef<number>(5 * 60 * 1000); // Start at 5 minutes
   const MAX_INTERVAL = 60 * 60 * 1000; // 1 hour
 
   useEffect(() => {
