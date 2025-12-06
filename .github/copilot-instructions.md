@@ -2,28 +2,31 @@
 
 ## Architecture
 
-Next.js 16 App Router with Azure OpenAI streaming chat. Tech stack: AI SDK v5, React 19 + React Compiler, Jotai state, Dexie (IndexedDB), shadcn/ui + Tailwind v4.
+Next.js 16 App Router powered by React 19 with the React Compiler. The UI relies on shadcn/ui, AI Elements primitives, Tailwind v4, Streamdown for markdown/code rendering, AI SDK v5 streaming, and Dexie-backed IndexedDB persistence managed via Jotai atoms.
 
-### Key Design Decisions
+### Key Design Points
 
-- **AI SDK v5 (Pure)**: Messages use v5 `parts` array format. IndexedDB stores: `id`, `role`, `parts`, `createdAt`, `model`
-- **Client-Side Storage**: All chat history in IndexedDB. `useMessagePersistence` hook prevents duplicate saves via `savedMessageIdsRef`
-- **Edge Runtime**: API route uses `smoothStream()` for gradual token release
-- **State**: Jotai atoms in `app/page.tsx` sync to localStorage. `tokensAtom` is derived (don't update manually)
-- **React Compiler**: Enabled - use `memo()` only at component boundaries
-- **File Uploads**: 3 files max, 25MB each. Text files → text parts with `[File: name]` prefix. Images/PDFs → file parts with base64 url
+- **Streaming**: API routes use `streamText` + `smoothStream()` to forward tokens progressively.
+- **Storage**: IndexedDB `messages` table (`&id, role, parts, createdAt, model`) with `useMessagePersistence` guarding duplicates. LocalStorage stores UI prefs/atoms.
+- **React Compiler**: Enabled globally—avoid micro-optimizations, reserve `memo()` for component boundaries only.
+- **Uploads**: Files (images, PDFs, text) stay client-side; text files are stored with `[File: name]` prefixes and non-text uploads use file parts with base64 URLs.
 
-## MCP Servers
+## Documentation & Tools
 
-Use the following MCP servers for current documentation and best practices:
+- **context7 (primary)**: Resolve library IDs first, then fetch docs for React, Next.js, shadcn/ui, AI Elements, Tailwind, Dexie, etc. Always fall back here when other sources fail.
+- **next-devtools**: Only when needing runtime diagnostics, route info, or Edge Runtime guidance.
+- **ai-elements docs**: For AI Elements and Streamdown usage/examples when context7 lacks detail.
+- **Web search**: Use when documentation doesn’t cover a specific question.
 
-- **context7**: Multi-library documentation server. Use for shadcn/ui, Tailwind CSS, Jotai, Dexie, React, Next.js, etc.
-  - Start by resolving library name to get the Context7-compatible library ID
-  - Then fetch docs for specific topics or general usage
-- **next-devtools**: Next.js and Edge Runtime assistance
-- **ai-elements**: AI Elements documentation, code examples, and best practices
+## Best Practices for Generated Code
 
-## Patterns
+- Follow modern TypeScript idioms (strict typing, `readonly`, `satisfies`, `as const`, etc.).
+- Prefer React 19 primitives, hooks, and the React Compiler defaults; avoid manual memoization unless there is a measurable impact.
+- Keep UI consistent with shadcn/ui + AI Elements design (use provided primitives, maintain accessibility, avoid inline styles in favor of Tailwind/utility classes).
+- Cite documentation sources when making significant architectural choices.
+- Mention any assumptions or missing info before generating code that might need follow-up.
+
+## Patterns & References
 
 ### Messages (AI SDK v5)
 
@@ -31,31 +34,30 @@ Use the following MCP servers for current documentation and best practices:
 type StoredMessage = UIMessage & { model: string; createdAt: string };
 
 // Text part
-{ type: "text", text: "Hello!" }
+{ type: 'text', text: 'Hello!' }
 
-// File part (image/PDF)
-{ type: "file", mediaType: "image/png", url: "data:...", name: "image.png" }
+// File part
+{ type: 'file', mediaType: 'image/png', url: 'data:...', name: 'image.png' }
 
-// Text file (stored as text with prefix)
-{ type: "text", text: "[File: code.ts]\nconst x = 1;" }
+// Text file prefix
+{ type: 'text', text: '[File: code.ts]\nconst x = 1;' }
 ```
 
-**Helpers** (`app/utils/messageHelpers.ts`): `getMessageText()`, `getMessageFiles()`
+Helpers: `app/utils/messageHelpers.ts` (`getMessageText`, `getMessageFiles`).
 
 ### Models
 
-Models in `app/utils/models.ts`. Add new ones:
+Managed in `app/utils/models.ts`. When adding a model:
 
-1. Add to `models` array with token limits
-2. Add env var to `.env.local.example`
-3. Map in `route.ts` `modelDeploymentMap`
+1. Extend the `models` array with token limits.
+2. Add the corresponding `AZURE_OPENAI_<MODEL>_DEPLOYMENT` variable to `.env.local.example`.
+3. Map the model in `api/chat/route.ts` via `modelDeploymentMap`.
 
-Current: GPT-4.1 (41, 41-mini, 41-nano), GPT-5 (5, 5-mini, 5-nano, 5-chat, 5-codex), GPT-5.1 (5.1, 5.1-chat, 5.1-codex, 5.1-codex-mini), o-series (o3, o3-mini, o4-mini)
+Supported: GPT-4.1 (and mini/nano), GPT-5 (all variants), GPT-5.1 (including codex), o-series (o3/o4 and mini versions).
 
-### Streaming
+### Streaming API
 
-```typescript
-// API route pattern
+```ts
 const response = streamText({
   model: azureModel,
   messages: convertToModelMessages(uiMessages),
@@ -70,23 +72,10 @@ return response.toUIMessageStreamResponse({
 });
 ```
 
-Frontend uses `useChat` with `DefaultChatTransport` for dynamic parameter injection.
-
-## Key Integrations
-
-### IndexedDB (Dexie)
-
-- Schema v5: `messages` table with `&id, role, parts, createdAt, model`
-- `useMessagePersistence` hook saves messages, tracks via `messageModelsRef`, prevents duplicates with `savedMessageIdsRef`
-
-### Markdown & Themes
-
-- `react-markdown` with `remark-gfm`, `remark-math`, `rehype-katex`, `react-syntax-highlighter`
-- `next-themes` for dark/light mode with shadcn/ui theme variables in `globals.css`
+Frontend uses `useChat` with `DefaultChatTransport` for dynamic param injection.
 
 ## Important Notes
 
-- **Edge Runtime**: No Node.js APIs (fs, path) - Web APIs only
-- **tokensAtom**: Auto-derived via useMemo - don't update manually
-- **React Compiler**: Avoid manual optimizations - use `memo()` at component boundaries only
-- **TypeScript errors**: Build ignores them (`next.config.mjs`) - fix proactively
+- **Edge Runtime only**: No `fs`/`path`/Node APIs—stick to Web APIs inside routes.
+- **tokensAtom**: Derived automatically—never mutate it directly.
+- **TypeScript errors**: The build may ignore them (`next.config.mjs`) so fix proactively rather than relying on the compiler.
