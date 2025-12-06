@@ -13,35 +13,50 @@ updates:
       include: "scope"
   - package-ecosystem: "npm"
     directory: "/"
-    ignore:
-      - dependency-name: "ai-legacy"
     groups:
+      ai:
+        patterns:
+          - "@ai-sdk/*"
+          - "ai"
+      next:
+        patterns:
+          - "next"
+          - "next-*"
       react:
         patterns:
           - "react"
           - "react-dom"
-          - "react-markdown"
-          - "react-syntax-highlighter"
           - "use-local-storage-state"
-      langchain:
+      radix:
         patterns:
-          - "langchain"
-          - "@langchain/*"
+          - "@radix-ui/*"
       types:
         patterns:
           - "@types/*"
-      fontawesome:
-        patterns:
-          - "@fortawesome/*"
       tailwindcss:
         patterns:
           - "tailwindcss"
           - "@tailwindcss/*"
+          - "tw-animate-css"
+          - "tailwind-merge"
+      eslint:
+        patterns:
+          - "eslint"
+          - "@typescript-eslint/*"
+          - "eslint-*"
+      prettier:
+        patterns:
+          - "prettier"
+          - "eslint-config-prettier"
+          - "prettier-plugin-*"
+      stylelint:
+        patterns:
+          - "stylelint"
+          - "stylelint-*"
       postcss:
         patterns:
           - "postcss"
           - "postcss-*"
-          - "@fullhuman/postcss-purgecss"
           - "autoprefixer"
       conventional-changelog:
         patterns:
