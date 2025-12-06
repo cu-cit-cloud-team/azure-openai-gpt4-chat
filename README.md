@@ -17,14 +17,14 @@ All data stays in your browser - chat history, uploaded files, preferences, and 
 - 💬 Real-time streaming chat with multiple GPT models (GPT-4.1, GPT-5, GPT-5.1, o3, o4)
 - 📎 File upload support (images, PDFs, text files)
 - 🔒 Privacy-first: all data stored client-side in your browser
-- 🎨 Multiple light/dark themes
+- 🎨 Light and dark themes
 - 💾 Persistent chat history via IndexedDB
 - 🔢 Live token counting with model-aware limits
 - 📱 Responsive design
 
 ### Prerequisites
 
-- Node.js >= 22.x (npm >= 10.x recommended)
+- Node.js >= 24.x (npm >= 11.x recommended)
 - Azure Subscription with:
   - Azure OpenAI Service access
   - Deployed model(s) (GPT-4.1, GPT-5, GPT-5.1, or o-series)
@@ -101,11 +101,11 @@ Supported models: GPT-4.1, GPT-5, GPT-5.1, o3, o3-mini, o4-mini (and their varia
   - Ruby (.rb)
   - Python (.py)
 - Up to 3 files per message (25MB each)
-- Inline preview for attached files
+- Inline preview and modal display for images, PDFs, and text files
 
 ### Customization
 
-- Multiple theme options (light/dark variants)
+- Light/dark theme toggle
 - Custom system prompts
 - Model selection with automatic token limit adjustment
 - Adjustable model parameters (temperature, top_p, penalties) for models that support them
@@ -138,7 +138,7 @@ npm run biome        # Run Biome linter
 
 The project uses:
 
-- **React Compiler** for automatic optimizations
+- **React Compiler** is enabled for automatic optimizations (no manual memoization needed except at component boundaries)
 - **Conventional Commits** for changelog generation
 - **GitHub Actions** for CI/CD to Azure App Service
 
@@ -151,6 +151,7 @@ The project uses:
 - [Vercel AI SDK v5](https://sdk.vercel.ai/) - AI streaming primitives
 - [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS
 - [shadcn/ui](https://ui.shadcn.com/) - Component library built on Radix UI
+- [AI Elements](https://ui.shadcn.com/docs/components/ai-elements) - Chat UI primitives (Conversation, Message, PromptInput)
 
 ### State & Data
 
@@ -159,8 +160,7 @@ The project uses:
 
 ### Markdown & Syntax
 
-- [react-markdown](https://github.com/remarkjs/react-markdown) - Markdown rendering
-- [react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) - Code highlighting
+- [Streamdown](https://github.com/vercel-labs/streamdown) - Markdown and code rendering with syntax highlighting
 
 ### Backend & Hosting
 
