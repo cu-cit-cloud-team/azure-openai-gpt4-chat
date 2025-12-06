@@ -1,3 +1,11 @@
+## 1.0.0-beta.8 (2025-12-06)
+
+* refactor: focus chat inpput on page load ([1bbcdc4](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/1bbcdc4))
+* refactor(ExportChat): add date time string to file name ([6895684](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/6895684))
+* feat(ChatImport): add chat import (only supports exports from this app) ([a1f67bb](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/a1f67bb))
+
+
+
 ## 1.0.0-beta.7 (2025-12-06)
 
 * build(next): update config ([e9012ea](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/e9012ea))
