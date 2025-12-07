@@ -483,7 +483,7 @@ export default function App() {
       {/* Main Chat Container */}
       <div className="flex flex-col h-screen pt-14 pb-40">
         <Conversation className="flex-1">
-          <ConversationContent className="max-w-4xl mx-auto px-4">
+          <ConversationContent className="max-w-5xl mx-auto px-4">
             {/* Decreased top padding for smaller header, added horizontal padding */}
             {messages.map((message, index) => {
               const messageText = getMessageText(message);

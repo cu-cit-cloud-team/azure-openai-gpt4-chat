@@ -191,7 +191,7 @@ export const Footer = memo(
 
     return (
       <footer className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-        <div className="container max-w-4xl mx-auto px-4 py-3">
+        <div className="container max-w-5xl mx-auto px-4 py-3">
           <PromptInput
             accept="image/*,.pdf,.txt,.md,.json,.csv,.xml,.html,.css,.js,.ts,.tsx,.jsx,.py,.java,.cpp,.c,.h,.sh"
             multiple
