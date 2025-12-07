@@ -127,6 +127,11 @@ export default function App() {
   );
   const [chatError, setChatError] = useState<string | null>(null);
 
+  const chatId = useMemo(
+    () => (userId ? `${userId}-chat` : 'local-chat'),
+    [userId]
+  );
+
   // Create transport that updates when parameters change
   const transport = useMemo(
     () =>
@@ -147,7 +152,7 @@ export default function App() {
   );
 
   const { messages, setMessages, sendMessage, status } = useChat({
-    id: `${userId}-chat`,
+    id: chatId,
     transport,
     onError: handleChatError,
     onFinish: ({ message }) => {
