@@ -25,13 +25,10 @@ import type { UserMeta } from '@/app/types';
 import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
 import { modelStringFromName } from '@/app/utils/models';
 
-// Extend dayjs plugins locally for this component
-if (!dayjs.isToday) {
-  dayjs.extend(isToday);
-}
-if (!dayjs.fromNow) {
-  dayjs.extend(relativeTime);
-}
+// Extend dayjs plugins for time helpers
+// These calls are idempotent and safe on every import
+dayjs.extend(isToday);
+dayjs.extend(relativeTime);
 
 type StoredMessage = UIMessage & {
   model?: string;

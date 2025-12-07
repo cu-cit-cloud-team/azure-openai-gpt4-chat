@@ -1,12 +1,12 @@
 import type { UseChatHelpers } from '@ai-sdk/react';
 import type { UIMessage } from 'ai';
-import { useCallback } from 'react';
+import { type Dispatch, type SetStateAction, useCallback } from 'react';
 import { database } from '@/app/database/database.config';
 
 export const useRegenerateMessage = (
   messages: UIMessage[],
-  setMessages: React.Dispatch<React.SetStateAction<UIMessage[]>>,
-  sendMessage: UseChatHelpers['append']
+  setMessages: Dispatch<SetStateAction<UIMessage[]>>,
+  sendMessage: UseChatHelpers<UIMessage>['sendMessage']
 ) => {
   const handleRegenerateResponse = useCallback(
     async (messageId: string) => {
