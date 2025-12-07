@@ -89,7 +89,7 @@ export async function POST(req: Request) {
     const systemMessage = systemMessageRaw || defaults.systemMessage;
     const model = modelName || defaults.model;
     const user = defaults.user; // could be enhanced with auth context
-    const max_tokens = model === defaults.max_tokens;
+    const max_tokens = defaults.max_tokens;
 
     // v5 UIMessage system prompt part
     const systemPrompt = {
