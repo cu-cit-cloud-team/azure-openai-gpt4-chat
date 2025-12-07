@@ -62,7 +62,7 @@ const {
 } = process.env;
 
 // tell next.js to use the edge runtime
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 // set up defaults for chat config
 const defaults = {
