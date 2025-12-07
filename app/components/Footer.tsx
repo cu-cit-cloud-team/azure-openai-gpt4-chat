@@ -220,7 +220,16 @@ export const Footer = memo(
 
             <PromptInputFooter>
               <PromptInputTools>
-                <AttachmentButton onFilesAdded={focusTextarea} />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex" role="presentation">
+                      <AttachmentButton onFilesAdded={focusTextarea} />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" align="start">
+                    Add photos or files
+                  </TooltipContent>
+                </Tooltip>
                 {speechStatusMessage &&
                 (!speechSupported ||
                   micPermission === 'denied' ||
