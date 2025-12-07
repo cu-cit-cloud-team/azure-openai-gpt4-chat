@@ -191,7 +191,8 @@ export default function App() {
         parts.push({ type: 'text', text: message.text.trim() });
       }
 
-      // Process files: text files → text parts, images → image parts, PDFs → file parts
+      const textFilePromises: Array<Promise<void>> = [];
+
       for (const file of message.files) {
         const fileName = file.filename || file.name || 'file';
         const isTextFile = TEXT_TYPES.has(file.mediaType);
@@ -199,36 +200,40 @@ export default function App() {
         const isPdf = file.mediaType === 'application/pdf';
 
         if (isTextFile && file.url) {
-          // Read text files and convert to text parts with [File: name] prefix
-          try {
-            const response = await fetch(file.url);
-            const text = await response.text();
-            parts.push({
-              type: 'text',
-              text: `[File: ${fileName}]\n${text}`,
-            });
-          } catch (error) {
-            console.error(`Failed to read text file ${fileName}:`, error);
-          }
+          textFilePromises.push(
+            (async () => {
+              try {
+                const response = await fetch(file.url);
+                const text = await response.text();
+                parts.push({
+                  type: 'text',
+                  text: `[File: ${fileName}]
+${text}`,
+                });
+              } catch (error) {
+                console.error(`Failed to read text file ${fileName}:`, error);
+              }
+            })()
+          );
         } else if (isImage && file.url) {
-          // Images: Use 'file' type with image mediaType (FileUIPart format)
-          // convertToModelMessages will convert this to the model's image format
           parts.push({
             type: 'file',
-            url: file.url, // Data URL
+            url: file.url,
             mediaType: file.mediaType,
             filename: fileName,
           });
         } else if (isPdf && file.url) {
-          // PDFs: Use 'url' property (FileUIPart format)
-          // convertToModelMessages will convert this to the model format
           parts.push({
             type: 'file',
-            url: file.url, // Data URL
+            url: file.url,
             mediaType: 'application/pdf',
             filename: fileName,
           });
         }
+      }
+
+      if (textFilePromises.length > 0) {
+        await Promise.all(textFilePromises);
       }
 
       if (parts.length > 0) {
