@@ -109,7 +109,7 @@ export default function App() {
 
   const savedMessages = useLiveQuery(async () => {
     const messages = await database.messages.toArray();
-    const sorted = messages.sort(
+    const sorted = [...messages].sort(
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
