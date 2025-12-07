@@ -6,7 +6,7 @@ ChatGPT-like streaming chat interface powered by Azure OpenAI with support for G
 
 ## About
 
-A modern Next.js 16 chat application featuring real-time streaming responses from Azure OpenAI Services. Built with the latest web technologies including React 19, AI SDK v5, and Edge Runtime for optimal performance.
+A modern Next.js 16 chat application featuring real-time streaming responses from Azure OpenAI Services. Built with the latest web technologies including React 19, AI SDK v5, and Node.js Runtime.
 
 ### Privacy-Focused Design
 
