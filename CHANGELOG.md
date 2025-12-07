@@ -1,3 +1,22 @@
+## 1.0.0-beta.10 (2025-12-07)
+
+* fix(api/chat): default max tokens ([b363c87](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b363c87))
+* docs(README): fix runtime ([9ca1454](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/9ca1454))
+* feat(api/chat): add gpt-5.1-codex-max ([5640d8c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5640d8c))
+* feat(utils/models): add gpt 5.1 codex max ([0aee8c2](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/0aee8c2))
+* style: env.local.example ([61974fd](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/61974fd))
+* style: increase width ([36c07a4](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/36c07a4))
+* perf: avoid mutating dexie result directly, sort from copy ([f66cabe](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/f66cabe))
+* perf: use Promise.all for multiple text files (non-blocking, improves latecy) ([b41018b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b41018b))
+* refactor: improve maintainability/readability ([368db5e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/368db5e))
+* refactor: stabilize chat id ([4bb2682](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4bb2682))
+* refactor(api/chat): use nodejs runtime (vs edge) ([cbf7995](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/cbf7995))
+* refactor(Footer): add tooltip to attachment icon ([df2f483](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/df2f483))
+* refactor(Messages): minor render hygeine ([60efd9e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/60efd9e))
+* ci(build-and-deploy): update env vars ([2be035c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2be035c))
+
+
+
 ## 1.0.0-beta.9 (2025-12-07)
 
 * feat(Footer): enable microphone support ([5c9ca74](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5c9ca74))
