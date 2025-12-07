@@ -1,3 +1,18 @@
+## 1.0.0-beta.9 (2025-12-07)
+
+* feat(Footer): enable microphone support ([5c9ca74](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5c9ca74))
+* chore(deps): bump the ai group with 2 updates (#2110) ([e3d84a4](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/e3d84a4)), closes [#2110](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2110)
+* chore(devcontainer): remove obsolete devcontainer ([9c7fc79](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/9c7fc79))
+* fix: revert change ([455a58b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/455a58b))
+* style: update name for consistency ([47e2b3b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/47e2b3b))
+* style(eslint): update eslint config and lint script ([50ae738](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/50ae738))
+* style(vscode): rename workspace file for consistency ([77e084a](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/77e084a))
+* build(npm): remove fontawesome registry ([d6fee70](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d6fee70))
+* docs(copilot-instructions): improve documentation & tools section ([3aed9ff](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/3aed9ff))
+* docs(README): add info about import ([5a6eddd](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5a6eddd))
+
+
+
 ## 1.0.0-beta.8 (2025-12-06)
 
 * refactor: focus chat inpput on page load ([1bbcdc4](https://github.com/cu-cit-cloud-team/azure-openai-gpt4-chat/commit/1bbcdc4))
