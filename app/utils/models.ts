@@ -89,6 +89,12 @@ export const models: Models = [
     name: 'gpt-5.1-codex',
   },
   {
+    displayName: 'GPT-5.1 Codex Max (2025-12-04)',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5.1-codex-max',
+  },
+  {
     displayName: 'GPT-5.1 Codex Mini (2025-11-13)',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
@@ -114,6 +120,7 @@ export const models: Models = [
   },
 ];
 
+// constants to use as fallbacks when no model is found
 export const DEFAULT_MODEL_NAME = 'gpt-5.1';
 export const DEFAULT_MAX_INPUT_TOKENS = 272000;
 export const DEFAULT_MAX_OUTPUT_TOKENS = 128000;
