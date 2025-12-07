@@ -15,6 +15,7 @@ import {
   PromptInputSelectItem,
   PromptInputSelectTrigger,
   PromptInputSelectValue,
+  PromptInputSpeechButton,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
@@ -22,6 +23,11 @@ import {
 } from '@/app/components/ai-elements/prompt-input';
 import { ConfirmDialog } from '@/app/components/ConfirmDialog';
 import { Alert, AlertDescription } from '@/app/components/ui/alert';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/app/components/ui/tooltip';
 import { modelAtom } from '@/app/utils/atoms';
 import { setItem } from '@/app/utils/localStorage';
 import { models } from '@/app/utils/models';
@@ -73,6 +79,63 @@ export const Footer = memo(
     const [fileError, setFileError] = useState<string | null>(null);
     const hasInteractedRef = useRef(false);
 
+    const [speechSupported, setSpeechSupported] = useState(false);
+    const [micPermission, setMicPermission] = useState<
+      'granted' | 'denied' | 'prompt' | 'unknown' | 'error'
+    >('unknown');
+    const [speechStatusMessage, setSpeechStatusMessage] = useState<
+      string | null
+    >(null);
+
+    useEffect(() => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+
+      const supported =
+        'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+      setSpeechSupported(supported);
+
+      if (!supported) {
+        setSpeechStatusMessage(
+          'Speech input not supported in this browser. Try Chrome/Edge on HTTPS or localhost.'
+        );
+        setMicPermission('denied');
+        return;
+      }
+
+      let permissionStatus: PermissionStatus | undefined;
+
+      const updateFromPermission = (state: PermissionState) => {
+        setMicPermission(state);
+        if (state === 'denied') {
+          setSpeechStatusMessage(
+            'Microphone is blocked. Allow mic access in browser site settings and reload.'
+          );
+        } else {
+          setSpeechStatusMessage(null);
+        }
+      };
+
+      navigator.permissions
+        ?.query({ name: 'microphone' as PermissionName })
+        .then((status) => {
+          permissionStatus = status;
+          updateFromPermission(status.state);
+          status.onchange = () => updateFromPermission(status.state);
+        })
+        .catch(() => {
+          // Permissions API may be unavailable; keep prompt state
+          setMicPermission('prompt');
+        });
+
+      return () => {
+        if (permissionStatus) {
+          permissionStatus.onchange = null;
+        }
+      };
+    }, []);
+
     const handleModelChange = useCallback(
       (value: string) => {
         // Only show confirmation if:
@@ -119,6 +182,7 @@ export const Footer = memo(
       [onSubmit]
     );
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     useEffect(() => {
       if (document?.activeElement !== systemMessageRef?.current && !isLoading) {
         // Focus handled by PromptInput internally
@@ -157,7 +221,31 @@ export const Footer = memo(
             <PromptInputFooter>
               <PromptInputTools>
                 <AttachmentButton onFilesAdded={focusTextarea} />
-
+                {speechStatusMessage &&
+                (!speechSupported ||
+                  micPermission === 'denied' ||
+                  isLoading) ? (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="inline-flex" role="presentation">
+                        <PromptInputSpeechButton
+                          textareaRef={promptInputRef}
+                          disabled
+                          title={speechStatusMessage ?? undefined}
+                        />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" align="start">
+                      {speechStatusMessage}
+                    </TooltipContent>
+                  </Tooltip>
+                ) : (
+                  <PromptInputSpeechButton
+                    textareaRef={promptInputRef}
+                    disabled={isLoading}
+                    title={speechStatusMessage ?? undefined}
+                  />
+                )}
                 <PromptInputSelect
                   value={model}
                   onValueChange={handleModelChange}
