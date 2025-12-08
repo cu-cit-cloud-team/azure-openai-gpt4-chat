@@ -112,6 +112,12 @@ export default function App() {
   const systemMessage = useAtomValue(systemMessageAtom);
   const userMeta = useAtomValue(userMetaAtom);
 
+  const modelNameRef = useRef(modelName);
+
+  useEffect(() => {
+    modelNameRef.current = modelName;
+  }, [modelName]);
+
   const savedMessages = useLiveQuery(async () => {
     const messages = await database.messages.toArray();
     const sorted = [...messages].sort(
@@ -147,14 +153,14 @@ export default function App() {
             body: {
               messages,
               systemMessage,
-              model: modelName,
+              model: modelNameRef.current,
               id: userId,
               webSearch: useWebSearchRef.current,
             },
           };
         },
       }),
-    [modelName, systemMessage, userId]
+    [systemMessage, userId]
   );
 
   const { messages, setMessages, sendMessage, status } = useChat({
@@ -164,7 +170,7 @@ export default function App() {
     onFinish: ({ message }) => {
       const messageWithModel: StoredMessage = {
         ...message,
-        model: modelName,
+        model: modelNameRef.current,
         createdAt: new Date().toISOString(),
       };
       addMessage(messageWithModel);
@@ -181,7 +187,7 @@ export default function App() {
   const { addMessage } = useMessagePersistence({
     messages,
     isLoading,
-    currentModel: modelName,
+    currentModel: modelNameRef.current,
     savedMessages,
   });
 
