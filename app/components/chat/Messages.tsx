@@ -30,10 +30,27 @@ import {
   SourcesContent,
   SourcesTrigger,
 } from '@/app/components/ai-elements/sources';
+import {
+  Tool,
+  ToolContent,
+  ToolHeader,
+  ToolInput,
+  ToolOutput,
+} from '@/app/components/ai-elements/tool';
 import { Avatar, AvatarFallback } from '@/app/components/ui/avatar';
 import { Button } from '@/app/components/ui/button';
-import type { UserMeta } from '@/app/types';
-import { getMessageFiles, getMessageText } from '@/app/utils/messageHelpers';
+import type {
+  FilePart,
+  ReasoningPart,
+  SourceUrlPart,
+  ToolUIPart,
+  UserMeta,
+} from '@/app/types';
+import {
+  getMessageFiles,
+  getMessageText,
+  getSourceTitle,
+} from '@/app/utils/messageHelpers';
 import { modelStringFromName } from '@/app/utils/models';
 
 // Extend dayjs plugins for time helpers
@@ -44,14 +61,6 @@ dayjs.extend(relativeTime);
 type StoredMessage = UIMessage & {
   model?: string;
   createdAt?: string;
-};
-
-type FilePart = {
-  type: string;
-  mediaType: string;
-  url?: string;
-  textContent?: string;
-  name?: string;
 };
 
 export interface MessagesProps {
@@ -128,13 +137,12 @@ const MessageRow = memo(
     const messageFiles = useMemo(() => getMessageFiles(message), [message]);
     const isUser = message.role === 'user';
 
-    // Extract reasoning and source parts
-    const reasoningParts = useMemo(
-      () => message.parts.filter((part) => part.type === 'reasoning'),
-      [message.parts]
-    );
+    // Collect source parts for rendering before message content
     const sourceParts = useMemo(
-      () => message.parts.filter((part) => part.type === 'source-url'),
+      () =>
+        message.parts.filter(
+          (part): part is SourceUrlPart => part.type === 'source-url'
+        ),
       [message.parts]
     );
 
@@ -185,40 +193,122 @@ const MessageRow = memo(
 
           <div className="flex-1">
             <MessageContent>
-              {/* Render Sources if available (before content) */}
+              {/* Render Sources if available (before all other content) */}
               {!isUser && sourceParts.length > 0 && (
                 <Sources>
                   <SourcesTrigger count={sourceParts.length} />
-                  {sourceParts.map((part, idx) => {
-                    const sourcePart = part as { url: string };
-                    return (
-                      <SourcesContent key={`${message.id}-source-${idx}`}>
-                        <Source href={sourcePart.url} title={sourcePart.url} />
-                      </SourcesContent>
-                    );
-                  })}
+                  <SourcesContent>
+                    {sourceParts.map((part, idx) => (
+                      <Source
+                        key={part.sourceId || `${message.id}-source-${idx}`}
+                        href={part.url}
+                        title={part.title || getSourceTitle(part.url)}
+                      />
+                    ))}
+                  </SourcesContent>
                 </Sources>
               )}
 
-              {/* Render Reasoning if available */}
-              {!isUser &&
-                reasoningParts.map((part, idx) => {
-                  const reasoningPart = part as { text: string };
-                  const isStreamingReasoning =
-                    isLastMessage &&
-                    isLoading &&
-                    idx === message.parts.length - 1;
-                  return (
-                    <Reasoning
-                      key={`${message.id}-reasoning-${idx}`}
-                      isStreaming={isStreamingReasoning}
-                    >
-                      <ReasoningTrigger />
-                      <ReasoningContent>{reasoningPart.text}</ReasoningContent>
-                    </Reasoning>
-                  );
-                })}
+              {/* Render message parts using switch-based pattern */}
+              {message.parts.map((part, i) => {
+                const isStreamingPart =
+                  isLastMessage && isLoading && i === message.parts.length - 1;
 
+                // Debug: Log part types to understand what we're receiving
+                if (process.env.NODE_ENV === 'development' && !isUser) {
+                  console.log(`Part ${i} type:`, part.type, part);
+                }
+
+                switch (part.type) {
+                  case 'tool-input-start':
+                  case 'tool-input-end': {
+                    // These are internal streaming events, don't render
+                    return null;
+                  }
+
+                  case 'reasoning': {
+                    if (isUser) {
+                      return null;
+                    }
+                    const reasoningPart = part as ReasoningPart;
+                    // Azure o-series models encrypt reasoning content, so text is always empty
+                    // Show indicator that model reasoned, but without content
+                    const hasReasoningText =
+                      reasoningPart.text && reasoningPart.text.trim() !== '';
+                    return (
+                      <Reasoning
+                        key={`${message.id}-${i}`}
+                        isStreaming={isStreamingPart}
+                      >
+                        <ReasoningTrigger />
+                        {hasReasoningText ? (
+                          <ReasoningContent>
+                            {reasoningPart.text}
+                          </ReasoningContent>
+                        ) : (
+                          <ReasoningContent>
+                            <div className="text-muted-foreground italic">
+                              Reasoning content is not available (encrypted by
+                              Azure OpenAI for o-series models)
+                            </div>
+                          </ReasoningContent>
+                        )}
+                      </Reasoning>
+                    );
+                  }
+
+                  case 'text': {
+                    // Text is already concatenated and rendered after the switch
+                    return null;
+                  }
+
+                  case 'file': {
+                    // Files are already collected and rendered after the switch
+                    return null;
+                  }
+
+                  case 'source-url': {
+                    // Sources are already rendered before the switch
+                    return null;
+                  }
+
+                  default: {
+                    // Handle dynamic tool types (tool-{toolName})
+                    if (part.type.startsWith('tool-')) {
+                      if (isUser) {
+                        return null;
+                      }
+                      const toolPart = part as ToolUIPart;
+                      return (
+                        <Tool key={`${message.id}-${i}`}>
+                          <ToolHeader
+                            title={toolPart.toolName}
+                            type={toolPart.type}
+                            state={toolPart.state}
+                          />
+                          <ToolContent>
+                            <ToolInput input={toolPart.input} />
+                            {toolPart.output !== undefined && (
+                              <ToolOutput
+                                output={toolPart.output}
+                                errorText={toolPart.errorText}
+                              />
+                            )}
+                          </ToolContent>
+                        </Tool>
+                      );
+                    }
+
+                    // Unhandled part types
+                    if (process.env.NODE_ENV === 'development') {
+                      console.warn('Unhandled part type:', part.type, part);
+                    }
+                    return null;
+                  }
+                }
+              })}
+
+              {/* Render concatenated text content */}
               {messageText && (
                 <MessageResponse
                   mode="streaming"
@@ -230,6 +320,7 @@ const MessageRow = memo(
                 </MessageResponse>
               )}
 
+              {/* Render file attachments */}
               {messageFiles && messageFiles.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {messageFiles.map((file, idx) => (
@@ -257,6 +348,7 @@ const MessageRow = memo(
                 </div>
               )}
 
+              {/* Loading indicator */}
               {!isUser && isLoading && isLastMessage && !messageText && (
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Loader2 className="size-4 animate-spin" />

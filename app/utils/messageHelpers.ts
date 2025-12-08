@@ -94,3 +94,31 @@ export function getMessageFiles(message: UIMessage) {
 
   return files;
 }
+
+/**
+ * Extract a meaningful title from a URL for display purposes.
+ * Returns the domain name or last path segment instead of the full URL.
+ */
+export function getSourceTitle(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    const pathSegments = urlObj.pathname
+      .split('/')
+      .filter((segment) => segment.length > 0);
+
+    if (pathSegments.length > 0) {
+      // Return the last path segment (e.g., "article-name" from "/path/to/article-name")
+      const lastSegment = pathSegments[pathSegments.length - 1];
+      // Decode URI component and replace hyphens/underscores with spaces for readability
+      return decodeURIComponent(lastSegment)
+        .replace(/[-_]/g, ' ')
+        .replace(/\.(html?|php|aspx?)$/i, ''); // Remove common file extensions
+    }
+
+    // Fallback to domain name
+    return urlObj.hostname.replace(/^www\./, '');
+  } catch {
+    // If URL parsing fails, return the original URL
+    return url;
+  }
+}
