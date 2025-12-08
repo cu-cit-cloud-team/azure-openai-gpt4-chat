@@ -118,6 +118,12 @@ export default function App() {
     modelNameRef.current = modelName;
   }, [modelName]);
 
+  // Reset web search to off when model changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: setUseWebSearch is stable
+  useEffect(() => {
+    setUseWebSearch(false);
+  }, [modelName]);
+
   const savedMessages = useLiveQuery(async () => {
     const messages = await database.messages.toArray();
     const sorted = [...messages].sort(
@@ -352,7 +358,10 @@ ${text}`,
         systemMessageRef={systemMessageRef}
         promptInputRef={promptInputRef}
         useWebSearch={useWebSearch}
-        onToggleWebSearch={() => setUseWebSearch((prev) => !prev)}
+        onToggleWebSearch={() => {
+          setUseWebSearch((prev) => !prev);
+          focusTextarea();
+        }}
       />
 
       <ImageModal

@@ -30,7 +30,7 @@ import {
 } from '@/app/components/ui/tooltip';
 import { modelAtom } from '@/app/utils/atoms';
 import { setItem } from '@/app/utils/localStorage';
-import { models } from '@/app/utils/models';
+import { modelFromName, models } from '@/app/utils/models';
 
 interface FooterProps {
   onSubmit: (message: PromptInputMessage) => void;
@@ -82,6 +82,11 @@ export const Footer = memo(
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [fileError, setFileError] = useState<string | null>(null);
     const hasInteractedRef = useRef(false);
+
+    // Get current model capabilities
+    const currentModel = modelFromName(model);
+    const supportsWebSearch =
+      currentModel?.capabilities?.includes('web-search') ?? false;
     // const [speechSupported, setSpeechSupported] = useState(false);
     // const [micPermission, setMicPermission] = useState<
     //   'granted' | 'denied' | 'prompt' | 'unknown' | 'error'
@@ -264,6 +269,7 @@ export const Footer = memo(
                       <PromptInputButton
                         onClick={onToggleWebSearch}
                         variant={useWebSearch ? 'default' : 'ghost'}
+                        disabled={!supportsWebSearch}
                       >
                         <GlobeIcon size={16} />
                         <span>Search</span>
@@ -271,7 +277,9 @@ export const Footer = memo(
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="top" align="start">
-                    {`Web Search ${useWebSearch ? 'Enabled' : 'Disabled'}`}
+                    {!supportsWebSearch
+                      ? 'This model does not support web search'
+                      : `Web Search ${useWebSearch ? 'Enabled' : 'Disabled'}`}
                   </TooltipContent>
                 </Tooltip>
                 <PromptInputSelect
