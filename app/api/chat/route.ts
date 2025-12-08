@@ -82,13 +82,13 @@ export async function POST(req: Request) {
     // New v5 body contract: messages (UIMessage[]), systemMessage, model
     const {
       messages,
-      systemMessage: systemMessageRaw,
       model: modelName,
+      systemMessage: systemMessageRaw,
+      webSearch,
     } = await req.json();
 
     const systemMessage = systemMessageRaw || defaults.systemMessage;
     const model = modelName || defaults.model;
-    const user = defaults.user; // could be enhanced with auth context
     const max_tokens = defaults.max_tokens;
 
     // v5 UIMessage system prompt part
@@ -110,10 +110,10 @@ export async function POST(req: Request) {
     const uiMessages = hasSystemPrompt ? messages : [systemPrompt, ...messages];
 
     // determine if we need can use the responses API
-    const useResponsesApi =
-      model.startsWith('gpt-41') ||
-      model.startsWith('gpt-5') ||
-      model.startsWith('o');
+    // const useResponsesApi =
+    //   model.startsWith('gpt-41') ||
+    //   model.startsWith('gpt-5') ||
+    //   model.startsWith('o');
 
     // create azure client
     const azure = createAzure({
@@ -150,28 +150,34 @@ export async function POST(req: Request) {
       );
     }
 
-    // instantiate azure openai model
-    const azureModel = useResponsesApi
-      ? azure.responses(deploymentName)
-      : azure(deploymentName);
+    // instantiate azure openai model with responses api
+    const azureModel = azure.responses(deploymentName);
 
     // set up streaming options
     const convertedMessages = convertToModelMessages(uiMessages);
 
-    const streamTextOptions = {
+    let streamTextOptions = {
       model: azureModel,
       messages: convertedMessages,
       maxTokens: max_tokens,
       experimental_transform: smoothStream(),
     };
 
-    // Add user parameter for non-responses API models
-    const finalOptions = useResponsesApi
-      ? streamTextOptions
-      : { ...streamTextOptions, headers: { 'user': user } };
+    if (webSearch) {
+      streamTextOptions = {
+        ...streamTextOptions,
+        tools: {
+          web_search_preview: azure.tools.webSearchPreview({
+            searchContextSize: 'medium',
+          }),
+        },
+        // Force web search tool (optional):
+        toolChoice: { type: 'tool', toolName: 'web_search_preview' },
+      };
+    }
 
     // send the request and store the response
-    const response = streamText(finalOptions);
+    const response = streamText(streamTextOptions);
 
     // v5 streaming response with usage metadata
     return response.toUIMessageStreamResponse({

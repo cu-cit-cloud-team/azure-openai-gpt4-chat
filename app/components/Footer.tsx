@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { PlusIcon } from 'lucide-react';
+import { GlobeIcon, PlusIcon } from 'lucide-react';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import {
   PromptInput,
@@ -38,6 +38,8 @@ interface FooterProps {
   focusTextarea: () => void;
   systemMessageRef: React.RefObject<HTMLTextAreaElement | null>;
   promptInputRef: React.RefObject<HTMLTextAreaElement | null>;
+  useWebSearch: boolean;
+  onToggleWebSearch: () => void;
 }
 
 // Component that accesses attachments context and monitors file changes
@@ -72,13 +74,14 @@ export const Footer = memo(
     focusTextarea,
     systemMessageRef,
     promptInputRef,
+    useWebSearch,
+    onToggleWebSearch,
   }: FooterProps) => {
     const [model, setModel] = useAtom(modelAtom);
     const [pendingModel, setPendingModel] = useState<string | null>(null);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [fileError, setFileError] = useState<string | null>(null);
     const hasInteractedRef = useRef(false);
-
     const [speechSupported, setSpeechSupported] = useState(false);
     const [micPermission, setMicPermission] = useState<
       'granted' | 'denied' | 'prompt' | 'unknown' | 'error'
@@ -255,6 +258,13 @@ export const Footer = memo(
                     title={speechStatusMessage ?? undefined}
                   />
                 )}
+                <PromptInputButton
+                  onClick={onToggleWebSearch}
+                  variant={useWebSearch ? 'default' : 'ghost'}
+                >
+                  <GlobeIcon size={16} />
+                  <span>Search</span>
+                </PromptInputButton>
                 <PromptInputSelect
                   value={model}
                   onValueChange={handleModelChange}

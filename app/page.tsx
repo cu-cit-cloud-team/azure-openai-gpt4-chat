@@ -86,15 +86,20 @@ export default function App() {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
   // Ref for PromptInput textarea
   const promptInputRef = useRef<HTMLTextAreaElement>(null);
+  const [useWebSearch, setUseWebSearch] = useState(false);
+  const useWebSearchRef = useRef(useWebSearch);
 
   const focusTextarea = useCallback(() => {
     setTimeout(() => {
-      // Don't steal focus from system message textarea
       if (document?.activeElement !== systemMessageRef.current) {
         promptInputRef.current?.focus();
       }
     }, 0);
   }, []);
+
+  useEffect(() => {
+    useWebSearchRef.current = useWebSearch;
+  }, [useWebSearch]);
 
   // Focus PromptInput on mount (unless system message textarea is focused)
   useEffect(() => {
@@ -144,6 +149,7 @@ export default function App() {
               systemMessage,
               model: modelName,
               id: userId,
+              webSearch: useWebSearchRef.current,
             },
           };
         },
@@ -339,6 +345,8 @@ ${text}`,
         focusTextarea={focusTextarea}
         systemMessageRef={systemMessageRef}
         promptInputRef={promptInputRef}
+        useWebSearch={useWebSearch}
+        onToggleWebSearch={() => setUseWebSearch((prev) => !prev)}
       />
 
       <ImageModal
