@@ -1,6 +1,7 @@
 export interface Model {
   default?: boolean;
   displayName: string;
+  modelVersion: string;
   maxInputTokens: number;
   maxOutputTokens: number;
   name: string;
@@ -9,111 +10,115 @@ export interface Model {
 export type Models = Model[];
 
 export const models: Models = [
-  // {
-  //   displayName: 'GPT-5 w/ Web Search (2025-08-07)',
-  //   maxInputTokens: 272000,
-  //   maxOutputTokens: 128000,
-  //   name: 'gpt-5-web-search',
-  // },
-  // {
-  //   displayName: 'GPT-5 Mini w/ Web Search (2025-08-07)',
-  //   maxInputTokens: 272000,
-  //   maxOutputTokens: 128000,
-  //   name: 'gpt-5-mini-web-search',
-  // },
   {
-    displayName: 'GPT-4.1 (2025-04-14)',
+    displayName: 'GPT-4.1',
+    modelVersion: '2025-04-14',
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41',
   },
   {
-    displayName: 'GPT-4.1 Mini (2025-04-14)',
+    displayName: 'GPT-4.1 Mini',
+    modelVersion: '2025-04-14',
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41-mini',
   },
   {
-    displayName: 'GPT-4.1 Nano (2025-04-14)',
+    displayName: 'GPT-4.1 Nano',
+    modelVersion: '2025-04-14',
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41-nano',
   },
   {
-    displayName: 'GPT-5 (2025-08-07)',
+    displayName: 'GPT-5',
+    modelVersion: '2025-08-07',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5',
   },
   {
-    displayName: 'GPT-5 Chat (2025-08-07)',
+    displayName: 'GPT-5 Chat',
+    modelVersion: '2025-08-07',
     maxInputTokens: 128000,
     maxOutputTokens: 16384,
     name: 'gpt-5-chat',
   },
   {
-    displayName: 'GPT-5 Codex (2025-09-11)',
+    displayName: 'GPT-5 Codex',
+    modelVersion: '2025-09-11',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-codex',
   },
   {
-    displayName: 'GPT-5 Mini (2025-08-07)',
+    displayName: 'GPT-5 Mini',
+    modelVersion: '2025-08-07',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-mini',
   },
   {
-    displayName: 'GPT-5 Nano (2025-08-07)',
+    displayName: 'GPT-5 Nano',
+    modelVersion: '2025-08-07',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-nano',
   },
   {
-    displayName: 'GPT-5.1 (2025-11-13)',
+    displayName: 'GPT-5.1',
+    modelVersion: '2025-11-13',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1',
     default: true,
   },
   {
-    displayName: 'GPT-5.1 Chat (2025-11-13)',
+    displayName: 'GPT-5.1 Chat',
+    modelVersion: '2025-11-13',
     maxInputTokens: 111616,
     maxOutputTokens: 16384,
     name: 'gpt-5.1-chat',
   },
   {
-    displayName: 'GPT-5.1 Codex (2025-11-13)',
+    displayName: 'GPT-5.1 Codex',
+    modelVersion: '2025-11-13',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex',
   },
   {
-    displayName: 'GPT-5.1 Codex Max (2025-12-04)',
+    displayName: 'GPT-5.1 Codex Max',
+    modelVersion: '2025-12-04',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex-max',
   },
   {
-    displayName: 'GPT-5.1 Codex Mini (2025-11-13)',
+    displayName: 'GPT-5.1 Codex Mini',
+    modelVersion: '2025-11-13',
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex-mini',
   },
   {
-    displayName: 'o3 (2025-04-16)',
+    displayName: 'o3',
+    modelVersion: '2025-04-16',
     maxInputTokens: 200000,
     maxOutputTokens: 100000,
     name: 'o3',
   },
   {
-    displayName: 'o3 Mini (2025-01-31)',
+    displayName: 'o3 Mini',
+    modelVersion: '2025-01-31',
     maxInputTokens: 200000,
     maxOutputTokens: 100000,
     name: 'o3-mini',
   },
   {
-    displayName: 'o4 Mini (2025-04-16)',
+    displayName: 'o4 Mini',
+    modelVersion: '2025-04-16',
     maxInputTokens: 200000,
     maxOutputTokens: 100000,
     name: 'o4-mini',
