@@ -15,7 +15,7 @@ import {
   PromptInputSelectItem,
   PromptInputSelectTrigger,
   PromptInputSelectValue,
-  PromptInputSpeechButton,
+  // PromptInputSpeechButton,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
@@ -82,62 +82,62 @@ export const Footer = memo(
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [fileError, setFileError] = useState<string | null>(null);
     const hasInteractedRef = useRef(false);
-    const [speechSupported, setSpeechSupported] = useState(false);
-    const [micPermission, setMicPermission] = useState<
-      'granted' | 'denied' | 'prompt' | 'unknown' | 'error'
-    >('unknown');
-    const [speechStatusMessage, setSpeechStatusMessage] = useState<
-      string | null
-    >(null);
+    // const [speechSupported, setSpeechSupported] = useState(false);
+    // const [micPermission, setMicPermission] = useState<
+    //   'granted' | 'denied' | 'prompt' | 'unknown' | 'error'
+    // >('unknown');
+    // const [speechStatusMessage, setSpeechStatusMessage] = useState<
+    //   string | null
+    // >(null);
 
-    useEffect(() => {
-      if (typeof window === 'undefined') {
-        return;
-      }
+    // useEffect(() => {
+    //   if (typeof window === 'undefined') {
+    //     return;
+    //   }
 
-      const supported =
-        'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
-      setSpeechSupported(supported);
+    //   const supported =
+    //     'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+    //   setSpeechSupported(supported);
 
-      if (!supported) {
-        setSpeechStatusMessage(
-          'Speech input not supported in this browser. Try Chrome/Edge on HTTPS or localhost.'
-        );
-        setMicPermission('denied');
-        return;
-      }
+    //   if (!supported) {
+    //     setSpeechStatusMessage(
+    //       'Speech input not supported in this browser. Try Chrome/Edge on HTTPS or localhost.'
+    //     );
+    //     setMicPermission('denied');
+    //     return;
+    //   }
 
-      let permissionStatus: PermissionStatus | undefined;
+    //   let permissionStatus: PermissionStatus | undefined;
 
-      const updateFromPermission = (state: PermissionState) => {
-        setMicPermission(state);
-        if (state === 'denied') {
-          setSpeechStatusMessage(
-            'Microphone is blocked. Allow mic access in browser site settings and reload.'
-          );
-        } else {
-          setSpeechStatusMessage(null);
-        }
-      };
+    //   const updateFromPermission = (state: PermissionState) => {
+    //     setMicPermission(state);
+    //     if (state === 'denied') {
+    //       setSpeechStatusMessage(
+    //         'Microphone is blocked. Allow mic access in browser site settings and reload.'
+    //       );
+    //     } else {
+    //       setSpeechStatusMessage(null);
+    //     }
+    //   };
 
-      navigator.permissions
-        ?.query({ name: 'microphone' as PermissionName })
-        .then((status) => {
-          permissionStatus = status;
-          updateFromPermission(status.state);
-          status.onchange = () => updateFromPermission(status.state);
-        })
-        .catch(() => {
-          // Permissions API may be unavailable; keep prompt state
-          setMicPermission('prompt');
-        });
+    //   navigator.permissions
+    //     ?.query({ name: 'microphone' as PermissionName })
+    //     .then((status) => {
+    //       permissionStatus = status;
+    //       updateFromPermission(status.state);
+    //       status.onchange = () => updateFromPermission(status.state);
+    //     })
+    //     .catch(() => {
+    //       // Permissions API may be unavailable; keep prompt state
+    //       setMicPermission('prompt');
+    //     });
 
-      return () => {
-        if (permissionStatus) {
-          permissionStatus.onchange = null;
-        }
-      };
-    }, []);
+    //   return () => {
+    //     if (permissionStatus) {
+    //       permissionStatus.onchange = null;
+    //     }
+    //   };
+    // }, []);
 
     const handleModelChange = useCallback(
       (value: string) => {
@@ -233,7 +233,7 @@ export const Footer = memo(
                     Add photos or files
                   </TooltipContent>
                 </Tooltip>
-                {speechStatusMessage &&
+                {/* {speechStatusMessage &&
                 (!speechSupported ||
                   micPermission === 'denied' ||
                   isLoading) ? (
@@ -257,7 +257,7 @@ export const Footer = memo(
                     disabled={isLoading}
                     title={speechStatusMessage ?? undefined}
                   />
-                )}
+                )} */}
                 <PromptInputButton
                   onClick={onToggleWebSearch}
                   variant={useWebSearch ? 'default' : 'ghost'}
