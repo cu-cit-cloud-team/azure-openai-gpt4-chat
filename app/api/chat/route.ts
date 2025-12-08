@@ -183,6 +183,8 @@ export async function POST(req: Request) {
     return response.toUIMessageStreamResponse({
       originalMessages: uiMessages,
       generateMessageId: () => generateId(),
+      sendReasoning: true,
+      sendSources: true,
       messageMetadata: ({ part }) => {
         // Attach usage information when generation finishes
         if (part.type === 'finish') {
