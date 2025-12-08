@@ -19,6 +19,17 @@ import {
   MessageContent,
   MessageResponse,
 } from '@/app/components/ai-elements/message';
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningTrigger,
+} from '@/app/components/ai-elements/reasoning';
+import {
+  Source,
+  Sources,
+  SourcesContent,
+  SourcesTrigger,
+} from '@/app/components/ai-elements/sources';
 import { Avatar, AvatarFallback } from '@/app/components/ui/avatar';
 import { Button } from '@/app/components/ui/button';
 import type { UserMeta } from '@/app/types';
@@ -117,6 +128,16 @@ const MessageRow = memo(
     const messageFiles = useMemo(() => getMessageFiles(message), [message]);
     const isUser = message.role === 'user';
 
+    // Extract reasoning and source parts
+    const reasoningParts = useMemo(
+      () => message.parts.filter((part) => part.type === 'reasoning'),
+      [message.parts]
+    );
+    const sourceParts = useMemo(
+      () => message.parts.filter((part) => part.type === 'source-url'),
+      [message.parts]
+    );
+
     const storedMessage = message as StoredMessage;
     const messageModel = storedMessage.model || modelName;
     const messageCreatedAt =
@@ -164,6 +185,40 @@ const MessageRow = memo(
 
           <div className="flex-1">
             <MessageContent>
+              {/* Render Sources if available (before content) */}
+              {!isUser && sourceParts.length > 0 && (
+                <Sources>
+                  <SourcesTrigger count={sourceParts.length} />
+                  {sourceParts.map((part, idx) => {
+                    const sourcePart = part as { url: string };
+                    return (
+                      <SourcesContent key={`${message.id}-source-${idx}`}>
+                        <Source href={sourcePart.url} title={sourcePart.url} />
+                      </SourcesContent>
+                    );
+                  })}
+                </Sources>
+              )}
+
+              {/* Render Reasoning if available */}
+              {!isUser &&
+                reasoningParts.map((part, idx) => {
+                  const reasoningPart = part as { text: string };
+                  const isStreamingReasoning =
+                    isLastMessage &&
+                    isLoading &&
+                    idx === message.parts.length - 1;
+                  return (
+                    <Reasoning
+                      key={`${message.id}-reasoning-${idx}`}
+                      isStreaming={isStreamingReasoning}
+                    >
+                      <ReasoningTrigger />
+                      <ReasoningContent>{reasoningPart.text}</ReasoningContent>
+                    </Reasoning>
+                  );
+                })}
+
               {messageText && (
                 <MessageResponse
                   mode="streaming"
