@@ -4,6 +4,9 @@
     "includes": [
       "**",
       "!**/.git/**/*",
+      "!**/app/components/ai-elements/*",
+      "!**/app/components/ui/*",
+      "!**/app/globals.css",
       "!**/.github/**/*",
       "!**/.history/**/*",
       "!**/.vscode/**/*",

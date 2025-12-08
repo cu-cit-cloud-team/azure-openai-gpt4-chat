@@ -23,13 +23,16 @@ export class AppDatabase extends Dexie {
         messages: '&id, role, content, createdAt, model, modelString',
       })
       .upgrade((tx) => {
-        return tx
-          .table('messages')
-          .toCollection()
-          .modify((message: any) => {
-            message.model = 'gpt-4o';
-            message.modelString = 'Azure OpenAI GPT-4o (2024-08-06)';
-          });
+        return (
+          tx
+            .table('messages')
+            .toCollection()
+            // biome-ignore lint/suspicious/noExplicitAny: acceptable for migration
+            .modify((message: any) => {
+              message.model = 'gpt-4o';
+              message.modelString = 'Azure OpenAI GPT-4o (2024-08-06)';
+            })
+        );
       });
 
     // remove modelString column

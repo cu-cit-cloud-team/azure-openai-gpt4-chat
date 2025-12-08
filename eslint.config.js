@@ -20,6 +20,9 @@ export default defineConfig([
     'dist/**',
     'build/**',
     'coverage/**',
+    // don't lint ai-elements or shadcn/ui components
+    'app/components/ai-elements/**',
+    'app/components/ui/**',
     // safety: don't lint config folders
     '.git/**',
     '.github/**',
