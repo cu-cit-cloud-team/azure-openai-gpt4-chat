@@ -258,13 +258,22 @@ export const Footer = memo(
                     title={speechStatusMessage ?? undefined}
                   />
                 )} */}
-                <PromptInputButton
-                  onClick={onToggleWebSearch}
-                  variant={useWebSearch ? 'default' : 'ghost'}
-                >
-                  <GlobeIcon size={16} />
-                  <span>Search</span>
-                </PromptInputButton>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex" role="presentation">
+                      <PromptInputButton
+                        onClick={onToggleWebSearch}
+                        variant={useWebSearch ? 'default' : 'ghost'}
+                      >
+                        <GlobeIcon size={16} />
+                        <span>Search</span>
+                      </PromptInputButton>
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" align="start">
+                    {`Web Search ${useWebSearch ? 'Enabled' : 'Disabled'}`}
+                  </TooltipContent>
+                </Tooltip>
                 <PromptInputSelect
                   value={model}
                   onValueChange={handleModelChange}
