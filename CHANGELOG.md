@@ -1,3 +1,25 @@
+## 1.0.0-beta.11 (2025-12-09)
+
+* chore(deps-dev): bump @types/node in the types group (#2113) ([44e8072](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/44e8072)), closes [#2113](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2113)
+* chore(deps-dev): bump eslint-config-next in the eslint group (#2114) ([5e81483](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5e81483)), closes [#2114](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2114)
+* chore(deps): bump @ai-sdk/azure from 2.0.81 to 2.0.82 in the ai group (#2111) ([82ce254](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/82ce254)), closes [#2111](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2111)
+* chore(deps): bump next from 16.0.7 to 16.0.8 in the next group (#2112) ([1e53bc0](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/1e53bc0)), closes [#2112](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2112)
+* feat: add/enable web search via button toggle ([85c1679](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/85c1679))
+* feat: show reasoning and tool calls and handle sources ([60a46d3](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/60a46d3))
+* refactor: disable web search if model doesn't support it ([75fadcf](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/75fadcf))
+* refactor(api/chat): enable sources and reasoning data to be sent ([250af7b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/250af7b))
+* refactor(Footer): add tooltip to web search button ([828ea9f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/828ea9f))
+* refactor(Footer): disable speech input (was wonky at best and only working in one browser) ([36440c7](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/36440c7))
+* refactor(Messages): show sources and reasoning (WIP) ([b9f9c70](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b9f9c70))
+* refactor(utils/models): move model version to own attribute ([7b88341](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/7b88341))
+* fix: build errors ([d6986c0](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d6986c0))
+* fix: model selection ([5030b93](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5030b93))
+* style: linter fixes/config updates ([3efdfdc](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/3efdfdc))
+* style(ai-elements): add full library ([29f463c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/29f463c))
+* build(next): update `Permissions-Policy` header ([1eaf066](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/1eaf066))
+
+
+
 ## 1.0.0-beta.10 (2025-12-07)
 
 * fix(api/chat): default max tokens ([b363c87](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b363c87))
