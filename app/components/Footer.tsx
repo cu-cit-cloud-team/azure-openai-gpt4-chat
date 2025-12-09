@@ -40,6 +40,8 @@ interface FooterProps {
   promptInputRef: React.RefObject<HTMLTextAreaElement | null>;
   useWebSearch: boolean;
   onToggleWebSearch: () => void;
+  chatStatus?: 'ready' | 'submitted' | 'streaming' | 'error';
+  onStop?: () => void;
 }
 
 // Component that accesses attachments context and monitors file changes
@@ -76,6 +78,8 @@ export const Footer = memo(
     promptInputRef,
     useWebSearch,
     onToggleWebSearch,
+    chatStatus,
+    onStop,
   }: FooterProps) => {
     const [model, setModel] = useAtom(modelAtom);
     const [pendingModel, setPendingModel] = useState<string | null>(null);
@@ -185,9 +189,17 @@ export const Footer = memo(
 
     const handleSubmit = useCallback(
       (message: PromptInputMessage) => {
+        const isStreaming =
+          chatStatus === 'streaming' || chatStatus === 'submitted';
+
+        if (isStreaming && onStop) {
+          onStop();
+          return;
+        }
+
         onSubmit(message);
       },
-      [onSubmit]
+      [chatStatus, onStop, onSubmit]
     );
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -300,8 +312,8 @@ export const Footer = memo(
               </PromptInputTools>
 
               <PromptInputSubmit
-                status={isLoading ? 'streaming' : undefined}
-                disabled={isLoading}
+                status={chatStatus}
+                disabled={chatStatus === 'error'}
               />
             </PromptInputFooter>
           </PromptInput>

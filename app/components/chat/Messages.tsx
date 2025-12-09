@@ -67,7 +67,6 @@ export interface MessagesProps {
   messages: UIMessage[];
   modelName: string;
   userMeta?: UserMeta;
-  isLoading: boolean;
   chatStatus?: 'ready' | 'submitted' | 'streaming' | 'error';
   copiedMessageId: string | null;
   onCopy: (messageId: string, text: string) => void;
@@ -80,7 +79,6 @@ export const Messages = ({
   messages,
   modelName,
   userMeta,
-  isLoading,
   chatStatus,
   copiedMessageId,
   onCopy,
@@ -97,7 +95,6 @@ export const Messages = ({
           isLastMessage={index === messages.length - 1}
           modelName={modelName}
           userMeta={userMeta}
-          isLoading={isLoading}
           chatStatus={chatStatus}
           copiedMessageId={copiedMessageId}
           onCopy={onCopy}
@@ -115,7 +112,6 @@ interface MessageRowProps {
   isLastMessage: boolean;
   modelName: string;
   userMeta?: UserMeta;
-  isLoading: boolean;
   chatStatus?: 'ready' | 'submitted' | 'streaming' | 'error';
   copiedMessageId: string | null;
   onCopy: (messageId: string, text: string) => void;
@@ -130,7 +126,6 @@ const MessageRow = memo(
     isLastMessage,
     modelName,
     userMeta,
-    isLoading,
     chatStatus,
     copiedMessageId,
     onCopy,
@@ -141,9 +136,8 @@ const MessageRow = memo(
     const messageText = useMemo(() => getMessageText(message), [message]);
     const messageFiles = useMemo(() => getMessageFiles(message), [message]);
     const isUser = message.role === 'user';
-    const isStreamingState = chatStatus
-      ? chatStatus === 'streaming' || chatStatus === 'submitted'
-      : isLoading;
+    const isStreamingState =
+      chatStatus === 'streaming' || chatStatus === 'submitted';
 
     // Collect source parts for rendering before message content
     const sourceParts = useMemo(

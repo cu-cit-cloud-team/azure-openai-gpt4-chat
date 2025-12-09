@@ -169,7 +169,7 @@ export default function App() {
     [systemMessage, userId]
   );
 
-  const { messages, setMessages, sendMessage, status } = useChat({
+  const { messages, setMessages, sendMessage, status, stop } = useChat({
     id: chatId,
     transport,
     onError: handleChatError,
@@ -269,6 +269,11 @@ ${text}`,
     [sendMessage]
   );
 
+  const handleToggleWebSearch = useCallback(() => {
+    setUseWebSearch((prev) => !prev);
+    focusTextarea();
+  }, [focusTextarea]);
+
   // Load saved messages into chat when they're available (only on initial load)
   // Model tracking is now handled inside useMessagePersistence hook
   const initialLoadRef = useRef(false);
@@ -347,7 +352,6 @@ ${text}`,
               messages={messages}
               modelName={modelName}
               userMeta={userMeta}
-              isLoading={isLoading}
               chatStatus={status}
               copiedMessageId={copiedMessageId}
               onCopy={handleCopyMessage}
@@ -367,10 +371,9 @@ ${text}`,
         systemMessageRef={systemMessageRef}
         promptInputRef={promptInputRef}
         useWebSearch={useWebSearch}
-        onToggleWebSearch={() => {
-          setUseWebSearch((prev) => !prev);
-          focusTextarea();
-        }}
+        onToggleWebSearch={handleToggleWebSearch}
+        chatStatus={status}
+        onStop={stop}
       />
 
       <ImageModal
