@@ -184,6 +184,14 @@ export default function App() {
   });
 
   const [isLoading, setIsLoading] = useAtom(isLoadingAtom);
+  const wasLoadingRef = useRef(false);
+
+  useEffect(() => {
+    if (wasLoadingRef.current && !isLoading) {
+      focusTextarea();
+    }
+    wasLoadingRef.current = isLoading;
+  }, [isLoading, focusTextarea]);
 
   useEffect(() => {
     setIsLoading(status === 'streaming' || status === 'submitted');
