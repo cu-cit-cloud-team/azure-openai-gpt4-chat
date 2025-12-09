@@ -1,3 +1,5 @@
+import type { SharedV2ProviderMetadata } from '@ai-sdk/provider';
+
 export interface UserMeta {
   email?: string;
   name?: string;
@@ -23,7 +25,7 @@ export interface SourceUrlPart {
   sourceId: string;
   url: string;
   title?: string;
-  providerMetadata?: unknown;
+  providerMetadata?: SharedV2ProviderMetadata;
 }
 
 export interface FilePart {

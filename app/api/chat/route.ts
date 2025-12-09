@@ -156,28 +156,29 @@ export async function POST(req: Request) {
     // set up streaming options
     const convertedMessages = convertToModelMessages(uiMessages);
 
-    let streamTextOptions = {
+    const baseStreamTextOptions = {
       model: azureModel,
       messages: convertedMessages,
       maxTokens: max_tokens,
       experimental_transform: smoothStream(),
     };
 
-    if (webSearch) {
-      streamTextOptions = {
-        ...streamTextOptions,
-        tools: {
-          web_search_preview: azure.tools.webSearchPreview({
-            searchContextSize: 'medium',
-          }),
-        },
-        // Force web search tool (optional):
-        toolChoice: { type: 'tool', toolName: 'web_search_preview' },
-      };
-    }
-
-    // send the request and store the response
-    const response = streamText(streamTextOptions);
+    const response = streamText({
+      ...baseStreamTextOptions,
+      ...(webSearch
+        ? {
+            tools: {
+              web_search_preview: azure.tools.webSearchPreview({
+                searchContextSize: 'medium',
+              }),
+            },
+            toolChoice: {
+              type: 'tool',
+              toolName: 'web_search_preview' as const,
+            },
+          }
+        : {}),
+    });
 
     // v5 streaming response with usage metadata
     return response.toUIMessageStreamResponse({

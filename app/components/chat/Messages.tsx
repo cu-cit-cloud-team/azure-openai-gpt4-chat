@@ -246,11 +246,10 @@ const MessageRow = memo(
                             {reasoningPart.text}
                           </ReasoningContent>
                         ) : (
-                          <ReasoningContent>
-                            <div className="text-muted-foreground italic">
-                              Reasoning content is not available (encrypted by
-                              Azure OpenAI for o-series models)
-                            </div>
+                          <ReasoningContent className="text-muted-foreground italic">
+                            {
+                              'Reasoning content is not available (encrypted by Azure OpenAI for o-series models)'
+                            }
                           </ReasoningContent>
                         )}
                       </Reasoning>
@@ -282,7 +281,7 @@ const MessageRow = memo(
                       return (
                         <Tool key={`${message.id}-${i}`}>
                           <ToolHeader
-                            title={toolPart.toolName}
+                            title={toolPart.type.split('tool-')[1] || 'tool'}
                             type={toolPart.type}
                             state={toolPart.state}
                           />
