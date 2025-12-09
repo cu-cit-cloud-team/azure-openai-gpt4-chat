@@ -42,15 +42,39 @@ export function useMessagePersistence({
     }
   }, [savedMessages]);
 
-  const addMessage = useCallback(async (message: StoredMessage) => {
-    await database.messages.put({
-      id: message.id,
-      role: message.role,
-      parts: message.parts,
-      model: message.model,
-      createdAt: message.createdAt,
-    });
-  }, []);
+  const addMessage = useCallback(
+    async (message: StoredMessage) => {
+      if (!message.id) {
+        return;
+      }
+      if (savedMessageIdsRef.current.has(message.id)) {
+        return;
+      }
+
+      // Mark as saved to prevent re-entrancy while persisting
+      savedMessageIdsRef.current.add(message.id);
+
+      try {
+        await database.messages.put({
+          id: message.id,
+          role: message.role,
+          parts: message.parts,
+          model: message.model,
+          createdAt: message.createdAt,
+        });
+        messageModelsRef.current.set(message.id, message.model);
+        savedMessageCountRef.current = Math.max(
+          savedMessageCountRef.current,
+          messages.length
+        );
+      } catch (error) {
+        // Roll back the optimistic "saved" flag on failure
+        savedMessageIdsRef.current.delete(message.id);
+        throw error;
+      }
+    },
+    [messages.length]
+  );
 
   // Save new messages to indexedDB when messages change
   useEffect(() => {
@@ -59,7 +83,9 @@ export function useMessagePersistence({
     }
 
     const lastMessage = messages[messages.length - 1];
-    const isNewMessage = !savedMessageIdsRef.current.has(lastMessage.id);
+    const isNewMessage = lastMessage?.id
+      ? !savedMessageIdsRef.current.has(lastMessage.id)
+      : false;
 
     // Save user messages immediately, assistant messages after loading completes
     if (
@@ -67,15 +93,12 @@ export function useMessagePersistence({
       (lastMessage.role === 'user' ||
         (lastMessage.role === 'assistant' && !isLoading))
     ) {
-      // Create StoredMessage with model and createdAt
       const storedMessage: StoredMessage = {
         ...lastMessage,
         model: currentModel,
         createdAt: new Date().toISOString(),
       };
-      addMessage(storedMessage);
-      savedMessageIdsRef.current.add(lastMessage.id);
-      savedMessageCountRef.current = messages.length;
+      void addMessage(storedMessage);
     }
   }, [addMessage, messages, isLoading, currentModel]);
 
