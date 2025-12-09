@@ -348,6 +348,7 @@ ${text}`,
               modelName={modelName}
               userMeta={userMeta}
               isLoading={isLoading}
+              chatStatus={status}
               copiedMessageId={copiedMessageId}
               onCopy={handleCopyMessage}
               onRegenerate={handleRegenerateResponse}

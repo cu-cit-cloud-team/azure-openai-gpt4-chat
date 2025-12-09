@@ -68,6 +68,7 @@ export interface MessagesProps {
   modelName: string;
   userMeta?: UserMeta;
   isLoading: boolean;
+  chatStatus?: 'ready' | 'submitted' | 'streaming' | 'error';
   copiedMessageId: string | null;
   onCopy: (messageId: string, text: string) => void;
   onRegenerate: (messageId: string) => void;
@@ -80,6 +81,7 @@ export const Messages = ({
   modelName,
   userMeta,
   isLoading,
+  chatStatus,
   copiedMessageId,
   onCopy,
   onRegenerate,
@@ -96,6 +98,7 @@ export const Messages = ({
           modelName={modelName}
           userMeta={userMeta}
           isLoading={isLoading}
+          chatStatus={chatStatus}
           copiedMessageId={copiedMessageId}
           onCopy={onCopy}
           onRegenerate={onRegenerate}
@@ -113,6 +116,7 @@ interface MessageRowProps {
   modelName: string;
   userMeta?: UserMeta;
   isLoading: boolean;
+  chatStatus?: 'ready' | 'submitted' | 'streaming' | 'error';
   copiedMessageId: string | null;
   onCopy: (messageId: string, text: string) => void;
   onRegenerate: (messageId: string) => void;
@@ -127,6 +131,7 @@ const MessageRow = memo(
     modelName,
     userMeta,
     isLoading,
+    chatStatus,
     copiedMessageId,
     onCopy,
     onRegenerate,
@@ -136,6 +141,9 @@ const MessageRow = memo(
     const messageText = useMemo(() => getMessageText(message), [message]);
     const messageFiles = useMemo(() => getMessageFiles(message), [message]);
     const isUser = message.role === 'user';
+    const isStreamingState = chatStatus
+      ? chatStatus === 'streaming' || chatStatus === 'submitted'
+      : isLoading;
 
     // Collect source parts for rendering before message content
     const sourceParts = useMemo(
@@ -212,7 +220,9 @@ const MessageRow = memo(
               {/* Render message parts using switch-based pattern */}
               {message.parts.map((part, i) => {
                 const isStreamingPart =
-                  isLastMessage && isLoading && i === message.parts.length - 1;
+                  isLastMessage &&
+                  isStreamingState &&
+                  i === message.parts.length - 1;
 
                 // Debug: Log part types to understand what we're receiving
                 if (process.env.NODE_ENV === 'development' && !isUser) {
@@ -310,9 +320,10 @@ const MessageRow = memo(
               {/* Render concatenated text content */}
               {messageText && (
                 <MessageResponse
+                  key={`${message.id}-${isStreamingState ? 'streaming' : 'ready'}`}
                   mode="streaming"
                   parseIncompleteMarkdown
-                  isAnimating={isLastMessage && isLoading && !isUser}
+                  isAnimating={isLastMessage && isStreamingState && !isUser}
                   shikiTheme={['github-light', 'github-dark']}
                 >
                   {messageText}
@@ -348,7 +359,7 @@ const MessageRow = memo(
               )}
 
               {/* Loading indicator */}
-              {!isUser && isLoading && isLastMessage && !messageText && (
+              {!isUser && isStreamingState && isLastMessage && !messageText && (
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Loader2 className="size-4 animate-spin" />
                   <span className="text-sm">Thinking...</span>
