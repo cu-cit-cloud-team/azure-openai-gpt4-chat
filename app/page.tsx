@@ -207,7 +207,7 @@ export default function App() {
   }, [isLoading, focusTextarea]);
 
   useEffect(() => {
-    setIsLoading(status === 'streaming' || status === 'submitted');
+    setIsLoading(status !== 'ready');
   }, [status, setIsLoading]);
 
   // Message persistence - hook now handles tracking models from DB

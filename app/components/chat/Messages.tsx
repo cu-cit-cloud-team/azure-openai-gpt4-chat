@@ -314,7 +314,9 @@ const MessageRow = memo(
               {/* Render concatenated text content */}
               {messageText && (
                 <MessageResponse
-                  key={`${message.id}-${isStreamingState ? 'streaming' : 'ready'}`}
+                  // Use a stable key so the message body isn't remounted
+                  // when streaming status changes to ready.
+                  key={message.id}
                   mode="streaming"
                   parseIncompleteMarkdown
                   isAnimating={isLastMessage && isStreamingState && !isUser}
