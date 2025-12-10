@@ -52,29 +52,33 @@ interface FooterProps {
 }
 
 // Component that accesses attachments context and monitors file changes
-const AttachmentButton = ({ onFilesAdded }: { onFilesAdded: () => void }) => {
-  const attachments = usePromptInputAttachments();
-  const prevFileCountRef = React.useRef(attachments.files.length);
+const AttachmentButton = memo(
+  ({ onFilesAdded }: { onFilesAdded: () => void }) => {
+    const attachments = usePromptInputAttachments();
+    const prevFileCountRef = React.useRef(attachments.files.length);
 
-  // Detect when files are added
-  useEffect(() => {
-    const currentCount = attachments.files.length;
-    const prevCount = prevFileCountRef.current;
+    // Detect when files are added
+    useEffect(() => {
+      const currentCount = attachments.files.length;
+      const prevCount = prevFileCountRef.current;
 
-    // If file count increased, files were added
-    if (currentCount > prevCount) {
-      onFilesAdded();
-    }
+      // If file count increased, files were added
+      if (currentCount > prevCount) {
+        onFilesAdded();
+      }
 
-    prevFileCountRef.current = currentCount;
-  }, [attachments.files.length, onFilesAdded]);
+      prevFileCountRef.current = currentCount;
+    }, [attachments.files.length, onFilesAdded]);
 
-  return (
-    <PromptInputButton onClick={attachments.openFileDialog}>
-      <PlusIcon className="size-4" />
-    </PromptInputButton>
-  );
-};
+    return (
+      <PromptInputButton onClick={attachments.openFileDialog}>
+        <PlusIcon className="size-4" />
+      </PromptInputButton>
+    );
+  }
+);
+
+AttachmentButton.displayName = 'AttachmentButton';
 
 export const Footer = memo(
   ({

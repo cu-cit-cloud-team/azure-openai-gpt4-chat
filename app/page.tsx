@@ -222,12 +222,15 @@ export default function App() {
 
   // handlers now supplied by custom hooks above
 
+  const handleClearError = useCallback(() => {
+    setChatError(null);
+  }, []);
+
   const handlePromptSubmit = useCallback(
     async (message: { text: string; files: FilePart[] }) => {
       // Clear any existing error when submitting a new message
-      if (chatError) {
-        setChatError(null);
-      }
+      // React's setState is a no-op if the value is already null
+      setChatError(null);
 
       const parts: UIMessage['parts'] = [];
 
@@ -278,7 +281,7 @@ ${text}`,
         sendMessage({ parts });
       }
     },
-    [sendMessage, chatError]
+    [sendMessage]
   );
 
   const handleToggleWebSearch = useCallback(() => {
@@ -337,6 +340,16 @@ ${text}`,
     confirmDeleteMessage,
     cancelDeleteMessage,
   } = useDeleteMessage(setMessages);
+
+  const handleDeleteDialogOpenChange = useCallback(
+    (open: boolean) => {
+      if (!open) {
+        cancelDeleteMessage();
+      }
+    },
+    [cancelDeleteMessage]
+  );
+
   const { handleRegenerateResponse } = useRegenerateMessage(
     messages,
     setMessages,
@@ -349,7 +362,7 @@ ${text}`,
         isLoading={isLoading}
         systemMessageRef={systemMessageRef}
         chatError={chatError}
-        onClearError={() => setChatError(null)}
+        onClearError={handleClearError}
         setMessages={setMessages}
         focusTextarea={focusTextarea}
         messages={messages}
@@ -411,11 +424,7 @@ ${text}`,
 
       <DeleteMessageDialog
         open={showDeleteDialog}
-        onOpenChange={(open) => {
-          if (!open) {
-            cancelDeleteMessage();
-          }
-        }}
+        onOpenChange={handleDeleteDialogOpenChange}
         onConfirm={confirmDeleteMessage}
         onCancel={cancelDeleteMessage}
       />
