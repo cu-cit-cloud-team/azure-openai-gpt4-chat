@@ -361,28 +361,31 @@ const MessageRow = memo(
               )}
             </MessageContent>
 
-            <div
-              className={`mt-1 text-xs text-muted-foreground ${isUser ? 'text-right' : ''}`}
-              title={
-                dayjs(messageCreatedAt).isToday()
-                  ? dayjs(messageCreatedAt).format('h:mm a')
-                  : dayjs(messageCreatedAt).format(
-                      'ddd MMM DD YYYY [at] h:mm a'
-                    )
-              }
-            >
-              {isUser ? (
-                <>
-                  {userMeta?.name || 'User'} •{' '}
-                  {dayjs(messageCreatedAt).fromNow()}
-                </>
-              ) : (
-                <>
-                  {modelStringFromName(messageModel)} •{' '}
-                  {dayjs(messageCreatedAt).fromNow()}
-                </>
-              )}
-            </div>
+            {/* Hide meta for assistant messages while streaming */}
+            {!(isLastMessage && isStreamingState && !isUser) && (
+              <div
+                className={`mt-1 text-xs text-muted-foreground ${isUser ? 'text-right' : ''}`}
+                title={
+                  dayjs(messageCreatedAt).isToday()
+                    ? dayjs(messageCreatedAt).format('h:mm a')
+                    : dayjs(messageCreatedAt).format(
+                        'ddd MMM DD YYYY [at] h:mm a'
+                      )
+                }
+              >
+                {isUser ? (
+                  <>
+                    {userMeta?.name || 'User'} •{' '}
+                    {dayjs(messageCreatedAt).fromNow()}
+                  </>
+                ) : (
+                  <>
+                    {modelStringFromName(messageModel)} •{' '}
+                    {dayjs(messageCreatedAt).fromNow()}
+                  </>
+                )}
+              </div>
+            )}
 
             {messageText && (
               <MessageActions className={`mt-2 ${isUser ? 'justify-end' : ''}`}>
