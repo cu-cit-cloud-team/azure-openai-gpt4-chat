@@ -173,7 +173,7 @@ const MessageRow = memo(
     );
 
     return (
-      <Message key={message.id} from={message.role}>
+      <Message from={message.role}>
         <div
           className={`flex gap-3 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
         >
@@ -314,9 +314,8 @@ const MessageRow = memo(
               {/* Render concatenated text content */}
               {messageText && (
                 <MessageResponse
-                  // Use a stable key so the message body isn't remounted
+                  // Use component props (not key) so the message body isn't remounted
                   // when streaming status changes to ready.
-                  key={message.id}
                   mode="streaming"
                   parseIncompleteMarkdown
                   isAnimating={isLastMessage && isStreamingState && !isUser}

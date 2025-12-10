@@ -4,11 +4,19 @@ import { database } from '@/app/database/database.config';
 import { hasMessageContent } from '@/app/utils/messageHelpers';
 
 /**
- * Extended UIMessage type with additional metadata we store
+ * Extended UIMessage type with additional metadata we store when persisting.
+ * This internal type always has model and createdAt defined.
  */
-type StoredMessage = UIMessage & {
+type PersistedMessage = UIMessage & {
   model: string;
   createdAt: string;
+};
+
+// External stored message shape coming from callers (e.g. page.tsx)
+// where model/createdAt may be missing on older rows.
+export type StoredMessage = UIMessage & {
+  model?: string;
+  createdAt?: string;
 };
 
 interface UseMessagePersistenceProps {
@@ -24,67 +32,68 @@ export function useMessagePersistence({
   currentModel,
   savedMessages,
 }: UseMessagePersistenceProps) {
-  // Track model per message ID
+  // Track model per message ID (for messages already in IndexedDB)
   const messageModelsRef = useRef<Map<string, string>>(new Map());
-  // Track which message IDs have been saved to avoid re-saving on load
+  // Track which message IDs have been saved to avoid re-saving
   const savedMessageIdsRef = useRef<Set<string>>(new Set());
-  // Track saved message count to avoid re-saving on load
-  const savedMessageCountRef = useRef(0);
+  // Ensure we only seed from savedMessages once
+  const hasSeededFromSavedRef = useRef(false);
 
-  // Track models for messages loaded from DB
+  // Seed tracking state from messages loaded from IndexedDB once on mount
   useEffect(() => {
-    if (savedMessages) {
-      savedMessages.forEach((msg) => {
-        if (msg.model && msg.id) {
-          messageModelsRef.current.set(msg.id, msg.model);
-          savedMessageIdsRef.current.add(msg.id);
-        }
-      });
+    if (!savedMessages || hasSeededFromSavedRef.current) {
+      return;
     }
+
+    for (const msg of savedMessages) {
+      if (msg.id) {
+        savedMessageIdsRef.current.add(msg.id);
+        if (msg.model) {
+          messageModelsRef.current.set(msg.id, msg.model);
+        }
+      }
+    }
+
+    hasSeededFromSavedRef.current = true;
   }, [savedMessages]);
 
-  const addMessage = useCallback(
-    async (message: StoredMessage) => {
-      if (!message.id) {
-        return;
-      }
-      if (savedMessageIdsRef.current.has(message.id)) {
-        return;
-      }
+  const addMessage = useCallback(async (message: PersistedMessage) => {
+    if (!message.id) {
+      return;
+    }
 
-      // Validate message has actual content before persisting
-      // This prevents empty/failed messages from being saved to IndexedDB
-      if (!hasMessageContent(message)) {
-        console.warn('Skipping persistence of empty message:', message.id);
-        return;
-      }
+    // Skip if we've already persisted this message
+    if (savedMessageIdsRef.current.has(message.id)) {
+      return;
+    }
 
-      // Mark as saved to prevent re-entrancy while persisting
-      savedMessageIdsRef.current.add(message.id);
+    // Validate message has actual content before persisting
+    // This prevents empty/failed messages from being saved to IndexedDB
+    if (!hasMessageContent(message)) {
+      console.warn('Skipping persistence of empty message:', message.id);
+      return;
+    }
 
-      try {
-        await database.messages.put({
-          id: message.id,
-          role: message.role,
-          parts: message.parts,
-          model: message.model,
-          createdAt: message.createdAt,
-        });
-        messageModelsRef.current.set(message.id, message.model);
-        savedMessageCountRef.current = Math.max(
-          savedMessageCountRef.current,
-          messages.length
-        );
-      } catch (error) {
-        // Roll back the optimistic "saved" flag on failure
-        savedMessageIdsRef.current.delete(message.id);
-        throw error;
-      }
-    },
-    [messages.length]
-  );
+    // Mark as saved to prevent re-entrancy while persisting
+    savedMessageIdsRef.current.add(message.id);
 
-  // Save new messages to indexedDB when messages change
+    try {
+      await database.messages.put({
+        id: message.id,
+        role: message.role,
+        parts: message.parts,
+        model: message.model,
+        createdAt: message.createdAt,
+      });
+      messageModelsRef.current.set(message.id, message.model);
+    } catch (error) {
+      // Roll back the optimistic "saved" flag on failure
+      savedMessageIdsRef.current.delete(message.id);
+      throw error;
+    }
+  }, []);
+
+  // Save new messages to IndexedDB when messages change
   useEffect(() => {
     if (messages.length === 0) {
       return;
@@ -95,13 +104,16 @@ export function useMessagePersistence({
       ? !savedMessageIdsRef.current.has(lastMessage.id)
       : false;
 
-    // Save user messages immediately, assistant messages after loading completes
+    if (!isNewMessage) {
+      return;
+    }
+
+    // Save user messages immediately, assistant messages only after loading completes
     if (
-      isNewMessage &&
-      (lastMessage.role === 'user' ||
-        (lastMessage.role === 'assistant' && !isLoading))
+      lastMessage.role === 'user' ||
+      (lastMessage.role === 'assistant' && !isLoading)
     ) {
-      const storedMessage: StoredMessage = {
+      const storedMessage: PersistedMessage = {
         ...lastMessage,
         model: currentModel,
         createdAt: new Date().toISOString(),

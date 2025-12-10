@@ -6,11 +6,16 @@ import { DefaultChatTransport } from 'ai';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useLiveQuery } from 'dexie-react-hooks';
 import { useAtom, useAtomValue } from 'jotai';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import {
+  Conversation,
+  ConversationContent,
+  ConversationScrollButton,
+} from '@/app/components/ai-elements/conversation';
 import { DeleteMessageDialog } from '@/app/components/chat/DeleteMessageDialog';
+import { Messages } from '@/app/components/chat/Messages';
 import {
   ImageModal,
   PdfModal,
@@ -35,19 +40,12 @@ import {
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
-import {
-  Conversation,
-  ConversationContent,
-  ConversationScrollButton,
-} from '@/app/components/ai-elements/conversation';
-import { Messages } from '@/app/components/chat/Messages';
-
 /**
  * Extended UIMessage type with additional metadata we store
  */
 type StoredMessage = UIMessage & {
-  model: string;
-  createdAt: string;
+  model?: string;
+  createdAt?: string;
 };
 
 type FilePart = {
@@ -84,8 +82,114 @@ const TEXT_TYPES = new Set([
 
 export default function App() {
   const systemMessageRef = useRef<HTMLTextAreaElement>(null);
-  // Ref for PromptInput textarea
   const promptInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const [initialMessages, setInitialMessages] = useState<
+    StoredMessage[] | null
+  >(null);
+  const [initialMessagesError, setInitialMessagesError] = useState<
+    string | null
+  >(null);
+
+  // One-time Dexie load to hydrate initial messages for useChat
+  useEffect(() => {
+    let isCancelled = false;
+
+    const loadMessages = async () => {
+      try {
+        const messages = await database.messages.toArray();
+        const sorted = [...messages].sort((a, b) => {
+          const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return aTime - bTime;
+        });
+        if (!isCancelled) {
+          console.log(
+            '[chat] Loaded initial messages from IndexedDB:',
+            sorted.length
+          );
+          setInitialMessages(sorted);
+        }
+      } catch (error) {
+        console.error('Failed to load messages from IndexedDB', error);
+        if (!isCancelled) {
+          setInitialMessages([]);
+          setInitialMessagesError('Failed to load previous conversation.');
+        }
+      }
+    };
+
+    void loadMessages();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  // While initial messages are loading, show a lightweight shell to avoid
+  // hydration flicker and scroll jumps. Do NOT call useChat here.
+  if (initialMessages === null) {
+    return (
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Header
+          isLoading={false}
+          systemMessageRef={systemMessageRef}
+          chatError={initialMessagesError}
+          onClearError={() => setInitialMessagesError(null)}
+          setMessages={() => {}}
+          focusTextarea={() => {}}
+          messages={[]}
+        />
+
+        <div className="flex flex-col h-screen pt-14 pb-40">
+          <Conversation className="flex-1">
+            <ConversationContent className="max-w-5xl mx-auto px-4">
+              <div className="mt-8 text-sm text-muted-foreground">
+                Loading conversation...
+              </div>
+            </ConversationContent>
+          </Conversation>
+        </div>
+
+        <Footer
+          onSubmit={() => {}}
+          isLoading={false}
+          focusTextarea={() => {}}
+          systemMessageRef={systemMessageRef}
+          promptInputRef={promptInputRef}
+          useWebSearch={false}
+          onToggleWebSearch={() => {}}
+          chatStatus="ready"
+          onStop={() => {}}
+        />
+      </ErrorBoundary>
+    );
+  }
+
+  // Once initialMessages are loaded, render the actual chat that owns useChat.
+  return (
+    <ChatInner
+      initialMessages={initialMessages}
+      systemMessageRef={systemMessageRef}
+      promptInputRef={promptInputRef}
+      initialError={initialMessagesError}
+    />
+  );
+}
+
+type ChatInnerProps = {
+  initialMessages: StoredMessage[];
+  systemMessageRef: React.RefObject<HTMLTextAreaElement | null>;
+  promptInputRef: React.RefObject<HTMLTextAreaElement | null>;
+  initialError?: string | null;
+};
+
+function ChatInner({
+  initialMessages,
+  systemMessageRef,
+  promptInputRef,
+  initialError,
+}: ChatInnerProps) {
   const [useWebSearch, setUseWebSearch] = useState(false);
   const useWebSearchRef = useRef(useWebSearch);
 
@@ -95,7 +199,7 @@ export default function App() {
         promptInputRef.current?.focus();
       }
     }, 0);
-  }, []);
+  }, [systemMessageRef, promptInputRef]);
 
   useEffect(() => {
     useWebSearchRef.current = useWebSearch;
@@ -106,7 +210,7 @@ export default function App() {
     if (document?.activeElement !== systemMessageRef.current) {
       promptInputRef.current?.focus();
     }
-  }, []);
+  }, [systemMessageRef, promptInputRef]);
 
   const modelName = useAtomValue(modelAtom);
   const systemMessage = useAtomValue(systemMessageAtom);
@@ -124,20 +228,13 @@ export default function App() {
     setUseWebSearch(false);
   }, [modelName]);
 
-  const savedMessages = useLiveQuery(async () => {
-    const messages = await database.messages.toArray();
-    const sorted = [...messages].sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-    );
-    return sorted;
-  }, []);
-
   const userId = useMemo(
     () => (userMeta?.email ? btoa(userMeta?.email) : undefined),
     [userMeta]
   );
-  const [chatError, setChatError] = useState<string | null>(null);
+  const [chatError, setChatError] = useState<string | null>(
+    initialError ?? null
+  );
 
   const chatId = useMemo(
     () => (userId ? `${userId}-chat` : 'local-chat'),
@@ -166,20 +263,19 @@ export default function App() {
 
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     id: chatId,
+    messages: initialMessages,
     transport,
     onError: (error: Error | { message?: string }) => {
       console.error(error);
       setChatError(error?.message || 'An error occurred. Please try again.');
 
       // Remove the failed empty assistant message (AI SDK best practice)
-      // This prevents orphaned messages with no content from appearing in the UI
       setMessages((currentMessages) => {
         if (currentMessages.length === 0) {
           return currentMessages;
         }
 
         const lastMessage = currentMessages[currentMessages.length - 1];
-        // Only remove if it's an assistant message (the failed response)
         if (lastMessage.role === 'assistant') {
           return currentMessages.slice(0, -1);
         }
@@ -192,7 +288,14 @@ export default function App() {
         model: modelNameRef.current,
         createdAt: new Date().toISOString(),
       };
-      addMessage(messageWithModel);
+
+      // addMessage expects a StoredMessage with model and createdAt defined
+      addMessage(
+        messageWithModel as StoredMessage & {
+          model: string;
+          createdAt: string;
+        }
+      );
     },
   });
 
@@ -210,17 +313,13 @@ export default function App() {
     setIsLoading(status !== 'ready');
   }, [status, setIsLoading]);
 
-  // Message persistence - hook now handles tracking models from DB
+  // Message persistence: seed from initialMessages only once via hook
   const { addMessage } = useMessagePersistence({
     messages,
     isLoading,
     currentModel: modelNameRef.current,
-    savedMessages,
+    savedMessages: initialMessages,
   });
-
-  // Token counts will be calculated by TokenCount component when needed
-
-  // handlers now supplied by custom hooks above
 
   const handleClearError = useCallback(() => {
     setChatError(null);
@@ -228,8 +327,6 @@ export default function App() {
 
   const handlePromptSubmit = useCallback(
     async (message: { text: string; files: FilePart[] }) => {
-      // Clear any existing error when submitting a new message
-      // React's setState is a no-op if the value is already null
       setChatError(null);
 
       const parts: UIMessage['parts'] = [];
@@ -246,20 +343,17 @@ export default function App() {
         const isPdf = file.mediaType === 'application/pdf';
 
         if (isTextFile && file.url) {
-          // Text files: convert to text parts (models understand this format)
           try {
             const response = await fetch(file.url);
             const text = await response.text();
             parts.push({
               type: 'text',
-              text: `[File: ${fileName}]
-${text}`,
+              text: `[File: ${fileName}]\n${text}`,
             });
           } catch (error) {
             console.error(`Failed to read text file ${fileName}:`, error);
           }
         } else if (isImage && file.url) {
-          // Images: use file parts (supported by vision models)
           parts.push({
             type: 'file',
             url: file.url,
@@ -267,7 +361,6 @@ ${text}`,
             filename: fileName,
           });
         } else if (isPdf && file.url) {
-          // PDFs: use file parts (supported by models with PDF capability)
           parts.push({
             type: 'file',
             url: file.url,
@@ -289,21 +382,9 @@ ${text}`,
     focusTextarea();
   }, [focusTextarea]);
 
-  // Load saved messages into chat when they're available (only on initial load)
-  // Model tracking is now handled inside useMessagePersistence hook
-  const initialLoadRef = useRef(false);
-  useEffect(() => {
-    if (savedMessages && !initialLoadRef.current) {
-      setMessages(savedMessages);
-      initialLoadRef.current = true;
-    }
-  }, [savedMessages, setMessages]);
-
   // subscribe to storage change events so multiple tabs stay in sync
   useEffect(() => {
     const handleStorageChanges = (e: StorageEvent) => {
-      // Only reload atom values when storage actually changes in another tab
-      // Don't dispatch new storage events to avoid infinite loops
       const keysToHandle = [
         'model',
         'systemMessage',
@@ -312,8 +393,7 @@ ${text}`,
         'userMeta',
       ];
       if (e.key && keysToHandle.includes(e.key)) {
-        // The atoms will automatically sync from localStorage
-        // No need to dispatch additional events
+        // atoms sync from localStorage
       }
     };
 
@@ -368,11 +448,9 @@ ${text}`,
         messages={messages}
       />
 
-      {/* Main Chat Container */}
       <div className="flex flex-col h-screen pt-14 pb-40">
         <Conversation className="flex-1">
           <ConversationContent className="max-w-5xl mx-auto px-4">
-            {/* Decreased top padding for smaller header, added horizontal padding */}
             <Messages
               messages={messages}
               modelName={modelName}
