@@ -159,6 +159,7 @@ export const Footer = memo(
             setShowConfirmDialog(true);
           } else {
             // First interaction - just mark as interacted and update without confirm
+            setPendingModel(value);
             hasInteractedRef.current = true;
           }
         }
