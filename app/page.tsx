@@ -133,11 +133,6 @@ export default function App() {
     return sorted;
   }, []);
 
-  const handleChatError = useCallback((error: Error | { message?: string }) => {
-    console.error(error);
-    setChatError(error?.message || 'An error occurred. Please try again.');
-  }, []);
-
   const userId = useMemo(
     () => (userMeta?.email ? btoa(userMeta?.email) : undefined),
     [userMeta]
@@ -172,7 +167,25 @@ export default function App() {
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     id: chatId,
     transport,
-    onError: handleChatError,
+    onError: (error: Error | { message?: string }) => {
+      console.error(error);
+      setChatError(error?.message || 'An error occurred. Please try again.');
+
+      // Remove the failed empty assistant message (AI SDK best practice)
+      // This prevents orphaned messages with no content from appearing in the UI
+      setMessages((currentMessages) => {
+        if (currentMessages.length === 0) {
+          return currentMessages;
+        }
+
+        const lastMessage = currentMessages[currentMessages.length - 1];
+        // Only remove if it's an assistant message (the failed response)
+        if (lastMessage.role === 'assistant') {
+          return currentMessages.slice(0, -1);
+        }
+        return currentMessages;
+      });
+    },
     onFinish: ({ message }) => {
       const messageWithModel: StoredMessage = {
         ...message,
@@ -211,6 +224,11 @@ export default function App() {
 
   const handlePromptSubmit = useCallback(
     async (message: { text: string; files: FilePart[] }) => {
+      // Clear any existing error when submitting a new message
+      if (chatError) {
+        setChatError(null);
+      }
+
       const parts: UIMessage['parts'] = [];
 
       if (message.text.trim()) {
@@ -266,7 +284,7 @@ ${text}`,
         sendMessage({ parts });
       }
     },
-    [sendMessage]
+    [sendMessage, chatError]
   );
 
   const handleToggleWebSearch = useCallback(() => {

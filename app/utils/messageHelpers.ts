@@ -96,6 +96,34 @@ export function getMessageFiles(message: UIMessage) {
 }
 
 /**
+ * Check if a message has any meaningful content
+ * Used to prevent persisting empty messages on errors
+ */
+export function hasMessageContent(message: UIMessage): boolean {
+  if (!message.parts || message.parts.length === 0) {
+    return false;
+  }
+
+  // Check if there's any text content (excluding file prefixes)
+  const hasText = message.parts.some(
+    (part) => part.type === 'text' && part.text.trim() !== ''
+  );
+
+  // Check if there are any file parts
+  const hasFiles = message.parts.some((part) => part.type === 'file');
+
+  // Check if there are any other meaningful parts (reasoning, tool calls, etc.)
+  const hasOtherContent = message.parts.some(
+    (part) =>
+      part.type === 'reasoning' ||
+      part.type.startsWith('tool-') ||
+      part.type === 'source-url'
+  );
+
+  return hasText || hasFiles || hasOtherContent;
+}
+
+/**
  * Extract a meaningful title from a URL for display purposes.
  * Returns the domain name or last path segment instead of the full URL.
  */

@@ -1,6 +1,7 @@
 import type { UIMessage } from 'ai';
 import { useCallback, useEffect, useRef } from 'react';
 import { database } from '@/app/database/database.config';
+import { hasMessageContent } from '@/app/utils/messageHelpers';
 
 /**
  * Extended UIMessage type with additional metadata we store
@@ -48,6 +49,13 @@ export function useMessagePersistence({
         return;
       }
       if (savedMessageIdsRef.current.has(message.id)) {
+        return;
+      }
+
+      // Validate message has actual content before persisting
+      // This prevents empty/failed messages from being saved to IndexedDB
+      if (!hasMessageContent(message)) {
+        console.warn('Skipping persistence of empty message:', message.id);
         return;
       }
 
