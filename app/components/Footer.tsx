@@ -30,7 +30,14 @@ import {
 } from '@/app/components/ui/tooltip';
 import { modelAtom } from '@/app/utils/atoms';
 import { setItem } from '@/app/utils/localStorage';
+import { mediaTypeMap } from '@/app/utils/messageHelpers';
 import { modelFromName, models } from '@/app/utils/models';
+
+// Dynamically generate accepted MIME types from mediaTypeMap
+// Using Set to deduplicate (e.g., .jpg and .jpeg both map to image/jpeg)
+const acceptedMimeTypes = Array.from(
+  new Set(['image/*', ...Object.values(mediaTypeMap)])
+).join(',');
 
 interface FooterProps {
   onSubmit: (message: PromptInputMessage) => void;
@@ -214,7 +221,7 @@ export const Footer = memo(
       <footer className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
         <div className="container max-w-5xl mx-auto px-4 py-3">
           <PromptInput
-            accept="image/*,.pdf,.txt,.md,.json,.csv,.xml,.html,.css,.js,.ts,.tsx,.jsx,.py,.java,.cpp,.c,.h,.sh"
+            accept={acceptedMimeTypes}
             multiple
             maxFiles={3}
             maxFileSize={25 * 1024 * 1024}

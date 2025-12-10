@@ -235,8 +235,7 @@ export default function App() {
         parts.push({ type: 'text', text: message.text.trim() });
       }
 
-      const textFilePromises: Array<Promise<void>> = [];
-
+      // Process files: text files become text parts, images/PDFs stay as file parts
       for (const file of message.files) {
         const fileName = file.filename || file.name || 'file';
         const isTextFile = TEXT_TYPES.has(file.mediaType);
@@ -244,22 +243,20 @@ export default function App() {
         const isPdf = file.mediaType === 'application/pdf';
 
         if (isTextFile && file.url) {
-          textFilePromises.push(
-            (async () => {
-              try {
-                const response = await fetch(file.url);
-                const text = await response.text();
-                parts.push({
-                  type: 'text',
-                  text: `[File: ${fileName}]
+          // Text files: convert to text parts (models understand this format)
+          try {
+            const response = await fetch(file.url);
+            const text = await response.text();
+            parts.push({
+              type: 'text',
+              text: `[File: ${fileName}]
 ${text}`,
-                });
-              } catch (error) {
-                console.error(`Failed to read text file ${fileName}:`, error);
-              }
-            })()
-          );
+            });
+          } catch (error) {
+            console.error(`Failed to read text file ${fileName}:`, error);
+          }
         } else if (isImage && file.url) {
+          // Images: use file parts (supported by vision models)
           parts.push({
             type: 'file',
             url: file.url,
@@ -267,6 +264,7 @@ ${text}`,
             filename: fileName,
           });
         } else if (isPdf && file.url) {
+          // PDFs: use file parts (supported by models with PDF capability)
           parts.push({
             type: 'file',
             url: file.url,
@@ -274,10 +272,6 @@ ${text}`,
             filename: fileName,
           });
         }
-      }
-
-      if (textFilePromises.length > 0) {
-        await Promise.all(textFilePromises);
       }
 
       if (parts.length > 0) {

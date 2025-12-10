@@ -17,40 +17,47 @@ export function getMessageText(message: UIMessage): string {
 }
 
 /**
+ *  Mapping of common file extensions to media types
+ */
+
+export const mediaTypeMap: Record<string, string> = {
+  json: 'application/json',
+  pdf: 'application/pdf',
+  ts: 'application/typescript',
+  sh: 'application/x-sh',
+  xml: 'application/xml',
+  yaml: 'application/yaml',
+  yml: 'application/yaml',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  webp: 'image/webp',
+  css: 'text/css',
+  csv: 'text/csv',
+  html: 'text/html',
+  htm: 'text/html',
+  js: 'text/javascript',
+  md: 'text/markdown',
+  txt: 'text/plain',
+  go: 'text/x-golang',
+  java: 'text/x-java',
+  php: 'text/x-php',
+  py: 'text/x-python',
+  rb: 'text/x-ruby',
+};
+
+/**
  * Infer media type from filename extension
  */
 function getMediaTypeFromFilename(filename: string): string {
   const ext = filename.split('.').pop()?.toLowerCase();
-  const mediaTypeMap: Record<string, string> = {
-    json: 'application/json',
-    pdf: 'application/pdf',
-    ts: 'application/typescript',
-    sh: 'application/x-sh',
-    xml: 'application/xml',
-    yaml: 'application/yaml',
-    yml: 'application/yaml',
-    jpg: 'image/jpeg',
-    jpeg: 'image/jpeg',
-    png: 'image/png',
-    webp: 'image/webp',
-    css: 'text/css',
-    csv: 'text/csv',
-    html: 'text/html',
-    htm: 'text/html',
-    js: 'text/javascript',
-    md: 'text/markdown',
-    txt: 'text/plain',
-    go: 'text/x-golang',
-    java: 'text/x-java',
-    php: 'text/x-php',
-    py: 'text/x-python',
-    rb: 'text/x-ruby',
-  };
   return mediaTypeMap[ext || ''] || 'text/plain';
 }
 
 /**
- * Extract all file parts from a v5 message, including text files stored as text parts
+ * Extract all file parts from a v5 message
+ * Text files are stored as text parts with [File: name] prefix
+ * Images and PDFs are stored as file parts
  */
 export function getMessageFiles(message: UIMessage) {
   const files: Array<{
@@ -61,9 +68,9 @@ export function getMessageFiles(message: UIMessage) {
     textContent?: string;
   }> = [];
 
-  // Get actual file parts (images, PDFs)
   message.parts.forEach((part) => {
     if (part.type === 'file') {
+      // Images and PDFs stored as file parts
       const filePart = part as {
         mediaType: string;
         url: string;
@@ -77,7 +84,7 @@ export function getMessageFiles(message: UIMessage) {
         name: filePart.filename || filePart.name || 'file',
       });
     } else if (part.type === 'text' && part.text.startsWith('[File: ')) {
-      // Extract text file attachments from text parts
+      // Text files stored as text parts with [File: name] prefix
       const match = part.text.match(/^\[File: (.+?)\]\n([\s\S]*)$/);
       if (match) {
         const filename = match[1];
