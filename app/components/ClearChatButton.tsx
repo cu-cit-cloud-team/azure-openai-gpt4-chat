@@ -1,7 +1,7 @@
 import type { UIMessage } from 'ai';
+import { useAtomValue } from 'jotai';
 import { Eraser } from 'lucide-react';
 import { memo, useCallback, useState } from 'react';
-
 import { ConfirmDialog } from '@/app/components/ConfirmDialog';
 import { Button } from '@/app/components/ui/button';
 import {
@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
 } from '@/app/components/ui/tooltip';
 import { useClearMessages } from '@/app/hooks/useClearMessages';
+import { userMetaAtom } from '@/app/utils/atoms';
 
 interface ClearChatButtonProps {
   isLoading: boolean;
@@ -20,7 +21,11 @@ interface ClearChatButtonProps {
 
 export const ClearChatButton = memo(
   ({ isLoading, setMessages, focusTextarea }: ClearChatButtonProps) => {
-    const clearMessages = useClearMessages(setMessages);
+    const userMeta = useAtomValue(userMetaAtom);
+    const chatId = userMeta?.email
+      ? `${btoa(userMeta?.email)}-chat`
+      : 'local-chat';
+    const clearMessages = useClearMessages(setMessages, chatId);
     const [showDialog, setShowDialog] = useState(false);
 
     const handleClearConfirm = useCallback(async () => {

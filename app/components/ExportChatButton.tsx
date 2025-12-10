@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
 } from '@/app/components/ui/tooltip';
 import { database } from '@/app/database/database.config';
-import { systemMessageAtom } from '@/app/utils/atoms';
+import { systemMessageAtom, userMetaAtom } from '@/app/utils/atoms';
 
 interface ExportChatButtonProps {
   isLoading: boolean;
@@ -18,6 +18,10 @@ interface ExportChatButtonProps {
 
 export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
   const systemMessage = useAtomValue(systemMessageAtom);
+  const userMeta = useAtomValue(userMetaAtom);
+  const chatId = userMeta?.email
+    ? `${btoa(userMeta?.email)}-chat`
+    : 'local-chat';
   const [showDialog, setShowDialog] = useState(false);
 
   const downloadFile = useCallback(
@@ -46,16 +50,16 @@ export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
   );
 
   const getMessages = useCallback(async () => {
-    const messages = await database.messages.toArray();
+    const messages = await database.messages
+      .where('chatId')
+      .equals(chatId)
+      .toArray();
     const sortedMessages = messages
       .sort(
         (a, b) =>
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       )
-      .map((message) => {
-        // Return message as-is without re-sorting keys
-        return message;
-      });
+      .map((message) => message);
     // Add system message at the beginning for export
     const messagesWithSystem = [
       {
@@ -68,7 +72,7 @@ export const ExportChatButton = memo(({ isLoading }: ExportChatButtonProps) => {
       ...sortedMessages,
     ];
     return JSON.stringify(messagesWithSystem, null, 2);
-  }, [systemMessage]);
+  }, [systemMessage, chatId]);
 
   const handleExportConfirm = useCallback(async () => {
     const data = await getMessages();

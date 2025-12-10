@@ -28,6 +28,7 @@ import { database } from '@/app/database/database.config';
 import { useClipboardFeedback } from '@/app/hooks/useClipboardFeedback';
 import { useDeleteMessage } from '@/app/hooks/useDeleteMessage';
 import { useMessageModals } from '@/app/hooks/useMessageModals';
+import type { StoredMessage } from '@/app/hooks/useMessagePersistence';
 import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
 import { useRegenerateMessage } from '@/app/hooks/useRegenerateMessage';
 import {
@@ -40,13 +41,7 @@ import {
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
 
-/**
- * Extended UIMessage type with additional metadata we store
- */
-type StoredMessage = UIMessage & {
-  model?: string;
-  createdAt?: string;
-};
+/** Local StoredMessage type imported from useMessagePersistence */
 
 type FilePart = {
   type: 'file';
@@ -97,6 +92,7 @@ export default function App() {
 
     const loadMessages = async () => {
       try {
+        // Load all messages on initial hydration; we'll scope them later in ChatInner
         const messages = await database.messages.toArray();
         const sorted = [...messages].sort((a, b) => {
           const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
@@ -241,6 +237,13 @@ function ChatInner({
     [userId]
   );
 
+  // Filter initial messages to the active chat (include legacy messages without chatId)
+  const filteredInitialMessages = useMemo(() => {
+    return initialMessages.filter(
+      (m) => m.chatId === chatId || m.chatId == null
+    );
+  }, [initialMessages, chatId]);
+
   // Create transport that updates when parameters change
   const transport = useMemo(
     () =>
@@ -261,9 +264,37 @@ function ChatInner({
     [systemMessage, userId]
   );
 
+  // Request persistent storage on supported browsers to reduce eviction risk
+  useEffect(() => {
+    const tryPersist = async () => {
+      try {
+        const storage = (
+          navigator as unknown as {
+            storage?: {
+              persisted?: () => Promise<boolean>;
+              persist?: () => Promise<boolean>;
+            };
+          }
+        ).storage;
+        if (storage && typeof storage.persisted === 'function') {
+          const isPersisted = await storage.persisted();
+          if (!isPersisted && typeof storage.persist === 'function') {
+            await storage.persist();
+            console.log('[storage] Requested persistent storage');
+          }
+        }
+      } catch (e) {
+        // Non-fatal; persistence is best-effort
+        console.warn('Storage persistence request failed', e);
+      }
+    };
+
+    void tryPersist();
+  }, []);
+
   const { messages, setMessages, sendMessage, status, stop } = useChat({
     id: chatId,
-    messages: initialMessages,
+    messages: filteredInitialMessages,
     transport,
     onError: (error: Error | { message?: string }) => {
       console.error(error);
@@ -319,6 +350,7 @@ function ChatInner({
     isLoading,
     currentModel: modelNameRef.current,
     savedMessages: initialMessages,
+    chatId,
   });
 
   const handleClearError = useCallback(() => {
@@ -419,7 +451,7 @@ function ChatInner({
     handleDeleteMessage,
     confirmDeleteMessage,
     cancelDeleteMessage,
-  } = useDeleteMessage(setMessages);
+  } = useDeleteMessage(setMessages, chatId);
 
   const handleDeleteDialogOpenChange = useCallback(
     (open: boolean) => {
@@ -433,7 +465,8 @@ function ChatInner({
   const { handleRegenerateResponse } = useRegenerateMessage(
     messages,
     setMessages,
-    sendMessage
+    sendMessage,
+    chatId
   );
 
   return (

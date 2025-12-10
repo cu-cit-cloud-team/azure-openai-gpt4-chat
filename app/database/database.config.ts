@@ -1,9 +1,11 @@
 import type { UIMessage } from 'ai';
 import Dexie, { type Table } from 'dexie';
 
+// StoredMessage includes chatId to scope messages to a session
 export interface StoredMessage extends UIMessage {
   model: string;
   createdAt: string;
+  chatId?: string;
 }
 
 export class AppDatabase extends Dexie {
@@ -12,52 +14,146 @@ export class AppDatabase extends Dexie {
   constructor() {
     super('database');
 
-    // initial version
+    // v1: minimal initial schema
     this.version(1).stores({
-      messages: '&id, role, content, createdAt',
+      messages: '&id, role, createdAt',
     });
 
-    // add model information to each message
+    // v2: add model and migrate if missing
     this.version(2)
       .stores({
-        messages: '&id, role, content, createdAt, model, modelString',
+        messages: '&id, role, createdAt, model',
       })
       .upgrade((tx) => {
-        return (
-          tx
-            .table('messages')
-            .toCollection()
-            // biome-ignore lint/suspicious/noExplicitAny: acceptable for migration
-            .modify((message: any) => {
-              message.model = 'gpt-4o';
-              message.modelString = 'Azure OpenAI GPT-4o (2024-08-06)';
-            })
-        );
+        return tx
+          .table('messages')
+          .toCollection()
+          .modify((message: unknown) => {
+            if (typeof message === 'object' && message !== null) {
+              const m = message as Record<string, unknown>;
+              if (!('model' in m)) {
+                m.model = 'gpt-5.1';
+              }
+              if ('modelString' in m) {
+                delete m.modelString;
+              }
+            }
+          });
       });
 
-    // remove modelString column
-    this.version(3).stores({
-      messages: '&id, role, content, createdAt, model',
-    });
-
-    // Add parts array support for AI SDK v5 (keeping content for backward compatibility)
-    this.version(4).stores({
-      messages: '&id, role, content, createdAt, model, parts',
-    });
-
-    // Migrate to pure AI SDK v5 format - remove v4 fields, clear old data
-    this.version(5)
+    // v3: migrate legacy `content` strings into `parts`
+    this.version(3)
       .stores({
-        messages: '&id, role, parts, createdAt, model',
+        messages: '&id, role, createdAt, model',
       })
       .upgrade((tx) => {
-        // Clear all existing messages to start fresh with v5 format
-        return tx.table('messages').clear();
+        return tx
+          .table('messages')
+          .toCollection()
+          .modify((message: unknown) => {
+            if (typeof message === 'object' && message !== null) {
+              const m = message as Record<string, unknown> & {
+                parts?: unknown;
+                content?: unknown;
+              };
+              if (!m.parts && typeof m.content === 'string') {
+                m.parts = [{ type: 'text', text: m.content as string }];
+              }
+              if ('content' in m) {
+                delete m.content;
+              }
+            }
+          });
+      });
+
+    // v4: add chatId to scope messages
+    this.version(4)
+      .stores({
+        // Do not index complex 'parts' array; index primitive chatId for session scoping
+        messages: '&id, chatId, role, createdAt, model',
+      })
+      .upgrade((tx) => {
+        return tx
+          .table('messages')
+          .toCollection()
+          .modify((message: unknown) => {
+            if (typeof message === 'object' && message !== null) {
+              const m = message as Record<string, unknown> & {
+                chatId?: unknown;
+              };
+              if (!('chatId' in m) || !m.chatId) {
+                m.chatId = 'local-chat';
+              }
+            }
+          });
+      });
+
+    // v5: ensure shape and non-destructive migration to parts-based format
+    this.version(5)
+      .stores({
+        messages: '&id, chatId, role, createdAt, model',
+      })
+      .upgrade((tx) => {
+        return tx
+          .table('messages')
+          .toCollection()
+          .modify((message: unknown) => {
+            if (typeof message === 'object' && message !== null) {
+              const m = message as Record<string, unknown> & {
+                parts?: unknown;
+                content?: unknown;
+                createdAt?: unknown;
+                model?: unknown;
+                chatId?: unknown;
+              };
+
+              if (!m.parts && typeof m.content === 'string') {
+                m.parts = [{ type: 'text', text: m.content }];
+              }
+
+              if (!m.createdAt) {
+                m.createdAt = new Date().toISOString();
+              }
+
+              if (!m.model) {
+                m.model = 'gpt-5.1';
+              }
+
+              if (!m.chatId) {
+                m.chatId = 'local-chat';
+              }
+
+              if ('content' in m) {
+                delete m.content;
+              }
+
+              if ('modelString' in m) {
+                delete m.modelString;
+              }
+            }
+          });
       });
   }
 }
 
-export const database = new AppDatabase();
-export const messagesTable = database.messages;
+declare global {
+  interface Window {
+    __appDatabase?: AppDatabase;
+  }
+}
+
+export const database: AppDatabase = (() => {
+  if (typeof window === 'undefined') {
+    return undefined as unknown as AppDatabase;
+  }
+
+  if (!window.__appDatabase) {
+    window.__appDatabase = new AppDatabase();
+  }
+  return window.__appDatabase;
+})();
+
+export const messagesTable =
+  typeof window !== 'undefined' && database ? database.messages : undefined;
 
 export default database;

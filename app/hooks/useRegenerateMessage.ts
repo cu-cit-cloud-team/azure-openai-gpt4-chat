@@ -6,7 +6,8 @@ import { database } from '@/app/database/database.config';
 export const useRegenerateMessage = (
   messages: UIMessage[],
   setMessages: Dispatch<SetStateAction<UIMessage[]>>,
-  sendMessage: UseChatHelpers<UIMessage>['sendMessage']
+  sendMessage: UseChatHelpers<UIMessage>['sendMessage'],
+  chatId?: string
 ) => {
   const handleRegenerateResponse = useCallback(
     async (messageId: string) => {
@@ -24,7 +25,21 @@ export const useRegenerateMessage = (
           const messageIdsToDelete = messages
             .slice(messageIndex)
             .map((m) => m.id);
-          await database.messages.bulkDelete(messageIdsToDelete);
+          if (chatId) {
+            // Filter to IDs that belong to this chatId
+            const toDelete: string[] = [];
+            for (const id of messageIdsToDelete) {
+              const msg = await database.messages.get(id);
+              if (msg && msg.chatId === chatId) {
+                toDelete.push(id);
+              }
+            }
+            if (toDelete.length > 0) {
+              await database.messages.bulkDelete(toDelete);
+            }
+          } else {
+            await database.messages.bulkDelete(messageIdsToDelete);
+          }
           setMessages(messagesToKeep);
 
           setTimeout(() => {
@@ -49,7 +64,20 @@ export const useRegenerateMessage = (
           const messageIdsToDelete = messages
             .slice(lastUserIndex)
             .map((m) => m.id);
-          await database.messages.bulkDelete(messageIdsToDelete);
+          if (chatId) {
+            const toDelete: string[] = [];
+            for (const id of messageIdsToDelete) {
+              const msg = await database.messages.get(id);
+              if (msg && msg.chatId === chatId) {
+                toDelete.push(id);
+              }
+            }
+            if (toDelete.length > 0) {
+              await database.messages.bulkDelete(toDelete);
+            }
+          } else {
+            await database.messages.bulkDelete(messageIdsToDelete);
+          }
           setMessages(messagesToKeep);
 
           setTimeout(() => {
@@ -62,7 +90,7 @@ export const useRegenerateMessage = (
         console.error('Error regenerating response:', error);
       }
     },
-    [messages, sendMessage, setMessages]
+    [messages, sendMessage, setMessages, chatId]
   );
 
   return { handleRegenerateResponse } as const;

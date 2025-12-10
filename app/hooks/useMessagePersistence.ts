@@ -17,6 +17,7 @@ type PersistedMessage = UIMessage & {
 export type StoredMessage = UIMessage & {
   model?: string;
   createdAt?: string;
+  chatId?: string;
 };
 
 interface UseMessagePersistenceProps {
@@ -24,6 +25,7 @@ interface UseMessagePersistenceProps {
   isLoading: boolean;
   currentModel: string;
   savedMessages?: StoredMessage[];
+  chatId?: string;
 }
 
 export function useMessagePersistence({
@@ -31,6 +33,7 @@ export function useMessagePersistence({
   isLoading,
   currentModel,
   savedMessages,
+  chatId = 'local-chat',
 }: UseMessagePersistenceProps) {
   // Track model per message ID (for messages already in IndexedDB)
   const messageModelsRef = useRef<Map<string, string>>(new Map());
@@ -57,41 +60,45 @@ export function useMessagePersistence({
     hasSeededFromSavedRef.current = true;
   }, [savedMessages]);
 
-  const addMessage = useCallback(async (message: PersistedMessage) => {
-    if (!message.id) {
-      return;
-    }
+  const addMessage = useCallback(
+    async (message: PersistedMessage) => {
+      if (!message.id) {
+        return;
+      }
 
-    // Skip if we've already persisted this message
-    if (savedMessageIdsRef.current.has(message.id)) {
-      return;
-    }
+      // Skip if we've already persisted this message
+      if (savedMessageIdsRef.current.has(message.id)) {
+        return;
+      }
 
-    // Validate message has actual content before persisting
-    // This prevents empty/failed messages from being saved to IndexedDB
-    if (!hasMessageContent(message)) {
-      console.warn('Skipping persistence of empty message:', message.id);
-      return;
-    }
+      // Validate message has actual content before persisting
+      // This prevents empty/failed messages from being saved to IndexedDB
+      if (!hasMessageContent(message)) {
+        console.warn('Skipping persistence of empty message:', message.id);
+        return;
+      }
 
-    // Mark as saved to prevent re-entrancy while persisting
-    savedMessageIdsRef.current.add(message.id);
+      // Mark as saved to prevent re-entrancy while persisting
+      savedMessageIdsRef.current.add(message.id);
 
-    try {
-      await database.messages.put({
-        id: message.id,
-        role: message.role,
-        parts: message.parts,
-        model: message.model,
-        createdAt: message.createdAt,
-      });
-      messageModelsRef.current.set(message.id, message.model);
-    } catch (error) {
-      // Roll back the optimistic "saved" flag on failure
-      savedMessageIdsRef.current.delete(message.id);
-      throw error;
-    }
-  }, []);
+      try {
+        await database.messages.put({
+          id: message.id,
+          chatId,
+          role: message.role,
+          parts: message.parts,
+          model: message.model,
+          createdAt: message.createdAt,
+        });
+        messageModelsRef.current.set(message.id, message.model);
+      } catch (error) {
+        // Roll back the optimistic "saved" flag on failure
+        savedMessageIdsRef.current.delete(message.id);
+        throw error;
+      }
+    },
+    [chatId]
+  );
 
   // Save new messages to IndexedDB when messages change
   useEffect(() => {

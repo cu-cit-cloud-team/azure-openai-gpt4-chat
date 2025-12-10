@@ -1,5 +1,5 @@
 import type { UIMessage } from 'ai';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { Upload } from 'lucide-react';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { ConfirmDialog } from '@/app/components/ConfirmDialog';
@@ -12,7 +12,7 @@ import {
 } from '@/app/components/ui/tooltip';
 import { database, type StoredMessage } from '@/app/database/database.config';
 import { useClearMessages } from '@/app/hooks/useClearMessages';
-import { systemMessageAtom } from '@/app/utils/atoms';
+import { systemMessageAtom, userMetaAtom } from '@/app/utils/atoms';
 
 interface ImportChatButtonProps {
   isLoading: boolean;
@@ -33,7 +33,11 @@ export const ImportChatButton = memo(
     const [importError, setImportError] = useState<string | null>(null);
     const [shouldAutoImport, setShouldAutoImport] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const clearMessages = useClearMessages(setMessages);
+    const userMeta = useAtomValue(userMetaAtom);
+    const chatId = userMeta?.email
+      ? `${btoa(userMeta?.email)}-chat`
+      : 'local-chat';
+    const clearMessages = useClearMessages(setMessages, chatId);
     const setSystemMessage = useSetAtom(systemMessageAtom);
 
     const validateImportedData = useCallback(
@@ -80,8 +84,23 @@ export const ImportChatButton = memo(
           const messagesToImport = data.filter((msg) => msg.role !== 'system');
 
           if (messagesToImport.length > 0) {
-            await database.messages.bulkPut(messagesToImport);
-            setMessages(messagesToImport);
+            // Ensure imported messages include chatId and write atomically
+            // Force imported messages into the active chat
+            const toWrite = messagesToImport.map((m) => ({
+              ...m,
+              chatId: chatId || m.chatId || 'local-chat',
+            }));
+
+            await database.transaction('rw', database.messages, async () => {
+              if (chatId) {
+                await database.messages.where('chatId').equals(chatId).delete();
+              } else {
+                await database.messages.clear();
+              }
+              await database.messages.bulkPut(toWrite);
+            });
+
+            setMessages(toWrite);
           }
 
           setImportData(null);
@@ -96,7 +115,7 @@ export const ImportChatButton = memo(
           );
         }
       },
-      [clearMessages, setSystemMessage, setMessages, focusTextarea]
+      [clearMessages, setSystemMessage, setMessages, focusTextarea, chatId]
     );
 
     // Auto-import when chat is empty
