@@ -46,7 +46,7 @@ export const models: Models = [
   {
     displayName: 'GPT-5 Chat',
     modelVersion: '2025-08-07',
-    maxInputTokens: 128000,
+    maxInputTokens: 111616,
     maxOutputTokens: 16384,
     name: 'gpt-5-chat',
     capabilities: ['tools'],
@@ -127,8 +127,8 @@ export const models: Models = [
   {
     displayName: 'GPT-5.2 Chat',
     modelVersion: '2025-12-11',
-    maxInputTokens: 272000,
-    maxOutputTokens: 128000,
+    maxInputTokens: 111616,
+    maxOutputTokens: 16384,
     name: 'gpt-5.2-chat',
     capabilities: ['tools'],
   },
