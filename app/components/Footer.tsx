@@ -1,6 +1,19 @@
 import { useAtom } from 'jotai';
-import { GlobeIcon, PlusIcon } from 'lucide-react';
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { CheckIcon, GlobeIcon, PlusIcon } from 'lucide-react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import {
+  ModelSelector,
+  ModelSelectorContent,
+  ModelSelectorEmpty,
+  ModelSelectorGroup,
+  ModelSelectorInput,
+  ModelSelectorItem,
+  ModelSelectorList,
+  ModelSelectorLogo,
+  ModelSelectorLogoGroup,
+  ModelSelectorName,
+  ModelSelectorTrigger,
+} from '@/app/components/ai-elements/model-selector';
 import {
   PromptInput,
   PromptInputAttachment,
@@ -10,12 +23,6 @@ import {
   PromptInputFooter,
   PromptInputHeader,
   type PromptInputMessage,
-  PromptInputSelect,
-  PromptInputSelectContent,
-  PromptInputSelectItem,
-  PromptInputSelectTrigger,
-  PromptInputSelectValue,
-  // PromptInputSpeechButton,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
@@ -31,7 +38,7 @@ import {
 import { modelAtom } from '@/app/utils/atoms';
 import { setItem } from '@/app/utils/localStorage';
 import { mediaTypeMap } from '@/app/utils/messageHelpers';
-import { modelFromName, models } from '@/app/utils/models';
+import { modelFromName, modelStringFromName, models } from '@/app/utils/models';
 
 // Dynamically generate accepted MIME types from mediaTypeMap
 // Using Set to deduplicate (e.g., .jpg and .jpeg both map to image/jpeg)
@@ -43,7 +50,6 @@ interface FooterProps {
   onSubmit: (message: PromptInputMessage) => void;
   isLoading: boolean;
   focusTextarea: () => void;
-  systemMessageRef: React.RefObject<HTMLTextAreaElement | null>;
   promptInputRef: React.RefObject<HTMLTextAreaElement | null>;
   useWebSearch: boolean;
   onToggleWebSearch: () => void;
@@ -85,7 +91,6 @@ export const Footer = memo(
     onSubmit,
     isLoading,
     focusTextarea,
-    systemMessageRef,
     promptInputRef,
     useWebSearch,
     onToggleWebSearch,
@@ -97,84 +102,23 @@ export const Footer = memo(
     const [pendingModel, setPendingModel] = useState<string | null>(null);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [fileError, setFileError] = useState<string | null>(null);
-    const hasInteractedRef = useRef(false);
+    const [modelSelectorOpen, setModelSelectorOpen] = useState(false);
 
     // Get current model capabilities
     const currentModel = modelFromName(model);
     const supportsWebSearch =
       currentModel?.capabilities?.includes('tools') ?? false;
-    // const [speechSupported, setSpeechSupported] = useState(false);
-    // const [micPermission, setMicPermission] = useState<
-    //   'granted' | 'denied' | 'prompt' | 'unknown' | 'error'
-    // >('unknown');
-    // const [speechStatusMessage, setSpeechStatusMessage] = useState<
-    //   string | null
-    // >(null);
-
-    // useEffect(() => {
-    //   if (typeof window === 'undefined') {
-    //     return;
-    //   }
-
-    //   const supported =
-    //     'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
-    //   setSpeechSupported(supported);
-
-    //   if (!supported) {
-    //     setSpeechStatusMessage(
-    //       'Speech input not supported in this browser. Try Chrome/Edge on HTTPS or localhost.'
-    //     );
-    //     setMicPermission('denied');
-    //     return;
-    //   }
-
-    //   let permissionStatus: PermissionStatus | undefined;
-
-    //   const updateFromPermission = (state: PermissionState) => {
-    //     setMicPermission(state);
-    //     if (state === 'denied') {
-    //       setSpeechStatusMessage(
-    //         'Microphone is blocked. Allow mic access in browser site settings and reload.'
-    //       );
-    //     } else {
-    //       setSpeechStatusMessage(null);
-    //     }
-    //   };
-
-    //   navigator.permissions
-    //     ?.query({ name: 'microphone' as PermissionName })
-    //     .then((status) => {
-    //       permissionStatus = status;
-    //       updateFromPermission(status.state);
-    //       status.onchange = () => updateFromPermission(status.state);
-    //     })
-    //     .catch(() => {
-    //       // Permissions API may be unavailable; keep prompt state
-    //       setMicPermission('prompt');
-    //     });
-
-    //   return () => {
-    //     if (permissionStatus) {
-    //       permissionStatus.onchange = null;
-    //     }
-    //   };
-    // }, []);
+    const selectedModelData = models.find((m) => m.name === model) ?? null;
 
     const handleModelChange = useCallback(
       (value: string) => {
-        // Only show confirmation if:
-        // 1. The model is actually changing
-        // 2. User has interacted (not the initial mount)
-        if (value !== model) {
-          if (hasInteractedRef.current) {
-            setPendingModel(value);
-            setShowConfirmDialog(true);
-          } else {
-            // First interaction - just mark as interacted and update without confirm
-            setPendingModel(value);
-            hasInteractedRef.current = true;
-          }
+        if (value === model) {
+          return;
         }
+
+        // Always ask for confirmation before switching models
+        setPendingModel(value);
+        setShowConfirmDialog(true);
       },
       [model]
     );
@@ -185,7 +129,12 @@ export const Footer = memo(
         setModel(pendingModel);
         setShowConfirmDialog(false);
         setPendingModel(null);
-        focusTextarea();
+        try {
+          focusTextarea();
+        } catch {
+          // ignore focus errors
+        }
+        setModelSelectorOpen(false);
       }
     }, [pendingModel, setModel, focusTextarea]);
 
@@ -223,16 +172,10 @@ export const Footer = memo(
     // Clear the local submitting indicator once the global loading state starts
     useEffect(() => {
       if (isLoading) {
-        setLocalSubmitting(false);
+        // schedule async to avoid calling setState synchronously in effect
+        Promise.resolve().then(() => setLocalSubmitting(false));
       }
     }, [isLoading]);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    useEffect(() => {
-      if (document?.activeElement !== systemMessageRef?.current && !isLoading) {
-        // Focus handled by PromptInput internally
-      }
-    }, [isLoading, systemMessageRef]);
 
     return (
       <footer className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
@@ -276,31 +219,6 @@ export const Footer = memo(
                     Add photos or files
                   </TooltipContent>
                 </Tooltip>
-                {/* {speechStatusMessage &&
-                (!speechSupported ||
-                  micPermission === 'denied' ||
-                  isLoading) ? (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className="inline-flex" role="presentation">
-                        <PromptInputSpeechButton
-                          textareaRef={promptInputRef}
-                          disabled
-                          title={speechStatusMessage ?? undefined}
-                        />
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" align="start">
-                      {speechStatusMessage}
-                    </TooltipContent>
-                  </Tooltip>
-                ) : (
-                  <PromptInputSpeechButton
-                    textareaRef={promptInputRef}
-                    disabled={isLoading}
-                    title={speechStatusMessage ?? undefined}
-                  />
-                )} */}
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <span className="inline-flex" role="presentation">
@@ -320,21 +238,72 @@ export const Footer = memo(
                       : `Web Search ${useWebSearch ? 'Enabled' : 'Disabled'}`}
                   </TooltipContent>
                 </Tooltip>
-                <PromptInputSelect
-                  value={model}
-                  onValueChange={handleModelChange}
+                <ModelSelector
+                  open={modelSelectorOpen}
+                  onOpenChange={setModelSelectorOpen}
                 >
-                  <PromptInputSelectTrigger>
-                    <PromptInputSelectValue placeholder="Select model" />
-                  </PromptInputSelectTrigger>
-                  <PromptInputSelectContent className="max-h-96">
-                    {models.map((m) => (
-                      <PromptInputSelectItem key={m.name} value={m.name}>
-                        <span className="truncate">{m.displayName}</span>
-                      </PromptInputSelectItem>
-                    ))}
-                  </PromptInputSelectContent>
-                </PromptInputSelect>
+                  <ModelSelectorTrigger asChild>
+                    <PromptInputButton>
+                      {selectedModelData?.chefSlug && (
+                        <ModelSelectorLogo
+                          provider={selectedModelData.chefSlug}
+                        />
+                      )}
+                      <ModelSelectorName>
+                        {selectedModelData?.displayName ??
+                          model ??
+                          'Select model'}
+                      </ModelSelectorName>
+                    </PromptInputButton>
+                  </ModelSelectorTrigger>
+
+                  <ModelSelectorContent>
+                    <ModelSelectorInput placeholder="Search models..." />
+                    <ModelSelectorList>
+                      <ModelSelectorEmpty>No models found.</ModelSelectorEmpty>
+
+                      {['OpenAI', 'Anthropic', 'DeepSeek'].map((provider) => (
+                        <ModelSelectorGroup heading={provider} key={provider}>
+                          {models
+                            .filter(
+                              (m) =>
+                                m.provider?.toLowerCase() ===
+                                provider.toLowerCase()
+                            )
+                            .map((m) => (
+                              <ModelSelectorItem
+                                key={m.name}
+                                value={m.name}
+                                onSelect={() => {
+                                  handleModelChange(m.name);
+                                  setModelSelectorOpen(false);
+                                }}
+                              >
+                                <ModelSelectorLogo
+                                  provider={m.provider?.toLowerCase()}
+                                />
+                                <ModelSelectorName>
+                                  {m.displayName ?? m.name}
+                                </ModelSelectorName>
+
+                                <ModelSelectorLogoGroup>
+                                  {(m.providers ?? []).map((p) => (
+                                    <ModelSelectorLogo key={p} provider={p} />
+                                  ))}
+                                </ModelSelectorLogoGroup>
+
+                                {model === m.name ? (
+                                  <CheckIcon className="ml-auto size-4" />
+                                ) : (
+                                  <div className="ml-auto size-4" />
+                                )}
+                              </ModelSelectorItem>
+                            ))}
+                        </ModelSelectorGroup>
+                      ))}
+                    </ModelSelectorList>
+                  </ModelSelectorContent>
+                </ModelSelector>
               </PromptInputTools>
 
               <PromptInputSubmit
@@ -358,7 +327,7 @@ export const Footer = memo(
           open={showConfirmDialog}
           onOpenChange={setShowConfirmDialog}
           title="Switch Model?"
-          description={`Are you sure you want to switch to ${pendingModel}? This will update your model selection.`}
+          description={`Are you sure you want to switch to ${modelStringFromName(pendingModel)}? This will update your model selection.`}
           confirmText="Continue"
           onConfirm={confirmModelChange}
           onCancel={cancelModelChange}
