@@ -5,7 +5,7 @@ export interface Model {
   maxInputTokens: number;
   maxOutputTokens: number;
   name: string;
-  capabilities?: ('web-search' | 'reasoning')[];
+  capabilities?: ('tools' | 'reasoning')[];
 }
 
 export type Models = Model[];
@@ -17,7 +17,7 @@ export const models: Models = [
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-4.1 Mini',
@@ -25,7 +25,7 @@ export const models: Models = [
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41-mini',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-4.1 Nano',
@@ -33,7 +33,7 @@ export const models: Models = [
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41-nano',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5',
@@ -41,7 +41,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5 Chat',
@@ -49,7 +49,7 @@ export const models: Models = [
     maxInputTokens: 128000,
     maxOutputTokens: 16384,
     name: 'gpt-5-chat',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools'],
   },
   {
     displayName: 'GPT-5 Codex',
@@ -57,7 +57,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-codex',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5 Mini',
@@ -65,7 +65,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-mini',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5 Nano',
@@ -73,7 +73,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-nano',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5.1',
@@ -82,7 +82,7 @@ export const models: Models = [
     maxOutputTokens: 128000,
     name: 'gpt-5.1',
     default: true,
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5.1 Chat',
@@ -90,7 +90,7 @@ export const models: Models = [
     maxInputTokens: 111616,
     maxOutputTokens: 16384,
     name: 'gpt-5.1-chat',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools'],
   },
   {
     displayName: 'GPT-5.1 Codex',
@@ -98,7 +98,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5.1 Codex Max',
@@ -106,7 +106,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex-max',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
   },
   {
     displayName: 'GPT-5.1 Codex Mini',
@@ -114,7 +114,23 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex-mini',
-    capabilities: ['web-search', 'reasoning'],
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
+    displayName: 'GPT-5.2',
+    modelVersion: '2025-12-11',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5.2',
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
+    displayName: 'GPT-5.2 Chat',
+    modelVersion: '2025-12-11',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5.2-chat',
+    capabilities: ['tools'],
   },
   {
     displayName: 'o3',
