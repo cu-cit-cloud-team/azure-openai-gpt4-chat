@@ -92,6 +92,7 @@ export const Footer = memo(
     chatStatus,
     onStop,
   }: FooterProps) => {
+    const [localSubmitting, setLocalSubmitting] = useState(false);
     const [model, setModel] = useAtom(modelAtom);
     const [pendingModel, setPendingModel] = useState<string | null>(null);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -214,6 +215,18 @@ export const Footer = memo(
       [chatStatus, onStop, onSubmit]
     );
 
+    // When the form begins submitting (capture phase), show immediate feedback
+    const handleSubmitCapture = useCallback(() => {
+      setLocalSubmitting(true);
+    }, []);
+
+    // Clear the local submitting indicator once the global loading state starts
+    useEffect(() => {
+      if (isLoading) {
+        setLocalSubmitting(false);
+      }
+    }, [isLoading]);
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     useEffect(() => {
       if (document?.activeElement !== systemMessageRef?.current && !isLoading) {
@@ -230,6 +243,7 @@ export const Footer = memo(
             maxFiles={3}
             maxFileSize={25 * 1024 * 1024}
             onSubmit={handleSubmit}
+            onSubmitCapture={handleSubmitCapture}
             onError={handleFileError}
           >
             <PromptInputHeader>
@@ -313,7 +327,7 @@ export const Footer = memo(
                   <PromptInputSelectTrigger>
                     <PromptInputSelectValue placeholder="Select model" />
                   </PromptInputSelectTrigger>
-                  <PromptInputSelectContent className="max-h-[300px]">
+                  <PromptInputSelectContent className="max-h-96">
                     {models.map((m) => (
                       <PromptInputSelectItem key={m.name} value={m.name}>
                         <span className="truncate">{m.displayName}</span>
@@ -324,8 +338,9 @@ export const Footer = memo(
               </PromptInputTools>
 
               <PromptInputSubmit
-                status={chatStatus}
+                status={localSubmitting ? 'submitted' : chatStatus}
                 disabled={chatStatus === 'error'}
+                onClick={handleSubmitCapture}
               />
             </PromptInputFooter>
           </PromptInput>
