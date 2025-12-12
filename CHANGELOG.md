@@ -1,3 +1,14 @@
+## 1.0.0-beta.13 (2025-12-12)
+
+* feat(api/chat): add support for anthropic and deepseek models ([b9d4074](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b9d4074))
+* feat(Footer): add new models and replace inputselect with modelselect ([34d0ab9](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/34d0ab9))
+* feat(utils/models): add claude-sonnet-4-5, claude-opus-4-5, deepseek-v3.1 ([1ee8870](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/1ee8870))
+* chore(deps): add @ai-sdk/anthropic and @ai-sdk/deepseek ([ee5b418](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/ee5b418))
+* chore(vscode): ignore deepseek in spell checker ([e9f120f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/e9f120f))
+* refactor(Footer): show loading state while files are processing ([9ea29d8](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/9ea29d8))
+
+
+
 ## 1.0.0-beta.12 (2025-12-12)
 
 * refactor: chat submit can stop chat while streaming ([20badcc](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/20badcc))
