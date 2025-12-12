@@ -78,7 +78,7 @@ jobs:
 
       - name: ⚡  Cache node_modules and .next folder
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.npm
