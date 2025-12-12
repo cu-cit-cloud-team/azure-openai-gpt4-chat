@@ -5,6 +5,7 @@ export interface Model {
   maxInputTokens: number;
   maxOutputTokens: number;
   name: string;
+  provider?: 'openai' | 'anthropic' | 'deepseek';
   capabilities?: ('tools' | 'reasoning')[];
 }
 
@@ -17,6 +18,7 @@ export const models: Models = [
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -25,6 +27,7 @@ export const models: Models = [
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41-mini',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -33,6 +36,7 @@ export const models: Models = [
     maxInputTokens: 1047576,
     maxOutputTokens: 32768,
     name: 'gpt-41-nano',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -41,6 +45,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -49,6 +54,7 @@ export const models: Models = [
     maxInputTokens: 111616,
     maxOutputTokens: 16384,
     name: 'gpt-5-chat',
+    provider: 'openai',
     capabilities: ['tools'],
   },
   {
@@ -57,6 +63,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-codex',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -65,6 +72,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-mini',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -73,6 +81,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5-nano',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -82,6 +91,7 @@ export const models: Models = [
     maxOutputTokens: 128000,
     name: 'gpt-5.1',
     default: true,
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -90,6 +100,7 @@ export const models: Models = [
     maxInputTokens: 111616,
     maxOutputTokens: 16384,
     name: 'gpt-5.1-chat',
+    provider: 'openai',
     capabilities: ['tools'],
   },
   {
@@ -98,6 +109,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -106,6 +118,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex-max',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -114,6 +127,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.1-codex-mini',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -122,6 +136,7 @@ export const models: Models = [
     maxInputTokens: 272000,
     maxOutputTokens: 128000,
     name: 'gpt-5.2',
+    provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
   {
@@ -130,6 +145,7 @@ export const models: Models = [
     maxInputTokens: 111616,
     maxOutputTokens: 16384,
     name: 'gpt-5.2-chat',
+    provider: 'openai',
     capabilities: ['tools'],
   },
   {
@@ -138,6 +154,7 @@ export const models: Models = [
     maxInputTokens: 200000,
     maxOutputTokens: 100000,
     name: 'o3',
+    provider: 'openai',
     capabilities: ['reasoning'],
   },
   {
@@ -146,6 +163,7 @@ export const models: Models = [
     maxInputTokens: 200000,
     maxOutputTokens: 100000,
     name: 'o3-mini',
+    provider: 'openai',
     capabilities: ['reasoning'],
   },
   {
@@ -154,7 +172,35 @@ export const models: Models = [
     maxInputTokens: 200000,
     maxOutputTokens: 100000,
     name: 'o4-mini',
+    provider: 'openai',
     capabilities: ['reasoning'],
+  },
+  {
+    displayName: 'Claude Sonnet 4.5',
+    modelVersion: '2024-12-01',
+    maxInputTokens: 136000,
+    maxOutputTokens: 64000,
+    name: 'claude-sonnet-4-5',
+    provider: 'anthropic',
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
+    displayName: 'Claude Opus 4.5',
+    modelVersion: '2024-12-01',
+    maxInputTokens: 136000,
+    maxOutputTokens: 64000,
+    name: 'claude-opus-4-5',
+    provider: 'anthropic',
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
+    displayName: 'DeepSeek V3.1',
+    modelVersion: '2024-11-20',
+    maxInputTokens: 131072,
+    maxOutputTokens: 131072,
+    name: 'DeepSeek-V3.1',
+    provider: 'deepseek',
+    capabilities: ['tools', 'reasoning'],
   },
 ];
 
