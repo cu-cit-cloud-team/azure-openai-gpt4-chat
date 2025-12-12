@@ -1,4 +1,6 @@
+import { createAnthropic } from '@ai-sdk/anthropic';
 import { createAzure } from '@ai-sdk/azure';
+import { createDeepSeek } from '@ai-sdk/deepseek';
 import {
   convertToModelMessages,
   generateId,
@@ -7,7 +9,6 @@ import {
   streamText,
   type UIMessage,
 } from 'ai';
-
 import {
   DEFAULT_MAX_OUTPUT_TOKENS,
   DEFAULT_MODEL_NAME,
@@ -57,9 +58,17 @@ const {
   AZURE_OPENAI_GPT51_CODEX_DEPLOYMENT,
   AZURE_OPENAI_GPT51_CODEX_MINI_DEPLOYMENT,
   AZURE_OPENAI_GPT51_CODEX_MAX_DEPLOYMENT,
+  AZURE_OPENAI_GPT52_DEPLOYMENT,
+  AZURE_OPENAI_GPT52_CHAT_DEPLOYMENT,
   AZURE_OPENAI_O3_DEPLOYMENT,
   AZURE_OPENAI_O3_MINI_DEPLOYMENT,
   AZURE_OPENAI_O4_MINI_DEPLOYMENT,
+  AZURE_ANTHROPIC_API_VERSION,
+  AZURE_ANTHROPIC_BASE_PATH,
+  AZURE_ANTHROPIC_CLAUDE_SONNET_45_DEPLOYMENT,
+  AZURE_ANTHROPIC_CLAUDE_OPUS_45_DEPLOYMENT,
+  AZURE_DEEPSEEK_BASE_PATH,
+  AZURE_DEEPSEEK_V31_DEPLOYMENT,
 } = process.env;
 
 // tell next.js to use the edge runtime
@@ -122,6 +131,23 @@ export async function POST(req: Request) {
       apiVersion: AZURE_OPENAI_API_VERSION,
     });
 
+    const anthropic = createAnthropic({
+      baseURL: AZURE_ANTHROPIC_BASE_PATH,
+      apiKey: AZURE_OPENAI_API_KEY,
+      headers: {
+        'anthropic-version': AZURE_ANTHROPIC_API_VERSION,
+        'x-api-key': AZURE_OPENAI_API_KEY,
+      },
+    });
+
+    const deepseek = createDeepSeek({
+      baseURL: AZURE_DEEPSEEK_BASE_PATH,
+      apiKey: AZURE_OPENAI_API_KEY,
+      headers: {
+        'Authorization': `Bearer ${AZURE_OPENAI_API_KEY}`,
+      },
+    });
+
     // Map model names to their deployment environment variables
     const modelDeploymentMap: Record<string, string | undefined> = {
       'gpt-41-mini': AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
@@ -137,9 +163,14 @@ export async function POST(req: Request) {
       'gpt-5.1-codex': AZURE_OPENAI_GPT51_CODEX_DEPLOYMENT,
       'gpt-5.1-codex-mini': AZURE_OPENAI_GPT51_CODEX_MINI_DEPLOYMENT,
       'gpt-5.1-codex-max': AZURE_OPENAI_GPT51_CODEX_MAX_DEPLOYMENT,
+      'gpt-5.2': AZURE_OPENAI_GPT52_DEPLOYMENT,
+      'gpt-5.2-chat': AZURE_OPENAI_GPT52_CHAT_DEPLOYMENT,
       'o3': AZURE_OPENAI_O3_DEPLOYMENT,
       'o3-mini': AZURE_OPENAI_O3_MINI_DEPLOYMENT,
       'o4-mini': AZURE_OPENAI_O4_MINI_DEPLOYMENT,
+      'claude-sonnet-4-5': AZURE_ANTHROPIC_CLAUDE_SONNET_45_DEPLOYMENT,
+      'claude-opus-4-5': AZURE_ANTHROPIC_CLAUDE_OPUS_45_DEPLOYMENT,
+      'DeepSeek-V3.1': AZURE_DEEPSEEK_V31_DEPLOYMENT,
     };
 
     const deploymentName = modelDeploymentMap[model];
@@ -151,7 +182,11 @@ export async function POST(req: Request) {
     }
 
     // instantiate azure openai model with responses api
-    const azureModel = azure.responses(deploymentName);
+    const azureModel = deploymentName.startsWith('claude')
+      ? anthropic(deploymentName)
+      : deploymentName.toLowerCase().startsWith('deepseek')
+        ? deepseek(deploymentName)
+        : azure.responses(deploymentName);
 
     // set up streaming options
     const convertedMessages = convertToModelMessages(uiMessages);
