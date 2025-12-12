@@ -3,11 +3,13 @@ import { createAzure } from '@ai-sdk/azure';
 import { createDeepSeek } from '@ai-sdk/deepseek';
 import {
   convertToModelMessages,
+  extractReasoningMiddleware,
   generateId,
   type LanguageModelUsage,
   smoothStream,
   streamText,
   type UIMessage,
+  wrapLanguageModel,
 } from 'ai';
 import {
   DEFAULT_MAX_OUTPUT_TOKENS,
@@ -20,6 +22,9 @@ function validateEnvVars() {
     AZURE_OPENAI_DEPLOYMENT_NAME,
     AZURE_OPENAI_API_KEY,
     AZURE_OPENAI_API_VERSION,
+    AZURE_ANTHROPIC_API_VERSION,
+    AZURE_ANTHROPIC_BASE_PATH,
+    AZURE_DEEPSEEK_BASE_PATH,
   };
 
   const missing = Object.entries(required)
@@ -67,8 +72,10 @@ const {
   AZURE_ANTHROPIC_BASE_PATH,
   AZURE_ANTHROPIC_CLAUDE_SONNET_45_DEPLOYMENT,
   AZURE_ANTHROPIC_CLAUDE_OPUS_45_DEPLOYMENT,
+  AZURE_ANTHROPIC_CLAUDE_HAIKU_45_DEPLOYMENT,
   AZURE_DEEPSEEK_BASE_PATH,
   AZURE_DEEPSEEK_V31_DEPLOYMENT,
+  AZURE_DEEPSEEK_R1_0528_DEPLOYMENT,
 } = process.env;
 
 // tell next.js to use the edge runtime
@@ -135,8 +142,9 @@ export async function POST(req: Request) {
       baseURL: AZURE_ANTHROPIC_BASE_PATH,
       apiKey: AZURE_OPENAI_API_KEY,
       headers: {
-        'anthropic-version': AZURE_ANTHROPIC_API_VERSION,
-        'x-api-key': AZURE_OPENAI_API_KEY,
+        'anthropic-version': (AZURE_ANTHROPIC_API_VERSION ??
+          '2023-06-01') as string,
+        'x-api-key': AZURE_OPENAI_API_KEY as string,
       },
     });
 
@@ -170,7 +178,9 @@ export async function POST(req: Request) {
       'o4-mini': AZURE_OPENAI_O4_MINI_DEPLOYMENT,
       'claude-sonnet-4-5': AZURE_ANTHROPIC_CLAUDE_SONNET_45_DEPLOYMENT,
       'claude-opus-4-5': AZURE_ANTHROPIC_CLAUDE_OPUS_45_DEPLOYMENT,
+      'claude-haiku-4-5': AZURE_ANTHROPIC_CLAUDE_HAIKU_45_DEPLOYMENT,
       'DeepSeek-V3.1': AZURE_DEEPSEEK_V31_DEPLOYMENT,
+      'DeepSeek-R1-0528': AZURE_DEEPSEEK_R1_0528_DEPLOYMENT,
     };
 
     const deploymentName = modelDeploymentMap[model];
@@ -185,7 +195,10 @@ export async function POST(req: Request) {
     const azureModel = deploymentName.startsWith('claude')
       ? anthropic(deploymentName)
       : deploymentName.toLowerCase().startsWith('deepseek')
-        ? deepseek(deploymentName)
+        ? wrapLanguageModel({
+            model: deepseek(deploymentName),
+            middleware: extractReasoningMiddleware({ tagName: 'think' }),
+          })
         : azure.responses(deploymentName);
 
     // set up streaming options
