@@ -9,6 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useAtom, useAtomValue } from 'jotai';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+
 import {
   Conversation,
   ConversationContent,
@@ -24,13 +25,16 @@ import {
 import { ErrorFallback } from '@/app/components/ErrorFallback';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
+
 import { database } from '@/app/database/database.config';
+
 import { useClipboardFeedback } from '@/app/hooks/useClipboardFeedback';
 import { useDeleteMessage } from '@/app/hooks/useDeleteMessage';
 import { useMessageModals } from '@/app/hooks/useMessageModals';
 import type { StoredMessage } from '@/app/hooks/useMessagePersistence';
 import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
 import { useRegenerateMessage } from '@/app/hooks/useRegenerateMessage';
+
 import {
   isLoadingAtom,
   modelAtom,
@@ -40,8 +44,6 @@ import {
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
-
-/** Local StoredMessage type imported from useMessagePersistence */
 
 type FilePart = {
   type: 'file';
@@ -151,7 +153,6 @@ export default function App() {
           onSubmit={() => {}}
           isLoading={false}
           focusTextarea={() => {}}
-          systemMessageRef={systemMessageRef}
           promptInputRef={promptInputRef}
           useWebSearch={false}
           onToggleWebSearch={() => {}}
@@ -504,7 +505,6 @@ function ChatInner({
         onSubmit={handlePromptSubmit}
         isLoading={isLoading}
         focusTextarea={focusTextarea}
-        systemMessageRef={systemMessageRef}
         promptInputRef={promptInputRef}
         useWebSearch={useWebSearch}
         onToggleWebSearch={handleToggleWebSearch}
