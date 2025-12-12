@@ -1,3 +1,12 @@
+## 1.0.0-beta.14 (2025-12-12)
+
+* refactor(Footer): fix param and remove logo group ([4ced990](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4ced990))
+* feat(api/chat): add support for claude-haiku-45 and deepseek r1 ([a8fca57](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/a8fca57))
+* feat(utils/models): add claude haiku 45 and deepseek r1 ([862a4f1](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/862a4f1))
+* style: remove unused prop ([bfdbdb0](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/bfdbdb0))
+
+
+
 ## 1.0.0-beta.13 (2025-12-12)
 
 * feat(api/chat): add support for anthropic and deepseek models ([b9d4074](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b9d4074))
