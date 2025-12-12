@@ -5,7 +5,8 @@ export interface Model {
   maxInputTokens: number;
   maxOutputTokens: number;
   name: string;
-  provider?: 'openai' | 'anthropic' | 'deepseek';
+  provider: 'openai' | 'anthropic' | 'deepseek';
+  providers?: string[];
   capabilities?: ('tools' | 'reasoning')[];
 }
 
@@ -130,15 +131,15 @@ export const models: Models = [
     provider: 'openai',
     capabilities: ['tools', 'reasoning'],
   },
-  {
-    displayName: 'GPT-5.2',
-    modelVersion: '2025-12-11',
-    maxInputTokens: 272000,
-    maxOutputTokens: 128000,
-    name: 'gpt-5.2',
-    provider: 'openai',
-    capabilities: ['tools', 'reasoning'],
-  },
+  // {
+  //   displayName: 'GPT-5.2',
+  //   modelVersion: '2025-12-11',
+  //   maxInputTokens: 272000,
+  //   maxOutputTokens: 128000,
+  //   name: 'gpt-5.2',
+  //   provider: 'openai',
+  //   capabilities: ['tools', 'reasoning'],
+  // },
   {
     displayName: 'GPT-5.2 Chat',
     modelVersion: '2025-12-11',
@@ -177,7 +178,7 @@ export const models: Models = [
   },
   {
     displayName: 'Claude Sonnet 4.5',
-    modelVersion: '2024-12-01',
+    modelVersion: '2025-09-29',
     maxInputTokens: 136000,
     maxOutputTokens: 64000,
     name: 'claude-sonnet-4-5',
@@ -186,7 +187,7 @@ export const models: Models = [
   },
   {
     displayName: 'Claude Opus 4.5',
-    modelVersion: '2024-12-01',
+    modelVersion: '2025-11-01',
     maxInputTokens: 136000,
     maxOutputTokens: 64000,
     name: 'claude-opus-4-5',
@@ -194,11 +195,29 @@ export const models: Models = [
     capabilities: ['tools', 'reasoning'],
   },
   {
+    displayName: 'Claude Haiku 4.5',
+    modelVersion: '2025-10-01',
+    maxInputTokens: 136000,
+    maxOutputTokens: 64000,
+    name: 'claude-haiku-4-5',
+    provider: 'anthropic',
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
     displayName: 'DeepSeek V3.1',
-    modelVersion: '2024-11-20',
+    modelVersion: '1',
     maxInputTokens: 131072,
     maxOutputTokens: 131072,
     name: 'DeepSeek-V3.1',
+    provider: 'deepseek',
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
+    displayName: 'DeepSeek R1-0528',
+    modelVersion: '1',
+    maxInputTokens: 163840,
+    maxOutputTokens: 163840,
+    name: 'DeepSeek-R1-0528',
     provider: 'deepseek',
     capabilities: ['tools', 'reasoning'],
   },
@@ -211,7 +230,13 @@ export const DEFAULT_MAX_OUTPUT_TOKENS = 128000;
 
 export const defaultModel = models.find((model) => model.default);
 
-export const modelStringFromName = (name: string): string => {
+export const modelStringFromName = (
+  name: string | null | undefined
+): string => {
+  if (!name) {
+    return defaultModel?.displayName || 'Unknown Model';
+  }
+
   const model = models.find((model) => model.name === name);
   return model?.displayName || defaultModel?.displayName || 'Unknown Model';
 };
