@@ -101,7 +101,7 @@ export const Footer = memo(
     // Get current model capabilities
     const currentModel = modelFromName(model);
     const supportsWebSearch =
-      currentModel?.capabilities?.includes('web-search') ?? false;
+      currentModel?.capabilities?.includes('tools') ?? false;
     // const [speechSupported, setSpeechSupported] = useState(false);
     // const [micPermission, setMicPermission] = useState<
     //   'granted' | 'denied' | 'prompt' | 'unknown' | 'error'
