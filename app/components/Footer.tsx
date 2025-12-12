@@ -10,7 +10,6 @@ import {
   ModelSelectorItem,
   ModelSelectorList,
   ModelSelectorLogo,
-  ModelSelectorLogoGroup,
   ModelSelectorName,
   ModelSelectorTrigger,
 } from '@/app/components/ai-elements/model-selector';
@@ -244,9 +243,9 @@ export const Footer = memo(
                 >
                   <ModelSelectorTrigger asChild>
                     <PromptInputButton>
-                      {selectedModelData?.chefSlug && (
+                      {selectedModelData?.provider && (
                         <ModelSelectorLogo
-                          provider={selectedModelData.chefSlug}
+                          provider={selectedModelData.provider}
                         />
                       )}
                       <ModelSelectorName>
@@ -267,7 +266,7 @@ export const Footer = memo(
                           {models
                             .filter(
                               (m) =>
-                                m.provider?.toLowerCase() ===
+                                m.provider.toLowerCase() ===
                                 provider.toLowerCase()
                             )
                             .map((m) => (
@@ -280,17 +279,11 @@ export const Footer = memo(
                                 }}
                               >
                                 <ModelSelectorLogo
-                                  provider={m.provider?.toLowerCase()}
+                                  provider={m.provider.toLowerCase()}
                                 />
                                 <ModelSelectorName>
                                   {m.displayName ?? m.name}
                                 </ModelSelectorName>
-
-                                <ModelSelectorLogoGroup>
-                                  {(m.providers ?? []).map((p) => (
-                                    <ModelSelectorLogo key={p} provider={p} />
-                                  ))}
-                                </ModelSelectorLogoGroup>
 
                                 {model === m.name ? (
                                   <CheckIcon className="ml-auto size-4" />
@@ -327,7 +320,7 @@ export const Footer = memo(
           open={showConfirmDialog}
           onOpenChange={setShowConfirmDialog}
           title="Switch Model?"
-          description={`Are you sure you want to switch to ${modelStringFromName(pendingModel)}? This will update your model selection.`}
+          description={`Are you sure you want to switch to ${modelStringFromName(pendingModel)}?`}
           confirmText="Continue"
           onConfirm={confirmModelChange}
           onCancel={cancelModelChange}
