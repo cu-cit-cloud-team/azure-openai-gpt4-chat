@@ -235,8 +235,6 @@ const MessageRow = memo(
                       return null;
                     }
                     const reasoningPart = part as ReasoningPart;
-                    // Azure o-series models encrypt reasoning content, so text is always empty
-                    // Show indicator that model reasoned, but without content
                     const hasReasoningText =
                       reasoningPart.text && reasoningPart.text.trim() !== '';
                     return (
@@ -252,7 +250,7 @@ const MessageRow = memo(
                         ) : (
                           <ReasoningContent className="text-muted-foreground italic">
                             {
-                              'Reasoning content is not available (encrypted by Azure OpenAI for o-series models)'
+                              'Reasoning content is not available (encrypted by Azure for OpenAI models with reasoning capabilities).'
                             }
                           </ReasoningContent>
                         )}
