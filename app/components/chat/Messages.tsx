@@ -324,14 +324,15 @@ const MessageRow = memo(
               )}
 
               {/* Render file attachments */}
+
               {messageFiles && messageFiles.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {messageFiles.map((file, idx) => (
                     <Button
                       key={`${message.id}-file-${idx}`}
                       variant="outline"
-                      size="sm"
-                      className="gap-2"
+                      size="lg"
+                      className="h-auto gap-2"
                       onClick={() => handleFileClick(file as FilePart)}
                     >
                       {file.mediaType.startsWith('image/') ? (
@@ -340,7 +341,7 @@ const MessageRow = memo(
                           <img
                             src={file.url}
                             alt={file.name}
-                            className="size-8 object-cover rounded"
+                            className="size-32 object-cover rounded"
                           />
                         </>
                       ) : (

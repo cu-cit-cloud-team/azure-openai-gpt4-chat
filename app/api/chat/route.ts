@@ -3,6 +3,8 @@ import { createAzure } from '@ai-sdk/azure';
 import { createDeepSeek } from '@ai-sdk/deepseek';
 import {
   convertToModelMessages,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
   extractReasoningMiddleware,
   generateId,
   type LanguageModelUsage,
@@ -136,6 +138,9 @@ export async function POST(req: Request) {
       resourceName: AZURE_OPENAI_DEPLOYMENT_NAME,
       apiKey: AZURE_OPENAI_API_KEY,
       apiVersion: AZURE_OPENAI_API_VERSION,
+      headers: {
+        'x-ms-oai-image-generation-deployment': 'gpt-image-1',
+      },
     });
 
     const anthropic = createAnthropic({
@@ -226,22 +231,47 @@ export async function POST(req: Request) {
             },
           }
         : {}),
+      ...(model.startsWith('gpt-4') ||
+      (model.startsWith('gpt-5') && !model.includes('5.2'))
+        ? {
+            tools: {
+              image_generation: azure.tools.imageGeneration({
+                outputFormat: 'png',
+              }),
+            },
+          }
+        : {}),
     });
 
-    // v5 streaming response with usage metadata
-    return response.toUIMessageStreamResponse({
+    let base64Image: string | undefined;
+    console.log(await response.staticToolResults);
+    for (const toolResult of await response.staticToolResults) {
+      if (toolResult.toolName === 'image_generation') {
+        base64Image = toolResult.output.result;
+      }
+    }
+
+    // Use createUIMessageStream to emit a `file` part (if image exists) and merge the text stream
+    const stream = createUIMessageStream({
       originalMessages: uiMessages,
-      generateMessageId: () => generateId(),
-      sendReasoning: true,
-      sendSources: true,
-      messageMetadata: ({ part }) => {
-        // Attach usage information when generation finishes
-        if (part.type === 'finish') {
-          return { totalUsage: part.totalUsage };
+      generateId: () => generateId(),
+      async execute({ writer }) {
+        // Start a server-generated response message (persisted id)
+        writer.write({ type: 'start', messageId: generateId() });
+
+        // If image was produced by the tool, write it as a file part so it appears in message.parts
+        if (base64Image) {
+          writer.write({
+            type: 'file',
+            mediaType: 'image/png',
+            url: `data:image/png;base64,${base64Image}`,
+          });
         }
+
+        // Merge the AI text stream into the same message (omit its start so we keep our messageId)
+        writer.merge(response.toUIMessageStream({ sendStart: false }));
       },
       onError: (error: unknown) => {
-        // Log the full error server-side for debugging
         const err = error as Error;
         console.error('Chat stream error:', {
           message: err.message,
@@ -249,7 +279,6 @@ export async function POST(req: Request) {
           model,
           timestamp: new Date().toISOString(),
         });
-        // Return a user-friendly error message
         if (err.message?.includes('deployment')) {
           return 'Model deployment not found. Please contact your administrator.';
         }
@@ -262,6 +291,8 @@ export async function POST(req: Request) {
         return 'An error occurred processing your request. Please try again.';
       },
     });
+
+    return createUIMessageStreamResponse({ stream });
   } catch (error: unknown) {
     console.error('API route error:', error);
     return new Response(
