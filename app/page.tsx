@@ -7,12 +7,14 @@ import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useAtom, useAtomValue } from 'jotai';
+import { MessageSquare } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import {
   Conversation,
   ConversationContent,
+  ConversationEmptyState,
   ConversationScrollButton,
 } from '@/app/components/ai-elements/conversation';
 import { DeleteMessageDialog } from '@/app/components/chat/DeleteMessageDialog';
@@ -137,7 +139,7 @@ export default function App() {
           <Conversation className="flex-1">
             <ConversationContent className="max-w-5xl mx-auto px-4">
               <div className="mt-8 text-sm text-muted-foreground">
-                Loading conversation...
+                Loading chat interface...
               </div>
             </ConversationContent>
           </Conversation>
@@ -479,17 +481,25 @@ function ChatInner({
       <div className="flex flex-col h-screen pt-14 pb-40">
         <Conversation className="flex-1">
           <ConversationContent className="max-w-5xl mx-auto px-4">
-            <Messages
-              messages={messages}
-              modelName={modelName}
-              userMeta={userMeta}
-              chatStatus={status}
-              copiedMessageId={copiedMessageId}
-              onCopy={handleCopyMessage}
-              onRegenerate={handleRegenerateResponse}
-              onDelete={handleDeleteMessage}
-              onFileClick={handleFileClick}
-            />
+            {messages.length === 0 ? (
+              <ConversationEmptyState
+                title="Start a conversation"
+                icon={<MessageSquare className="size-12" />}
+                description="Ask me anything, and I'll do my best to help!"
+              />
+            ) : (
+              <Messages
+                messages={messages}
+                modelName={modelName}
+                userMeta={userMeta}
+                chatStatus={status}
+                copiedMessageId={copiedMessageId}
+                onCopy={handleCopyMessage}
+                onRegenerate={handleRegenerateResponse}
+                onDelete={handleDeleteMessage}
+                onFileClick={handleFileClick}
+              />
+            )}
           </ConversationContent>
           <ConversationScrollButton />
         </Conversation>
