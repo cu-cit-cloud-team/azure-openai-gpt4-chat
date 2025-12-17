@@ -42,15 +42,10 @@ import { Button } from '@/app/components/ui/button';
 import type {
   FilePart,
   ReasoningPart,
-  SourceUrlPart,
   ToolUIPart,
   UserMeta,
 } from '@/app/types';
-import {
-  getMessageFiles,
-  getMessageText,
-  getSourceTitle,
-} from '@/app/utils/messageHelpers';
+import { getSourceTitle } from '@/app/utils/messageHelpers';
 import { modelStringFromName } from '@/app/utils/models';
 
 // Extend dayjs plugins for time helpers
@@ -133,44 +128,66 @@ const MessageRow = memo(
     onDelete,
     onFileClick,
   }: MessageRowProps) => {
-    const messageText = useMemo(() => getMessageText(message), [message]);
-    const messageFiles = useMemo(() => getMessageFiles(message), [message]);
     const isUser = message.role === 'user';
     const isStreamingState =
       chatStatus === 'streaming' || chatStatus === 'submitted';
 
-    // Collect source parts for rendering before message content. Normalize shape and filter invalid entries.
-    const sourceParts = useMemo(() => {
-      return message.parts
-        .filter((part): part is SourceUrlPart => part.type === 'source-url')
-        .map((p) => {
-          const unknownPart = p as unknown as Record<string, unknown>;
-          const sourceId =
-            typeof unknownPart.sourceId === 'string'
-              ? (unknownPart.sourceId as string)
-              : undefined;
-          const url =
-            typeof unknownPart.url === 'string'
-              ? (unknownPart.url as string)
-              : typeof unknownPart.href === 'string'
-                ? (unknownPart.href as string)
-                : typeof unknownPart.link === 'string'
-                  ? (unknownPart.link as string)
-                  : undefined;
-          const title =
-            typeof unknownPart.title === 'string'
-              ? (unknownPart.title as string)
-              : typeof unknownPart.name === 'string'
-                ? (unknownPart.name as string)
-                : undefined;
-
-          return { sourceId, url, title };
-        })
-        .filter((p) => p.url) as Array<{
-        sourceId?: string;
+    // Collect file parts and text files for rendering before message content
+    const fileParts = useMemo(() => {
+      const files: Array<{
+        type: string;
+        mediaType: string;
         url: string;
-        title?: string;
-      }>;
+        name?: string;
+        textContent?: string;
+      }> = [];
+
+      message.parts.forEach((part) => {
+        if (part.type === 'file') {
+          const filePart = part as FilePart;
+          files.push({
+            type: part.type,
+            mediaType: filePart.mediaType,
+            url: filePart.url || '',
+            name: filePart.name,
+          });
+        } else if (part.type === 'text' && part.text.startsWith('[File: ')) {
+          const match = part.text.match(/^\[File: (.+?)\]\n([\s\S]*)$/);
+          if (match) {
+            const filename = match[1];
+            const ext = filename.split('.').pop()?.toLowerCase();
+            const mediaTypeMap: Record<string, string> = {
+              json: 'application/json',
+              pdf: 'application/pdf',
+              jpg: 'image/jpeg',
+              jpeg: 'image/jpeg',
+              png: 'image/png',
+              webp: 'image/webp',
+              txt: 'text/plain',
+            };
+            files.push({
+              type: 'file',
+              mediaType: mediaTypeMap[ext || ''] || 'text/plain',
+              url: '',
+              name: filename,
+              textContent: match[2],
+            });
+          }
+        }
+      });
+
+      return files;
+    }, [message.parts]);
+
+    // Extract text content for copy functionality
+    const messageText = useMemo(() => {
+      const textParts = message.parts
+        .filter(
+          (part): part is { type: 'text'; text: string } =>
+            part.type === 'text' && !part.text.startsWith('[File: ')
+        )
+        .map((part) => part.text);
+      return textParts.join('');
     }, [message.parts]);
 
     const storedMessage = message as StoredMessage;
@@ -220,11 +237,11 @@ const MessageRow = memo(
 
           <div className="flex-1 flex flex-col gap-2">
             {/* Render file attachments first (before text) */}
-            {messageFiles && messageFiles.length > 0 && (
+            {fileParts.length > 0 && (
               <div
-                className={`gap-4 ${isUser ? 'ml-auto max-w-md' : 'max-w-1/2'} ${messageFiles.filter((f) => f.mediaType.startsWith('image/')).length === 1 ? 'flex flex-col' : 'grid grid-cols-1 sm:grid-cols-2'}`}
+                className={`gap-4 ${isUser ? 'ml-auto max-w-2/5' : 'max-w-2/5'} ${fileParts.filter((f) => f.mediaType.startsWith('image/')).length === 1 ? 'flex flex-col' : 'grid grid-cols-1 sm:grid-cols-2'}`}
               >
-                {messageFiles.map((file, idx) =>
+                {fileParts.map((file, idx) =>
                   file.mediaType.startsWith('image/') ? (
                     <div
                       key={`${message.id}-file-${idx}`}
@@ -260,20 +277,53 @@ const MessageRow = memo(
 
             <MessageContent>
               {/* Render Sources if available (before all other content) */}
-              {!isUser && sourceParts.length > 0 && (
-                <Sources>
-                  <SourcesTrigger count={sourceParts.length} />
-                  <SourcesContent>
-                    {sourceParts.map((part, idx) => (
-                      <Source
-                        key={part.sourceId || `${message.id}-source-${idx}`}
-                        href={part.url}
-                        title={part.title || getSourceTitle(part.url)}
-                      />
-                    ))}
-                  </SourcesContent>
-                </Sources>
-              )}
+              {!isUser &&
+                message.parts.some((p) => p.type === 'source-url') && (
+                  <Sources>
+                    <SourcesTrigger
+                      count={
+                        message.parts.filter((p) => p.type === 'source-url')
+                          .length
+                      }
+                    />
+                    <SourcesContent>
+                      {message.parts
+                        .filter((p) => p.type === 'source-url')
+                        .map((part, idx) => {
+                          const sourcePart = part as unknown as Record<
+                            string,
+                            unknown
+                          >;
+                          const url = (
+                            typeof sourcePart.url === 'string'
+                              ? sourcePart.url
+                              : typeof sourcePart.href === 'string'
+                                ? sourcePart.href
+                                : ''
+                          ) as string;
+                          const title = (
+                            typeof sourcePart.title === 'string'
+                              ? sourcePart.title
+                              : getSourceTitle(url)
+                          ) as string;
+                          const sourceId = (
+                            typeof sourcePart.sourceId === 'string'
+                              ? sourcePart.sourceId
+                              : typeof sourcePart.id === 'string'
+                                ? sourcePart.id
+                                : undefined
+                          ) as string | undefined;
+                          return (
+                            <Source
+                              key={sourceId || `${message.id}-source-${idx}`}
+                              href={url}
+                              title={title}
+                            />
+                          );
+                        })}
+                    </SourcesContent>
+                  </Sources>
+                )}
 
               {/* Render message parts using switch-based pattern */}
               {message.parts.map((part, i) => {
@@ -282,12 +332,15 @@ const MessageRow = memo(
                   isStreamingState &&
                   i === message.parts.length - 1;
 
-                // Debug: Log part types to understand what we're receiving
-                if (process.env.NODE_ENV === 'development' && !isUser) {
-                  console.log(`Part ${i} type:`, part.type, part);
-                }
-
                 switch (part.type) {
+                  case 'step-start': {
+                    // Show step boundaries for multi-step tool calls
+                    return i > 0 ? (
+                      <div key={`${message.id}-${i}`} className="text-gray-500">
+                        <hr className="my-2 border-gray-300" />
+                      </div>
+                    ) : null;
+                  }
                   case 'tool-input-start':
                   case 'tool-input-end': {
                     // These are internal streaming events, don't render
@@ -337,6 +390,75 @@ const MessageRow = memo(
                     return null;
                   }
 
+                  case 'source-document': {
+                    // Render document sources (similar to source-url but for documents)
+                    if (isUser) {
+                      return null;
+                    }
+                    const docPart = part as unknown as Record<string, unknown>;
+                    const title =
+                      typeof docPart.title === 'string'
+                        ? docPart.title
+                        : `Document ${typeof docPart.id === 'string' ? docPart.id : i}`;
+                    return (
+                      <span
+                        key={`${message.id}-${i}`}
+                        className="text-xs text-muted-foreground"
+                      >
+                        [{title}]
+                      </span>
+                    );
+                  }
+
+                  case 'dynamic-tool': {
+                    // Handle generic dynamic tool invocations
+                    if (isUser) {
+                      return null;
+                    }
+                    const dynamicPart = part as unknown as Record<
+                      string,
+                      unknown
+                    >;
+                    const toolName =
+                      typeof dynamicPart.toolName === 'string'
+                        ? dynamicPart.toolName
+                        : 'tool';
+                    // Default to 'input-available' if state is not a valid tool state
+                    const state: ToolUIPart['state'] =
+                      typeof dynamicPart.state === 'string' &&
+                      (dynamicPart.state === 'input-streaming' ||
+                        dynamicPart.state === 'input-available' ||
+                        dynamicPart.state === 'output-available' ||
+                        dynamicPart.state === 'output-error')
+                        ? (dynamicPart.state as ToolUIPart['state'])
+                        : 'input-available';
+
+                    return (
+                      <div key={`${message.id}-${i}`} className="my-2">
+                        <Tool className="w-full">
+                          <ToolHeader
+                            title={toolName}
+                            type={`tool-${toolName}` as `tool-${string}`}
+                            state={state}
+                          />
+                          <ToolContent>
+                            <ToolInput input={dynamicPart.input} />
+                            {dynamicPart.output !== undefined && (
+                              <ToolOutput
+                                output={dynamicPart.output}
+                                errorText={
+                                  typeof dynamicPart.errorText === 'string'
+                                    ? dynamicPart.errorText
+                                    : undefined
+                                }
+                              />
+                            )}
+                          </ToolContent>
+                        </Tool>
+                      </div>
+                    );
+                  }
+
                   default: {
                     // Handle dynamic tool types (tool-{toolName})
                     if (part.type.startsWith('tool-')) {
@@ -373,7 +495,7 @@ const MessageRow = memo(
                             </ToolContent>
                           </Tool>
                           {hasImageOutput ? (
-                            <div className="mt-4 rounded-lg border p-2 bg-muted/50 max-w-1/2 h-auto">
+                            <div className="mt-4 rounded-lg border p-2 bg-muted/50 max-w-2/5 h-auto">
                               <button
                                 type="button"
                                 onClick={() => {
