@@ -139,7 +139,7 @@ export async function POST(req: Request) {
       apiKey: AZURE_OPENAI_API_KEY,
       apiVersion: AZURE_OPENAI_API_VERSION,
       headers: {
-        'x-ms-oai-image-generation-deployment': 'gpt-image-1',
+        'x-ms-oai-image-generation-deployment': 'gpt-image-1.5',
       },
     });
 
