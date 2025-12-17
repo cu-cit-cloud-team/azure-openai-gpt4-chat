@@ -237,7 +237,7 @@ export const Footer = memo(
                   <TooltipContent side="top" align="start">
                     {!supportsWebSearch
                       ? 'This model does not support web search'
-                      : `Web Search ${useWebSearch ? 'Enabled' : 'Disabled'}`}
+                      : `${useWebSearch ? 'Disable' : 'Enable'} Web Search `}
                   </TooltipContent>
                 </Tooltip>
                 <ModelSelector
