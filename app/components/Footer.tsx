@@ -168,13 +168,16 @@ export const Footer = memo(
       setLocalSubmitting(true);
     }, []);
 
-    // Clear the local submitting indicator once the global loading state starts
+    // Clear the local submitting indicator when loading starts or when chat returns to ready
     useEffect(() => {
       if (isLoading) {
         // schedule async to avoid calling setState synchronously in effect
         Promise.resolve().then(() => setLocalSubmitting(false));
+      } else if (chatStatus === 'ready') {
+        // Also clear when status returns to ready (e.g., after stop)
+        setLocalSubmitting(false);
       }
-    }, [isLoading]);
+    }, [isLoading, chatStatus]);
 
     return (
       <footer className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
