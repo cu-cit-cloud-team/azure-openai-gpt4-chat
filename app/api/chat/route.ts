@@ -247,12 +247,8 @@ export async function POST(req: Request) {
     });
 
     let base64Image: string | undefined;
-    console.log(await response.staticToolResults);
-    for (const toolResult of await response.staticToolResults) {
-      if (toolResult.toolName === 'image_generation') {
-        base64Image = toolResult.output.result;
-      }
-    }
+    // Do NOT await staticToolResults here — awaiting it blocks until tools finish
+    // We'll stream the text immediately and emit the file part once the tool result arrives.
 
     // Use createUIMessageStream to emit a `file` part (if image exists) and merge the text stream
     const stream = createUIMessageStream({
@@ -262,17 +258,28 @@ export async function POST(req: Request) {
         // Start a server-generated response message (persisted id)
         writer.write({ type: 'start', messageId: generateId() });
 
-        // If image was produced by the tool, write it as a file part so it appears in message.parts
-        if (base64Image) {
-          writer.write({
-            type: 'file',
-            mediaType: 'image/png',
-            url: `data:image/png;base64,${base64Image}`,
-          });
-        }
-
-        // Merge the AI text stream into the same message (omit its start so we keep our messageId)
+        // Merge the AI text stream into the same message immediately so streaming begins
         writer.merge(response.toUIMessageStream({ sendStart: false }));
+
+        // After merging, wait for tool results and emit file part when available
+        try {
+          const toolResults = await response.staticToolResults;
+          for (const toolResult of toolResults) {
+            if (toolResult.toolName === 'image_generation') {
+              base64Image = toolResult.output.result;
+              if (base64Image) {
+                writer.write({
+                  type: 'file',
+                  mediaType: 'image/png',
+                  url: `data:image/png;base64,${base64Image}`,
+                });
+              }
+            }
+          }
+        } catch (e) {
+          // ignore errors from staticToolResults to avoid breaking the stream
+          console.warn('Error reading static tool results:', e);
+        }
       },
       onError: (error: unknown) => {
         const err = error as Error;
