@@ -262,23 +262,23 @@ const MessageRow = memo(
                     const reasoningPart = part as ReasoningPart;
                     const hasReasoningText =
                       reasoningPart.text && reasoningPart.text.trim() !== '';
+
+                    // Don't render empty reasoning if not streaming
+                    if (!hasReasoningText && !isStreamingPart) {
+                      return null;
+                    }
+
                     return (
                       <Reasoning
                         key={`${message.id}-${i}`}
                         isStreaming={isStreamingPart}
                       >
                         <ReasoningTrigger />
-                        {hasReasoningText ? (
-                          <ReasoningContent>
-                            {reasoningPart.text}
-                          </ReasoningContent>
-                        ) : (
-                          <ReasoningContent className="text-muted-foreground italic">
-                            {
-                              'Reasoning content is not available (encrypted by Azure for OpenAI models with reasoning capabilities).'
-                            }
-                          </ReasoningContent>
-                        )}
+                        <ReasoningContent>
+                          {hasReasoningText
+                            ? reasoningPart.text
+                            : '_Reasoning..._'}
+                        </ReasoningContent>
                       </Reasoning>
                     );
                   }
@@ -305,23 +305,70 @@ const MessageRow = memo(
                         return null;
                       }
                       const toolPart = part as ToolUIPart;
+
+                      // Check if this is an image generation tool with output
+                      const isImageGeneration =
+                        toolPart.type === 'tool-image_generation';
+                      const hasImageOutput =
+                        isImageGeneration &&
+                        toolPart.output &&
+                        typeof toolPart.output === 'object' &&
+                        'result' in toolPart.output;
+
                       return (
-                        <Tool key={`${message.id}-${i}`}>
-                          <ToolHeader
-                            title={toolPart.type.split('tool-')[1] || 'tool'}
-                            type={toolPart.type}
-                            state={toolPart.state}
-                          />
-                          <ToolContent>
-                            <ToolInput input={toolPart.input} />
-                            {toolPart.output !== undefined && (
-                              <ToolOutput
-                                output={toolPart.output}
-                                errorText={toolPart.errorText}
-                              />
-                            )}
-                          </ToolContent>
-                        </Tool>
+                        <Fragment key={`${message.id}-${i}`}>
+                          <Tool className="w-full">
+                            <ToolHeader
+                              title={toolPart.type.split('tool-')[1] || 'tool'}
+                              type={toolPart.type}
+                              state={toolPart.state}
+                            />
+                            <ToolContent>
+                              <ToolInput input={toolPart.input} />
+                              {toolPart.output !== undefined && (
+                                <ToolOutput
+                                  output={toolPart.output}
+                                  errorText={toolPart.errorText}
+                                />
+                              )}
+                            </ToolContent>
+                          </Tool>
+                          {hasImageOutput ? (
+                            <div className="mt-4 rounded-lg border p-2 bg-muted/50 max-w-1/2 h-auto">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const output = toolPart.output as {
+                                    result: string;
+                                  };
+                                  const dataUrl = `data:image/png;base64,${output.result}`;
+                                  const filePart = {
+                                    type: 'file' as const,
+                                    name: `${message.id}.png`,
+                                    mediaType: 'image/png',
+                                    url: dataUrl,
+                                    title: `${message.id}.png`,
+                                  };
+                                  onFileClick(filePart);
+                                }}
+                                className="cursor-pointer hover:opacity-80 transition-opacity w-full"
+                              >
+                                {/* biome-ignore lint/performance/noImgElement: base64 from tool output */}
+                                <img
+                                  src={`data:image/png;base64,${(toolPart.output as { result: string }).result}`}
+                                  alt={
+                                    typeof toolPart.input === 'object' &&
+                                    toolPart.input &&
+                                    'prompt' in toolPart.input
+                                      ? String(toolPart.input.prompt)
+                                      : 'AI-generated content'
+                                  }
+                                  className="object-cover rounded-md w-full"
+                                />
+                              </button>
+                            </div>
+                          ) : null}
+                        </Fragment>
                       );
                     }
 
