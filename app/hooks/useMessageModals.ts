@@ -1,6 +1,10 @@
 import { useCallback, useState } from 'react';
 
-export type ModalImage = { url: string; filename: string } | null;
+export type ModalImage = {
+  url: string;
+  filename: string;
+  title?: string;
+} | null;
 export type ModalTextFile = {
   content: string;
   filename: string;
@@ -21,11 +25,13 @@ export const useMessageModals = () => {
       textContent?: string;
       name?: string;
       filename?: string;
+      title?: string;
     }) => {
       if (file.mediaType.startsWith('image/')) {
         setModalImageUrl({
           url: file.url || '',
           filename: file.name || 'image',
+          title: file.title,
         });
       } else if (file.mediaType === 'application/pdf') {
         setModalPdfFile({

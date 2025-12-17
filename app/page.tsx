@@ -515,6 +515,7 @@ function ChatInner({
       <ImageModal
         open={!!modalImageUrl}
         filename={modalImageUrl?.filename}
+        title={modalImageUrl?.title}
         url={modalImageUrl?.url}
         onClose={closeImage}
       />

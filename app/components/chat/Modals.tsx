@@ -1,9 +1,12 @@
+import { Download } from 'lucide-react';
 import { Streamdown } from 'streamdown';
+import { Button } from '@/app/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/app/components/ui/dialog';
 
 export type ImageModalProps = {
   open: boolean;
   filename?: string;
+  title?: string;
   url?: string;
   onClose: () => void;
 };
@@ -11,23 +14,45 @@ export type ImageModalProps = {
 export const ImageModal = ({
   open,
   filename,
+  title,
   url,
   onClose,
-}: ImageModalProps) => (
-  <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-    <DialogContent className="w-[80vw] sm:max-w-7xl">
-      <DialogTitle>{filename}</DialogTitle>
-      {url && (
-        // biome-ignore lint/performance/noImgElement: data URL from file upload
-        <img
-          src={url}
-          alt="Attachment"
-          className="w-full h-auto max-h-[80vh] object-contain rounded"
-        />
-      )}
-    </DialogContent>
-  </Dialog>
-);
+}: ImageModalProps) => {
+  const handleDownload = () => {
+    if (!url || !filename) {
+      return;
+    }
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
+      <DialogContent className="w-[80vw] sm:max-w-7xl">
+        <DialogTitle>{title || filename}</DialogTitle>
+        {url && (
+          // biome-ignore lint/performance/noImgElement: data URL from file upload
+          <img
+            src={url}
+            alt="Attachment"
+            className="w-full h-auto max-h-[80vh] object-contain rounded"
+          />
+        )}
+        <div className="flex justify-center mt-4">
+          <Button variant="outline" size="sm" onClick={handleDownload}>
+            <Download className="h-4 w-4 mr-2" />
+            Download
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 export type TextFileModalProps = {
   open: boolean;
