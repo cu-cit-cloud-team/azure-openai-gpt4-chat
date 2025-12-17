@@ -213,6 +213,15 @@ export const models: Models = [
     capabilities: ['tools', 'reasoning'],
   },
   {
+    displayName: 'DeepSeek V3.2',
+    modelVersion: '1',
+    maxInputTokens: 128000,
+    maxOutputTokens: 128000,
+    name: 'DeepSeek-V3.2',
+    provider: 'deepseek',
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
     displayName: 'DeepSeek R1-0528',
     modelVersion: '1',
     maxInputTokens: 163840,
