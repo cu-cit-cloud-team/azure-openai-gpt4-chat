@@ -1,3 +1,12 @@
+## 1.0.0-beta.16 (2025-12-17)
+
+* fix(api/chat): message streaming ([65d3578](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/65d3578))
+* feat(api/chat): add support for deepseek v3.2 ([45cd37e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/45cd37e))
+* feat(utils/models): add deepseek v3.2 ([579d00f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/579d00f))
+* refactor(api/chat): require image model env var; improve logic ([d5293ef](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d5293ef))
+
+
+
 ## 1.0.0-beta.15 (2025-12-17)
 
 * refactor(api/chat): update image model ([2de4b90](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2de4b90))
