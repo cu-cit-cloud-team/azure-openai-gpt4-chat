@@ -1,3 +1,24 @@
+## 1.0.0-beta.15 (2025-12-17)
+
+* refactor(api/chat): update image model ([2de4b90](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2de4b90))
+* refactor(env.local.example): add env vars for anthropic/deepseek models ([09d2112](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/09d2112))
+* refactor(utils/models): re-enable gpt-5.2 ([136918e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/136918e))
+* refactor(WIP): add basic image generation support ([d016db8](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d016db8))
+* chore(deps-dev): bump @biomejs/biome from 2.3.8 to 2.3.9 (#2137) ([15581e3](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/15581e3)), closes [#2137](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2137)
+* chore(deps-dev): bump @types/node in the types group (#2133) ([9018943](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/9018943)), closes [#2133](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2133)
+* chore(deps-dev): bump @types/node in the types group (#2142) ([a3207e6](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/a3207e6)), closes [#2142](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2142)
+* chore(deps-dev): bump autoprefixer in the postcss group (#2135) ([fb3c81e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/fb3c81e)), closes [#2135](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2135)
+* chore(deps-dev): bump eslint from 9.39.1 to 9.39.2 in the eslint group (#2134) ([a9ef5cc](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/a9ef5cc)), closes [#2134](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2134)
+* chore(deps): bump @ai-sdk/azure from 2.0.88 to 2.0.89 in the ai group (#2138) ([260850a](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/260850a)), closes [#2138](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2138)
+* chore(deps): bump @ai-sdk/azure from 2.0.89 to 2.0.90 in the ai group (#2141) ([17260fd](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/17260fd)), closes [#2141](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2141)
+* chore(deps): bump openai from 6.10.0 to 6.13.0 (#2136) ([4f7dd44](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4f7dd44)), closes [#2136](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2136)
+* chore(deps): bump openai from 6.13.0 to 6.14.0 (#2140) ([dd36735](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/dd36735)), closes [#2140](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2140)
+* chore(deps): bump the ai group with 2 updates (#2139) ([e34c84d](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/e34c84d)), closes [#2139](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2139)
+* chore(deps): bump the ai group with 3 updates (#2132) ([ee01558](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/ee01558)), closes [#2132](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2132)
+* style(Messages): update reasoning message ([3507745](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/3507745))
+
+
+
 ## 1.0.0-beta.14 (2025-12-12)
 
 * refactor(Footer): fix param and remove logo group ([4ced990](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4ced990))
