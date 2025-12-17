@@ -24,6 +24,8 @@ function validateEnvVars() {
     AZURE_OPENAI_DEPLOYMENT_NAME,
     AZURE_OPENAI_API_KEY,
     AZURE_OPENAI_API_VERSION,
+    AZURE_OPENAI_GPT_IMAGE_DEPLOYMENT,
+    AZURE_OPENAI_GPT51_DEPLOYMENT,
     AZURE_ANTHROPIC_API_VERSION,
     AZURE_ANTHROPIC_BASE_PATH,
     AZURE_DEEPSEEK_BASE_PATH,
@@ -52,6 +54,7 @@ const {
   AZURE_OPENAI_DEPLOYMENT_NAME,
   AZURE_OPENAI_API_KEY,
   AZURE_OPENAI_API_VERSION,
+  AZURE_OPENAI_GPT_IMAGE_DEPLOYMENT,
   AZURE_OPENAI_GPT41_DEPLOYMENT,
   AZURE_OPENAI_GPT41_MINI_DEPLOYMENT,
   AZURE_OPENAI_GPT41_NANO_DEPLOYMENT,
@@ -127,11 +130,9 @@ export async function POST(req: Request) {
     );
     const uiMessages = hasSystemPrompt ? messages : [systemPrompt, ...messages];
 
-    // determine if we need can use the responses API
-    // const useResponsesApi =
-    //   model.startsWith('gpt-41') ||
-    //   model.startsWith('gpt-5') ||
-    //   model.startsWith('o');
+    // determine if the model supports the images tool
+    const useImageTool =
+      model.startsWith('gpt-41') || model.startsWith('gpt-5');
 
     // create azure client
     const azure = createAzure({
@@ -139,7 +140,8 @@ export async function POST(req: Request) {
       apiKey: AZURE_OPENAI_API_KEY,
       apiVersion: AZURE_OPENAI_API_VERSION,
       headers: {
-        'x-ms-oai-image-generation-deployment': 'gpt-image-1.5',
+        'x-ms-oai-image-generation-deployment':
+          AZURE_OPENAI_GPT_IMAGE_DEPLOYMENT as string,
       },
     });
 
@@ -231,8 +233,7 @@ export async function POST(req: Request) {
             },
           }
         : {}),
-      ...(model.startsWith('gpt-4') ||
-      (model.startsWith('gpt-5') && !model.includes('5.2'))
+      ...(useImageTool
         ? {
             tools: {
               image_generation: azure.tools.imageGeneration({
