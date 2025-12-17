@@ -111,7 +111,7 @@ export async function POST(req: Request) {
 
     const systemMessage = systemMessageRaw || defaults.systemMessage;
     const model = modelName || defaults.model;
-    const max_tokens = defaults.max_tokens;
+    // const max_tokens = defaults.max_tokens;
 
     // v5 UIMessage system prompt part
     const systemPrompt = {
@@ -216,7 +216,6 @@ export async function POST(req: Request) {
     const baseStreamTextOptions = {
       model: azureModel,
       messages: convertedMessages,
-      maxTokens: max_tokens,
       experimental_transform: smoothStream(),
     };
 
@@ -228,6 +227,13 @@ export async function POST(req: Request) {
               web_search_preview: azure.tools.webSearchPreview({
                 searchContextSize: 'medium',
               }),
+              ...(useImageTool
+                ? {
+                    image_generation: azure.tools.imageGeneration({
+                      outputFormat: 'png',
+                    }),
+                  }
+                : {}),
             },
             toolChoice: {
               type: 'tool',
@@ -235,7 +241,7 @@ export async function POST(req: Request) {
             },
           }
         : {}),
-      ...(useImageTool
+      ...(useImageTool && !webSearch
         ? {
             tools: {
               image_generation: azure.tools.imageGeneration({
@@ -259,7 +265,14 @@ export async function POST(req: Request) {
         writer.write({ type: 'start', messageId: generateId() });
 
         // Merge the AI text stream into the same message immediately so streaming begins
-        writer.merge(response.toUIMessageStream({ sendStart: false }));
+        // Include tool and source parts so web search results are emitted as structured UI parts
+        writer.merge(
+          response.toUIMessageStream({
+            sendStart: false,
+            sendSources: true,
+            sendReasoning: true,
+          })
+        );
 
         // After merging, wait for tool results and emit file part when available
         try {
@@ -273,6 +286,48 @@ export async function POST(req: Request) {
                   mediaType: 'image/png',
                   url: `data:image/png;base64,${base64Image}`,
                 });
+              }
+            }
+
+            // When using the web_search_preview tool, emit structured `source-url` parts
+            // so the frontend `Sources` component can render them instead of raw markdown.
+            if (toolResult.toolName === 'web_search_preview') {
+              try {
+                const results = toolResult.output?.results ?? toolResult.output;
+                if (Array.isArray(results)) {
+                  for (const r of results) {
+                    const url = r.url || r.link || r.href;
+                    const title = r.title || r.name || url;
+                    if (url) {
+                      writer.write({
+                        type: 'source-url',
+                        sourceId: generateId(),
+                        url,
+                        title,
+                      });
+                    }
+
+                    const snippet =
+                      r.snippet || r.summary || r.excerpt || r.text;
+                    if (snippet) {
+                      writer.write({
+                        type: 'text-delta',
+                        delta: snippet,
+                        id: generateId(),
+                      });
+                    }
+                  }
+                } else if (toolResult.output?.url) {
+                  writer.write({
+                    type: 'source-url',
+                    sourceId: generateId(),
+                    url: toolResult.output.url,
+                    title: toolResult.output.title || toolResult.output.url,
+                  });
+                }
+              } catch (e) {
+                // Non-fatal: continue streaming even if parsing tool output fails
+                console.warn('Failed to process web_search_preview results', e);
               }
             }
           }

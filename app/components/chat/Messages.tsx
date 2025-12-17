@@ -139,14 +139,39 @@ const MessageRow = memo(
     const isStreamingState =
       chatStatus === 'streaming' || chatStatus === 'submitted';
 
-    // Collect source parts for rendering before message content
-    const sourceParts = useMemo(
-      () =>
-        message.parts.filter(
-          (part): part is SourceUrlPart => part.type === 'source-url'
-        ),
-      [message.parts]
-    );
+    // Collect source parts for rendering before message content. Normalize shape and filter invalid entries.
+    const sourceParts = useMemo(() => {
+      return message.parts
+        .filter((part): part is SourceUrlPart => part.type === 'source-url')
+        .map((p) => {
+          const unknownPart = p as unknown as Record<string, unknown>;
+          const sourceId =
+            typeof unknownPart.sourceId === 'string'
+              ? (unknownPart.sourceId as string)
+              : undefined;
+          const url =
+            typeof unknownPart.url === 'string'
+              ? (unknownPart.url as string)
+              : typeof unknownPart.href === 'string'
+                ? (unknownPart.href as string)
+                : typeof unknownPart.link === 'string'
+                  ? (unknownPart.link as string)
+                  : undefined;
+          const title =
+            typeof unknownPart.title === 'string'
+              ? (unknownPart.title as string)
+              : typeof unknownPart.name === 'string'
+                ? (unknownPart.name as string)
+                : undefined;
+
+          return { sourceId, url, title };
+        })
+        .filter((p) => p.url) as Array<{
+        sourceId?: string;
+        url: string;
+        title?: string;
+      }>;
+    }, [message.parts]);
 
     const storedMessage = message as StoredMessage;
     const messageModel = storedMessage.model || modelName;
