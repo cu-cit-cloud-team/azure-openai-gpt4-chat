@@ -40,8 +40,8 @@ import {
 import { Avatar, AvatarFallback } from '@/app/components/ui/avatar';
 import { Button } from '@/app/components/ui/button';
 import type {
-  FilePart,
-  ReasoningPart,
+  FileUIPart,
+  ReasoningUIPart,
   ToolUIPart,
   UserMeta,
 } from '@/app/types';
@@ -67,7 +67,7 @@ export interface MessagesProps {
   onCopy: (messageId: string, text: string) => void;
   onRegenerate: (messageId: string) => void;
   onDelete: (messageId: string) => void;
-  onFileClick: (file: FilePart) => void;
+  onFileClick: (file: FileUIPart) => void;
 }
 
 export const Messages = ({
@@ -112,7 +112,7 @@ interface MessageRowProps {
   onCopy: (messageId: string, text: string) => void;
   onRegenerate: (messageId: string) => void;
   onDelete: (messageId: string) => void;
-  onFileClick: (file: FilePart) => void;
+  onFileClick: (file: FileUIPart) => void;
 }
 
 const MessageRow = memo(
@@ -144,12 +144,12 @@ const MessageRow = memo(
 
       message.parts.forEach((part) => {
         if (part.type === 'file') {
-          const filePart = part as FilePart;
+          const filePart = part as FileUIPart;
           files.push({
             type: part.type,
             mediaType: filePart.mediaType,
             url: filePart.url || '',
-            name: filePart.name,
+            name: filePart.filename,
           });
         } else if (part.type === 'text' && part.text.startsWith('[File: ')) {
           const match = part.text.match(/^\[File: (.+?)\]\n([\s\S]*)$/);
@@ -210,7 +210,7 @@ const MessageRow = memo(
     }, [message.id, onDelete]);
 
     const handleFileClick = useCallback(
-      (file: FilePart) => onFileClick(file),
+      (file: FileUIPart) => onFileClick(file),
       [onFileClick]
     );
 
@@ -249,7 +249,7 @@ const MessageRow = memo(
                     >
                       <button
                         type="button"
-                        onClick={() => handleFileClick(file as FilePart)}
+                        onClick={() => handleFileClick(file as FileUIPart)}
                         className="cursor-pointer hover:opacity-80 transition-opacity w-full"
                       >
                         {/* biome-ignore lint/performance/noImgElement: data URL from file upload */}
@@ -266,7 +266,7 @@ const MessageRow = memo(
                       variant="outline"
                       size="lg"
                       className="h-auto gap-2"
-                      onClick={() => handleFileClick(file as FilePart)}
+                      onClick={() => handleFileClick(file as FileUIPart)}
                     >
                       <span>📄 {file.name || 'File'}</span>
                     </Button>
@@ -351,7 +351,7 @@ const MessageRow = memo(
                     if (isUser) {
                       return null;
                     }
-                    const reasoningPart = part as ReasoningPart;
+                    const reasoningPart = part as ReasoningUIPart;
                     const hasReasoningText =
                       reasoningPart.text && reasoningPart.text.trim() !== '';
 

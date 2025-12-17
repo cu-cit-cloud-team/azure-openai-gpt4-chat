@@ -35,6 +35,8 @@ import type { StoredMessage } from '@/app/hooks/useMessagePersistence';
 import { useMessagePersistence } from '@/app/hooks/useMessagePersistence';
 import { useRegenerateMessage } from '@/app/hooks/useRegenerateMessage';
 
+import type { FileUIPart } from '@/app/types';
+
 import {
   isLoadingAtom,
   modelAtom,
@@ -44,14 +46,6 @@ import {
 
 dayjs.extend(isToday);
 dayjs.extend(relativeTime);
-
-type FilePart = {
-  type: 'file';
-  mediaType: string;
-  url: string;
-  name?: string;
-  filename?: string;
-};
 
 // Text file MIME types that should be read as text content
 const TEXT_TYPES = new Set([
@@ -359,7 +353,7 @@ function ChatInner({
   }, []);
 
   const handlePromptSubmit = useCallback(
-    async (message: { text: string; files: FilePart[] }) => {
+    async (message: { text: string; files: FileUIPart[] }) => {
       setChatError(null);
 
       const parts: UIMessage['parts'] = [];
@@ -370,7 +364,7 @@ function ChatInner({
 
       // Process files: text files become text parts, images/PDFs stay as file parts
       for (const file of message.files) {
-        const fileName = file.filename || file.name || 'file';
+        const fileName = file.filename || 'file';
         const isTextFile = TEXT_TYPES.has(file.mediaType);
         const isImage = file.mediaType.startsWith('image/');
         const isPdf = file.mediaType === 'application/pdf';
