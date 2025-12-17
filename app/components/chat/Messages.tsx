@@ -218,7 +218,46 @@ const MessageRow = memo(
             </AvatarFallback>
           </Avatar>
 
-          <div className="flex-1">
+          <div className="flex-1 flex flex-col gap-2">
+            {/* Render file attachments first (before text) */}
+            {messageFiles && messageFiles.length > 0 && (
+              <div
+                className={`gap-4 ${isUser ? 'ml-auto max-w-md' : 'max-w-1/2'} ${messageFiles.filter((f) => f.mediaType.startsWith('image/')).length === 1 ? 'flex flex-col' : 'grid grid-cols-1 sm:grid-cols-2'}`}
+              >
+                {messageFiles.map((file, idx) =>
+                  file.mediaType.startsWith('image/') ? (
+                    <div
+                      key={`${message.id}-file-${idx}`}
+                      className="rounded-lg border p-2 bg-muted/50 h-auto"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => handleFileClick(file as FilePart)}
+                        className="cursor-pointer hover:opacity-80 transition-opacity w-full"
+                      >
+                        {/* biome-ignore lint/performance/noImgElement: data URL from file upload */}
+                        <img
+                          src={file.url}
+                          alt={file.name}
+                          className="w-full h-auto rounded"
+                        />
+                      </button>
+                    </div>
+                  ) : (
+                    <Button
+                      key={`${message.id}-file-${idx}`}
+                      variant="outline"
+                      size="lg"
+                      className="h-auto gap-2"
+                      onClick={() => handleFileClick(file as FilePart)}
+                    >
+                      <span>📄 {file.name || 'File'}</span>
+                    </Button>
+                  )
+                )}
+              </div>
+            )}
+
             <MessageContent>
               {/* Render Sources if available (before all other content) */}
               {!isUser && sourceParts.length > 0 && (
@@ -393,35 +432,6 @@ const MessageRow = memo(
                 >
                   {messageText}
                 </MessageResponse>
-              )}
-
-              {/* Render file attachments */}
-
-              {messageFiles && messageFiles.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {messageFiles.map((file, idx) => (
-                    <Button
-                      key={`${message.id}-file-${idx}`}
-                      variant="outline"
-                      size="lg"
-                      className="h-auto gap-2"
-                      onClick={() => handleFileClick(file as FilePart)}
-                    >
-                      {file.mediaType.startsWith('image/') ? (
-                        <>
-                          {/* biome-ignore lint/performance/noImgElement: data URL from file upload */}
-                          <img
-                            src={file.url}
-                            alt={file.name}
-                            className="size-32 object-cover rounded"
-                          />
-                        </>
-                      ) : (
-                        <span>📄 {file.name || 'File'}</span>
-                      )}
-                    </Button>
-                  ))}
-                </div>
               )}
 
               {/* Loading indicator */}
