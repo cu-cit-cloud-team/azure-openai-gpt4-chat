@@ -5,18 +5,6 @@
 import type { UIMessage } from 'ai';
 
 /**
- * Extract the first text content from a v5 message
- */
-export function getMessageText(message: UIMessage): string {
-  for (const part of message.parts) {
-    if (part.type === 'text' && !part.text.startsWith('[File: ')) {
-      return part.text;
-    }
-  }
-  return '';
-}
-
-/**
  *  Mapping of common file extensions to media types
  */
 
@@ -45,62 +33,6 @@ export const mediaTypeMap: Record<string, string> = {
   py: 'text/x-python',
   rb: 'text/x-ruby',
 };
-
-/**
- * Infer media type from filename extension
- */
-function getMediaTypeFromFilename(filename: string): string {
-  const ext = filename.split('.').pop()?.toLowerCase();
-  return mediaTypeMap[ext || ''] || 'text/plain';
-}
-
-/**
- * Extract all file parts from a v5 message
- * Text files are stored as text parts with [File: name] prefix
- * Images and PDFs are stored as file parts
- */
-export function getMessageFiles(message: UIMessage) {
-  const files: Array<{
-    type: string;
-    mediaType: string;
-    url: string;
-    name?: string;
-    textContent?: string;
-  }> = [];
-
-  message.parts.forEach((part) => {
-    if (part.type === 'file') {
-      // Images and PDFs stored as file parts
-      const filePart = part as {
-        mediaType: string;
-        url: string;
-        name?: string;
-        filename?: string;
-      };
-      files.push({
-        type: part.type,
-        mediaType: filePart.mediaType,
-        url: filePart.url,
-        name: filePart.filename || filePart.name || 'file',
-      });
-    } else if (part.type === 'text' && part.text.startsWith('[File: ')) {
-      // Text files stored as text parts with [File: name] prefix
-      const match = part.text.match(/^\[File: (.+?)\]\n([\s\S]*)$/);
-      if (match) {
-        const filename = match[1];
-        files.push({
-          type: 'file',
-          mediaType: getMediaTypeFromFilename(filename),
-          url: '',
-          name: filename,
-          textContent: match[2],
-        });
-      }
-    }
-  });
-
-  return files;
-}
 
 /**
  * Check if a message has any meaningful content
