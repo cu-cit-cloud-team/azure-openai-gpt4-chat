@@ -2,9 +2,8 @@ import { createAnthropic } from '@ai-sdk/anthropic';
 import { createAzure } from '@ai-sdk/azure';
 import { createDeepSeek } from '@ai-sdk/deepseek';
 import {
+  consumeStream,
   convertToModelMessages,
-  createUIMessageStream,
-  createUIMessageStreamResponse,
   extractReasoningMiddleware,
   generateId,
   type LanguageModelUsage,
@@ -217,6 +216,7 @@ export async function POST(req: Request) {
       model: azureModel,
       messages: convertedMessages,
       experimental_transform: smoothStream(),
+      abortSignal: req.signal,
     };
 
     const response = streamText({
@@ -252,88 +252,26 @@ export async function POST(req: Request) {
         : {}),
     });
 
-    let base64Image: string | undefined;
-    // Do NOT await staticToolResults here — awaiting it blocks until tools finish
-    // We'll stream the text immediately and emit the file part once the tool result arrives.
-
-    // Use createUIMessageStream to emit a `file` part (if image exists) and merge the text stream
-    const stream = createUIMessageStream({
+    // Return streaming response using native AI SDK pattern
+    return response.toUIMessageStreamResponse({
       originalMessages: uiMessages,
-      generateId: () => generateId(),
-      async execute({ writer }) {
-        // Start a server-generated response message (persisted id)
-        writer.write({ type: 'start', messageId: generateId() });
-
-        // Merge the AI text stream into the same message immediately so streaming begins
-        // Include tool and source parts so web search results are emitted as structured UI parts
-        writer.merge(
-          response.toUIMessageStream({
-            sendStart: false,
-            sendSources: true,
-            sendReasoning: true,
-          })
-        );
-
-        // After merging, wait for tool results and emit file part when available
-        try {
-          const toolResults = await response.staticToolResults;
-          for (const toolResult of toolResults) {
-            if (toolResult.toolName === 'image_generation') {
-              base64Image = toolResult.output.result;
-              if (base64Image) {
-                writer.write({
-                  type: 'file',
-                  mediaType: 'image/png',
-                  url: `data:image/png;base64,${base64Image}`,
-                });
-              }
-            }
-
-            // When using the web_search_preview tool, emit structured `source-url` parts
-            // so the frontend `Sources` component can render them instead of raw markdown.
-            if (toolResult.toolName === 'web_search_preview') {
-              try {
-                const results = toolResult.output?.results ?? toolResult.output;
-                if (Array.isArray(results)) {
-                  for (const r of results) {
-                    const url = r.url || r.link || r.href;
-                    const title = r.title || r.name || url;
-                    if (url) {
-                      writer.write({
-                        type: 'source-url',
-                        sourceId: generateId(),
-                        url,
-                        title,
-                      });
-                    }
-
-                    const snippet =
-                      r.snippet || r.summary || r.excerpt || r.text;
-                    if (snippet) {
-                      writer.write({
-                        type: 'text-delta',
-                        delta: snippet,
-                        id: generateId(),
-                      });
-                    }
-                  }
-                } else if (toolResult.output?.url) {
-                  writer.write({
-                    type: 'source-url',
-                    sourceId: generateId(),
-                    url: toolResult.output.url,
-                    title: toolResult.output.title || toolResult.output.url,
-                  });
-                }
-              } catch (e) {
-                // Non-fatal: continue streaming even if parsing tool output fails
-                console.warn('Failed to process web_search_preview results', e);
-              }
-            }
-          }
-        } catch (e) {
-          // ignore errors from staticToolResults to avoid breaking the stream
-          console.warn('Error reading static tool results:', e);
+      generateMessageId: () => generateId(),
+      sendSources: true,
+      sendReasoning: true,
+      consumeSseStream: consumeStream,
+      messageMetadata: ({ part }) => {
+        // Attach metadata at message start
+        if (part.type === 'start') {
+          return {
+            model,
+            createdAt: new Date().toISOString(),
+          };
+        }
+        // Attach usage metadata at message finish
+        if (part.type === 'finish') {
+          return {
+            totalUsage: part.totalUsage,
+          };
         }
       },
       onError: (error: unknown) => {
@@ -356,8 +294,6 @@ export async function POST(req: Request) {
         return 'An error occurred processing your request. Please try again.';
       },
     });
-
-    return createUIMessageStreamResponse({ stream });
   } catch (error: unknown) {
     console.error('API route error:', error);
     return new Response(
