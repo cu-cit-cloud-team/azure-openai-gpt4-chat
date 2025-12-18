@@ -477,6 +477,19 @@ const MessageRow = memo(
                         typeof toolPart.output === 'object' &&
                         'result' in toolPart.output;
 
+                      // For image generation, truncate the base64 result in the tool output display
+                      const displayOutput =
+                        isImageGeneration &&
+                        toolPart.output &&
+                        typeof toolPart.output === 'object' &&
+                        'result' in toolPart.output &&
+                        typeof toolPart.output.result === 'string'
+                          ? {
+                              ...toolPart.output,
+                              result: `${toolPart.output.result.substring(0, 60)}... (truncated)`,
+                            }
+                          : toolPart.output;
+
                       return (
                         <Fragment key={`${message.id}-${i}`}>
                           <Tool className="w-full">
@@ -489,7 +502,7 @@ const MessageRow = memo(
                               <ToolInput input={toolPart.input} />
                               {toolPart.output !== undefined && (
                                 <ToolOutput
-                                  output={toolPart.output}
+                                  output={displayOutput}
                                   errorText={toolPart.errorText}
                                 />
                               )}
