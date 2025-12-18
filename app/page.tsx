@@ -210,6 +210,8 @@ function ChatInner({
   const userMeta = useAtomValue(userMetaAtom);
 
   const modelNameRef = useRef(modelName);
+  // Track the model for the current conversation turn (user message + assistant response)
+  const activeTurnModelRef = useRef(modelName);
 
   useEffect(() => {
     modelNameRef.current = modelName;
@@ -311,13 +313,20 @@ function ChatInner({
       });
     },
     onFinish: ({ message }) => {
+      // Extract model from API metadata (set by messageMetadata callback in API route)
+      const model =
+        (message.metadata as { model?: string } | undefined)?.model ||
+        modelNameRef.current;
+
       const messageWithModel: StoredMessage = {
         ...message,
-        model: modelNameRef.current,
-        createdAt: new Date().toISOString(),
+        model,
+        createdAt:
+          (message.metadata as { createdAt?: string } | undefined)?.createdAt ||
+          new Date().toISOString(),
       };
 
-      // addMessage expects a StoredMessage with model and createdAt defined
+      // Save to IndexedDB only - don't mutate useChat's internal state
       addMessage(
         messageWithModel as StoredMessage & {
           model: string;
@@ -344,10 +353,10 @@ function ChatInner({
   // Message persistence: seed from initialMessages only once via hook
   const { addMessage } = useMessagePersistence({
     messages,
-    isLoading,
     currentModel: modelNameRef.current,
     savedMessages: initialMessages,
     chatId,
+    activeTurnModel: activeTurnModelRef.current,
   });
 
   const handleClearError = useCallback(() => {
@@ -400,6 +409,8 @@ function ChatInner({
       }
 
       if (parts.length > 0) {
+        // Capture the model for this conversation turn
+        activeTurnModelRef.current = modelNameRef.current;
         sendMessage({ parts });
       }
     },
@@ -490,7 +501,6 @@ function ChatInner({
             ) : (
               <Messages
                 messages={messages}
-                modelName={modelName}
                 userMeta={userMeta}
                 chatStatus={status}
                 copiedMessageId={copiedMessageId}

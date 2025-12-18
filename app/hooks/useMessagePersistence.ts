@@ -22,21 +22,19 @@ export type StoredMessage = UIMessage & {
 
 interface UseMessagePersistenceProps {
   messages: UIMessage[];
-  isLoading: boolean;
   currentModel: string;
   savedMessages?: StoredMessage[];
   chatId?: string;
+  activeTurnModel?: string;
 }
 
 export function useMessagePersistence({
   messages,
-  isLoading,
   currentModel,
   savedMessages,
   chatId = 'local-chat',
+  activeTurnModel,
 }: UseMessagePersistenceProps) {
-  // Track model per message ID (for messages already in IndexedDB)
-  const messageModelsRef = useRef<Map<string, string>>(new Map());
   // Track which message IDs have been saved to avoid re-saving
   const savedMessageIdsRef = useRef<Set<string>>(new Set());
   // Ensure we only seed from savedMessages once
@@ -51,9 +49,6 @@ export function useMessagePersistence({
     for (const msg of savedMessages) {
       if (msg.id) {
         savedMessageIdsRef.current.add(msg.id);
-        if (msg.model) {
-          messageModelsRef.current.set(msg.id, msg.model);
-        }
       }
     }
 
@@ -90,7 +85,6 @@ export function useMessagePersistence({
           model: message.model,
           createdAt: message.createdAt,
         });
-        messageModelsRef.current.set(message.id, message.model);
       } catch (error) {
         // Roll back the optimistic "saved" flag on failure
         savedMessageIdsRef.current.delete(message.id);
@@ -115,22 +109,22 @@ export function useMessagePersistence({
       return;
     }
 
-    // Save user messages immediately, assistant messages only after loading completes
-    if (
-      lastMessage.role === 'user' ||
-      (lastMessage.role === 'assistant' && !isLoading)
-    ) {
+    // Save ONLY user messages here
+    // Assistant messages are saved via onFinish callback in page.tsx which has access to API metadata
+    if (lastMessage.role === 'user') {
+      const model = activeTurnModel || currentModel;
+
       const storedMessage: PersistedMessage = {
         ...lastMessage,
-        model: currentModel,
+        model,
         createdAt: new Date().toISOString(),
       };
+      // Save to IndexedDB only - don't mutate useChat's internal state
       void addMessage(storedMessage);
     }
-  }, [addMessage, messages, isLoading, currentModel]);
+  }, [addMessage, messages, currentModel, activeTurnModel]);
 
   return {
     addMessage,
-    messageModelsRef,
   };
 }

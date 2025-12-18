@@ -46,7 +46,7 @@ import type {
   UserMeta,
 } from '@/app/types';
 import { getSourceTitle } from '@/app/utils/messageHelpers';
-import { modelStringFromName } from '@/app/utils/models';
+import { DEFAULT_MODEL_NAME, modelStringFromName } from '@/app/utils/models';
 
 // Extend dayjs plugins for time helpers
 // These calls are idempotent and safe on every import
@@ -60,7 +60,6 @@ type StoredMessage = UIMessage & {
 
 export interface MessagesProps {
   messages: UIMessage[];
-  modelName: string;
   userMeta?: UserMeta;
   chatStatus?: 'ready' | 'submitted' | 'streaming' | 'error';
   copiedMessageId: string | null;
@@ -72,7 +71,6 @@ export interface MessagesProps {
 
 export const Messages = ({
   messages,
-  modelName,
   userMeta,
   chatStatus,
   copiedMessageId,
@@ -88,7 +86,6 @@ export const Messages = ({
           key={message.id}
           message={message}
           isLastMessage={index === messages.length - 1}
-          modelName={modelName}
           userMeta={userMeta}
           chatStatus={chatStatus}
           copiedMessageId={copiedMessageId}
@@ -105,7 +102,6 @@ export const Messages = ({
 interface MessageRowProps {
   message: UIMessage;
   isLastMessage: boolean;
-  modelName: string;
   userMeta?: UserMeta;
   chatStatus?: 'ready' | 'submitted' | 'streaming' | 'error';
   copiedMessageId: string | null;
@@ -119,7 +115,6 @@ const MessageRow = memo(
   ({
     message,
     isLastMessage,
-    modelName,
     userMeta,
     chatStatus,
     copiedMessageId,
@@ -191,9 +186,15 @@ const MessageRow = memo(
     }, [message.parts]);
 
     const storedMessage = message as StoredMessage;
-    const messageModel = storedMessage.model || modelName;
+    // Check metadata.model (for live messages from API) OR top-level model (for persisted messages from IndexedDB)
+    const messageModel =
+      (message.metadata as { model?: string } | undefined)?.model ||
+      storedMessage.model ||
+      DEFAULT_MODEL_NAME;
     const messageCreatedAt =
-      storedMessage.createdAt || new Date().toISOString();
+      (message.metadata as { createdAt?: string } | undefined)?.createdAt ||
+      storedMessage.createdAt ||
+      new Date().toISOString();
 
     const handleCopy = useCallback(() => {
       if (messageText) {
