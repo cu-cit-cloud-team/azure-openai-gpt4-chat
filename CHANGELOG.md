@@ -1,3 +1,27 @@
+## 1.0.0-beta.17 (2025-12-18)
+
+* refactor: improve handling/display of generated images ([d207632](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d207632))
+* refactor: improve model state handling ([7ad5b6c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/7ad5b6c))
+* refactor: minor tweaks to loading and empty convo states ([de9ca0d](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/de9ca0d))
+* refactor(api/chat): remove custom code in favor of native handling ([86ec0f4](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/86ec0f4))
+* refactor(api/chat): use updated env var names ([61ee678](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/61ee678))
+* refactor(Messages): better align with ai-sdk v5 standards/usage guidelines ([14be014](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/14be014))
+* refactor(Messages): handle user attached images more like generated images ([08a8ee7](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/08a8ee7))
+* refactor(Messages): improve handling of sources/tool calls/reasoning ([b450dd6](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b450dd6))
+* refactor(types): export native types vs redeclaring our own ([7aba78f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/7aba78f))
+* ci(build-and-deploy): update env var names ([aa0fc0d](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/aa0fc0d))
+* style: use ai-sdk native types ([f02a395](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/f02a395))
+* style(env.local.example): update env var names ([19b69ef](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/19b69ef))
+* style(Footer): tweak button text ([d6a87ea](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d6a87ea))
+* style(utils/messageHelpers): remove unused methods ([f9fcac5](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/f9fcac5))
+* chore(deps-dev): bump @biomejs/biome from 2.3.9 to 2.3.10 (#2143) ([4cd950c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4cd950c)), closes [#2143](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2143)
+* chore(deps): bump lucide-react from 0.561.0 to 0.562.0 (#2145) ([2594cfc](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2594cfc)), closes [#2145](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2145)
+* chore(deps): bump the ai group with 2 updates (#2144) ([641c9e0](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/641c9e0)), closes [#2144](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2144)
+* fix(Footer): state when stopped manually ([320eb47](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/320eb47))
+* refactor(Messages|api/chat): return and disaply source URLs when web search is used ([4b22f0c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4b22f0c))
+
+
+
 ## 1.0.0-beta.16 (2025-12-17)
 
 * fix(api/chat): message streaming ([65d3578](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/65d3578))
