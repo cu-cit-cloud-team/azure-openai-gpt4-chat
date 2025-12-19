@@ -83,8 +83,11 @@ const {
   AZURE_DEEPSEEK_V32_DEPLOYMENT,
 } = process.env;
 
-// tell next.js to use the edge runtime
+// tell next.js to use the nodejs runtime
 export const runtime = 'nodejs';
+
+// force dynamic route (no caching)
+export const dynamic = 'force-dynamic';
 
 // set up defaults for chat config
 const defaults = {
@@ -234,10 +237,7 @@ export async function POST(req: Request) {
                   }
                 : {}),
             },
-            toolChoice: {
-              type: 'tool',
-              toolName: 'web_search_preview' as const,
-            },
+            toolChoice: 'auto',
           }
         : {}),
       ...(useImageTool && !webSearch
