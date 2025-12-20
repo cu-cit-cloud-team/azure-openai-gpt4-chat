@@ -1,3 +1,19 @@
+## 1.0.0-beta.18 (2025-12-20)
+
+* style: add favicons ([b1cb99c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b1cb99c))
+* style(env.local.example): update env vars ([5268c9b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5268c9b))
+* style(icon): replace old version ([3c4f3ce](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/3c4f3ce))
+* chore(deps-dev): bump eslint-config-next in the eslint group (#2147) ([2c033e8](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2c033e8)), closes [#2147](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2147)
+* chore(deps): bump next from 16.0.10 to 16.1.0 in the next group (#2146) ([820d042](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/820d042)), closes [#2146](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2146)
+* chore(deps): bump openai from 6.14.0 to 6.15.0 (#2148) ([840a323](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/840a323)), closes [#2148](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2148)
+* chore(deps): bump the ai group with 2 updates (#2149) ([cdcda68](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/cdcda68)), closes [#2149](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2149)
+* refactor(api/chat): fix linter issues ([6bcfa7a](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/6bcfa7a))
+* refactor(Messages): truncate image base64 in tool output ([ce26b33](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/ce26b33))
+* docs(README): update for current features/env vars/etc ([2bcbe57](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2bcbe57))
+* ci(build-and-deploy): fix env vars ([836057b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/836057b))
+
+
+
 ## 1.0.0-beta.17 (2025-12-18)
 
 * refactor: improve handling/display of generated images ([d207632](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d207632))
