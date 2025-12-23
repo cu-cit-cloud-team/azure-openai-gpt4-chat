@@ -212,7 +212,7 @@ export async function POST(req: Request) {
         : azure.responses(deploymentName);
 
     // set up streaming options
-    const convertedMessages = convertToModelMessages(uiMessages);
+    const convertedMessages = await convertToModelMessages(uiMessages);
 
     const baseStreamTextOptions = {
       model: azureModel,
