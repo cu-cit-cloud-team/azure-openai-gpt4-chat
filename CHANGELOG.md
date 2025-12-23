@@ -1,3 +1,15 @@
+## 1.0.0-beta.19 (2025-12-23)
+
+* chore(deps-dev): bump eslint-config-next in the eslint group (#2152) ([477bb88](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/477bb88)), closes [#2152](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2152)
+* chore(deps): bump next from 16.1.0 to 16.1.1 in the next group (#2151) ([20fdc12](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/20fdc12)), closes [#2151](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2151)
+* chore(deps): bump the ai group with 5 updates ([c2fcfbf](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/c2fcfbf))
+* chore(deps): bump the ai group with 5 updates (#2150) ([4c90aca](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4c90aca)), closes [#2150](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2150)
+* chore(deps): update ai-elemenets components ([efa517c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/efa517c))
+* refactor(api/chat): update fot ai-sdk v6 change ([55b0d61](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/55b0d61))
+* style(local.env.example): update a few vars ([1c796e9](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/1c796e9))
+
+
+
 ## 1.0.0-beta.18 (2025-12-20)
 
 * style: add favicons ([b1cb99c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b1cb99c))
