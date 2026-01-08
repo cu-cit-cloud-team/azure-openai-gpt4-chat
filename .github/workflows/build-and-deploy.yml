@@ -25,7 +25,7 @@ concurrency:
 
 env:
   NODE_VERSION: "24"
-  AZURE_WEBAPP_NAME: "ct-azure-openai-gpt4-chat"
+  AZURE_WEBAPP_NAME: "ct-aoai-gpt-chat-demo"
   AZURE_WEBAPP_PACKAGE_PATH: "."
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
   AZURE_FOUNDRY_API_KEY: ${{ secrets.AZURE_FOUNDRY_API_KEY }}
@@ -60,12 +60,12 @@ env:
   AZURE_DEEPSEEK_R1_0528_DEPLOYMENT: ${{ secrets.AZURE_DEEPSEEK_R1_0528_DEPLOYMENT }}
   AZURE_DEEPSEEK_API_PATH: ${{ secrets.AZURE_DEEPSEEK_API_PATH }}
   MS_TEAMS_WEBHOOK_URL: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
-  APP_DISPLAY_NAME: "Cloud Team Chat"
+  APP_DISPLAY_NAME: "DEV Cloud Team Chat"
 
 jobs:
   build-and-deploy:
     environment:
-      name: "production"
+      name: "dev"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     runs-on: ubuntu-latest
     steps:
