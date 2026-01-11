@@ -1,0 +1,152 @@
+name: Build & Deploy
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - "dev"
+    paths:
+      - "app/**.*"
+      - "public/**.*"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.json"
+      - "tailwind.config.json"
+      - "postcss.config.json"
+      - "tsconfig.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "24"
+  AZURE_WEBAPP_NAME: "ct-aoai-gpt-chat-demo"
+  AZURE_WEBAPP_PACKAGE_PATH: "."
+  AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+  AZURE_FOUNDRY_API_KEY: ${{ secrets.AZURE_FOUNDRY_API_KEY }}
+  AZURE_FOUNDRY_RESOURCE_NAME: ${{ secrets.AZURE_FOUNDRY_RESOURCE_NAME }}
+  AZURE_OPENAI_GPT41_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT41_DEPLOYMENT }}
+  AZURE_OPENAI_GPT41_MINI_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT41_MINI_DEPLOYMENT }}
+  AZURE_OPENAI_GPT41_NANO_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT41_NANO_DEPLOYMENT }}
+  AZURE_OPENAI_GPT5_CHAT_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT5_CHAT_DEPLOYMENT }}
+  AZURE_OPENAI_GPT5_CODEX_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT5_CODEX_DEPLOYMENT }}
+  AZURE_OPENAI_GPT5_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT5_DEPLOYMENT }}
+  AZURE_OPENAI_GPT5_MINI_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT5_MINI_DEPLOYMENT }}
+  AZURE_OPENAI_GPT5_NANO_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT5_NANO_DEPLOYMENT }}
+  AZURE_OPENAI_GPT51_CHAT_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT51_CHAT_DEPLOYMENT }}
+  AZURE_OPENAI_GPT51_CODEX_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT51_CODEX_DEPLOYMENT }}
+  AZURE_OPENAI_GPT51_CODEX_MAX_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT51_CODEX_MAX_DEPLOYMENT }}
+  AZURE_OPENAI_GPT51_CODEX_MINI_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT51_CODEX_MINI_DEPLOYMENT }}
+  AZURE_OPENAI_GPT51_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT51_DEPLOYMENT }}
+  AZURE_OPENAI_GPT52_CHAT_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT52_CHAT_DEPLOYMENT }}
+  AZURE_OPENAI_GPT52_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT52_DEPLOYMENT }}
+  AZURE_OPENAI_MODEL_ROUTER_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_MODEL_ROUTER_DEPLOYMENT }}
+  AZURE_OPENAI_O3_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_O3_DEPLOYMENT }}
+  AZURE_OPENAI_O3_MINI_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_O3_MINI_DEPLOYMENT }}
+  AZURE_OPENAI_O4_MINI_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_O4_MINI_DEPLOYMENT }}
+  AZURE_OPENAI_GPT_IMAGE_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_GPT_IMAGE_DEPLOYMENT }}
+  AZURE_ANTHROPIC_CLAUDE_SONNET_45_DEPLOYMENT: ${{ secrets.AZURE_ANTHROPIC_CLAUDE_SONNET_45_DEPLOYMENT }}
+  AZURE_ANTHROPIC_CLAUDE_OPUS_45_DEPLOYMENT: ${{ secrets.AZURE_ANTHROPIC_CLAUDE_OPUS_45_DEPLOYMENT }}
+  AZURE_ANTHROPIC_CLAUDE_HAIKU_45_DEPLOYMENT: ${{ secrets.AZURE_ANTHROPIC_CLAUDE_HAIKU_45_DEPLOYMENT }}
+  AZURE_ANTHROPIC_API_PATH: ${{ secrets.AZURE_ANTHROPIC_API_PATH }}
+  AZURE_ANTHROPIC_API_VERSION: ${{ secrets.AZURE_ANTHROPIC_API_VERSION }}
+  AZURE_DEEPSEEK_V31_DEPLOYMENT: ${{ secrets.AZURE_DEEPSEEK_V31_DEPLOYMENT }}
+  AZURE_DEEPSEEK_V32_DEPLOYMENT: ${{ secrets.AZURE_DEEPSEEK_V32_DEPLOYMENT }}
+  AZURE_DEEPSEEK_R1_0528_DEPLOYMENT: ${{ secrets.AZURE_DEEPSEEK_R1_0528_DEPLOYMENT }}
+  AZURE_DEEPSEEK_API_PATH: ${{ secrets.AZURE_DEEPSEEK_API_PATH }}
+  MS_TEAMS_WEBHOOK_URL: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
+  APP_DISPLAY_NAME: "DEV Cloud Team Chat"
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: "dev"
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📤 Notify Teams
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Started
+          color: info
+
+      - name: 👷 Checkout Repo
+        uses: actions/checkout@v6
+
+      - name: 🏗️ Setup Node.js ${{ env.NODE_VERSION }} environment
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
+
+      - name: ⚡  Cache node_modules and .next folder
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: ⬆️ Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: npm install --legacy-peer-deps
+
+      - name: 🛠️ Build app
+        shell: bash
+        run: npm run build
+
+      - name: 📦 Zip all files for deployment step
+        # IMPORTANT: .next is a hidden folder and will NOT be included in the zip unless we specify it
+        run: zip ${{ env.AZURE_WEBAPP_NAME}}.zip ./* .next -qr
+
+      - name: 🚀 Deploy to Azure App Service
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ env.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_NAME}}.zip
+          type: zip
+
+      - name: ⚠️ Cancelled Notification
+        if: ${{ cancelled() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Cancelled
+          color: warning
+
+      - name: ⛔ Failure Notification
+        if: ${{ failure() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Failed
+          color: failure
+
+      - name: 🎉 Success Notification
+        if: ${{ success() }}
+        uses: mikesprague/teams-incoming-webhook-action@v1
+        with:
+          github-token: ${{ github.token }}
+          webhook-url: ${{ env.MS_TEAMS_WEBHOOK_URL }}
+          deploy-card: true
+          title: ${{ env.APP_DISPLAY_NAME }} Deployment Successful
+          color: success
