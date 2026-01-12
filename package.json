@@ -73,7 +73,7 @@
     "react-compiler-runtime": "1.0.0",
     "react-dom": "19.2.3",
     "react-error-boundary": "6.0.3",
-    "remend": "1.0.1",
+    "remend": "1.0.2",
     "shiki": "3.21.0",
     "streamdown": "1.6.11",
     "tailwind-merge": "3.4.0",
