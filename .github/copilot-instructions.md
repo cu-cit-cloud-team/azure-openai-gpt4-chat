@@ -2,7 +2,7 @@
 
 ## Architecture
 
-Next.js 16 App Router powered by React 19 with the React Compiler. The UI relies on shadcn/ui, AI Elements primitives, Tailwind v4, Streamdown for markdown/code rendering, AI SDK v5 streaming, and Dexie-backed IndexedDB persistence managed via Jotai atoms.
+Next.js 16 App Router powered by React 19 with the React Compiler. The UI relies on shadcn/ui, AI Elements primitives, Tailwind v4, Streamdown for markdown/code rendering, AI SDK v6 streaming, and Dexie-backed IndexedDB persistence managed via Jotai atoms.
 
 ### Key Design Points
 
@@ -33,7 +33,7 @@ Never assume prior knowledge is current — always re-query documentation before
 
 ## Patterns & References
 
-### Messages (AI SDK v5)
+### Messages (AI SDK v6)
 
 ```typescript
 type StoredMessage = UIMessage & { model: string; createdAt: string };
@@ -81,6 +81,6 @@ Frontend uses `useChat` with `DefaultChatTransport` for dynamic param injection.
 
 ## Important Notes
 
-- **Edge Runtime only**: No `fs`/`path`/Node APIs—stick to Web APIs inside routes.
+- **Runtime:** This repo’s chat API route is configured for the **Node.js runtime** (see `export const runtime = 'nodejs'` in `app/api/chat/route.ts`). Don’t apply Edge-only constraints unless a specific route opts into Edge.
 - **tokensAtom**: Derived automatically—never mutate it directly.
 - **TypeScript errors**: The build may ignore them (`next.config.mjs`) so fix proactively rather than relying on the compiler.
