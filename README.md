@@ -6,7 +6,7 @@ ChatGPT-like streaming chat interface powered by Azure AI Foundry with support f
 
 ## About
 
-A modern Next.js 16 chat application featuring real-time streaming responses from Azure AI Foundry. Built with the latest web technologies including React 19, AI SDK v5, and Node.js runtime.
+A modern Next.js 16 chat application featuring real-time streaming responses from Azure AI Foundry. Built with the latest web technologies including React 19, AI SDK v6, and Node.js runtime.
 
 ### Privacy-Focused Design
 
@@ -159,7 +159,7 @@ Several recent releases updated environment variable names and added support for
 
 ## API & Architecture
 
-The main chat endpoint lives at `app/api/chat/route.ts` and is implemented using the Vercel AI SDK v5.
+The main chat endpoint lives at `app/api/chat/route.ts` and is implemented using the Vercel AI SDK v6.
 
 - Uses `streamText` with `smoothStream()` for real-time streaming responses.
 - Converts UI messages via `convertToModelMessages`.
@@ -287,7 +287,7 @@ The project uses:
 
 - [Next.js 16](https://nextjs.org/) - React framework with App Router
 - [React 19](https://react.dev/) - UI library with React Compiler
-- [Vercel AI SDK v5](https://sdk.vercel.ai/) - AI streaming primitives
+- [Vercel AI SDK v6](https://sdk.vercel.ai/) - AI streaming primitives
 - [Tailwind CSS 4](https://tailwindcss.com/) - Utility-first CSS
 - [shadcn/ui](https://ui.shadcn.com/) - Component library built on Radix UI
 - [AI Elements](https://ui.shadcn.com/docs/components/ai-elements) - Chat UI primitives (Conversation, Message, PromptInput)
