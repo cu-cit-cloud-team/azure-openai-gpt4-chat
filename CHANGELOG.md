@@ -1,3 +1,26 @@
+## 1.0.0-beta.22 (2026-01-15)
+
+* chore(deps-dev): bump @types/node in the types group (#2199) ([2d60aaa](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2d60aaa)), closes [#2199](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2199)
+* chore(deps-dev): bump @types/node in the types group (#2201) ([0ba47a4](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/0ba47a4)), closes [#2201](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2201)
+* chore(deps-dev): bump eslint-config-next in the eslint group (#2206) ([3cadc93](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/3cadc93)), closes [#2206](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2206)
+* chore(deps-dev): bump prettier from 3.7.4 to 3.8.0 in the prettier group (#2207) ([b931c6e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/b931c6e)), closes [#2207](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2207)
+* chore(deps-dev): bump the stylelint group across 1 directory with 2 updates (#2209) ([fec4764](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/fec4764)), closes [#2209](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2209)
+* chore(deps): bump jotai from 2.16.1 to 2.16.2 (#2203) ([40d9458](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/40d9458)), closes [#2203](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2203)
+* chore(deps): bump motion from 12.25.0 to 12.26.1 (#2196) ([be0530f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/be0530f)), closes [#2196](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2196)
+* chore(deps): bump motion from 12.26.1 to 12.26.2 (#2202) ([334d67e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/334d67e)), closes [#2202](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2202)
+* chore(deps): bump next from 16.1.1 to 16.1.2 in the next group (#2205) ([afdad09](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/afdad09)), closes [#2205](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2205)
+* chore(deps): bump remend from 1.0.1 to 1.0.2 (#2197) ([1c03b9f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/1c03b9f)), closes [#2197](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2197)
+* chore(deps): bump streamdown from 1.6.11 to 2.0.1 (#2195) ([4c995a3](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4c995a3)), closes [#2195](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2195)
+* chore(deps): bump the ai group with 2 updates (#2200) ([20f2442](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/20f2442)), closes [#2200](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2200)
+* chore(deps): bump the ai group with 3 updates (#2194) ([748dbac](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/748dbac)), closes [#2194](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2194)
+* chore(deps): bump the ai group with 5 updates (#2198) ([a05ac66](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/a05ac66)), closes [#2198](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2198)
+* chore(deps): bump the ai group with 5 updates (#2204) ([bd5a302](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/bd5a302)), closes [#2204](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2204)
+* docs(copilot-instructions): fix a couple inconsistencies ([e4e251b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/e4e251b))
+* docs(GUIDELINES): add file/content ([68b53d9](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/68b53d9))
+* docs(README): fix ai sdk version ([bededfd](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/bededfd))
+
+
+
 ## 1.0.0-beta.21 (2026-01-11)
 
 * chore(deps-dev): bump the types group with 2 updates (#2188) ([7685890](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/7685890)), closes [#2188](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2188)
