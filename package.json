@@ -72,7 +72,7 @@
     "react": "19.2.3",
     "react-compiler-runtime": "1.0.0",
     "react-dom": "19.2.3",
-    "react-error-boundary": "6.0.3",
+    "react-error-boundary": "6.1.0",
     "remend": "1.0.2",
     "shiki": "3.21.0",
     "streamdown": "2.0.1",
