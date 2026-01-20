@@ -13,6 +13,11 @@ updates:
       include: "scope"
   - package-ecosystem: "npm"
     directory: "/"
+     ignore:
+      - dependency-name: "next"
+        versions: ["16.1.x"]
+      - dependency-name: "eslint-config-next"
+        versions: ["16.1.x"]
     groups:
       ai:
         patterns:
