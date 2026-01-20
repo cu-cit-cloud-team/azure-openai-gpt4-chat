@@ -1,3 +1,29 @@
+## 1.0.0-beta.23 (2026-01-20)
+
+* chore(deps-dev): bump @types/node in the types group (#2211) ([c4e5fb1](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/c4e5fb1)), closes [#2211](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2211)
+* chore(deps-dev): bump @types/react in the types group (#2225) ([f368de6](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/f368de6)), closes [#2225](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2225)
+* chore(deps-dev): bump eslint-config-next in the eslint group (#2215) ([9d3b75f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/9d3b75f)), closes [#2215](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2215)
+* chore(deps-dev): bump eslint-config-next in the eslint group (#2222) ([92890df](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/92890df)), closes [#2222](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2222)
+* chore(deps-dev): remove stylelint and config ([155c642](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/155c642))
+* chore(deps): bump @ai-sdk/anthropic in the ai group (#2224) ([f88b11f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/f88b11f)), closes [#2224](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2224)
+* chore(deps): bump ai-elements from 1.6.3 to 1.7.0 (#2217) ([c885146](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/c885146)), closes [#2217](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2217)
+* chore(deps): bump motion from 12.26.2 to 12.27.0 (#2218) ([880f759](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/880f759)), closes [#2218](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2218)
+* chore(deps): bump motion from 12.27.0 to 12.27.2 (#2223) ([8d7aff1](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/8d7aff1)), closes [#2223](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2223)
+* chore(deps): bump motion from 12.27.2 to 12.27.4 (#2226) ([d0922b2](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d0922b2)), closes [#2226](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2226)
+* chore(deps): bump next from 16.1.2 to 16.1.3 in the next group (#2214) ([edd234d](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/edd234d)), closes [#2214](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2214)
+* chore(deps): bump next from 16.1.3 to 16.1.4 in the next group (#2221) ([5795bd9](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5795bd9)), closes [#2221](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2221)
+* chore(deps): bump react-error-boundary from 6.0.3 to 6.1.0 (#2212) ([bbdbd02](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/bbdbd02)), closes [#2212](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2212)
+* chore(deps): bump remend from 1.0.2 to 1.1.0 (#2219) ([7857c67](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/7857c67)), closes [#2219](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2219)
+* chore(deps): bump streamdown from 2.0.1 to 2.1.0 (#2216) ([523922e](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/523922e)), closes [#2216](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2216)
+* chore(deps): bump the ai group with 2 updates (#2213) ([f46fbf0](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/f46fbf0)), closes [#2213](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2213)
+* chore(deps): bump the ai group with 2 updates (#2220) ([d74a2a0](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/d74a2a0)), closes [#2220](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2220)
+* chore(deps): bump the ai group with 5 updates (#2210) ([09c8c54](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/09c8c54)), closes [#2210](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2210)
+* chore(deps): downgrade next/eslint-config-next ([1a44987](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/1a44987))
+* ci(dependabot): add ignores block ([412d4eb](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/412d4eb))
+* fix(ErrorFallback): update to use latest api ([92b42d8](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/92b42d8))
+
+
+
 ## 1.0.0-beta.22 (2026-01-15)
 
 * chore(deps-dev): bump @types/node in the types group (#2199) ([2d60aaa](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2d60aaa)), closes [#2199](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2199)
