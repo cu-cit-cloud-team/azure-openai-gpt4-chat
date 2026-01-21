@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['shiki'],
   experimental: {
     optimizePackageImports: [
       '@ai-sdk/azure',
       '@ai-sdk/react',
+      '@streamdown/code',
       'ai',
       'dexie',
       'gpt-tokenizer',
       'jotai',
       'lucide-react',
+      'shiki',
       'streamdown',
     ],
   },
