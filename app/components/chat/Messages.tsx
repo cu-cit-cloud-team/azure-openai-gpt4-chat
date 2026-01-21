@@ -1,3 +1,4 @@
+import { code } from '@streamdown/code';
 import type { UIMessage } from 'ai';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
@@ -565,6 +566,7 @@ const MessageRow = memo(
                   parseIncompleteMarkdown
                   isAnimating={isLastMessage && isStreamingState && !isUser}
                   shikiTheme={['github-light', 'github-dark']}
+                  plugins={{ code: code }}
                 >
                   {messageText}
                 </MessageResponse>
