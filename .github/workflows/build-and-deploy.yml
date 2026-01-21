@@ -24,7 +24,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: "24"
   AZURE_WEBAPP_NAME: "ct-azure-openai-gpt4-chat"
   AZURE_WEBAPP_PACKAGE_PATH: "."
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
@@ -82,10 +81,10 @@ jobs:
       - name: 👷 Checkout Repo
         uses: actions/checkout@v6
 
-      - name: 🏗️ Setup Node.js ${{ env.NODE_VERSION }} environment
+      - name: 🏗️ Setup Node.js ${{ vars.NODE_VERSION }} environment
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ vars.NODE_VERSION }}
           check-latest: true
 
       - name: ⚡  Cache node_modules and .next folder
