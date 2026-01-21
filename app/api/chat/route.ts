@@ -136,7 +136,8 @@ export async function POST(req: Request) {
 
     // determine if the model supports the images tool
     const useImageTool =
-      model.startsWith('gpt-41') || model.startsWith('gpt-5');
+      (model.startsWith('gpt-41') || model.startsWith('gpt-5')) &&
+      !model.includes('codex');
 
     // create azure client
     const azure = createAzure({
