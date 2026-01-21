@@ -150,6 +150,15 @@ export const models: Models = [
     capabilities: ['tools'],
   },
   {
+    displayName: 'GPT-5.2 Codex',
+    modelVersion: '2025-12-11',
+    maxInputTokens: 272000,
+    maxOutputTokens: 128000,
+    name: 'gpt-5.2-codex',
+    provider: 'openai',
+    capabilities: ['tools', 'reasoning'],
+  },
+  {
     displayName: 'o3',
     modelVersion: '2025-04-16',
     maxInputTokens: 200000,
