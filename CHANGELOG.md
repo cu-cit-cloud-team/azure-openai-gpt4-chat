@@ -1,3 +1,11 @@
+## 1.0.0-beta.26 (2026-01-21)
+
+* fix(Messages): syntax highlighting in code blocks ([20e65d8](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/20e65d8))
+* build(next): update config ([5267d24](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/5267d24))
+* chore(deps): add @streamdown/code ([7fd9fab](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/7fd9fab))
+
+
+
 ## 1.0.0-beta.25 (2026-01-21)
 
 * fix(api/chat): don't send image model headers to codex models ([10f7346](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/10f7346))
