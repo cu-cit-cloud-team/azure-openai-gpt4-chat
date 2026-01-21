@@ -1,3 +1,9 @@
+## 1.0.0-beta.25 (2026-01-21)
+
+* fix(api/chat): don't send image model headers to codex models ([10f7346](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/10f7346))
+
+
+
 ## 1.0.0-beta.24 (2026-01-21)
 
 * ci(build-and-deploy): add env var for gpt-5.2-codex ([e04998b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/e04998b))
