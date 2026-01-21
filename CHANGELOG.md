@@ -1,3 +1,17 @@
+## 1.0.0-beta.24 (2026-01-21)
+
+* ci(build-and-deploy): add env var for gpt-5.2-codex ([e04998b](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/e04998b))
+* ci(build-and-deploy): get `NODE_VERSION` from variables scope ([80c653d](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/80c653d))
+* feat(api/chat): add support for gpt-5.2-codex ([02cbd24](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/02cbd24))
+* feat(utils/models): add gpt-5.2-codex ([2f5084c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/2f5084c))
+* docs(env.local.example): add gpt-5.2-codex ([eedbacb](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/eedbacb))
+* chore(deps): bump ai-elements from 1.7.0 to 1.8.0 (#2228) ([a700e4f](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/a700e4f)), closes [#2228](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2228)
+* chore(deps): bump the ai group with 2 updates (#2227) ([4148b6a](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/4148b6a)), closes [#2227](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2227)
+* chore(deps): upgrade a few deps ([29a4cbc](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/29a4cbc))
+* fix(dependabot): remove extra space in yaml ([458b19c](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/458b19c))
+
+
+
 ## 1.0.0-beta.23 (2026-01-20)
 
 * chore(deps-dev): bump @types/node in the types group (#2211) ([c4e5fb1](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/commit/c4e5fb1)), closes [#2211](https://github.com/cu-cit-cloud-team/azure-openai-gpt-chat/issues/2211)
